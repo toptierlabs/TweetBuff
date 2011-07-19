@@ -1,0 +1,8 @@
+.span-8
+  =render(:partial => "/dashboard/menu")
+.span-16.last
+  %h2= t("dashboard.account.header")
+  %p!= t("dashboard.account.description", :user => current_user.email)
+  %h3= t("dashboard.account.subheaders.password")
+  %a{:href => "#"}
+    = t("dashboard.account.links.change_password")

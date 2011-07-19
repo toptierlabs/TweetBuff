@@ -1,0 +1,21 @@
+main:
+  home:
+    path: /
+    select: ^\/home.*$
+    auth: out
+  dashboard:
+    path: /dashboard
+    select: ^\/dashboard[\/]*$
+    auth: in
+  sign_in:
+    path: /users/sign_in
+    select: ^\/users\/sign_in$
+    auth: out
+  sign_up:
+    path: /users/sign_up
+    select: ^\/users\/sign_up$
+    auth: out
+  sign_out:
+    path: /users/sign_out
+    select: ^\/users\/sign_out.*$
+    auth: in

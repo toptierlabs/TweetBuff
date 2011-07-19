@@ -1,0 +1,1 @@
+::MENU_HASH = ::Menu.load_hash

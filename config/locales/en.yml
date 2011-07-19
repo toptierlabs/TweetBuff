@@ -2,6 +2,29 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  menu:
+    main:      
+      home: "Home"
+      about: "About"
+      sign_in: "Sign In"
+      sign_up: "Sign Up"
+      dashboard: "Dashboard"
+      sign_out: "Sign Out"
+    dashboard:
+      account_settings: "Account"
+      twitter_settings: "Twitter"
   dashboard:
-    index:
+    show:
       welcome: "Welcome back %{name}"
+      header: "Dashboard"
+      description: "Description of what goes on here"
+    account:
+      header: "Account Settings"
+      description: "You are currently signed in as <strong>%{user}</strong>.  You may change your account settings here."
+      subheaders:
+        password: "Password Settings"
+      links:
+        change_password: "Change Password"
+    twitter:  
+      header: "Twitter Account Settings"
+      description: "Description of what goes on here"
