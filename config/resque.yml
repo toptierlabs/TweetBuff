@@ -1,0 +1,12 @@
+development:
+  host: localhost
+  namespace: tweetbuffer.development
+test:
+  host: localhost
+  namespace: tweetbuffer.test
+production:
+  host: localhost
+  namespace: tweetbuffer.production
+staging:
+  host: localhost
+  namespace: tweetbuffer.staging
