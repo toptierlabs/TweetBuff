@@ -1,4 +1,5 @@
 module TwitterAuth
+
   def self.config(environment=RAILS_ENV)
     @config ||= {}
     @config[environment] ||= YAML.load(File.open(Rails.root + '/config/twitter_auth.yml').read)[environment]

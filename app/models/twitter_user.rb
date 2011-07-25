@@ -1,5 +1,5 @@
 class TwitterUser < ActiveRecord::Base
-  include TwitterAuth::OauthUser
+  include ::TwitterAuth::OauthUser
     
   belongs_to :user
 
@@ -43,10 +43,6 @@ class TwitterUser < ActiveRecord::Base
 
     user
   end
-
-  def self.from_remember_token(token)
-    first(:conditions => ["remember_token = ? AND remember_token_expires_at > ?", token, Time.now])
-  end
     
   def assign_twitter_attributes(hash)
     TWITTER_ATTRIBUTES.each do |att|
@@ -60,23 +56,7 @@ class TwitterUser < ActiveRecord::Base
   end
 
   def twitter
-    TwitterAuth::Dispatcher::Oauth.new(self)
-  end
-
-  def remember_me
-    return false unless respond_to?(:remember_token)
-
-    self.remember_token = ActiveSupport::SecureRandom.hex(10)
-    self.remember_token_expires_at = Time.now + TwitterAuth.remember_for.days
-    
-    save
-
-    {:value => self.remember_token, :expires => self.remember_token_expires_at}
-  end
-
-  def forget_me
-    self.remember_token = self.remember_token_expires_at = nil
-    self.save
+    ::TwitterAuth::Dispatcher::Oauth.new(self)
   end
   
 end
