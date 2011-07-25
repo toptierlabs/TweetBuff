@@ -40,7 +40,10 @@ group(:test, :cucumber) do
   gem "rspec-expectations", :require => "rspec/expectations"
   gem "rspec-mocks", :require => "rspec/mocks"
   gem "rspec-rails"
-  gem "ruby-debug19", :require => "ruby-debug"
   gem "sqlite3-ruby", :require => "sqlite3"
   gem "webrat"
+end
+
+group(:test) do
+  gem "ruby-debug19", :require => "ruby-debug"
 end
