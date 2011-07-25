@@ -27,7 +27,7 @@ class TwitterUser < ActiveRecord::Base
     :utc_offset
   ]
   
-  v.validates_uniqueness_of :twitter_id, :message => "ID has already been taken."
+  validates_uniqueness_of :twitter_id, :message => "ID has already been taken."
   
   def self.new_from_twitter_hash(hash)
     raise ArgumentError, 'Invalid hash: must include screen_name.' unless hash.key?('screen_name')
