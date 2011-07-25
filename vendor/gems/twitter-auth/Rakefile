@@ -1,0 +1,18 @@
+require 'rake'
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = "twitter-auth"
+    s.summary = "twitter-auth"
+    # s.email = ""
+    # s.homepage = ""
+    s.description = "twitter-auth gem rework for rails 3.0"
+    s.authors = ["Bill Alton"]
+    s.files =  FileList["[A-Z]*", "{lib}/**/*"]
+    s.add_dependency('oauth')
+    s.add_dependency('ezcrypto')
+  end
+rescue LoadError
+  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install jeweler -s http://gems.github.com"
+end

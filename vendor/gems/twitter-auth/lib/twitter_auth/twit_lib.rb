@@ -1,9 +1,7 @@
 module TwitterAuth
-  class Error < StandardError; end
-
   def self.config(environment=RAILS_ENV)
     @config ||= {}
-    @config[environment] ||= YAML.load(File.open(RAILS_ROOT + '/config/twitter_auth.yml').read)[environment]
+    @config[environment] ||= YAML.load(File.open(Rails.root + '/config/twitter_auth.yml').read)[environment]
   end
 
   def self.base_url
@@ -84,19 +82,3 @@ module TwitterAuth
     config['authorize_path'] || '/oauth/authorize'
   end
 end
-
-
-require 'twitter_auth/cryptify'
-require 'twitter_auth/oauth_user'
-require 'twitter_auth/dispatcher/shared'
-require 'twitter_auth/dispatcher/oauth'
-require 'twitter_auth/dispatcher/basic'
-
-
-module TwitterAuth
-  module Dispatcher
-    class Error < StandardError; end
-    class Unauthorized < Error; end
-  end
-end
-

@@ -19,6 +19,7 @@ gem "resque-scheduler"
 gem "responders"
 gem "sass"
 gem "simple_form"
+gem "twitter-auth", :path => "vendor/gems/twitter-auth"
 
 group(:development, :production) do
   gem "pg"
