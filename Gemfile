@@ -19,7 +19,6 @@ gem "resque-scheduler"
 gem "responders"
 gem "sass"
 gem "simple_form"
-gem "will_paginate"
 
 group(:development, :production) do
   gem "pg"

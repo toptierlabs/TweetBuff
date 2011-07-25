@@ -1,0 +1,7 @@
+.span-8
+  =render(:partial => "/dashboard/menu")
+.span-16.last
+  %h2= t("dashboard.twitter.header")
+  %p!= t("dashboard.twitter.description", :user => current_user.email)
+
+  %a{:href => twitter_authorize_account_path} Authorize an account

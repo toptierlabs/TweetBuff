@@ -533,3 +533,14 @@ body.two-col #content {
 * html body.two-col #content {
   overflow-x: hidden;
 }
+
+/* line 3, app/stylesheets/_simple_form.scss */
+form .input label {
+  width: 110px;
+  display: inline-block;
+}
+
+/* line 1, app/stylesheets/_tools.scss */
+.hidden {
+  display: none;
+}

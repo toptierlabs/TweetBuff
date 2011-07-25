@@ -11,13 +11,14 @@ en:
     error_notification:
       default_message: "Some errors were found, please take a look:"
     # Labels and hints examples
-    # labels:
-    #   password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail para efetuar o sign in.'
-    #     edit:
-    #       email: 'E-mail.'
+    labels:
+      password: 'Password'
+      password_confirmation: "Confirm"
+      user:
+        new:
+          email: 'E-mail para efetuar o sign in.'
+        edit:
+          email: 'E-mail.'
     # hints:
     #   username: 'User name to sign in.'
     #   password: 'No special characters, please.'

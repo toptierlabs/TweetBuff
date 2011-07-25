@@ -1,0 +1,15 @@
+common: &common
+  strategy: oauth
+  oauth_consumer_key: lKbJ5Wtlk010AbcaM6VA
+  oauth_consumer_secret: KXBLw1vtuF6GtOjiaT27XUpWQoLA1bXoVo3usfE
+  base_url: "https://twitter.com"
+  authorize_path: "/oauth/authenticate"
+  api_timeout: 10
+  remember_for: 14 # days
+  oauth_callback: "http://localhost:3000/twitter/"  
+development: 
+  <<: *common
+test:
+  <<: *common
+production:
+  <<: *common

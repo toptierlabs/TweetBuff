@@ -4,5 +4,10 @@
   %h2= t("dashboard.account.header")
   %p!= t("dashboard.account.description", :user => current_user.email)
   %h3= t("dashboard.account.subheaders.password")
-  %a{:href => "#"}
-    = t("dashboard.account.links.change_password")
+  %a.reveal{:href => "#change-password"}
+    =t("dashboard.account.links.change_password")
+  .hidden#change-password
+    = simple_form_for(current_user, :url => account_settings_path) do |form|
+      = form.input :password
+      = form.input :password_confirmation
+      = form.button :submit, :value => t("dashboard.account.links.change_password")
