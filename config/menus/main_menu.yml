@@ -7,6 +7,10 @@ main:
     path: /dashboard
     select: ^\/dashboard[\/]*$
     auth: in
+  buffer:
+    path: /tweets/
+    select: ^\/tweets.*$
+    auth: in
   sign_in:
     path: /users/sign_in
     select: ^\/users\/sign_in$

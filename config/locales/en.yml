@@ -9,11 +9,11 @@ en:
       sign_in: "Sign In"
       sign_up: "Sign Up"
       dashboard: "Dashboard"
+      buffer: "My Buffer"
       sign_out: "Sign Out"
     dashboard:
       account_settings: "Account"
       twitter_settings: "Twitter"
-      buffer: "My Buffer"
   tables:
     empty_no_add: "There are currently no %{name}."
     empty_add: "There are currently no %{name}. <a href='%{link}'>Add now</a>"

@@ -6,7 +6,6 @@ class CreateBufferPreferences < ActiveRecord::Migration
       t.integer   :intervals_per_diem
       t.datetime  :last_interval
 
-
       t.timestamps
     end
   end

@@ -6,9 +6,10 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  
+
   has_many  :preferences
   has_one   :twitter_user
+  has_one   :buffer_preference
   has_many  :tweets
-  
+
 end
