@@ -1,3 +1,77 @@
 .hidden {
   display: none;
 }
+
+
+ul.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    display: inline-block;
+    border: 1px solid red;
+    margin: 0;
+
+    &:hover{
+      background: #eee;
+    }
+
+    a {
+      display: block;
+      padding: 3px 7px 2px;
+      text-decoration: none;
+    }
+  }
+}
+
+ul.nav#main {
+  float: right;
+}
+
+#footer {
+  border-top: 1px solid #ccc;
+  padding: 10px 0;
+  font-size: 0.85em;
+  color: #aaa;
+  display: inline-block;
+  .right {
+    float: right;
+  }
+}
+
+
+.tweet-table-container {
+  margin: 35px 0 15px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  position: relative;
+
+  > .header {
+    position: absolute;
+    top: -25px;
+    height: 17px;
+    border: 1px solid #aaa;
+    padding: 2px 10px 4px;
+    margin-left: 5px;
+    &:after {
+      height: 0;
+      border: 1px solid white;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 23px;
+      width: 98%;
+    }
+  }
+
+
+  > .table {
+
+  }
+}
+
+
+
+
+
+

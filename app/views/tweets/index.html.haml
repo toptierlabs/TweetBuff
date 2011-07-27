@@ -6,4 +6,8 @@
     %a{:href => twitter_authorize_account_path}
       =t("tweets.index.authorize")
   - else
-    =render(:partial => "/tweets/table", :locals => {:tweets => @tweets})
+    .tweet-table-container
+      .header
+        @#{@twitter_user.login}
+      .table
+        =render(:partial => "/tweets/table", :locals => {:tweets => @tweets})

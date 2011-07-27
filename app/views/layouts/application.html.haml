@@ -5,24 +5,23 @@
     %title
       = yield(:title) || "Untitled"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
-    = stylesheet_link_tag "application"
+
     = stylesheet_link_tag :jquery
-    
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
-    
-    
+
+
     = csrf_meta_tag
     = yield(:head)
 
   %body.bp
-    #container
+    #container.container
       #header.span-24
         %h1= t("application.header")
         %p= t("application.tagline")
-        %ul.menu.span-24.last#nav
+        .menu.span-24.last#nav
           = Menu.get("main").render(request.fullpath, {:state => user_signed_in?})
       #alert.span-24
         - flash.each do |name, msg|
@@ -30,5 +29,7 @@
       #page.span-24
         = yield
       #footer.span-24
-        I'm the footer
+        .right
+          Copyright 2011 WebEffects, LLC
+
     = javascript_include_tag :defaults

@@ -3,13 +3,17 @@ main:
     path: /
     select: ^\/home.*$
     auth: out
-  dashboard:
-    path: /dashboard
-    select: ^\/dashboard[\/]*$
-    auth: in
   buffer:
     path: /tweets/
     select: ^\/tweets.*$
+    auth: in
+  account_settings:
+    path: /dashboard/settings/account
+    select: ^\/dashboard/settings/account.*$
+    auth: in
+  twitter_settings:
+    path: /dashboard/settings/twitter
+    select: ^\/dashboard/settings/twitter.*$
     auth: in
   sign_in:
     path: /users/sign_in

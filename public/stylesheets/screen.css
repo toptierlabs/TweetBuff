@@ -1154,3 +1154,71 @@ form .input label {
 .hidden {
   display: none;
 }
+
+/* line 6, app/stylesheets/_tools.scss */
+ul.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+/* line 10, app/stylesheets/_tools.scss */
+ul.nav li {
+  display: inline-block;
+  border: 1px solid red;
+  margin: 0;
+}
+/* line 15, app/stylesheets/_tools.scss */
+ul.nav li:hover {
+  background: #eee;
+}
+/* line 19, app/stylesheets/_tools.scss */
+ul.nav li a {
+  display: block;
+  padding: 3px 7px 2px;
+  text-decoration: none;
+}
+
+/* line 27, app/stylesheets/_tools.scss */
+ul.nav#main {
+  float: right;
+}
+
+/* line 31, app/stylesheets/_tools.scss */
+#footer {
+  border-top: 1px solid #ccc;
+  padding: 10px 0;
+  font-size: 0.85em;
+  color: #aaa;
+  display: inline-block;
+}
+/* line 37, app/stylesheets/_tools.scss */
+#footer .right {
+  float: right;
+}
+
+/* line 43, app/stylesheets/_tools.scss */
+.tweet-table-container {
+  margin: 35px 0 15px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  position: relative;
+}
+/* line 49, app/stylesheets/_tools.scss */
+.tweet-table-container > .header {
+  position: absolute;
+  top: -25px;
+  height: 17px;
+  border: 1px solid #aaa;
+  padding: 2px 10px 4px;
+  margin-left: 5px;
+}
+/* line 56, app/stylesheets/_tools.scss */
+.tweet-table-container > .header:after {
+  height: 0;
+  border: 1px solid white;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 23px;
+  width: 98%;
+}

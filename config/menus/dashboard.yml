@@ -1,9 +1,0 @@
-dashboard:
-  account_settings:
-    path: /dashboard/settings/account
-    select: ^\/dashboard/settings/account.*$
-    auth: in
-  twitter_settings:
-    path: /dashboard/settings/twitter
-    select: ^\/dashboard/settings/twitter.*$
-    auth: in
