@@ -8,6 +8,18 @@ class Tweet < ActiveRecord::Base
   before_create :set_position
   after_destroy :update_positions
 
+  # TODO come up with a way to read preferences and determine the timeframe in which this tweet will be posted
+  def due_at(part=:datetime)
+    case part
+    when :date
+
+    when :time
+
+    when :datetime
+
+    end
+  end
+
   # TESTED: PASSING
   def body_with_links
     self.body.gsub(/(http\:\/\/)*([a-z0-9_-]+\.[a-z]{2,4}\/[^\s]*)/) do |url|
