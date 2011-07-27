@@ -3,7 +3,7 @@
 
 en:
   menu:
-    main:      
+    main:
       home: "Home"
       about: "About"
       sign_in: "Sign In"
@@ -14,7 +14,14 @@ en:
       account_settings: "Account"
       twitter_settings: "Twitter"
       buffer: "My Buffer"
-  buffer:
+  tables:
+    empty_no_add: "There are currently no %{name}."
+    empty_add: "There are currently no %{name}. <a href='%{link}'>Add now</a>"
+    saving: "Hey something might go here"
+  tweets:
+    table:
+      due_at: "Due At"
+      content: "Tweet"
     index:
       header: "My Buffer"
       description: "Manage the order in which your Tweets are posted."
@@ -31,7 +38,7 @@ en:
         password: "Password Settings"
       links:
         change_password: "Change Password"
-    twitter:  
+    twitter:
       header: "Twitter Account Settings"
       description: "Description of what goes on here"
       authorize: "Authorize your account"

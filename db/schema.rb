@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110720004548) do
+ActiveRecord::Schema.define(:version => 20110727004250) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(:version => 20110720004548) do
     t.integer  "user_id"
     t.string   "key"
     t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tweets", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "position"
+    t.datetime "sent_at"
+    t.string   "title"
+    t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
