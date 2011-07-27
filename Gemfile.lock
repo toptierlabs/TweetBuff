@@ -1,29 +1,3 @@
-PATH
-  remote: vendor/gems/twitter-auth
-  specs:
-    twitter-auth (0.1.0)
-      activeadmin
-      annotate
-      cancan
-      carmen
-      compass
-      devise
-      ezcrypto
-      haml-rails
-      hashie
-      heroku-rails
-      jquery-rails
-      nifty-generators
-      oauth
-      rails (= 3.0.9)
-      responders
-      resque
-      resque-scheduler
-      sass
-      simple_form
-      sqlite3
-      twitter-auth
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -272,6 +246,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise
+  ezcrypto
   factory_girl
   factory_girl_rails
   faker
@@ -281,6 +256,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   nifty-generators
+  oauth
   pg
   rails (= 3.0.9)
   responders
@@ -296,5 +272,4 @@ DEPENDENCIES
   simple_form
   sqlite3
   sqlite3-ruby
-  twitter-auth!
   webrat

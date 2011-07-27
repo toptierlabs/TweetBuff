@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
   end
   
   def twitter
-    
+    @twitter_user = current_user.twitter_user
   end
   
   def update

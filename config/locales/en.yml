@@ -13,6 +13,11 @@ en:
     dashboard:
       account_settings: "Account"
       twitter_settings: "Twitter"
+  buffer:
+    index:
+      header: "My Buffer"
+      description: "Manage the order in which your Tweets are posted."
+      authorize: "Authorize your account now"
   dashboard:
     show:
       welcome: "Welcome back %{name}"
@@ -28,3 +33,6 @@ en:
     twitter:  
       header: "Twitter Account Settings"
       description: "Description of what goes on here"
+      authorize: "Authorize your account"
+      login: "Username"
+      name: "Name on account"

@@ -1,4 +1,8 @@
 dashboard:
+  buffer:
+    path: /buffer/
+    select: ^\/buffer.*$
+    auth: in
   account_settings:
     path: /dashboard/settings/account
     select: ^\/dashboard/settings/account.*$
