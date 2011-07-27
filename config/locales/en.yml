@@ -13,6 +13,7 @@ en:
     dashboard:
       account_settings: "Account"
       twitter_settings: "Twitter"
+      buffer: "My Buffer"
   buffer:
     index:
       header: "My Buffer"

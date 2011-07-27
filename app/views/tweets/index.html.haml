@@ -1,0 +1,9 @@
+.span-24.last
+  %h2= t("tweets.index.header")
+  %p!= t("tweets.index.description", :user => current_user.email)
+  - if @twitter_user.blank?
+    You need to authorize us to use your Twitter account.
+    %a{:href => twitter_authorize_account_path}
+      =t("tweets.index.authorize")
+  - else
+    =render(:partial => "/tweets/table", :locals => {:tweets => @tweets})

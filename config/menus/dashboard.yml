@@ -1,7 +1,7 @@
 dashboard:
   buffer:
-    path: /buffer/
-    select: ^\/buffer.*$
+    path: /tweets/
+    select: ^\/tweets.*$
     auth: in
   account_settings:
     path: /dashboard/settings/account

@@ -6,9 +6,7 @@ class CreateTweets < ActiveRecord::Migration
       t.datetime  :send_at
       t.string    :title
       t.string    :body
-
-
-
+      
       t.timestamps
     end
   end

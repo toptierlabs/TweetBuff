@@ -9,5 +9,6 @@ class User < ActiveRecord::Base
   
   has_many  :preferences
   has_one   :twitter_user
+  has_many  :tweets
   
 end

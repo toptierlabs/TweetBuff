@@ -21,5 +21,7 @@ Tweetbuffer::Application.routes.draw do
       get   "callback" => :oauth_callback, :as => :twitter_callback
     end
   end
+
+  resources :tweets
   
 end
