@@ -8,6 +8,7 @@ class BufferPreference < ActiveRecord::Base
   has_many    :tweets
 
 
+  validates_uniqueness_of :name, :scope => :twitter_user
 
 
 end

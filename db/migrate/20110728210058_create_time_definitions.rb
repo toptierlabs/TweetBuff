@@ -13,7 +13,7 @@ class CreateTimeDefinitions < ActiveRecord::Migration
 
     add_index :time_definitions, :time_index_id
     add_index :time_definitions, :buffer_preference_id
-    add_index :time_definitions, [:day_of_week, :start_hour, :start_minute]
+    add_index :time_definitions, [:day_of_week, :start_hour, :start_minute], :name => :index_time_defs_dow_hour_min
     add_index :time_definitions, [:day_of_week, :interval]
     add_index :time_definitions, [:start_hour, :start_minute]
     add_index :time_definitions, [:interval, :interval_length]
@@ -24,7 +24,7 @@ class CreateTimeDefinitions < ActiveRecord::Migration
     drop_table :time_definitions
     remove_index :time_definitions, :column => :time_index_id
     remove_index :time_definitions, :column => :buffer_preference_id
-    remove_index :time_definitions, :column => [:day_of_week, :start_hour, :start_minute]
+    remove_index :time_definitions, :name => :index_time_defs_dow_hour_min
     remove_index :time_definitions, :column => [:day_of_week, :interval]
     remove_index :time_definitions, :column => [:start_hour, :start_minute]
     remove_index :time_definitions, :column => [:interval, :interval_length]

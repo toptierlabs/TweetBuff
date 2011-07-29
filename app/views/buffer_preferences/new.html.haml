@@ -1,0 +1,6 @@
+.span-24
+  %h2=t("buffer_preferences.new.header")
+  %p!= t("buffer_preferences.new.description", :user => @twitter_user.login)
+
+  = simple_form_for([@twitter_user, @buffer_preference]) do |form|
+    = render(:partial => "/buffer_preferences/form", :locals => {:form => form})

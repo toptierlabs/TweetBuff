@@ -21,20 +21,15 @@ Tweetbuffer::Application.routes.draw do
       get   "callback" => :oauth_callback, :as => :twitter_callback
     end
 
-
-    get     ":twitter_name"                     => "TwitterUser#index"
-    get     ":twitter_name/buffers"             => "BufferPreference#index"
-    post    ":twitter_name/buffers"             => "BufferPreference#create"
-    get     ":twitter_name/buffers/new"         => "BufferPreference#new"
-    get     ":twitter_name/:buffer_name"        => "BufferPreference#show"
-    get     ":twitter_name/:buffer_name/edit"   => "BufferPreference#edit"
-    put     ":twitter_name/:buffer_name"        => "BufferPreference#update"
-    delete  ":twitter_name/:buffer_name"        => "BufferPreference#destroy"
+    get     "/"                                 => "TwitterUsers#index",         :as => :twitter_users
+    get     ":twitter_name/buffers"             => "BufferPreferences#index",    :as => :twitter_user_buffer_preferences
+    post    ":twitter_name/buffers"             => "BufferPreferences#create",   :as => :twitter_user_buffer_preferences
+    get     ":twitter_name/buffers/new"         => "BufferPreferences#new",      :as => :new_twitter_user_buffer_preference
+    get     ":twitter_name/:buffer_name/edit"   => "BufferPreferences#edit",     :as => :edit_twitter_user_buffer_preference
+    get     ":twitter_name/:buffer_name"        => "BufferPreferences#show",     :as => :twitter_user_buffer_preference
+    put     ":twitter_name/:buffer_name"        => "BufferPreferences#update",   :as => :twitter_user_buffer_preference
+    delete  ":twitter_name/:buffer_name"        => "BufferPreferences#destroy",  :as => :twitter_user_buffer_preference
   end
-
-
-
-
 
 
   resources :tweets

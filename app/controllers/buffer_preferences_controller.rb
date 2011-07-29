@@ -1,5 +1,6 @@
 class BufferPreferencesController < ApplicationController
 
+  before_filter :authenticate_user!
   before_filter :get_twitter_user
 
   respond_to :html, :json
@@ -19,14 +20,18 @@ class BufferPreferencesController < ApplicationController
 
   # get     ":twitter_name/buffers/new"
   def new
-    @buffer_preference = BufferPreference.new(:twitter_user_id => )
+    @buffer_preference = @twitter_user.buffer_preferences.new()
     respond_with(@twitter_user, @buffer_preference)
   end
 
   # post    ":twitter_name/buffers"
   def create
     @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference])
-    respond_with(@twitter_user, @buffer_preference)
+    if @buffer_preference.errors.empty? && !request.xhr?
+      redirect_to(twitter_user_buffer_preferences_path(@twitter_user) + "#buffer=#{@buffer_preference.name}")
+    else
+      respond_with(@twitter_user, @buffer_preference)
+    end
   end
 
   # get     ":twitter_name/:buffer_name/edit"

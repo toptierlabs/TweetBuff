@@ -2,6 +2,8 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  footer:
+    copyright: "Copyright 2011 WebEffects, LLC"
   menu:
     main:
       home: "Home"
@@ -43,3 +45,25 @@ en:
       authorize: "Authorize your account"
       login: "Username"
       name: "Name on account"
+  buffer_preferences:
+    index:
+      tabs:
+        new_buffer: "New Buffer"
+      header: "Buffers for %{name}"
+      description: "Manage the order in which your Tweets are posted."
+      new_buffer_header: "Create a new Buffer"
+  twitter_users:
+    links:
+      buffers:
+        edit: "Edit Tweet Times"
+        new: "Create a new Buffer"
+    index:
+      tabs:
+        new_account: "Add Account"
+      header: "My Twitter Accounts"
+      description: "Manage your twitter accounts and buffers"
+      authorize: "Authorize your account now"
+      no_accounts: "You need to authorize us to use your Twitter account."
+      any_accounts: "Want to add another Twitter account?"
+      buffers:
+        header: "Buffers for %{name}"

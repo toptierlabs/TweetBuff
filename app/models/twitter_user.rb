@@ -60,4 +60,8 @@ class TwitterUser < ActiveRecord::Base
     ::TwitterAuth::Dispatcher::Oauth.new(self)
   end
 
+  def to_param
+    self.login
+  end
+
 end

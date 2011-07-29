@@ -1,0 +1,23 @@
+.span-24.last
+  %h2= t("buffer_preferences.index.header")
+  %p!= t("buffer_preferences.index.description", :user => current_user.email)
+  .tabs-container
+    %ul.tabs
+      - @buffer_preferences.each do |buffer_preference|
+        %li
+          %a{:href => "##{buffer_preference.name}"}
+            #{buffer_preference.name}
+      %li
+        %a{:href => "#new_buffer"}
+          =t("buffer_preferences.index.tabs.new_buffer")
+    - @buffer_preferences.each do |buffer_preference|
+      .clearfix{:id => buffer_preference.name}
+        buffer preference table
+    #new_buffer.clearfix
+      .span-4.twitter-photo
+        cool image here
+      .span-18.buffer-list.last
+        %h3=t("buffer_preferences.index.new_buffer_header")
+        %hr
+        = simple_form_for([@twitter_user, @twitter_user.buffer_preferences.new], :remote => true) do |form|
+          = render(:partial => "/buffer_preferences/form", :locals => {:form => form})

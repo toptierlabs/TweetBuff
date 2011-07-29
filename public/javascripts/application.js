@@ -4,12 +4,18 @@
 
 
 $(document).ready(function(){
-  
-  
+
+
   $("a.reveal").live("click",function(e){
     $($(this).attr("href")).toggle("blind");
   });
-  
-  
-  
+
+  $("div.tabs-container").tabs({
+      load: function(event, ui) {
+          $('a', ui.panel).click(function() {
+              $(ui.panel).load(this.href);
+              return false;
+          });
+      }
+  });
 });
