@@ -1,9 +1,13 @@
 class BufferPreference < ActiveRecord::Base
 
   belongs_to  :user
-  has_many    :tweet_times
+  belongs_to  :twitter_user
 
-  validates_presence_of :intervals_per_diem
-  validates_presence_of :interval_duration
+  has_many    :time_definitions
+  has_many    :time_indices
+  has_many    :tweets
+
+
+
 
 end

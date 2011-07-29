@@ -1,6 +1,7 @@
 class Tweet < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :buffer_preference
 
   validates_presence_of :title
   validates_presence_of :body
