@@ -4,8 +4,8 @@ main:
     select: ^\/home.*$
     auth: out
   buffer:
-    path: /tweets/
-    select: ^\/tweets.*$
+    path: /twitter/
+    select: ^\/twitter.*$
     auth: in
   account_settings:
     path: /dashboard/settings/account
