@@ -51,7 +51,7 @@ protected
       :conditions => {
         :buffer_preference_id => self.buffer_preference_id,
         :time_index_id        => self.time_index_id,
-        :day_of_week          => *(1..6)
+        :day_of_week          => [*(1..6)]
       }
     )
 
