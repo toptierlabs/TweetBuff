@@ -1,6 +1,6 @@
 class TimeDefinitionsController < ApplicationController
 
-  respond_to :json
+  respond_to :json, :js
 
   def index
     respond_with(@time_definitions)
@@ -31,6 +31,13 @@ class TimeDefinitionsController < ApplicationController
   def destroy
 
     respond_with(@time_definition)
+  end
+
+  def create_time
+    # This will create a new time for a given day
+    # Default day is day 0 (sunday)
+    
+    respond_with()
   end
 
 protected

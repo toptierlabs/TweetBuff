@@ -52,6 +52,12 @@ class BufferPreferencesController < ApplicationController
     respond_with(@twitter_user, @buffer_preference)
   end
 
+
+  def new_tweet_time
+    @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
+    render :layout => false
+  end
+
 protected
 
   def get_twitter_user

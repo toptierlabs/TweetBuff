@@ -8,6 +8,18 @@ class TimeDefinition < ActiveRecord::Base
   # Constants
   DAYS_OF_WEEK = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
 
+  INTERVALS = [
+    ["5 minutes", 5],
+    ["10 minutes", 10],
+    ["15 minutes", 15],
+    ["30 minutes", 30],
+    ["45 minutes", 45],
+    ["1 hour", 60],
+    ["2 hours", 120]
+  ]
+
+
+
   # Associations
   belongs_to :time_index
   belongs_to :buffer_preference

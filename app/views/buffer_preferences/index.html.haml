@@ -1,7 +1,7 @@
 .span-24.last
   %h2= t("buffer_preferences.index.header")
   %p!= t("buffer_preferences.index.description", :user => current_user.email)
-  .tabs-container
+  .tabs-container.buffer-tabs#buffer
     %ul.tabs
       - @buffer_preferences.each do |buffer_preference|
         %li
@@ -12,7 +12,17 @@
           =t("buffer_preferences.index.tabs.new_buffer")
     - @buffer_preferences.each do |buffer_preference|
       .clearfix{:id => buffer_preference.name}
-        buffer preference table
+        .buffer-preference-pane-links.clearfix
+          %ul.link-nav.right
+            %li
+              %a.new-tweet{:href => "#new_tweet"}
+                = t("buffer_preferences.links.new_tweet")
+            %li
+              %a{:href => edit_twitter_user_buffer_preference_path(@twitter_user, buffer_preference)}
+                = t("buffer_preferences.links.edit_buffer")
+        %hr
+        .buffer-preference-pane-table
+          = render(:partial => "/tweets/table", :locals => {:tweets => buffer_preference.tweets})
     #new_buffer.clearfix
       .span-4.twitter-photo
         cool image here

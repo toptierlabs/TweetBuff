@@ -1,0 +1,31 @@
+%form{:action => twitter_user_buffer_preference_tweet_time_path, :method => :post, :"data-remote" => "true", :id => "new_tweet_time_form"}
+  .time-select.inline{:"data-altfield" => "#expert_start_at"}
+  %input{:type => :hidden, :name => "expert_start_at", :id => "expert_start_at", :value => "11:00"}
+  %noscript
+    %input{:type => :submit, :value => "Save"}
+
+= javascript_include_tag("jquery_ujs")
+:javascript
+  $("div.time-select.inline").each(function(i,el){
+    $(el).timepicker({
+       altField: $(el).data("altfield") || null,
+       defaultTime: "11:00"
+    });
+  });
+  $("#dialog").dialog('option', "buttons", {
+    "Create" : function(){
+      var $this = $(this);
+      var form = $("form#new_tweet_time_form");
+      form.trigger("submit.rails")
+        .bind("ajax:success", function(data){
+          $("ul.time-list").append($("<li class='time'>" + data.start_hour + ":" + data.start_minute + "<span class='delete'>x</span></li>"));
+          $this.dialog("close");
+        })
+        .bind("ajax:error", function(){
+          $this.dialog("close");
+        });
+    },
+    "Cancel" : function(){
+      $(this).dialog("close");
+    }
+  });

@@ -21,18 +21,30 @@ Tweetbuffer::Application.routes.draw do
       get   "callback" => :oauth_callback, :as => :twitter_callback
     end
 
-    get     "/"                                 => "TwitterUsers#index",         :as => :twitter_users
-    get     ":twitter_name/buffers"             => "BufferPreferences#index",    :as => :twitter_user_buffer_preferences
-    post    ":twitter_name/buffers"             => "BufferPreferences#create",   :as => :twitter_user_buffer_preferences
-    get     ":twitter_name/buffers/new"         => "BufferPreferences#new",      :as => :new_twitter_user_buffer_preference
-    get     ":twitter_name/:buffer_name/edit"   => "BufferPreferences#edit",     :as => :edit_twitter_user_buffer_preference
-    get     ":twitter_name/:buffer_name"        => "BufferPreferences#show",     :as => :twitter_user_buffer_preference
-    put     ":twitter_name/:buffer_name"        => "BufferPreferences#update",   :as => :twitter_user_buffer_preference
-    delete  ":twitter_name/:buffer_name"        => "BufferPreferences#destroy",  :as => :twitter_user_buffer_preference
+    get     "/"               => "TwitterUsers#index",         :as => :twitter_users
+
+    scope ":twitter_name" do
+      controller :buffer_preferences do
+        get     "buffers"     => :index,    :as => :twitter_user_buffer_preferences
+        post    "buffers"     => :create,   :as => :twitter_user_buffer_preferences
+        get     "buffers/new" => :new,      :as => :new_twitter_user_buffer_preference
+      end
+
+      scope ":buffer_name" do
+        controller :buffer_preferences do
+          get     "edit"  => :edit,             :as => :edit_twitter_user_buffer_preference
+          get     "/"     => :show,             :as => :twitter_user_buffer_preference
+          put     "/"     => :update,           :as => :twitter_user_buffer_preference
+          delete  "/"     => :destroy,          :as => :twitter_user_buffer_preference
+          get     "time"  => :new_tweet_time,   :as => :new_twitter_user_buffer_preference_tweet_time
+        end
+
+        post    "time" => "TimeDefinitions#create_time",  :as => :twitter_user_buffer_preference_tweet_time
+      end
+    end
   end
 
 
   resources :tweets
-
 
 end

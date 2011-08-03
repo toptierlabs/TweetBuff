@@ -7,8 +7,6 @@ class BufferPreference < ActiveRecord::Base
   has_many    :time_indices
   has_many    :tweets
 
-
-  validates_uniqueness_of :name, :scope => :twitter_user
-
+  validates_uniqueness_of :name, :scope => :twitter_user_id
 
 end

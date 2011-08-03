@@ -28,6 +28,27 @@ ul.nav#main {
   float: right;
 }
 
+ul.link-nav {
+  list-style: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  li {
+    display: inline-block;
+    margin: 0;
+    a {
+      display: block;
+      padding: 3px 7px 2px;
+      text-decoration: none;
+    }
+  }
+  &.right {
+    float: right;
+  }
+  &.left {
+    float: left;
+  }
+}
+
 #footer {
   border-top: 1px solid #ccc;
   padding: 10px 0;
@@ -73,5 +94,17 @@ ul.nav#main {
 
 
 
+.time-select.inline {
+  float: left;
+  font-size: 10px;
+}
 
-
+table.ui-timepicker {
+  margin-bottom: 0 !important;
+  tr td {
+    padding: 0.1em !important;
+    a {
+      text-decoration: none;
+    }
+  }
+}

@@ -46,6 +46,17 @@ en:
       login: "Username"
       name: "Name on account"
   buffer_preferences:
+    prefs:
+      headers:
+        weekly:
+          basic: "Basic"
+          expert: "Expert"
+        daily:
+          basic: "Basic"
+          expert: "Expert"
+    links:
+      new_tweet: "New Tweet"
+      edit_buffer: "Edit Tweet Times"
     index:
       tabs:
         new_buffer: "New Buffer"
