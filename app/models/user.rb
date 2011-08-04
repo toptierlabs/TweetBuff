@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many    :preferences
   has_many    :twitter_users
+  has_many    :buffer_preferences
   has_many    :tweets
 
 end

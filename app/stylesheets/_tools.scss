@@ -108,3 +108,30 @@ table.ui-timepicker {
     }
   }
 }
+
+
+ul.selectable.ui-selectable {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+  li {
+    margin: 0;
+    padding: 3px 10px;
+    display: inline-block;
+    border: 1px solid red;
+  }
+  li.ui-selectee {
+
+  }
+  li.ui-selecting {
+    background: #eee;
+  }
+  li.ui-selected {
+    background: #ddd;
+  }
+}
+
+.hidden {
+  display: none;
+}

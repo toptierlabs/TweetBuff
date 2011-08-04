@@ -1,80 +1,29 @@
-.span-24.last
-  I want to control my tweeting on a
-  = collection_select("time","basis", [["Weekly", :weekly], ["Daily", :daily]], :last, :first)
-  basis
-
-.tabs-container#daily.basis-window.span-16
-  %ul.tabs
-    - Date::DAYNAMES.each do |day|
-      %li
-        %a{:href => "#daily_#{day}"}
-          = day
-  - Date::DAYNAMES.each do |day|
-    %div{:id => "daily_#{day}"}
-      A tab for #{day}
-
-
-
-.tabs-container#weekly.basis-window.span-16
-  %ul.tabs
-    %li
-      %a{:href => "#weekly_basic"}
-        = t("buffer_preferences.prefs.headers.weekly.basic")
-    %li
-      %a{:href => "#weekly_expert"}
-        = t("buffer_preferences.prefs.headers.weekly.expert")
-
-  #weekly_basic
-    .span-15.last
-      .span-3
-        Send every day
-      .span-7
-        sdf
-      .span-5.last
-        dfg
-    .span-15.last.clearfix
-      .span-3
-        Starting at
-      .span-7
-        .time-select.inline{:"data-altfield" => "#start_at"}
-        %input{:type => :hidden, :name => "start_at", :id => "start_at", :value => "9:00"}
-      .span-5.last
-        X tweets per day
-    .span-15.last
-      .span-3
-        Once every
-      .span-7
-        INTERVAL
-      .span-5.last
-        sdkfjl
-    .span-15.last
-      .span-5.right
-        save button
-
-
-  #weekly_expert
-    .span-15.last
-      .span-3
-        Send every day
-      .span-7
-        sdf
-      .span-5.last
-        dfg
-    .span-15.last
-      .span-3
-        Sent at:
-      .span-7
-        %ul.time-list#weekly
-          %li.time Time 1 [x]
-          %li.time Time 2 [x]
-          %li.time Time 3 [x]
-      .span-5.last
-        X tweets per day
-    .span-15.last
-      %a.dialog{:href => new_twitter_user_buffer_preference_tweet_time_path}
-        Add new time
-    .span-15.last
-      .span-5.right
-        save button
-
-
+.span-24.last#buffer-basis
+  .container#buffer-selector
+    %ul#buffer-basis-select.selectable
+      %li{:"data-type" => "weekly", :class => tweet_mode_selected(:weekly, @buffer_preference.tweet_mode)}
+        = t("buffer_preferences.edit.weekly")
+      %li{:"data-type" => "daily", :class => tweet_mode_selected(:daily, @buffer_preference.tweet_mode)}
+        = t("buffer_preferences.edit.daily")
+    %ul#buffer-expertise-select.selectable
+      %li{:"data-type" => "basic", :class => tweet_mode_selected(:basic, @buffer_preference.tweet_mode)}
+        = t("buffer_preferences.edit.basic")
+      %li{:"data-type" => "expert", :class => tweet_mode_selected(:expert, @buffer_preference.tweet_mode)}
+        = t("buffer_preferences.edit.expert")
+  .container#buffer-editor
+    #loading-screen.hidden
+      Loading...
+    #weekly_basic.mode-container
+      - if @buffer_preference.tweet_mode == :weekly_basic
+        = render(:partial => "/buffer_preferences/buffer_weekly_basic", :locals => {:buffer_preference => @buffer_preference})
+    #weekly_expert.mode-container
+      - if @buffer_preference.tweet_mode == :weekly_expert
+        = render(:partial => "/buffer_preferences/buffer_weekly_expert", :locals => {:buffer_preference => @buffer_preference})
+    #daily_basic.mode-container
+      - if @buffer_preference.tweet_mode == :daily_basic
+        = render(:partial => "/buffer_preferences/buffer_daily", :locals => {:buffer_preference => @buffer_preference})
+    #daily_expert.mode-container
+      - if @buffer_preference.tweet_mode == :daily_expert
+        = render(:partial => "/buffer_preferences/buffer_daily", :locals => {:buffer_preference => @buffer_preference})
+    #buffer-change-warning.hidden
+      =render(:partial => "/buffer_preferences/buffer_warning", :locals => {:buffer_preference => @buffer_preference})

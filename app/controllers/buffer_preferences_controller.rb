@@ -15,7 +15,16 @@ class BufferPreferencesController < ApplicationController
   # get     ":twitter_name/:buffer_name"
   def show
     @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
-    respond_with(@twitter_user, @buffer_preference)
+    respond_with(@twitter_user, @buffer_preference) do |format|
+      format.json {
+        render(:json => { :twitter_user => {
+                            :login => @twitter_user.login,
+                            :name => @twitter_user.name},
+                          :buffer_preference => {
+                            :tweet_mode => @buffer_preference.tweet_mode,
+                            :name => @buffer_preference.name}})
+      }
+    end
   end
 
   # get     ":twitter_name/buffers/new"
@@ -44,7 +53,9 @@ class BufferPreferencesController < ApplicationController
   def update
     @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
     @buffer_preference.update_attributes(params[:buffer_preferences])
-    respond_with(@twitter_user, @buffer_preference)
+    respond_with(@twitter_user, @buffer_preference) do |format|
+      format.json { render(:json => {:status => :ok})}
+    end
   end
 
   # delete  ":twitter_name/:buffer_name"

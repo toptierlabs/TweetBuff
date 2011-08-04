@@ -1,0 +1,13 @@
+%h2 Warning
+%p.buffer-warning
+  You have selected to use
+  %span.buffer-new-type NEW TYPE
+  instead of
+  %span.buffer-old-type #{buffer_preference.tweet_mode.to_s.titleize}
+%p.buffer-warning
+  This will clear all of your previous settings for this buffer. If you wish to continue, please click "accept" below.
+.buffer-warning-linkset
+  %a.buffer-accept{:href => "#accept"}
+    = t("buffer_preferences.warning.accept")
+  %a.buffer-cancel{:href => "#cancel"}
+    = t("buffer_preferences.warning.cancel")

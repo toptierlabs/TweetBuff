@@ -48,12 +48,16 @@ ActiveRecord::Schema.define(:version => 20110728210058) do
   create_table "buffer_preferences", :force => true do |t|
     t.integer  "user_id"
     t.integer  "twitter_user_id"
+    t.integer  "tweet_mode",       :limit => 2
     t.datetime "today"
     t.integer  "tweets_remaining"
     t.string   "name",             :limit => 64
+    t.string   "timezone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "buffer_preferences", ["twitter_user_id"], :name => "index_buffer_preferences_on_twitter_user_id"
 
   create_table "preferences", :force => true do |t|
     t.integer  "user_id"
@@ -65,7 +69,6 @@ ActiveRecord::Schema.define(:version => 20110728210058) do
 
   create_table "time_definitions", :force => true do |t|
     t.boolean  "interval",                          :default => true
-    t.integer  "time_index_id"
     t.integer  "buffer_preference_id"
     t.integer  "day_of_week",          :limit => 2, :default => 0
     t.integer  "start_hour",           :limit => 2, :default => 0
@@ -81,18 +84,6 @@ ActiveRecord::Schema.define(:version => 20110728210058) do
   add_index "time_definitions", ["interval", "interval_length"], :name => "index_time_definitions_on_interval_and_interval_length"
   add_index "time_definitions", ["interval", "start_minute"], :name => "index_time_definitions_on_interval_and_start_minute"
   add_index "time_definitions", ["start_hour", "start_minute"], :name => "index_time_definitions_on_start_hour_and_start_minute"
-  add_index "time_definitions", ["time_index_id"], :name => "index_time_definitions_on_time_index_id"
-
-  create_table "time_indices", :force => true do |t|
-    t.integer  "twitter_user_id"
-    t.integer  "buffer_preference_id"
-    t.integer  "tweet_mode",           :limit => 2
-    t.string   "timezone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "time_indices", ["buffer_preference_id", "twitter_user_id"], :name => "index_time_indices_on_buffer_preference_id_and_twitter_user_id"
 
   create_table "tweets", :force => true do |t|
     t.integer  "user_id"

@@ -11,7 +11,7 @@ ActionView::Helpers::AssetTagHelper.register_javascript_expansion(
 # Stylesheet Expansions
 ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
   :jquery => [
-    "jquery-ui-custom.css",
+    "jquery-ui-redmond.css",
     "jquery-ui-timepicker.css"
   ]
 )

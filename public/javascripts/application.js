@@ -190,32 +190,19 @@ $(document).ready(function(){
 
   $.tabHandler.registeredMenus.push("buffer");
   $.tabHandler.registeredMenus.push("twitter");
+  $.tabHandler.registeredMenus.push("weekly");
+  $.tabHandler.registeredMenus.push("daily");
 
-
-  if ( $(".basis-window").length ) {
-    $("#time_basis").change(function(event){
-      $(".basis-window").hide();
-      $(".basis-window#" + $(this).val()).show();
-
-      //
-      //
-      // TODO alert the server
-      //
-      //
+  // Create inline timepickers
+  $("div.time-select.inline").each(function(i,el){
+    $(el).timepicker({
+       altField: $(el).data("altfield") || null
     });
+  });
 
-    // Hide the unselected window
-    $(".basis-window#" + $("#time_basis option:not(:selected)").val() ).hide();
+  // Get the buffer time editor script if necessary
+  if($("#buffer-basis").length){ $.getScript("/javascripts/buffer_editor.js") }
 
-
-
-    $("div.time-select.inline").each(function(i,el){
-      $(el).timepicker({
-         altField: $(el).data("altfield") || null
-      });
-    })
-
-  } // End buffer preference edit code
 
   // Trigger a hash change.
   // This should be the last thing to happen on page load...

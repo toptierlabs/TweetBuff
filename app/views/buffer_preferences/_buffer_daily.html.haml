@@ -1,0 +1,8 @@
+%ul.tabs
+  - Date::DAYNAMES.each do |day|
+    %li
+      %a{:href => "#daily_#{day}"}
+        = day
+- Date::DAYNAMES.each do |day|
+  %div{:id => "daily_#{day}"}
+    A tab for #{day}

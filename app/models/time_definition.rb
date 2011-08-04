@@ -5,6 +5,8 @@
 #
 class TimeDefinition < ActiveRecord::Base
 
+  attr_accessor :start_at
+
   # Constants
   DAYS_OF_WEEK = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
 
@@ -21,7 +23,6 @@ class TimeDefinition < ActiveRecord::Base
 
 
   # Associations
-  belongs_to :time_index
   belongs_to :buffer_preference
 
   #
@@ -31,6 +32,33 @@ class TimeDefinition < ActiveRecord::Base
 
   after_save    :update_brothers
   after_destroy :destroy_brothers
+
+
+  def self.new_time(basis, definition)
+    hour    = definition[:start_at].split(":").first
+    minute  = definition[:start_at].split(":").last
+
+    case basis
+    when :weekly
+      TimeDefinition.create(
+        :day_of_week          => 0,
+        :buffer_preference_id => definition[:buffer_preference_id],
+        :interval             => false,
+        :interval_length      => 0,
+        :start_hour           => hour,
+        :start_minute         => minute
+      )
+    when :daily
+      TimeDefinition.create(
+        :day_of_week          => definition[:day_of_week],
+        :buffer_preference_id => buffer_id,
+        :interval             => false,
+        :interval_length      => 0,
+        :start_hour           => hour,
+        :start_minute         => minute
+      )
+    end
+  end
 
 
   def day
@@ -44,25 +72,24 @@ class TimeDefinition < ActiveRecord::Base
   end
 
   def weekly?
-    self.time_index.weekly?
+    self.buffer_preference.weekly?
   end
 
   def daily?
-    self.time_index.daily?
+    self.buffer_preference.daily?
   end
 
 
 protected
 
   def update_brothers
-    mode = self.time_index.tweet_mode
+    mode = self.buffer_preference.tweet_mode
     return true if not self.weekly?
     return true if self.day_of_week > 0
 
     brothers = TimeDefinition.all(
       :conditions => {
         :buffer_preference_id => self.buffer_preference_id,
-        :time_index_id        => self.time_index_id,
         :day_of_week          => [*(1..6)]
       }
     )
@@ -78,14 +105,13 @@ protected
   end
 
   def destroy_brothers
-    mode = self.time_index.tweet_mode
+    mode = self.buffer_preference.tweet_mode
     return true if not self.weekly?
     return true if self.day_of_week > 0
 
     brothers = TimeDefinition.all(
       :conditions => {
         :buffer_preference_id => self.buffer_preference_id,
-        :time_index_id        => self.time_index_id
       }
     )
 

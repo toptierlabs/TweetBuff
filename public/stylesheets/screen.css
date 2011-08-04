@@ -1267,3 +1267,31 @@ table.ui-timepicker tr td {
 table.ui-timepicker tr td a {
   text-decoration: none;
 }
+
+/* line 113, app/stylesheets/_tools.scss */
+ul.selectable.ui-selectable {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+/* line 118, app/stylesheets/_tools.scss */
+ul.selectable.ui-selectable li {
+  margin: 0;
+  padding: 3px 10px;
+  display: inline-block;
+  border: 1px solid red;
+}
+/* line 127, app/stylesheets/_tools.scss */
+ul.selectable.ui-selectable li.ui-selecting {
+  background: #eee;
+}
+/* line 130, app/stylesheets/_tools.scss */
+ul.selectable.ui-selectable li.ui-selected {
+  background: #ddd;
+}
+
+/* line 135, app/stylesheets/_tools.scss */
+.hidden {
+  display: none;
+}
