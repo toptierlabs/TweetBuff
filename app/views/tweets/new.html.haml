@@ -1,2 +1,19 @@
-= simple_form_for(@tweet) do |form|
+= simple_form_for(@tweet, :url => tweets_path(@twitter_user, @buffer_preference)) do |form|
   = render(:partial => "/tweets/form", :locals => {:form => form})
+
+:javascript
+  if ( $("#dialog form#new_tweet") ) {
+    $("#dialog").dialog('option', "buttons", {
+      "Create" : function(){
+        var $this = $(this);
+        var form = $("form#new_tweet");
+        $.post(form.attr("action"), form.serializeArray(), function(data){
+          $.tweeteditor.addTweet(data);
+          $this.dialog("close");
+        }, "json");
+      },
+      "Cancel" : function(){
+        $(this).dialog("close");
+      }
+    });
+  }

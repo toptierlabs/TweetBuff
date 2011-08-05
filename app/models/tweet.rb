@@ -1,6 +1,6 @@
 class Tweet < ActiveRecord::Base
 
-  belongs_to :user
+  belongs_to :twitter_user
   belongs_to :buffer_preference
 
   validates_presence_of :title
@@ -40,7 +40,7 @@ class Tweet < ActiveRecord::Base
       # 3 => 2
       # 4 => 4
       # decrement positions lte to new position, and gt old position
-      Tweet.update_all("position = position - 1", ["position <= ? AND position > ? AND user_id = ?", new_position, old_position, self.user_id])
+      Tweet.update_all("position = position - 1", ["position <= ? AND position > ? AND twitter_user_id = ?", new_position, old_position, self.twitter_user_id])
     else
       # If the new position is further up than the old position
       # 1 => 2
@@ -48,7 +48,7 @@ class Tweet < ActiveRecord::Base
       # 3 => 1
       # 4 => 4
       # increment gte new position and lt old position
-      Tweet.update_all("position = position + 1", ["position >= ? AND position < ? AND user_id = ?", new_position, old_position, self.user_id])
+      Tweet.update_all("position = position + 1", ["position >= ? AND position < ? AND twitter_user_id = ?", new_position, old_position, self.twitter_user_id])
     end
     self.update_attribute(:position, new_position)
   end
@@ -63,7 +63,7 @@ protected
   # TESTED: PASSING
   def update_positions
     old_position = self.position
-    Tweet.update_all("position = position - 1", ["position > ? AND user_id = ?", old_position, self.user_id])
+    Tweet.update_all("position = position - 1", ["position > ? AND twitter_user_id = ?", old_position, self.twitter_user_id])
   end
 
 end

@@ -1,8 +1,29 @@
 form{
   .input {
+    padding: 7px 10px 5px;
+
+    &:hover{
+      background: #ecf4fc;
+    }
+
+    &.required:hover{
+      background: #fee;
+    }
+
     label {
       width: span(3);
       display: inline-block;
+      vertical-align: top;
+
+      abbr[title='required'] {
+        color: red;
+        border: none !important;
+      }
+    }
+    textarea {
+      height: 75px;
+      width: 322px;
+      resize: none;
     }
   }
 }

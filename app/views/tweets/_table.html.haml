@@ -1,9 +1,9 @@
 - columns = 2
 
-%table
+%table.tweets.sortable
   %tbody
     - tweets.each do |tweet|
-      %tr
+      %tr{:id => "tweet_#{tweet.id}"}
         %td.due
           %span.title= t("tables.tweets.due_at")
           %span.time= tweet.due_at(:time)

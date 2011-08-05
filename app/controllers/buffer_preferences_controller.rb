@@ -22,7 +22,8 @@ class BufferPreferencesController < ApplicationController
                             :name => @twitter_user.name},
                           :buffer_preference => {
                             :tweet_mode => @buffer_preference.tweet_mode,
-                            :name => @buffer_preference.name}})
+                            :name => @buffer_preference.name,
+                            :permalink => @buffer_preference.permalink}})
       }
     end
   end

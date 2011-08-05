@@ -5,17 +5,17 @@
     %ul.tabs
       - @buffer_preferences.each do |buffer_preference|
         %li
-          %a{:href => "##{buffer_preference.name}"}
+          %a{:href => "##{buffer_preference.permalink}"}
             #{buffer_preference.name}
       %li
         %a{:href => "#new_buffer"}
           =t("buffer_preferences.index.tabs.new_buffer")
     - @buffer_preferences.each do |buffer_preference|
-      .clearfix{:id => buffer_preference.name}
+      .clearfix.buffer-panel{:id => buffer_preference.permalink}
         .buffer-preference-pane-links.clearfix
           %ul.link-nav.right
             %li
-              %a.new-tweet{:href => "#new_tweet"}
+              %a.dialog.new-tweet{:href => new_tweet_path(@twitter_user, buffer_preference), :"data-width" => 450}
                 = t("buffer_preferences.links.new_tweet")
             %li
               %a{:href => edit_twitter_user_buffer_preference_path(@twitter_user, buffer_preference)}

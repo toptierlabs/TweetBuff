@@ -157,6 +157,10 @@ $.tabHandler = new Tabs();
 
 $(document).ready(function(){
 
+  $.buildToken = function(){
+    return $('meta[name=csrf-token]').attr('content');
+  };
+
   $("#dialog").dialog({
     autoOpen: false
   });
@@ -167,7 +171,9 @@ $(document).ready(function(){
     var url = this.href;
 
     d = $("#dialog").dialog("option",{
-      title : t.attr("title") || t.text()
+      title : t.attr("title") || t.text(),
+      width : t.data("width") || 400,
+      height: t.data("height") || 200
     });
 
     d.dialog("close");
@@ -176,7 +182,7 @@ $(document).ready(function(){
     d.dialog("open");
     c.hide();
     l.show();
-    $.get(url, {}, function(data){
+    $.get(url, {no_layout: "true"}, function(data){
       l.hide();
       c.html(data).show();
     })
@@ -201,6 +207,98 @@ $(document).ready(function(){
 
   // Get the buffer time editor script if necessary
   if($("#buffer-basis").length){ $.getScript("/javascripts/buffer_editor.js") }
+
+
+
+  var TweetEditor = function(){
+    this._buffers = [];
+    this._bufferData = {};
+    this.tUser = null;
+
+
+    this._init();
+  }
+
+  $.extend(TweetEditor.prototype, {
+    _addBuffer: function(bufferPermalink){
+      var that = this;
+      that._buffers.push(bufferPermalink);
+      var url = ["/twitter", that.tUser, bufferPermalink].join("/");
+      $.get(url, {}, function(json){
+        that._bufferData[bufferPermalink] = json;
+      }, "json");
+      that._sortableInit(bufferPermalink);
+    },
+    _removeBuffer: function(bufferPermalink){
+      this._buffers.splice(this._buffers.indexOf(bufferPermalink),1);
+      delete(this._bufferData[bufferPermalink]);
+    },
+    _guessTwitterUser: function(){
+      if(window.location.href.indexOf("twitter") > -1){
+        var href    = window.location.href;
+        var start   = href.indexOf("twitter/") + "twitter/".length;
+        var end     = href.indexOf("/", start);
+        this.tUser  = href.substring(start, end);
+      } else {
+        console.log("No method left to guess twitter username");
+      }
+    },
+    _init: function(){
+      var that = this;
+
+      // Guess the twitter username
+      that._guessTwitterUser();
+
+      // We are managing multiple tabs (ie: many buffers on a single page)
+      // Get info on all buffers
+      $(".tabs-container.buffer-tabs#buffer > div").each(function(idx,buffer){
+        var bufferPermalink = $(buffer).attr("id");
+        if(bufferPermalink !== "new_buffer")
+          that._addBuffer(bufferPermalink);
+      });
+    },
+    _sortableAjax: function(){
+
+    },
+    _sortableInit: function(bufferPermalink){
+      $("#" + bufferPermalink + " table.tweets > tbody > tr").sortable();
+    },
+    addTweet: function(json){
+      var bufferPermalink  = json.bp_permalink
+      this.removeEmptyTweetMessage(bufferPermalink);
+      var tweet   = json.tweet
+      var table = $("#" + bufferPermalink + " table.tweets > tbody");
+      var row = $("<tr id='tweet_" + tweet.id + "'><td class='due'><span class='title'></span><span class='time'></span><span class='date'></span></td><td class='content'>" + tweet.body + "</td></tr>")
+      table.append(row);
+      // tweet.title
+    },
+    removeEmptyTweetMessage: function(bufferPermalink){
+      // NOTE this is where the text is changed in the tweet table footer
+      var row = $("#" + bufferPermalink + " table.tweets > tfoot > tr.empty");
+      row.removeClass("empty").children("td").text("");
+    },
+    removeTweet: function(target){
+      if(typeof(target) !== "object"){ target = $("tr#tweet_" + target); }
+      if(target.length == 0){ return null; }
+      var bufferPermalink = target.closest(".buffer-panel").attr("id");
+      var tweetId = target.attr("id").replace("tweet_","");
+      var token = $.buildToken();
+      var url = ["/twitter", this.tUser, bufferPermalink, "tweets", tweetId].join("/");
+      $.post(url, {authenticity_token: token, _method:"DELETE"}, function(json){
+        if(json.status == "ok"){
+          taret.fadeOut(400, function(){
+            target.remove();
+          });
+          return this;
+        } else {
+          return false;
+        }
+      });
+    }
+  });
+
+
+  $.tweeteditor = new TweetEditor();
 
 
   // Trigger a hash change.

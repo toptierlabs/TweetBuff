@@ -134,7 +134,7 @@ $.extend(BufferEditor.prototype, {
     var that = this;
     var listItem = link.parent("li.time");
     var timeDefinitionId = listItem.data("id");
-    var token = that.getToken();
+    var token = $.buildToken(); //that.getToken();
     var url = that.buildURL("deleteLink",{id: timeDefinitionId});
     $.post(url, {authenticity_token: token, _method:'DELETE'}, function(json){
       if(json.status != "ok"){
@@ -153,7 +153,7 @@ $.extend(BufferEditor.prototype, {
     if(that.selectedMode == null) {
       return;
     }
-    var token = that.getToken();
+    var token = $.buildToken(); //that.getToken();
     var url = that.buildURL("acceptTweetMode");
     $.post(url,
       {authenticity_token:token, _method:"put", buffer_preferences:{tweet_mode:that.selectedMode}},
