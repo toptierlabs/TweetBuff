@@ -2,10 +2,10 @@
 
 %table.tweets.sortable
   %tbody
-    - tweets.each do |tweet|
+    - tweets.sort_by(&:position).each do |tweet|
       %tr{:id => "tweet_#{tweet.id}"}
         %td.due
-          %span.title= t("tables.tweets.due_at")
+          %span.title= t("tweets.table.due_at")
           %span.time= tweet.due_at(:time)
           %span.date= tweet.due_at(:date)
         %td.content
@@ -18,4 +18,5 @@
     - else
       %tr
         %td{:colspan => columns}
-          =t("tables.saving")
+          - if tweets.count > 1
+            =t("tweets.table.drag_to_order")

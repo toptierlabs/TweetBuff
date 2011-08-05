@@ -23,6 +23,7 @@ en:
     table:
       due_at: "Due At"
       content: "Tweet"
+      drag_to_order: "Drag tweets to order them"
     index:
       header: "My Buffer"
       description: "Manage the order in which your Tweets are posted."

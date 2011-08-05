@@ -74,6 +74,7 @@ protected
 
   def get_twitter_user
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    redirect_to(twitter_settings_path) and return if @twitter_user.blank?
   end
 
 end

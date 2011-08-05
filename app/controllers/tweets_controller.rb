@@ -7,12 +7,12 @@ class TweetsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @tweets = current_user.tweets.all
+    @tweets = @buffer_preference.tweets.all
     respond_with(@twitter_user, @buffer_preference, @tweets)
   end
 
   def new
-    @tweet = current_user.tweets.new
+    @tweet = @buffer_preference.tweets.new
     respond_with(@twitter_user, @buffer_preference, @tweet) do |format|
       format.html {
         render(:layout => false) and return if params[:no_layout] == "true"
@@ -21,7 +21,7 @@ class TweetsController < ApplicationController
   end
 
   def create
-    @tweet = current_user.tweet.create(params[:tweet])
+    @tweet = @buffer_preference.tweets.create(params[:tweet])
     respond_with(@twitter_user, @buffer_preference, @tweet) do |format|
       format.json {
         render(:json => {:tweet => @tweet, :bp_permalink => @buffer_preference.permalink})
@@ -30,20 +30,33 @@ class TweetsController < ApplicationController
   end
 
   def edit
-    @tweet = Tweet.find(:conditions => {:user_id => current_user.id, :id => params[:id]})
+    @tweet = @buffer_preference.tweets.find_by_id(params[:id])
     respond_with(@twitter_user, @buffer_preference, @tweet)
   end
 
   def update
-    @tweet = Tweet.find(:conditions => {:user_id => current_user.id, :id => params[:id]})
+    @tweet = @buffer_preference.tweets.find_by_id(params[:id])
     @tweet.update_attributes(params[:tweet])
     respond_with(@twitter_user, @buffer_preference, @tweet)
   end
 
   def destroy
-    @tweet = Tweet.find(:conditions => {:user_id => current_user.id, :id => params[:id]})
+    @tweet = @buffer_preference.tweets.find_by_id(params[:id])
     @tweet.destroy
     respond_with(@twitter_user, @buffer_preference, @tweet)
+  end
+
+  def sort
+    tweet_order = params[:tweet]
+    status = "ok"
+    begin
+      tweet_order.each_with_index do |tweet_id, index|
+        @buffer_preference.tweets.find_by_id(tweet_id.to_i).update_attribute(:position, index)
+      end
+    rescue
+      status = "error"
+    end
+    render(:json => {:status => status})
   end
 
 

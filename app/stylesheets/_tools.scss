@@ -139,3 +139,12 @@ ul.selectable.ui-selectable {
 .hidden {
   display: none;
 }
+
+
+table.tweets {
+  tbody{
+    tr > td {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+}

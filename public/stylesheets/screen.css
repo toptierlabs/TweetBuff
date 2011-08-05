@@ -1322,3 +1322,8 @@ ul.selectable.ui-selectable li.ui-selected {
 .hidden {
   display: none;
 }
+
+/* line 146, app/stylesheets/_tools.scss */
+table.tweets tbody tr > td {
+  border-bottom: 1px solid #ccc;
+}

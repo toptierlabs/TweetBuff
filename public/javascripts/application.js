@@ -261,7 +261,22 @@ $(document).ready(function(){
 
     },
     _sortableInit: function(bufferPermalink){
-      $("#" + bufferPermalink + " table.tweets > tbody > tr").sortable();
+      var that = this;
+      $("#" + bufferPermalink + " table.tweets > tbody").sortable({
+        update: function(event, ui){
+          url = ["/twitter",that.tUser,bufferPermalink,"tweets","sort"].join("/")
+          data = $(this).sortable("serialize")
+          data += "&authenticity_token=" + $.buildToken();
+          console.log(data);
+          $.post(url, data, function(data){
+            if(data.status == "ok"){
+              console.log("sorting went fine");
+            } else {
+              console.log("Something went wrong with sorting");
+            }
+          })
+        }
+      });
     },
     addTweet: function(json){
       var bufferPermalink  = json.bp_permalink
@@ -294,6 +309,9 @@ $(document).ready(function(){
           return false;
         }
       });
+    },
+    updateTweetTimes: function(bufferPermalink){
+      // TODO implement this...
     }
   });
 

@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20110805001948) do
   add_index "time_definitions", ["start_hour", "start_minute"], :name => "index_time_definitions_on_start_hour_and_start_minute"
 
   create_table "tweets", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "twitter_user_id"
     t.integer  "buffer_preference_id"
     t.integer  "position"
     t.datetime "sent_at"

@@ -31,7 +31,11 @@ Tweetbuffer::Application.routes.draw do
       end
 
       scope ":buffer_name" do
-        resources :tweets
+        resources :tweets do
+          collection do
+            post :sort
+          end
+        end
 
         controller :buffer_preferences do
           get     "edit"  => :edit,             :as => :edit_twitter_user_buffer_preference
