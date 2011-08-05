@@ -1,53 +1,20 @@
 var BufferEditor = function(){
-  this.selectedMode = null,
-  this.currentMode  = null,
-  this.currentDay   = 0,
-  this.buffer       = null,
-  this.tUser        = null,
-  this.init();
+  this.selectedMode = null;
+  this.currentMode  = null;
+  this.currentDay   = 0;
+  this.buffer       = null;
+  this.tUser        = null;
+  this._days        = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+  this._init();
+
 };
 $.extend(BufferEditor.prototype, {
   _basisContainer: $("#buffer-selector ul#buffer-basis-select"),
   _expertiseContainer: $("#buffer-selector ul#buffer-expertise-select"),
   _warningContainer: $("#buffer-change-warning"),
   _modeContainer: $(".mode-container"),
-  _checkMode: function(){
-    var $basis = this._basisContainer.children("li.ui-selected");
-    var $expertise = this._expertiseContainer.children("li.ui-selected");
-    if($basis.length){
-      this.toggleWindow("expertise", true);
-      mode = $basis.data("type") + "_";
-    } else {
-      this.toggleWindow("expertise", false);
-      this.setMode(null);
-      return false;
-    }
-    if($expertise.length){
-      mode += $expertise.data("type");
-      this.setMode(mode);
-    } else {
-      return false;
-    }
-    return mode;
-  },
-  setMode: function(mode){
-    this.selectedMode = mode;
-    if(mode != null){
-      $(this).trigger("modeChange", [mode]);
-    }
-  },
-  _parseBasis: function(mode){
-    return mode.split("_")[0];
-  },
-  _parseExpertise: function(mode){
-    return mode.split("_")[1];
-  },
-  _getContainer: function(cname){
-    return this["_" + cname + "Container"];
-  },
   _changeMode: function(mode){
     var that = this;
-
     // Make sure the correct buttons are toggled
     var bLi = that._getContainer("basis");
     var eLi = that._getContainer("expertise");
@@ -67,18 +34,61 @@ $.extend(BufferEditor.prototype, {
       $(".buffer-new-type").text(mode.replace("_"," "));
     }
   },
-  toggleWindow: function(w, status){
-    var $w = (typeof(w) == "string" ? this['_' + w + 'Container'] : w);
-
-    if(status == "show" || status == true){
-      if($w.hasClass("hidden")){
-        $w.removeClass("hidden");
-      } else {
-        $w.show();
-      }
+  _checkMode: function(){
+    var $basis = this._basisContainer.children("li.ui-selected");
+    var $expertise = this._expertiseContainer.children("li.ui-selected");
+    if($basis.length){
+      this.toggleWindow("expertise", true);
+      mode = $basis.data("type") + "_";
     } else {
-      $w.addClass("hidden");
+      this.toggleWindow("expertise", false);
+      this.setMode(null);
+      return false;
     }
+    if($expertise.length){
+      mode += $expertise.data("type");
+      this.setMode(mode);
+    } else {
+      return false;
+    }
+    return mode;
+  },
+  _getContainer: function(cname){
+    return this["_" + cname + "Container"];
+  },
+  _init: function(){
+    var that = this;
+    // Grab info regarding the current setup.  CANNOT BUILD URL HERE!!
+    $.get(window.location.href.replace("/edit",""), {}, function(data){
+      that.buffer       = data.buffer_preference;
+      that.tUser        = data.twitter_user;
+      that.currentMode  = that.buffer.tweet_mode;
+      if(that._parseBasis(that.currentMode) == "daily"){
+        that._modeIsDaily();
+      }
+    }, "json");
+
+    // Set up some listeners
+    $("a.buffer-cancel").live("click", function(e){that.bufferChangeCancel()});
+    $("a.buffer-accept").live("click", function(e){that.bufferChangeAccept()});
+    $("a.delete-time").live("click", function(e){that.deleteTime($(e.target))});
+    $(that).bind("modeChange", function(e, mode){that._changeMode(mode)});
+
+    // Set selectable buttons
+    that._selectable();
+  },
+  _modeIsDaily: function(){
+    var that = this;
+    $("#daily.tabs-container").bind("tabsselect", function(event,ui){
+      that.currentDay = that._days.indexOf(ui.panel.id.replace("daily_","").toLowerCase());
+
+    });
+  },
+  _parseBasis: function(mode){
+    return mode.split("_")[0];
+  },
+  _parseExpertise: function(mode){
+    return mode.split("_")[1];
   },
   _selectable: function(){
     var that = this;
@@ -92,27 +102,49 @@ $.extend(BufferEditor.prototype, {
     if(obj.length == 1)
       return "0" + obj;
     else
-      return obj
-  }
-  init: function(){
+      return obj;
+  },
+  addTime: function(json){
     var that = this;
-    // Grab info regarding the current setup
-    $.get(window.location.href.replace("/edit",""), {}, function(data){
-      that.buffer       = data.buffer_preference;
-      that.tUser        = data.twitter_user;
-      that.currentMode  = that.buffer.tweet_mode;
+    var dayHunter = (that._parseBasis(that.currentMode) == "daily" ? " #daily_" + that._days[json.day_of_week] : "");
+    var $timeList = $("#" + that.currentMode + dayHunter + " ul.time-list");
+    console.log("HEY THERE");
+    console.log($timeList);
+    console.log(dayHunter);
+    $timeList.children("li.no-times").remove(); // If it's got a no time placeholder, remove it.
+    $timeList.append($("<li class='time' data-id='" + json.id + "'>" + that._zeroBuffer(json.start_hour) + ":" + that._zeroBuffer(json.start_minute) + "<a href='#' class='delete-time'>Delete</a></li>"));
+  },
+  buildURL: function(whereto,options){
+    var regex = /[\_\-\(\)\[\]\{\}\,\.\/\?\!\@\#\$\%\^\&\*\s]+/g;
+    var twitterName = this.tUser.login.replace(regex,"-"),
+        bufferName  = this.buffer.name.replace(regex,"-");
+    var base = "/twitter/" + twitterName + "/" + bufferName + "/"
+
+    switch(whereto){
+      case "deleteLink":
+        return base + options.id;
+        break;
+      case "acceptTweetMode":
+      case "getBufferInfo":
+      default:
+        return base;
+    }
+  },
+  deleteTime: function(link){
+    var that = this;
+    var listItem = link.parent("li.time");
+    var timeDefinitionId = listItem.data("id");
+    var token = that.getToken();
+    var url = that.buildURL("deleteLink",{id: timeDefinitionId});
+    $.post(url, {authenticity_token: token, _method:'DELETE'}, function(json){
+      if(json.status != "ok"){
+        return;
+      } else {
+        listItem.empty().remove();
+      }
     }, "json");
-
-    // Set up some listeners
-    $("a.buffer-cancel").live("click", function(e){that.bufferChangeCancel()});
-    $("a.buffer-accept").live("click", function(e){that.bufferChangeAccept()});
-    $(that).bind("modeChange", function(e, mode){that._changeMode(mode)})
-
-    // Set selectable buttons
-    that._selectable();
   },
   bufferChangeCancel: function(){
-    console.log(this.currentMode)
     this.setMode(this.currentMode);
   },
   bufferChangeAccept: function(){
@@ -121,8 +153,9 @@ $.extend(BufferEditor.prototype, {
     if(that.selectedMode == null) {
       return;
     }
-    var token = $('meta[name=csrf-token]').attr('content');
-    $.post(window.location.href.replace("/edit",""),
+    var token = that.getToken();
+    var url = that.buildURL("acceptTweetMode");
+    $.post(url,
       {authenticity_token:token, _method:"put", buffer_preferences:{tweet_mode:that.selectedMode}},
       function(data){
         if(data.status !== "ok"){
@@ -134,10 +167,27 @@ $.extend(BufferEditor.prototype, {
       "json"
     );
   },
-  addTime: function(json){
-    $("#" + this.currentMode)
-      .find("div.day_" + json.day_of_week + " ul.time-list")
-      .append($("<li class='time'>" + this._zeroBuffer(json.start_hour) + ":" + this._zeroBuffer(json.start_minute) + "<span class='delete'>x</span></li>"));
+  getToken: function(){
+    return $('meta[name=csrf-token]').attr('content');
+  },
+  setMode: function(mode){
+    this.selectedMode = mode;
+    if(mode != null){
+      $(this).trigger("modeChange", [mode]);
+    }
+  },
+  toggleWindow: function(w, status){
+    var $w = (typeof(w) == "string" ? this['_' + w + 'Container'] : w);
+
+    if(status == "show" || status == true){
+      if($w.hasClass("hidden")){
+        $w.removeClass("hidden");
+      } else {
+        $w.show();
+      }
+    } else {
+      $w.addClass("hidden");
+    }
   }
 
 });

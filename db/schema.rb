@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110728210058) do
+ActiveRecord::Schema.define(:version => 20110805001948) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20110728210058) do
     t.string   "timezone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "permalink"
   end
 
   add_index "buffer_preferences", ["twitter_user_id"], :name => "index_buffer_preferences_on_twitter_user_id"
@@ -112,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20110728210058) do
     t.string  "profile_image_url"
     t.string  "url"
     t.string  "time_zone"
+    t.string  "permalink"
   end
 
   create_table "users", :force => true do |t|

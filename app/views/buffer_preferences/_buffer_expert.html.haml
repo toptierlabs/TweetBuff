@@ -1,0 +1,22 @@
+- times = buffer_preference.time_definitions.all(:conditions => {:day_of_week => day})
+.span-15.last
+  .span-15.last
+    SEND ON DAY WHATEVER GOES HERE
+.span-15.last
+  .span-3
+    Send at:
+  .span-7
+    %ul.time-list{:class => buffer_preference.tweet_mode}
+      - times.each do |time|
+        %li.time
+          = "#{time.start_hour}:#{time.start_minute}"
+          %a.delete-time
+            = t("buffer_preferences.edit.links.delete_time")
+      - if times.count == 0
+        %li.no-times
+          = t("buffer_preferences.edit.warnings.no_times")
+  .span-5.last
+    X tweets per day
+.span-15.last
+  %a.dialog{:href => new_twitter_user_buffer_preference_tweet_time_path}
+    =t("buffer_preferences.edit.links.add_new_time")

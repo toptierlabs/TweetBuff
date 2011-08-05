@@ -1268,30 +1268,33 @@ table.ui-timepicker tr td a {
   text-decoration: none;
 }
 
-/* line 113, app/stylesheets/_tools.scss */
+/* line 114, app/stylesheets/_tools.scss */
+#buffer-basis .container#buffer-selector ul.selectable {
+  display: inline-block;
+}
+
+/* line 121, app/stylesheets/_tools.scss */
 ul.selectable.ui-selectable {
   margin: 0;
   padding: 0;
   list-style: none;
   display: block;
 }
-/* line 118, app/stylesheets/_tools.scss */
+/* line 126, app/stylesheets/_tools.scss */
 ul.selectable.ui-selectable li {
   margin: 0;
   padding: 3px 10px;
-  display: inline-block;
-  border: 1px solid red;
 }
-/* line 127, app/stylesheets/_tools.scss */
+/* line 131, app/stylesheets/_tools.scss */
 ul.selectable.ui-selectable li.ui-selecting {
-  background: #eee;
+  background: #d0e5f5 url(/images/jquery-redmond/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x;
 }
-/* line 130, app/stylesheets/_tools.scss */
+/* line 134, app/stylesheets/_tools.scss */
 ul.selectable.ui-selectable li.ui-selected {
-  background: #ddd;
+  background: #d0e5f5 url(/images/jquery-redmond/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x;
 }
 
-/* line 135, app/stylesheets/_tools.scss */
+/* line 139, app/stylesheets/_tools.scss */
 .hidden {
   display: none;
 }

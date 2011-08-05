@@ -109,6 +109,14 @@ table.ui-timepicker {
   }
 }
 
+#buffer-basis {
+  .container#buffer-selector {
+    ul.selectable {
+      display: inline-block;
+    }
+  }
+}
+
 
 ul.selectable.ui-selectable {
   margin: 0;
@@ -118,17 +126,13 @@ ul.selectable.ui-selectable {
   li {
     margin: 0;
     padding: 3px 10px;
-    display: inline-block;
-    border: 1px solid red;
   }
-  li.ui-selectee {
-
-  }
+  li.ui-selectee {}
   li.ui-selecting {
-    background: #eee;
+    background: #d0e5f5 url(/images/jquery-redmond/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x
   }
   li.ui-selected {
-    background: #ddd;
+    background: #d0e5f5 url(/images/jquery-redmond/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x
   }
 }
 

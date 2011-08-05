@@ -1,8 +1,13 @@
-%ul.tabs
+#daily.tabs-container
+  %ul.tabs
+    - Date::DAYNAMES.each do |day|
+      %li
+        %a{:href => "#daily_#{day.downcase}"}
+          = day
   - Date::DAYNAMES.each do |day|
-    %li
-      %a{:href => "#daily_#{day}"}
-        = day
-- Date::DAYNAMES.each do |day|
-  %div{:id => "daily_#{day}"}
-    A tab for #{day}
+    .clearfix{:id => "daily_#{day.downcase}"}
+      - day_idx = Date::DAYNAMES.index(day)
+      - if expert
+        = render(:partial => "/buffer_preferences/buffer_expert", :locals => {:buffer_preference => buffer_preference, :day => day_idx})
+      - else
+        = render(:partial => "/buffer_preferences/buffer_basic", :locals => {:buffer_preference => buffer_preference, :day => day_idx})

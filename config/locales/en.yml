@@ -63,6 +63,12 @@ en:
       header: "Buffers for %{name}"
       description: "Manage the order in which your Tweets are posted."
       new_buffer_header: "Create a new Buffer"
+    edit:
+      links:
+        delete_time: "Delete"
+        add_new_time: "Add new time"
+      warnings:
+        no_times: "You haven't set up any times yet"
   twitter_users:
     links:
       buffers:

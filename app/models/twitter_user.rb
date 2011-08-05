@@ -1,11 +1,7 @@
 class TwitterUser < ActiveRecord::Base
   include ::TwitterAuth::OauthUser
 
-  belongs_to :user
-  has_many   :buffer_preferences
-
-  attr_protected :twitter_id, :remember_token, :remember_token_expires_at
-
+  # Constants
   TWITTER_ATTRIBUTES = [
     :name,
     :location,
@@ -13,13 +9,6 @@ class TwitterUser < ActiveRecord::Base
     :profile_image_url,
     :url,
     :protected,
-    :profile_background_color,
-    :profile_sidebar_fill_color,
-    :profile_link_color,
-    :profile_sidebar_border_color,
-    :profile_text_color,
-    :profile_background_image_url,
-    :profile_background_tile,
     :friends_count,
     :statuses_count,
     :followers_count,
@@ -28,7 +17,18 @@ class TwitterUser < ActiveRecord::Base
     :utc_offset
   ]
 
+  # Associations
+  belongs_to :user
+  has_many   :buffer_preferences
+
+  # Attributes
+  attr_protected :twitter_id, :remember_token, :remember_token_expires_at
+
+  # Validations
   validates_uniqueness_of :twitter_id, :message => "ID has already been taken."
+
+  # Callbacks
+  before_save :update_permalink
 
   def self.new_from_twitter_hash(hash)
     raise ArgumentError, 'Invalid hash: must include screen_name.' unless hash.key?('screen_name')
@@ -61,7 +61,13 @@ class TwitterUser < ActiveRecord::Base
   end
 
   def to_param
-    self.login
+    self.login.parameterize
+  end
+
+protected
+
+  def update_permalink
+    self.permalink = self.to_param
   end
 
 end

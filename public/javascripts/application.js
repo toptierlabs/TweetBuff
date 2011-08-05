@@ -190,7 +190,6 @@ $(document).ready(function(){
 
   $.tabHandler.registeredMenus.push("buffer");
   $.tabHandler.registeredMenus.push("twitter");
-  $.tabHandler.registeredMenus.push("weekly");
   $.tabHandler.registeredMenus.push("daily");
 
   // Create inline timepickers
@@ -208,4 +207,5 @@ $(document).ready(function(){
   // This should be the last thing to happen on page load...
   $(window).hashchange();
 
+  $("#buffer-selector ul li").button();
 });

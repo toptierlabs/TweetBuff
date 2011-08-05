@@ -1,5 +1,5 @@
 .span-24.last#buffer-basis
-  .container#buffer-selector
+  .container#buffer-selector.append-bottom
     %ul#buffer-basis-select.selectable
       %li{:"data-type" => "weekly", :class => tweet_mode_selected(:weekly, @buffer_preference.tweet_mode)}
         = t("buffer_preferences.edit.weekly")
@@ -10,20 +10,20 @@
         = t("buffer_preferences.edit.basic")
       %li{:"data-type" => "expert", :class => tweet_mode_selected(:expert, @buffer_preference.tweet_mode)}
         = t("buffer_preferences.edit.expert")
-  .container#buffer-editor
+  .container#buffer-editor.append-bottom
     #loading-screen.hidden
       Loading...
     #weekly_basic.mode-container
       - if @buffer_preference.tweet_mode == :weekly_basic
-        = render(:partial => "/buffer_preferences/buffer_weekly_basic", :locals => {:buffer_preference => @buffer_preference})
+        = render(:partial => "/buffer_preferences/buffer_basic", :locals => {:buffer_preference => @buffer_preference, :day => 0})
     #weekly_expert.mode-container
       - if @buffer_preference.tweet_mode == :weekly_expert
-        = render(:partial => "/buffer_preferences/buffer_weekly_expert", :locals => {:buffer_preference => @buffer_preference})
+        = render(:partial => "/buffer_preferences/buffer_expert", :locals => {:buffer_preference => @buffer_preference, :day => 0})
     #daily_basic.mode-container
       - if @buffer_preference.tweet_mode == :daily_basic
-        = render(:partial => "/buffer_preferences/buffer_daily", :locals => {:buffer_preference => @buffer_preference})
+        = render(:partial => "/buffer_preferences/buffer_daily", :locals => {:buffer_preference => @buffer_preference, :expert => false})
     #daily_expert.mode-container
       - if @buffer_preference.tweet_mode == :daily_expert
-        = render(:partial => "/buffer_preferences/buffer_daily", :locals => {:buffer_preference => @buffer_preference})
+        = render(:partial => "/buffer_preferences/buffer_daily", :locals => {:buffer_preference => @buffer_preference, :expert => true})
     #buffer-change-warning.hidden
       =render(:partial => "/buffer_preferences/buffer_warning", :locals => {:buffer_preference => @buffer_preference})

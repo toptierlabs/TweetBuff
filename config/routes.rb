@@ -40,6 +40,7 @@ Tweetbuffer::Application.routes.draw do
         end
 
         post    "time" => "TimeDefinitions#create_time",  :as => :twitter_user_buffer_preference_tweet_time
+        delete  "time" => "TimeDefinitions#destroy_time", :as => :twitter_user_buffer_preference_tweet_time
       end
     end
   end

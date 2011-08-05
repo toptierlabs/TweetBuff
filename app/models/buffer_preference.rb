@@ -32,7 +32,7 @@ class BufferPreference < ActiveRecord::Base
   before_validation :set_defaults
   after_create      :create_time_definitions
   before_update     :detect_tweet_mode_change
-
+  before_save       :update_permalink
 
   # Class Methods
 
@@ -133,6 +133,8 @@ protected
   end
 
 
-
+  def update_permalink
+    self.permalink = self.to_param
+  end
 
 end

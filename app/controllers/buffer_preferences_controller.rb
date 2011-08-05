@@ -14,7 +14,7 @@ class BufferPreferencesController < ApplicationController
 
   # get     ":twitter_name/:buffer_name"
   def show
-    @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
+    @buffer_preference = @twitter_user.buffer_preferences.find_by_permalink(params[:buffer_name])
     respond_with(@twitter_user, @buffer_preference) do |format|
       format.json {
         render(:json => { :twitter_user => {
@@ -45,13 +45,13 @@ class BufferPreferencesController < ApplicationController
 
   # get     ":twitter_name/:buffer_name/edit"
   def edit
-    @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
+    @buffer_preference = @twitter_user.buffer_preferences.find_by_permalink(params[:buffer_name])
     respond_with(@twitter_user, @buffer_preference)
   end
 
   # put     ":twitter_name/:buffer_name"
   def update
-    @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
+    @buffer_preference = @twitter_user.buffer_preferences.find_by_permalink(params[:buffer_name])
     @buffer_preference.update_attributes(params[:buffer_preferences])
     respond_with(@twitter_user, @buffer_preference) do |format|
       format.json { render(:json => {:status => :ok})}
@@ -65,14 +65,14 @@ class BufferPreferencesController < ApplicationController
 
 
   def new_tweet_time
-    @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
+    @buffer_preference = @twitter_user.buffer_preferences.find_by_permalink(params[:buffer_name])
     render :layout => false
   end
 
 protected
 
   def get_twitter_user
-    @twitter_user = current_user.twitter_users.find_by_login(params[:twitter_name])
+    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
   end
 
 end

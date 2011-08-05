@@ -51,7 +51,7 @@ class TimeDefinition < ActiveRecord::Base
     when :daily
       TimeDefinition.create(
         :day_of_week          => definition[:day_of_week],
-        :buffer_preference_id => buffer_id,
+        :buffer_preference_id => definition[:buffer_preference_id],
         :interval             => false,
         :interval_length      => 0,
         :start_hour           => hour,

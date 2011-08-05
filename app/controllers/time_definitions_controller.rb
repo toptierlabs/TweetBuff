@@ -45,12 +45,12 @@ class TimeDefinitionsController < ApplicationController
 protected
 
   def get_twitter_user
-    @twitter_user = current_user.twitter_users.find_by_login(params[:twitter_name])
+    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
   end
 
   def get_buffer_preference
     get_twitter_user
-    @buffer_preference = @twitter_user.buffer_preferences.find_by_name(params[:buffer_name])
+    @buffer_preference = @twitter_user.buffer_preferences.find_by_permalink(params[:buffer_name])
   end
 
 
