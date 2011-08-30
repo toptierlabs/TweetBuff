@@ -1,0 +1,59 @@
+$menu_hover_gradient_top:     #ffd65d;
+$menu_hover_gradient_bottom:  #febf05;
+
+ul.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  li {
+    display: inline-block;
+    position: relative;
+    color: $font_color;
+    &:after{
+      content: " |";
+      position: absolute;
+      right: -3px;
+      top: 41px;
+      color: $font_color;
+    }
+
+    a {
+      display: block;
+      padding: 41px 7px 7px;
+      text-decoration: none;
+      color: $font_color;
+
+      &:hover {
+        @include gradient($menu_hover_gradient_top, $menu_hover_gradient_bottom);
+        color: white;
+
+      }
+    }
+  }
+}
+
+ul.nav#main {
+  float: right;
+}
+
+ul.link-nav {
+  list-style: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  li {
+    display: inline-block;
+    margin: 0;
+    a {
+      display: block;
+      padding: 3px 7px 2px;
+      text-decoration: none;
+    }
+  }
+  &.right {
+    float: right;
+  }
+  &.left {
+    float: left;
+  }
+}

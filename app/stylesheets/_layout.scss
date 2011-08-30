@@ -1,0 +1,83 @@
+@import "grid";
+
+$body_border_top: #79c1f3;
+$body_border_border: #9ad0f6;
+
+$blueprint-font-family: "Helvetica Neue", Arial, Helvetica, sans-serif !default;
+$blueprint-font-size: 12px !default;
+$font_color: #3d6caf;
+
+body {
+  @include blueprint-grid;
+  font-family: $blueprint-font-family;
+  font-size: $blueprint-font-size;
+  border-top: 20px solid $body_border_top;
+  &:before{
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: $body_border_top;
+    content: "";
+    border-top: 1px solid white;
+    border-bottom: 1px solid $body_border_border;
+    top: 17px;
+  }
+
+  div.container {
+    @include container;
+    @include span(22);
+  }
+}
+
+#header {
+  margin: 0 auto;
+  > .container {
+    padding-top: 21px;
+    position: relative;
+    > h1, > h2 {
+      text-indent: -9999px;
+    }
+    > h1 {
+      background-image: url(/images/header.png);
+      background-repeat: no-repeat;
+      height: 91px;
+      width: 172px;
+    }
+    > h2 {
+      width: 0;
+    }
+
+    .menu#nav {
+      position: absolute;
+      top: 0;
+      left: 200px;
+      height: 40px;
+      z-index:10;
+    }
+
+  }
+}
+
+#page {
+
+}
+
+#footer {
+  position: static;
+  width: 100%;
+  color: white;
+  background: $body_border_top;
+  bottom: 0;
+  padding: 6px 0 3px;
+
+  &:before{
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: $body_border_top;
+    content: "";
+    border-top: 1px solid $body_border_border;
+    border-bottom: 1px solid white;
+    top: 0;
+  }
+}

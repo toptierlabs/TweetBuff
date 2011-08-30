@@ -1,31 +1,13 @@
-//  --------------------------------------------------------------
-//  SASS Gridification
-//  * Author:   Chris Eppstein
-//  A SASS adaptation of Blueprint CSS
-//  * Version:         0.7.1 (2008-02-25)
-//  * Website:         http://code.google.com/p/blueprintcss/
-//  Based on work by:
-//  * Lorin Tackett     [lorintackett.com]
-//  * Olav Bjorkoy      [bjorkoy.com]
-//  * Nathan Borror     [playgroundblues.com]
-//  * Jeff Croft        [jeffcroft.com]
-//  * Christian Metts   [mintchaos.com]
-//  * Khoi Vinh         [subtraction.com]
-//  Read more about using a grid here:
-//  * http://www.subtraction.com/2007/03/18/oh-yeeaahh
-//  --------------------------------------------------------------
-
-@import "compass/utilities/general/float";
-@import "compass/utilities/general/clearfix";
+@import "compass";
 
 // The number of columns in the grid.
 $blueprint-grid-columns: 24 !default;
 
 // The width of a column
-$blueprint-grid-width: 30px !default;
+$blueprint-grid-width: 35px !default;
 
 // The amount of margin between columns
-$blueprint-grid-margin: 10px !default;
+$blueprint-grid-margin: 8px !default;
 
 // The width of a column including the margin. With default settings this is `40px`.
 $blueprint-grid-outer-width: $blueprint-grid-width + $blueprint-grid-margin;

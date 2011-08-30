@@ -257,9 +257,6 @@ $(document).ready(function(){
           that._addBuffer(bufferPermalink);
       });
     },
-    _sortableAjax: function(){
-
-    },
     _sortableInit: function(bufferPermalink){
       var that = this;
       $("#" + bufferPermalink + " table.tweets > tbody").sortable({
@@ -267,7 +264,6 @@ $(document).ready(function(){
           url = ["/twitter",that.tUser,bufferPermalink,"tweets","sort"].join("/")
           data = $(this).sortable("serialize")
           data += "&authenticity_token=" + $.buildToken();
-          console.log(data);
           $.post(url, data, function(data){
             if(data.status == "ok"){
               console.log("sorting went fine");

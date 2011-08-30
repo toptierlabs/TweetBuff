@@ -16,21 +16,23 @@
     = csrf_meta_tag
     = yield(:head)
 
-  %body.bp
-    #container.container
-      #header.span-24
+  %body
+    #header
+      .container
         %h1= t("application.header")
-        %p= t("application.tagline")
-        .menu.span-24.last#nav
+        %h2= t("application.tagline")
+        .menu#nav
           = Menu.get("main").render(request.fullpath, {:state => user_signed_in?})
-      #alert.span-24
+    #alert
+      .container
         - flash.each do |name, msg|
           = content_tag :div, msg, :id => "flash_#{name}", :class => [name]
-      #page.span-24
+    #page
+      .container
         = yield
-      #footer.span-24
-        .right
-          = t("footer.copyright")
+    #footer
+      .container
+        != t("footer.copyright")
     #dialog
       .loading
         Loading...
