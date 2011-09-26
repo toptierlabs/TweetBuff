@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @subcription.user_id
+%p
+  %b Plan:
+  = @subcription.plan_id
+%p
+  %b Expire:
+  = @subcription.expire
+
+= link_to 'Edit', edit_subcription_path(@subcription)
+\|
+= link_to 'Back', subcriptions_path

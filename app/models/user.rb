@@ -11,5 +11,6 @@ class User < ActiveRecord::Base
   has_many    :twitter_users
   has_many    :buffer_preferences
   has_many    :tweets
+  has_one :subcription
 
 end

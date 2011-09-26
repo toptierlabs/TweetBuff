@@ -1,0 +1,14 @@
+= simple_form_for(@plan) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :name
+    = f.input :price
+    = f.input :num_of_tweet_per_day
+    = f.input :num_of_tweet_in_buffer
+    = f.input :num_of_tweet_account
+    = f.input :num_of_team_member_per_account
+    = f.input :free_browser_ext
+
+  .actions
+    = f.button :submit

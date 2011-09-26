@@ -65,7 +65,11 @@ class MenuItem < Hashie::Dash
         if self.is_submenu? && (render_submenus ? true : self.selected)
           haml_concat(self.submenu.render(current_uri, options))
         else
-          haml_tag(:a, I18n.t(self.translation_key), {:href => @path})
+          if @path.eql?("/users/sign_out")
+            haml_tag(:a, I18n.t(self.translation_key), {"data-method" => :delete, :href => @path})
+          else
+            haml_tag(:a, I18n.t(self.translation_key), {:href => @path})
+          end
         end
       end
     end

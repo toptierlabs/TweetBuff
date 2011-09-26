@@ -20,6 +20,7 @@ gem "resque-scheduler"
 gem "responders"
 gem "sass"
 gem "simple_form"
+gem 'activemerchant', :require => 'active_merchant'
 
 
 group(:development, :production) do

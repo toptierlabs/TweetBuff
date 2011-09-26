@@ -26,6 +26,8 @@ body {
   div.container {
     @include container;
     @include span(22);
+    text-align: center;
+    padding: 20px 0 20px 0;
   }
 }
 

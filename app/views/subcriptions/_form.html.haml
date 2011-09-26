@@ -1,0 +1,10 @@
+= simple_form_for(@subcription) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :user_id
+    = f.input :plan_id
+    = f.input :expire
+
+  .actions
+    = f.button :submit

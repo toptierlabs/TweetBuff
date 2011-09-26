@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @plan.name
+%p
+  %b Price:
+  = @plan.price
+%p
+  %b Num of tweet per day:
+  = @plan.num_of_tweet_per_day
+%p
+  %b Num of tweet in buffer:
+  = @plan.num_of_tweet_in_buffer
+%p
+  %b Num of tweet account:
+  = @plan.num_of_tweet_account
+%p
+  %b Free browser ext:
+  = @plan.free_browser_ext
+
+= link_to 'Edit', edit_plan_path(@plan)
+\|
+= link_to 'Back', plans_path

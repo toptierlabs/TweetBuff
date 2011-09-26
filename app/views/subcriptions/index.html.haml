@@ -1,0 +1,23 @@
+%h1 Listing subcriptions
+
+%table
+  %tr
+    %th User
+    %th Plan
+    %th Expire
+    %th
+    %th
+    %th
+
+  - @subcriptions.each do |subcription|
+    %tr
+      %td= subcription.user_id
+      %td= subcription.plan_id
+      %td= subcription.expire
+      %td= link_to 'Show', subcription
+      %td= link_to 'Edit', edit_subcription_path(subcription)
+      %td= link_to 'Destroy', subcription, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Subcription', new_subcription_path
