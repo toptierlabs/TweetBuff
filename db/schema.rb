@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110805001948) do
+ActiveRecord::Schema.define(:version => 20110926070124) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20110805001948) do
   create_table "buffer_preferences", :force => true do |t|
     t.integer  "user_id"
     t.integer  "twitter_user_id"
-    t.integer  "tweet_mode",       :limit => 2
+    t.integer  "tweet_mode",       :limit => 1
     t.datetime "today"
     t.integer  "tweets_remaining"
     t.string   "name",             :limit => 64
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(:version => 20110805001948) do
 
   add_index "buffer_preferences", ["twitter_user_id"], :name => "index_buffer_preferences_on_twitter_user_id"
 
+  create_table "plans", :force => true do |t|
+    t.string   "name"
+    t.float    "price"
+    t.integer  "num_of_tweet_per_day"
+    t.integer  "num_of_tweet_in_buffer"
+    t.integer  "num_of_tweet_account"
+    t.boolean  "free_browser_ext"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "num_of_team_member_per_account"
+  end
+
   create_table "preferences", :force => true do |t|
     t.integer  "user_id"
     t.string   "key"
@@ -68,12 +80,20 @@ ActiveRecord::Schema.define(:version => 20110805001948) do
     t.datetime "updated_at"
   end
 
+  create_table "subcriptions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "plan_id"
+    t.datetime "expire"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "time_definitions", :force => true do |t|
     t.boolean  "interval",                          :default => true
     t.integer  "buffer_preference_id"
-    t.integer  "day_of_week",          :limit => 2, :default => 0
-    t.integer  "start_hour",           :limit => 2, :default => 0
-    t.integer  "start_minute",         :limit => 2, :default => 0
+    t.integer  "day_of_week",          :limit => 1, :default => 0
+    t.integer  "start_hour",           :limit => 1, :default => 0
+    t.integer  "start_minute",         :limit => 1, :default => 0
     t.integer  "interval_length",                   :default => 3600
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,10 +1,14 @@
 Tweetbuffer::Application.routes.draw do
+  resources :subcriptions
+
+  resources :plans
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users
 
-  root :to => 'Home#index'
+  root :to => 'Home#index'  
 
   scope "dashboard" do
     controller :dashboard do
