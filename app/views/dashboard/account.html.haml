@@ -1,10 +1,93 @@
-%h2= t("dashboard.account.header")
-%p!= t("dashboard.account.description", :user => current_user.email)
-%h3= t("dashboard.account.subheaders.password")
-%a.reveal{:href => "#change-password"}
-  =t("dashboard.account.links.change_password")
-.hidden#change-password
-  = simple_form_for(current_user, :url => account_settings_path) do |form|
-    = form.input :password
-    = form.input :password_confirmation
-    = form.button :submit, :value => t("dashboard.account.links.change_password")
+//%h2= t("dashboard.account.header")
+//%p!= t("dashboard.account.description", :user => current_user.email)
+//%h3= t("dashboard.account.subheaders.password")
+//%a.reveal{:href => "#change-password"}
+//  =t("dashboard.account.links.change_password")
+//.hidden#change-password
+//  = simple_form_for(current_user, :url => account_settings_path) do |form|
+//    = form.input :password
+//    = form.input :password_confirmation
+//    = form.button :submit, :value => t("dashboard.account.links.change_password")
+%div{:style => "width: 685px; margin: 0 auto;"}
+  .account-detail
+    %span{:id => "detail_head"}
+      Change your password
+    =form_tag "/" do
+      .field_content
+        Current password
+        %br
+        =text_field :user, :current_password, :class => "account_input"
+      .field_content
+        New password
+        %br
+        =text_field :user, :new_password, :class => "account_input"
+      .field_content
+        Confirm new password
+        %br
+        =text_field :user, :confirm_new_password, :class => "account_input"
+      .field_content
+        =submit_tag "Save new detail", :id => "submit_button"
+
+  .notifications
+    %span{:id => "detail_head"}
+      Notifications
+    =form_tag "/" do
+      %div{:style => "float: left;"}
+        =check_box("notification","false")
+      Remind me to add Tweets where i've run out in my buffer
+      %br
+      %div{:style => "text-align: center; height: 119px;"}
+        %img{:src => "/images/tweet_bird.jpg"}
+      .field_content
+        =submit_tag "Save notifications", :id => "submit_button"
+
+  .timezone
+    %span{:id => "detail_head"}
+      Select your timezone
+    =form_tag "/" do
+      .field_content
+        =text_field :user, :timezone, :class => "account_input"
+      %br
+      %div{:style => "text-align: center; height: 99px;"}
+        %img{:src => "/images/timezone_bird.jpg"}
+      .field_content
+        =submit_tag "Update timezone", :id => "submit_button"
+
+  %div{:style => "clear: both; padding-top: 35px;", :id => "separator"}
+    %img{:src => "/images/separator.jpg"}
+
+  .go_pro
+    %div{:style => "float: left;"}
+      %img{:src => "/images/bluebox.jpg"}
+    .go_pro_head
+      %span{:style => "color: #F6C312;"}
+        Go
+      %span{:style => "color: #3D6CB4;"}
+        pro!
+      %span{:style => "color: #25A3F0;"}
+        Be awesome
+    %div{:style => "float: left; padding-left: 20px;"}
+      lorem ipsum dolor sit amet
+      %br
+      lorem ipsum dolor sit amet
+      %br
+      lorem ipsum dolor sit amet
+      %br
+    .advantages
+      %div{:style => "float: right;"}
+        Advantage 1
+        %br
+        Advantage 2
+        %br
+        Advantage 3
+        %br
+      %div{:style => "float: right; margin-right: 30px;"}
+        Advantage 1
+        %br
+        Advantage 2
+        %br
+        Advantage 3
+        %br
+
+-content_for :account_css do
+  = stylesheet_link_tag 'account.css'

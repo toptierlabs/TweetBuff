@@ -1,0 +1,260 @@
+body {
+  margin: 0; }
+
+#Table_01 {
+  position: relative;
+  width: 1024px;
+  height: 768px;
+  margin: 0 auto; }
+
+#Tweetbuff-home2-01 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 1024px;
+  height: 21px; }
+
+#Tweetbuff-home2-02 {
+  position: absolute;
+  left: 0px;
+  top: 21px;
+  width: 226px;
+  height: 151px; }
+
+#Tweetbuff-home2-03 {
+  position: absolute;
+  left: 226px;
+  top: 21px;
+  width: 566px;
+  height: 65px; }
+
+#Tweetbuff-home2-04 {
+  position: absolute;
+  left: 792px;
+  top: 21px;
+  width: 47px;
+  height: 97px; }
+
+#Tweetbuff-home2-05 {
+  position: absolute;
+  left: 839px;
+  top: 21px;
+  width: 89px;
+  height: 97px; }
+
+#Tweetbuff-home2-06 {
+  position: absolute;
+  left: 928px;
+  top: 21px;
+  width: 31px;
+  height: 151px; }
+
+#Tweetbuff-home2-07 {
+  position: absolute;
+  left: 959px;
+  top: 21px;
+  width: 65px;
+  height: 481px; }
+
+#Tweetbuff-home2-08 {
+  position: absolute;
+  left: 226px;
+  top: 86px;
+  width: 566px;
+  height: 240px; }
+
+#Tweetbuff-home2-09 {
+  position: absolute;
+  left: 792px;
+  top: 118px;
+  width: 7px;
+  height: 54px; }
+
+#Tweetbuff-home2-10 {
+  position: absolute;
+  left: 799px;
+  top: 118px;
+  width: 34px;
+  height: 36px; }
+
+#Tweetbuff-home2-11 {
+  position: absolute;
+  left: 833px;
+  top: 118px;
+  width: 95px;
+  height: 36px; }
+
+#Tweetbuff-home2-12 {
+  position: absolute;
+  left: 799px;
+  top: 154px;
+  width: 34px;
+  height: 18px; }
+
+#Tweetbuff-home2-13 {
+  position: absolute;
+  left: 833px;
+  top: 154px;
+  width: 95px;
+  height: 18px; }
+
+#Tweetbuff-home2-14 {
+  position: absolute;
+  left: 0px;
+  top: 172px;
+  width: 217px;
+  height: 72px; }
+
+#Tweetbuff-home2-15 {
+  position: absolute;
+  left: 217px;
+  top: 172px;
+  width: 9px;
+  height: 291px; }
+
+#Tweetbuff-home2-16 {
+  position: absolute;
+  left: 792px;
+  top: 172px;
+  width: 167px;
+  height: 72px; }
+
+#Tweetbuff-home2-17 {
+  position: absolute;
+  left: 0px;
+  top: 244px;
+  width: 178px;
+  height: 46px; }
+
+#Tweetbuff-home2-18 {
+  position: absolute;
+  left: 178px;
+  top: 244px;
+  width: 39px;
+  height: 46px; }
+
+#Tweetbuff-home2-19 {
+  position: absolute;
+  left: 792px;
+  top: 244px;
+  width: 7px;
+  height: 46px; }
+
+#Tweetbuff-home2-20 {
+  position: absolute;
+  left: 799px;
+  top: 244px;
+  width: 40px;
+  height: 46px; }
+
+#Tweetbuff-home2-21 {
+  position: absolute;
+  left: 839px;
+  top: 244px;
+  width: 120px;
+  height: 46px; }
+
+#Tweetbuff-home2-22 {
+  position: absolute;
+  left: 0px;
+  top: 290px;
+  width: 217px;
+  height: 173px; }
+
+#Tweetbuff-home2-23 {
+  position: absolute;
+  left: 792px;
+  top: 290px;
+  width: 167px;
+  height: 212px; }
+
+#Tweetbuff-home2-24 {
+  position: absolute;
+  left: 226px;
+  top: 326px;
+  width: 28px;
+  height: 62px; }
+
+#Tweetbuff-home2-25 {
+  position: absolute;
+  left: 254px;
+  top: 326px;
+  width: 258px;
+  height: 62px; }
+
+#Tweetbuff-home2-26 {
+  position: absolute;
+  left: 512px;
+  top: 326px;
+  width: 280px;
+  height: 100px; }
+
+#Tweetbuff-home2-27 {
+  position: absolute;
+  left: 226px;
+  top: 388px;
+  width: 286px;
+  height: 38px; }
+
+#Tweetbuff-home2-28 {
+  position: absolute;
+  left: 226px;
+  top: 426px;
+  width: 566px;
+  height: 37px; }
+
+#Tweetbuff-home2-29 {
+  position: absolute;
+  left: 0px;
+  top: 463px;
+  width: 269px;
+  height: 39px; }
+
+#Tweetbuff-home2-30 {
+  position: absolute;
+  left: 269px;
+  top: 463px;
+  width: 374px;
+  height: 39px; }
+
+#Tweetbuff-home2-31 {
+  position: absolute;
+  left: 643px;
+  top: 463px;
+  width: 109px;
+  height: 39px; }
+
+#Tweetbuff-home2-32 {
+  position: absolute;
+  left: 752px;
+  top: 463px;
+  width: 40px;
+  height: 39px; }
+
+#Tweetbuff-home2-33 {
+  position: absolute;
+  left: 0px;
+  top: 502px;
+  width: 374px;
+  height: 247px; }
+
+#Tweetbuff-home2-34 {
+  position: absolute;
+  left: 374px;
+  top: 502px;
+  width: 362px;
+  height: 247px; }
+
+#Tweetbuff-home2-35 {
+  position: absolute;
+  left: 736px;
+  top: 502px;
+  width: 288px;
+  height: 247px; }
+
+#Tweetbuff-home2-36 {
+  position: absolute;
+  left: 0px;
+  top: 749px;
+  width: 1024px;
+  height: 19px; }

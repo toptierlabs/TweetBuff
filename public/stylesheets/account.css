@@ -1,0 +1,87 @@
+/* line 1, app/stylesheets/account.scss */
+.account-detail {
+  display: inline-block;
+  width: 220px;
+  min-height: 210px;
+  float: left;
+  margin-right: 5px;
+}
+
+/* line 9, app/stylesheets/account.scss */
+#detail_head {
+  color: #47AEF9;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  width: 200px;
+}
+
+/* line 18, app/stylesheets/account.scss */
+.field_content {
+  color: #47AEF9;
+  padding: 5px;
+}
+
+/* line 23, app/stylesheets/account.scss */
+#submit_button {
+  background: url("/images/account_button.jpg") repeat-x;
+  border: 1px solid #cdcdcd;
+  height: 30px;
+  -moz-border-radius: 2px;
+  color: #ffffff;
+  font-family: verdana;
+  font-weight: bold;
+  font-size: 12px;
+  width: 200px;
+  -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* line 37, app/stylesheets/account.scss */
+.account_input {
+  width: 180px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+/* line 43, app/stylesheets/account.scss */
+.notifications {
+  display: inline-block;
+  width: 220px;
+  min-height: 210px;
+  float: left;
+  margin-right: 5px;
+}
+
+/* line 51, app/stylesheets/account.scss */
+.timezone {
+  display: inline-block;
+  width: 220px;
+  min-height: 210px;
+  float: left;
+  margin-right: 5px;
+}
+
+/* line 59, app/stylesheets/account.scss */
+.go_pro {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* line 64, app/stylesheets/account.scss */
+.go_pro_head {
+  font-size: 37px;
+  font-weight: bold;
+  padding-left: 130px;
+}
+
+/* line 70, app/stylesheets/account.scss */
+.advantages {
+  text-align: right;
+  padding-right: 10px;
+  font-family: verdana;
+  color: #47AEF9;
+  font-size: 13px;
+  font-weight: bold;
+}

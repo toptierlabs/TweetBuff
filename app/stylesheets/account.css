@@ -1,0 +1,67 @@
+.account-detail {
+  display: inline-block;
+  width: 220px;
+  min-height: 210px;
+  float: left;
+  margin-right: 5px; }
+
+#detail_head {
+  color: #47AEF9;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  width: 200px; }
+
+.field_content {
+  color: #47AEF9;
+  padding: 5px; }
+
+#submit_button {
+  background: url("/images/account_button.jpg") repeat-x;
+  border: 1px solid #cdcdcd;
+  height: 30px;
+  -moz-border-radius: 2px;
+  color: #ffffff;
+  font-family: verdana;
+  font-weight: bold;
+  font-size: 12px;
+  width: 200px;
+  -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); }
+
+.account_input {
+  width: 180px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+
+.notifications {
+  display: inline-block;
+  width: 220px;
+  min-height: 210px;
+  float: left;
+  margin-right: 5px; }
+
+.timezone {
+  display: inline-block;
+  width: 220px;
+  min-height: 210px;
+  float: left;
+  margin-right: 5px; }
+
+.go_pro {
+  margin-top: 20px;
+  padding: 10px; }
+
+.go_pro_head {
+  font-size: 37px;
+  font-weight: bold;
+  padding-left: 130px; }
+
+.advantages {
+  text-align: right;
+  padding-right: 10px;
+  font-family: verdana;
+  color: #47AEF9;
+  font-size: 13px;
+  font-weight: bold; }
