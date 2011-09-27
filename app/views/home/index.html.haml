@@ -1,1 +1,24 @@
-Welcome to your rails app, Mr. Alton
+-content_for :home_css do
+  = stylesheet_link_tag 'home.css'
+  %style{:type => "text/css"}
+    :plain
+      .container{
+        overflow: visible !important;
+      }
+
+#tryit_form
+  =form_tag "/" do
+    =text_field :tryit, :tweet, :id => "tryit_input"
+    =submit_tag "Try it out!", :class => "tryit_button"
+
+#home_container
+  .statistics
+    #detail_head
+      Statistics
+    %br
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
