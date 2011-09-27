@@ -60,12 +60,13 @@
     %div{:style => "float: left;"}
       %img{:src => "/images/bluebox.jpg"}
     .go_pro_head
-      %span{:style => "color: #F6C312;"}
-        Go
-      %span{:style => "color: #3D6CB4;"}
-        pro!
-      %span{:style => "color: #25A3F0;"}
-        Be awesome
+      %a{:href => plans_path, :style => "text-decoration: none;"}
+        %span{:style => "color: #F6C312;"}
+          Go
+        %span{:style => "color: #3D6CB4;"}
+          pro!
+        %span{:style => "color: #25A3F0;"}
+          Be awesome
     %div{:style => "float: left; padding-left: 20px;"}
       lorem ipsum dolor sit amet
       %br

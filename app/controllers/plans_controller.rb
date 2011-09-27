@@ -5,7 +5,7 @@ class PlansController < InheritedResources::Base
   def myplan
     if user_signed_in?
       u = User.find(current_user.id)
-      @myplan = u.subcription.plan.id
+      @myplan = u.subcription.plan.id rescue 0
     else
       @myplan = 0
     end
