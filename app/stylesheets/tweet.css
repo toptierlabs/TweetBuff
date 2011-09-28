@@ -1,0 +1,71 @@
+.wrapper {
+  width: 900px;
+  marginL: 0 auto; }
+
+#go_pro {
+  text-align: right; }
+
+.adv_link {
+  text-decoration: none;
+  color: #2222ff; }
+
+#tweet_stuff {
+  padding: 5px; }
+
+.user_twitter_detail {
+  display: inline-block;
+  width: 151px;
+  vertical-align: top; }
+
+#profile_image {
+  width: 64px;
+  height: 64px;
+  border: 2px solid #D2EEFA;
+  -moz-border-radius: 4px;
+  -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  display: inline-block; }
+
+#buffer_count {
+  display: inline-block; }
+
+#user_login {
+  clear: both;
+  padding-left: 2px;
+  font-family: verdana;
+  font-size: 11px;
+  font-weight: bold;
+  color: #696969; }
+
+#mini_panel {
+  color: #3468BB; }
+
+.tweet_form_buffer {
+  width: 600px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: -5px;
+  width: 725px; }
+
+#button_container {
+  margin-top: 10px; }
+
+.add_to_queue {
+  background: url(/images/add_to_queue.jpg) no-repeat;
+  width: 167px;
+  height: 49px;
+  border: 0;
+  margin-right: 10px; }
+
+.post_now {
+  background: url(/images/post_now.jpg) no-repeat;
+  width: 167px;
+  height: 49px;
+  border: 0;
+  margin-right: 10px; }
+
+.queue_settings {
+  background: url(/images/queue_setting.jpg) no-repeat;
+  width: 167px;
+  height: 49px;
+  border: 0;
+  margin-right: 10px; }

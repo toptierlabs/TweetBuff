@@ -1,3 +1,6 @@
+-content_for :plan_css do
+  = stylesheet_link_tag 'plan.css'
+
 %div{:style => "width: 700px; margin: 0 auto;"}
   - @plans.each do |plan|
     .plan-container
