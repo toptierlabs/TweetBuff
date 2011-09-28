@@ -13,8 +13,8 @@ class PlansController < InheritedResources::Base
 
   def get_plan_clicked_when_signup
     session[:plan_id] = params[:id]
-    @cart = current_cart
     if user_signed_in?
+      @cart = current_cart
       redirect_to @cart.paypal_url(twitter_users_url, payment_notifications_url)
     else
       redirect_to new_user_registration_path
