@@ -6,6 +6,10 @@
         overflow: visible !important;
       }
 
+-content_for :signup_float do
+  .float_signup
+    %img{:src => "/images/signup_float.jpg"}
+
 #tryit_form
   =form_tag "/" do
     =text_field :tryit, :tweet, :id => "tryit_input"
@@ -15,6 +19,33 @@
   .statistics
     #detail_head
       Statistics
+    %br
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    %div{:style => "text-align: center; padding: 20px 0 0 20px;"}
+      =link_to "View more details", "#", :id => "home_button_link"
+
+  .analytic
+    #detail_head
+      Analitics and Reports
+    %br
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    lorem ipsum dolor set imet
+    %div{:style => "text-align: center; padding: 20px 0 0 20px;"}
+      =link_to "View more details", "#", :id => "home_button_link"
+
+
+  .testimoni
+    #detail_head
+      What are people saying
     %br
     lorem ipsum dolor set imet
     lorem ipsum dolor set imet

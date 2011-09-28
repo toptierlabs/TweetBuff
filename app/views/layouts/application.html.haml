@@ -26,8 +26,7 @@
         %h2= t("application.tagline")
         .menu#nav
           = Menu.get("main").render(request.fullpath, {:state => user_signed_in?})
-        .float_signup
-          %img{:src => "/images/signup_float.jpg"}
+        = yield(:signup_float)
     #alert
       .container
         - flash.each do |name, msg|

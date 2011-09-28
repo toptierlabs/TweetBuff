@@ -12,21 +12,21 @@
   .account-detail
     %span{:id => "detail_head"}
       Change your password
-    =form_tag "/" do
+    -form_for(@user, :as => @user, :url => user_password_path, :html => { :method => :put }) do |f|
       .field_content
-        Current password
+        =f.label :current_password
         %br
-        =text_field :user, :current_password, :class => "account_input"
+        =f.password_field :current_password, :class => "account_input"
       .field_content
-        New password
+        =f.label :password, "New password"
         %br
-        =text_field :user, :new_password, :class => "account_input"
+        =f.password_field :password, :class => "account_input"
       .field_content
-        Confirm new password
+        =f.label :password_confirmation, "Confirm new password"
         %br
-        =text_field :user, :confirm_new_password, :class => "account_input"
+        =f.password_field :password_confirmation, :class => "account_input"
       .field_content
-        =submit_tag "Save new detail", :id => "submit_button"
+        =f.submit "Change my password", :id => "submit_button"
 
   .notifications
     %span{:id => "detail_head"}
@@ -46,7 +46,7 @@
       Select your timezone
     =form_tag "/" do
       .field_content
-        =text_field :user, :timezone, :class => "account_input"
+        =text_field :account, :timezone, :class => "account_input"
       %br
       %div{:style => "text-align: center; height: 99px;"}
         %img{:src => "/images/timezone_bird.jpg"}
