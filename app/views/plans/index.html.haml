@@ -1,47 +1,51 @@
-- @plans.each do |plan|
-  .plan-container
-    .top-part
-      %b= plan.name
-      %hr
-      %span{:style => "font-size: 30px;"}= "#{number_to_currency(plan.price)}/month"
-      %hr
-      - case(plan.name)
-        -when "Free"
-          %span{:style => "color: #8D9688"} Find out what it feels like to consitently tweet with buffer
-        -when "Pro"
-          %span{:style => "color: #8D9688"} Tweet like a champ with custom metrics and larger buffer
-        -when "Premium"
-          %span{:style => "color: #8D9688"} Enjoy the full power of professional GuyKawasaki-like tweeting
-    .bottom-part
-      %ul{:style => "list-style: none"}
-        %li{:id => "list"}
-          %span{:class => "bullet"}= image_tag('check.png')
-          %span{:class => "description"} A continual stream of content for your followers
-        %li{:id => "list"}
-          - num_of_tweet = (plan.num_of_tweet_per_day.nonzero?)? plan.num_of_tweet_per_day : "Unlimited"
-          - is_unlimited_tweet = num_of_tweet.eql?("Unlimited")? "∞" : num_of_tweet
-          %span{:class => "bullet"}= is_unlimited_tweet
-          %span{:class => "description"}= "#{num_of_tweet} tweets per day"
-        %li{:id => "list"}
-          - num_of_buffer = (plan.num_of_tweet_in_buffer.nonzero?)? plan.num_of_tweet_in_buffer : "Unlimited"
-          - is_unlimited_buffer = num_of_buffer.eql?("Unlimited")? "∞" : num_of_buffer
-          %span{:class => "bullet"}= is_unlimited_buffer
-          %span{:class => "description"}= "#{num_of_buffer} tweets in your Buffer"
-        %li{:id => "list"}
-          %span{:class => "bullet"}= plan.num_of_tweet_account
-          %span{:class => "description"}= "#{plan.num_of_tweet_account} Twitter account"
-        %li{:id => "list"}
-          %span{:class => "bullet"}= image_tag('check.png')
-          %span{:class => "description"} Free browser extensions
-        %li{:id => "list", :style => "border-bottom: 0 !important;"}
-          .signup
-            - if user_signed_in?
-              - if plan.id == @myplan
-                %span{:style => "font-size: 18px;"} Your current plan
+-content_for :plan_css do
+  = stylesheet_link_tag 'plan.css'
+
+%div{:style => "width: 700px; margin: 0 auto;"}
+  - @plans.each do |plan|
+    .plan-container
+      .top-part
+        %b= plan.name
+        %hr
+        %span{:style => "font-size: 30px;"}= "#{number_to_currency(plan.price)}/month"
+        %hr
+        - case(plan.name)
+          -when "Free"
+            %span{:style => "color: #8D9688"} Find out what it feels like to consitently tweet with buffer
+          -when "Pro"
+            %span{:style => "color: #8D9688"} Tweet like a champ with custom metrics and larger buffer
+          -when "Premium"
+            %span{:style => "color: #8D9688"} Enjoy the full power of professional GuyKawasaki-like tweeting
+      .bottom-part
+        %ul{:style => "list-style: none"}
+          %li{:id => "list"}
+            %span{:class => "bullet"}= image_tag('check.png')
+            %span{:class => "description"} A continual stream of content for your followers
+          %li{:id => "list"}
+            - num_of_tweet = (plan.num_of_tweet_per_day.nonzero?)? plan.num_of_tweet_per_day : "Unlimited"
+            - is_unlimited_tweet = num_of_tweet.eql?("Unlimited")? "∞" : num_of_tweet
+            %span{:class => "bullet"}= is_unlimited_tweet
+            %span{:class => "description"}= "#{num_of_tweet} tweets per day"
+          %li{:id => "list"}
+            - num_of_buffer = (plan.num_of_tweet_in_buffer.nonzero?)? plan.num_of_tweet_in_buffer : "Unlimited"
+            - is_unlimited_buffer = num_of_buffer.eql?("Unlimited")? "∞" : num_of_buffer
+            %span{:class => "bullet"}= is_unlimited_buffer
+            %span{:class => "description"}= "#{num_of_buffer} tweets in your Buffer"
+          %li{:id => "list"}
+            %span{:class => "bullet"}= plan.num_of_tweet_account
+            %span{:class => "description"}= "#{plan.num_of_tweet_account} Twitter account"
+          %li{:id => "list"}
+            %span{:class => "bullet"}= image_tag('check.png')
+            %span{:class => "description"} Free browser extensions
+          %li{:id => "list", :style => "border-bottom: 0 !important;"}
+            .signup
+              - if user_signed_in?
+                - if plan.id == @myplan
+                  %span{:style => "font-size: 18px;"} Your current plan
+                - else
+                  =link_to "Sign up",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
               - else
-                =link_to "Sign up",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
-            - else
-              - if plan.name.eql?("Free")
-                =link_to "Sign up for free",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
-              -else
-                =link_to "Sign up now",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
+                - if plan.name.eql?("Free")
+                  =link_to "Sign up for free",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
+                -else
+                  =link_to "Sign up now",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"

@@ -40,7 +40,7 @@ module Tweetbuffer
     config.filter_parameters += [:password]  + [:password_confirmation]
   config.generators do |g|
     g.stylesheets false
-    g.form_builder :simple_form
+    #g.form_builder :simple_form
     g.fixture_replacement :factory_girl, :dir => 'spec/factories'
   end
 

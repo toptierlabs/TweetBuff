@@ -11,15 +11,18 @@
 /* line 10, app/stylesheets/home.scss */
 #home_container {
   margin: 0 auto;
-  width: 100%;
+  width: 750px;
+  overflow: auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
-/* line 15, app/stylesheets/home.scss */
+/* line 18, app/stylesheets/home.scss */
 #tryit_form {
   text-align: center;
 }
 
-/* line 19, app/stylesheets/home.scss */
+/* line 22, app/stylesheets/home.scss */
 .tryit_button {
   border: 0;
   background: url(/images/tryit_button.jpg) repeat-x;
@@ -30,7 +33,7 @@
   margin-left: -3px;
 }
 
-/* line 29, app/stylesheets/home.scss */
+/* line 32, app/stylesheets/home.scss */
 #tryit_input {
   background: -moz-linear-gradient(top, #cdcdcd, white);
   width: 330px;
@@ -39,7 +42,7 @@
   -moz-border-radius-bottomleft: 4px;
 }
 
-/* line 37, app/stylesheets/home.scss */
+/* line 40, app/stylesheets/home.scss */
 #detail_head {
   color: #47AEF9;
   font-size: 16px;
@@ -48,10 +51,44 @@
   width: 200px;
 }
 
-/* line 45, app/stylesheets/home.scss */
+/* line 48, app/stylesheets/home.scss */
 .statistics {
   display: inline-block;
-  float: left;
-  border: 1px solid #000;
   width: 220px;
+  padding: 5px;
+  float: left;
+  margin-left: 10px;
+}
+
+/* line 56, app/stylesheets/home.scss */
+#home_button_link {
+  display: block;
+  border: 0;
+  background: url(/images/account_button.jpg) repeat-x;
+  width: 120px;
+  height: 28px;
+  -moz-border-radius: 4px;
+  margin-left: -3px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 28px;
+}
+
+/* line 70, app/stylesheets/home.scss */
+.analytic {
+  display: inline-block;
+  width: 220px;
+  padding: 5px;
+  float: left;
+  margin-left: 10px;
+}
+
+/* line 78, app/stylesheets/home.scss */
+.testimoni {
+  display: inline-block;
+  width: 220px;
+  padding: 5px;
+  float: left;
+  margin-left: 10px;
 }

@@ -9,7 +9,7 @@
     = stylesheet_link_tag :jquery
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
-    = stylesheet_link_tag 'plan.css'
+    = stylesheet_link_tag 'general.css'
     = yield(:account_css)
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
@@ -18,6 +18,8 @@
     = csrf_meta_tag
     = yield(:head)
     = yield(:home_css)
+    = yield(:tweet_css)
+    = yield(:plan_css)
 
   %body
     #header
@@ -26,12 +28,15 @@
         %h2= t("application.tagline")
         .menu#nav
           = Menu.get("main").render(request.fullpath, {:state => user_signed_in?})
-        .float_signup
-          %img{:src => "/images/signup_float.jpg"}
+        = yield(:signup_float)
     #alert
       .container
         - flash.each do |name, msg|
-          = content_tag :div, msg, :id => "flash_#{name}", :class => [name]
+          #notification
+            %span{:style => "float: right;"}
+              %a{:href=>"#", :onclick => "$('#notification').fadeOut(); return false;"}
+                =image_tag("close.png",:width=>"18", :height => "18")
+            =msg
     #page
       .container
         = yield
