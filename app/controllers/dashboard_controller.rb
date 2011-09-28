@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  
   before_filter :authenticate_user!
 
   def show
@@ -6,6 +7,12 @@ class DashboardController < ApplicationController
 
   def account
 
+  end
+
+  def paypall_callback
+    session[:plan_id] = nil
+    session[:cart_id] = nil
+    redirect_to twitter_users_path
   end
 
   def twitter

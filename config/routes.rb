@@ -1,13 +1,21 @@
 Tweetbuffer::Application.routes.draw do
-  resources :subcriptions
 
-  resources :plans
+  resources :subcriptions
+  resources :payment_notifications
+
+  match "paypall_callback" => "dashboard#paypall_callback", :as => :paypall_callback
+
+  resources :plans do
+    member do
+      get "get_plan_clicked_when_signup"
+    end
+  end
 
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users
-
+  
   root :to => 'Home#index'  
 
   scope "dashboard" do

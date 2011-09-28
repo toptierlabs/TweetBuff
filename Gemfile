@@ -24,7 +24,7 @@ gem 'activemerchant', :require => 'active_merchant'
 
 
 group(:development, :production) do
-  gem "pg"
+  gem "mysql"
 end
 
 group(:test, :cucumber, :development) do

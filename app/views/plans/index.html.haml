@@ -39,9 +39,9 @@
               - if plan.id == @myplan
                 %span{:style => "font-size: 18px;"} Your current plan
               - else
-                =link_to "Sign up","#", :class => "signup_link", :onclick => "return false;"
+                =link_to "Sign up",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
             - else
               - if plan.name.eql?("Free")
-                =link_to "Sign up for free","/users/sign_up", :class => "signup_link", :onclick => "return false;"
+                =link_to "Sign up for free",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
               -else
-                =link_to "Sign up now","/users/sign_up", :class => "signup_link", :onclick => "return false;"
+                =link_to "Sign up now",get_plan_clicked_when_signup_plan_path(plan), :class => "signup_link"
