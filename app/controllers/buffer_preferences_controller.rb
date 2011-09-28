@@ -38,7 +38,8 @@ class BufferPreferencesController < ApplicationController
   def create
     @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference])
     if @buffer_preference.errors.empty? && !request.xhr?
-      redirect_to(twitter_user_buffer_preferences_path(@twitter_user) + "#buffer=#{@buffer_preference.name}")
+      #redirect_to(twitter_user_buffer_preferences_path(@twitter_user) + "#buffer=#{@buffer_preference.name}")
+      redirect_to :back, :notice => "Buffer succesfully queued"
     else
       respond_with(@twitter_user, @buffer_preference)
     end

@@ -5,6 +5,7 @@
 
 #go_pro{
   text-align: right;
+  padding-right: 20px;
 }
 
 .adv_link{
@@ -82,4 +83,23 @@
   height: 49px;
   border: 0;
   margin-right: 10px;
+}
+
+#separator{
+  width: 100%;
+  background: url(/images/separator.jpg) no-repeat center;
+  height: 30px;
+}
+
+#ads{
+  display: inline-block;
+  width: 151px;
+  vertical-align: top;
+}
+
+#buffer_list{
+  vertical-align: top;
+  display: inline-block;
+  border: 1px solid #000;
+  width: 730px;
 }

@@ -7,27 +7,28 @@
 /* line 6, app/stylesheets/tweet.scss */
 #go_pro {
   text-align: right;
+  padding-right: 20px;
 }
 
-/* line 10, app/stylesheets/tweet.scss */
+/* line 11, app/stylesheets/tweet.scss */
 .adv_link {
   text-decoration: none;
   color: #2222ff;
 }
 
-/* line 15, app/stylesheets/tweet.scss */
+/* line 16, app/stylesheets/tweet.scss */
 #tweet_stuff {
   padding: 5px;
 }
 
-/* line 19, app/stylesheets/tweet.scss */
+/* line 20, app/stylesheets/tweet.scss */
 .user_twitter_detail {
   display: inline-block;
   width: 151px;
   vertical-align: top;
 }
 
-/* line 25, app/stylesheets/tweet.scss */
+/* line 26, app/stylesheets/tweet.scss */
 #profile_image {
   width: 64px;
   height: 64px;
@@ -37,12 +38,12 @@
   display: inline-block;
 }
 
-/* line 34, app/stylesheets/tweet.scss */
+/* line 35, app/stylesheets/tweet.scss */
 #buffer_count {
   display: inline-block;
 }
 
-/* line 38, app/stylesheets/tweet.scss */
+/* line 39, app/stylesheets/tweet.scss */
 #user_login {
   clear: both;
   padding-left: 2px;
@@ -52,12 +53,12 @@
   color: #696969;
 }
 
-/* line 47, app/stylesheets/tweet.scss */
+/* line 48, app/stylesheets/tweet.scss */
 #mini_panel {
   color: #3468BB;
 }
 
-/* line 51, app/stylesheets/tweet.scss */
+/* line 52, app/stylesheets/tweet.scss */
 .tweet_form_buffer {
   width: 600px;
   display: inline-block;
@@ -66,12 +67,12 @@
   width: 725px;
 }
 
-/* line 59, app/stylesheets/tweet.scss */
+/* line 60, app/stylesheets/tweet.scss */
 #button_container {
   margin-top: 10px;
 }
 
-/* line 63, app/stylesheets/tweet.scss */
+/* line 64, app/stylesheets/tweet.scss */
 .add_to_queue {
   background: url(/images/add_to_queue.jpg) no-repeat;
   width: 167px;
@@ -80,7 +81,7 @@
   margin-right: 10px;
 }
 
-/* line 71, app/stylesheets/tweet.scss */
+/* line 72, app/stylesheets/tweet.scss */
 .post_now {
   background: url(/images/post_now.jpg) no-repeat;
   width: 167px;
@@ -89,11 +90,33 @@
   margin-right: 10px;
 }
 
-/* line 79, app/stylesheets/tweet.scss */
+/* line 80, app/stylesheets/tweet.scss */
 .queue_settings {
   background: url(/images/queue_setting.jpg) no-repeat;
   width: 167px;
   height: 49px;
   border: 0;
   margin-right: 10px;
+}
+
+/* line 88, app/stylesheets/tweet.scss */
+#separator {
+  width: 100%;
+  background: url(/images/separator.jpg) no-repeat center;
+  height: 30px;
+}
+
+/* line 94, app/stylesheets/tweet.scss */
+#ads {
+  display: inline-block;
+  width: 151px;
+  vertical-align: top;
+}
+
+/* line 100, app/stylesheets/tweet.scss */
+#buffer_list {
+  vertical-align: top;
+  display: inline-block;
+  border: 1px solid #000;
+  width: 730px;
 }
