@@ -1,5 +1,7 @@
 Tweetbuffer::Application.routes.draw do
 
+  get "/goodies" => "goodies#index"
+
   resources :subcriptions
   resources :payment_notifications
 
@@ -34,6 +36,7 @@ Tweetbuffer::Application.routes.draw do
     end
 
     get     "/"               => "TwitterUsers#index",         :as => :twitter_users
+    get "/tweet_to_twitter" => "TwitterUsers#tweet_to_twitter", :as => :tweet_to_twitter
 
     scope ":twitter_name" do
       controller :buffer_preferences do

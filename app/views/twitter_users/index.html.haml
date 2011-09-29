@@ -1,6 +1,8 @@
 -content_for :tweet_css do
   =stylesheet_link_tag "tweet.css"
 
+#post_notice
+
 -if @twitter_users.blank?
   You need to authorize us to use your Twitter account.
   %a{:href => twitter_authorize_account_path}
@@ -35,12 +37,16 @@
               %li{:style => "font-size: 14px; font-weight: bold;"}
                 %img{:src => "/images/refresh_24.png", :width => 24, :height => 24} Switch Account
         .tweet_form_buffer
+          #loader
+            =image_tag("ajaxLoader.gif")
+            %br
+            Posting your tweet
           =form_for @buffer_preference, :url => "/twitter/#{twitter_user.login}/buffers" do |f|
-            =f.text_area :name, :style => "width: 725px; height: 70px;"
+            =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
             =f.hidden_field :permalink, :value => twitter_user.login
             #button_container
               =submit_tag "", :class => "add_to_queue"
-              %input{:type => "button",:class => "post_now"}
+              %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{twitter_user.login}'}); $('#loader').show();"}
               %input{:type => "button",:class => "queue_settings"}
       #separator
       // buffer list and ads
@@ -50,11 +56,15 @@
         %span{:style => "font-size: 15px; font-weight: bold; display: block; text-align: center;"}
           Queue | Performance | Analitics
         %br
-        %span{:style => "font-size: 13px; font-weight: bold;"}
-          = "Today #{Time.now.strftime("%d - %m - %Y")}"
+        %span{:style => "font-size: 12px; line-height: 35px; font-weight: bold; color: #5ECDEB;"}
+          =image_tag("/images/birds_64/6.png", :style => "width: 32px; height: 32px;", :align => "left")
+          Today
+        %span{:style => "font-size: 10px; color: #cdcdcd;"}
+          =Time.now.strftime("%d - %m - %Y")
         %ul{:style => "list-style: none;"}
           -@buffers.each do |buffer|
             %li
-              =buffer.name
+              #buffe_name_container{:class =>cycle("even","odd")}
+                =buffer.name
       
       

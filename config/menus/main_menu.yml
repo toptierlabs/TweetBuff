@@ -27,6 +27,9 @@ main:
     path: /users/sign_out
     select: ^\/users\/sign_out.*$
     auth: in
+  goodies:
+    path: /goodies
+    select: ^\/goodies.*$
   plans:
     path: /plans
     select: ^\/plans.*$

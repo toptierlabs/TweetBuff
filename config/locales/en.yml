@@ -18,6 +18,7 @@ en:
       sign_out: "Sign Out"
       account_settings: "Account"
       twitter_settings: "Twitter"
+      goodies: "Goodies"
       plans: "Plans & Pricing"
   tables:
     empty_no_add: "There are currently no %{name}."

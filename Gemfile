@@ -21,6 +21,8 @@ gem "responders"
 gem "sass"
 gem "simple_form"
 gem 'activemerchant', :require => 'active_merchant'
+gem "twitter"
+gem "jrails"
 
 
 group(:development, :production) do

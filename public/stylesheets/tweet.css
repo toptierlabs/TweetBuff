@@ -1,7 +1,7 @@
 /* line 1, app/stylesheets/tweet.scss */
 .wrapper {
   width: 900px;
-  marginL: 0 auto;
+  margin: 0 auto;
 }
 
 /* line 6, app/stylesheets/tweet.scss */
@@ -117,6 +117,54 @@
 #buffer_list {
   vertical-align: top;
   display: inline-block;
-  border: 1px solid #000;
   width: 730px;
+}
+
+/* line 106, app/stylesheets/tweet.scss */
+#post_notice {
+  border-bottom: 1px solid #cdcdcd;
+  width: 100%;
+  display: none;
+  padding: 5px 0 5px 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  font-size: 20px;
+}
+
+/* line 118, app/stylesheets/tweet.scss */
+.error {
+  background: #F6CBCA;
+}
+
+/* line 122, app/stylesheets/tweet.scss */
+.success {
+  background: #D8E9D3;
+}
+
+/* line 126, app/stylesheets/tweet.scss */
+#loader {
+  position: absolute;
+  text-align: center;
+  top: 196px;
+  width: 100%;
+  right: -50px;
+  display: none;
+}
+
+/* line 135, app/stylesheets/tweet.scss */
+#buffe_name_container {
+  padding-top: 8px;
+  padding-left: 5px;
+}
+
+/* line 140, app/stylesheets/tweet.scss */
+.even {
+  background: #E8F5FB;
+}
+
+/* line 144, app/stylesheets/tweet.scss */
+.odd {
+  background: #fff;
 }

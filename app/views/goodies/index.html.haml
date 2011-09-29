@@ -1,0 +1,48 @@
+-content_for :goodies_css do
+  =stylesheet_link_tag "goodies.css"
+
+.wrapper
+  #browser_container
+    =image_tag("Chrome.png")
+    %br
+    Google chrome
+    %br
+    %span{:style => "font-size: 12px; color: #94CDF1;"}
+      + install
+  #browser_container
+    =image_tag("Safari.png")
+    %br
+    Apple safari
+    %br
+    %span{:style => "font-size: 12px; color: #94CDF1;"}
+      + install
+  #browser_container
+    =image_tag("Firefox.png")
+    %br
+    Mozilla Firefox
+    %br
+    %span{:style => "font-size: 12px; color: #94CDF1;"}
+      + install
+  #browser_container
+    =image_tag("bookmarklet.png")
+    %br
+    Bookmarklet
+  #separator
+
+  #in_dev
+    %p{:align => "center"}
+      In Development
+    %div{:style => "text-align: right; margin: 30px 0 30px 0;"}
+      #icon_container
+        =image_tag("tweetbuff_icon_black.jpg")
+        Iphone App
+      #icon_container
+        =image_tag("tweetbuff_icon_black.jpg")
+        Ipad App
+      #icon_container
+        =image_tag("tweetbuff_icon_white.jpg")
+        Iphone App
+      #icon_container
+        =image_tag("tweetbuff_icon_white.jpg")
+        Ipad App
+    
