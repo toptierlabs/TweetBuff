@@ -33,7 +33,7 @@ class TwitterSessionsController < ApplicationController
     @twitter_user = TwitterUser.identify_or_create_from_access_token(@access_token)
     @twitter_user.user = current_user
     @twitter_user.save
-    redirect_to(twitter_settings_path)
+    redirect_to twitter_settings_path(:twitter_name => @twitter_user.login)
   rescue Net::HTTPServerException => e
     case e.message
       when '401 "Unauthorized"'

@@ -1,0 +1,23 @@
+%h1 Listing timeframes
+
+%table
+  %tr
+    %th Name
+    %th Value
+    %th Unit
+    %th
+    %th
+    %th
+
+  - @timeframes.each do |timeframe|
+    %tr
+      %td= timeframe.name
+      %td= timeframe.value
+      %td= timeframe.unit
+      %td= link_to 'Show', timeframe
+      %td= link_to 'Edit', edit_timeframe_path(timeframe)
+      %td= link_to 'Destroy', timeframe, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Timeframe', new_timeframe_path

@@ -1,5 +1,9 @@
 Tweetbuffer::Application.routes.draw do
 
+  resources :tweet_intervals
+
+  resources :timeframes
+
   get "/goodies" => "goodies#index"
 
   resources :subcriptions
@@ -34,9 +38,13 @@ Tweetbuffer::Application.routes.draw do
       get   "authorize" => :new, :as => :twitter_authorize_account
       get   "callback" => :oauth_callback, :as => :twitter_callback
     end
-
-    get     "/"               => "TwitterUsers#index",         :as => :twitter_users
+    
+    get "/" => "TwitterUsers#index", :as => :twitter_users
+    get "/twitt_account/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
     get "/tweet_to_twitter" => "TwitterUsers#tweet_to_twitter", :as => :tweet_to_twitter
+    get "/twitter_account_list" => "TwitterUsers#twitter_account_list"
+    get "/settings" => "TwitterUsers#settings", :as => :twitter_settings
+    post "/save_settings" => "TwitterUsers#save_settings"
 
     scope ":twitter_name" do
       controller :buffer_preferences do

@@ -28,11 +28,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def set_active_subscription
     if user_signed_in?
       subscription = Subcription.find(:all, :conditions => [""])
     end
   end
-  
+
 end

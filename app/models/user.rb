@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many    :buffer_preferences
   has_many    :tweets
   has_many    :subcriptions
-
+  has_many    :tweet_intervals
   scope :active_subscribtion, where(:active => true)
 
   

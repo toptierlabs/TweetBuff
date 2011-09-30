@@ -1,0 +1,62 @@
+-content_for :tweet_css do
+  =stylesheet_link_tag "tweet.css"
+
+#interval_not_updated.error
+  -if @is_updated_interval
+    = @is_updated_interval
+    %span{:style => "float: right;"}
+      %a{:href => "#", :onclick => "$('#interval_not_updated').fadeOut('slow')"}
+        %img{:src => "/images/close.png"}
+
+.wrapper
+  #settings_user_detail
+    #profile_image
+      %img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
+    #buffer_count
+      %img{:src => "/images/buffer_count.jpg"}
+      %br
+      In Buffer
+    #buffer_count
+      %img{:src => "/images/sent_from_buffer.jpg"}
+      %br
+      Sent from buffer
+  #bitly_detail
+    %span{:style => "font-size: 12px; font-weight: bold; color: #7AC2F4;"}
+      Add your bit.ly details
+    =form_tag "/", :style => "margin-top: 19px;" do
+      %div{:style => "display: inline-block;"}
+        Username
+        %br
+        =text_field :bitly, :username
+      %div{:style => "display: inline-block;"}
+        API Key
+        %br
+        =text_field :bitly, :api_key
+      %div{:style => "display: inline-block;"}
+        =submit_tag "save"
+  #separator{:style => "margin-bottom: 30px !important;"}
+
+  .timeframe
+    #timeframe_box
+      %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
+        = "Choose when #{@twitter_user.login} Tweets :"
+      %br
+      =form_tag save_settings_path do
+        =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
+        =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+        =select_tag "timeframe[timeframe_id]", options_for_select(@options)
+        =submit_tag "Update"
+    #manage_team_box
+      %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
+        Manage team members
+      %br
+      %span{:style => "font-size: 11px; color: #a9a9a9;"}
+        settings | invite a team member
+      %div{:style => "font-weight: bold; color: #a9a9a9;"}
+        %img{:src => "/images/birds_64/5.png", :height => "24", :width => "24"}
+        someone@host.com
+      =form_tag "/" do
+        =text_field :member, :email, :style => "width: 160px;"
+        =submit_tag "invite"
+      
+    

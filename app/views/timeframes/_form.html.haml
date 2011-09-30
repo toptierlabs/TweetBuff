@@ -1,0 +1,10 @@
+= simple_form_for(@timeframe) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :name
+    = f.input :value
+    = f.input :unit
+
+  .actions
+    = f.button :submit

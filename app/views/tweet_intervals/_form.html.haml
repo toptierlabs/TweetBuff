@@ -1,0 +1,10 @@
+= simple_form_for(@tweet_interval) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :user_id
+    = f.input :twitter_user_id
+    = f.input :timeframe_id
+
+  .actions
+    = f.button :submit

@@ -1,0 +1,5 @@
+%ul{:style => "list-style: none;"}
+  -@twitter_users.each do |twitter_user|
+    %li
+      %div{:class => cycle("even","odd")}
+        =link_to twitter_user.login, twitter_user_path(twitter_user.login)

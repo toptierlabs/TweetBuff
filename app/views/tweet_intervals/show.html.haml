@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @tweet_interval.user_id
+%p
+  %b Twitter user:
+  = @tweet_interval.twitter_user_id
+%p
+  %b Timeframe:
+  = @tweet_interval.timeframe_id
+
+= link_to 'Edit', edit_tweet_interval_path(@tweet_interval)
+\|
+= link_to 'Back', tweet_intervals_path

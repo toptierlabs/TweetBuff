@@ -20,6 +20,7 @@ class TwitterUser < ActiveRecord::Base
   # Associations
   belongs_to :user
   has_many   :buffer_preferences
+  has_one :tweet_interval
 
   # Attributes
   attr_protected :twitter_id, :remember_token, :remember_token_expires_at

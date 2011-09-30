@@ -1,0 +1,23 @@
+%h1 Listing tweet_intervals
+
+%table
+  %tr
+    %th User
+    %th Twitter user
+    %th Timeframe
+    %th
+    %th
+    %th
+
+  - @tweet_intervals.each do |tweet_interval|
+    %tr
+      %td= tweet_interval.user_id
+      %td= tweet_interval.twitter_user_id
+      %td= tweet_interval.timeframe_id
+      %td= link_to 'Show', tweet_interval
+      %td= link_to 'Edit', edit_tweet_interval_path(tweet_interval)
+      %td= link_to 'Destroy', tweet_interval, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Tweet interval', new_tweet_interval_path

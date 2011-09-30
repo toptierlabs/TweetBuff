@@ -27,7 +27,8 @@
   display: inline-block; }
 
 #buffer_count {
-  display: inline-block; }
+  display: inline-block;
+  margin-left: -2px; }
 
 #user_login {
   clear: both;
@@ -91,7 +92,7 @@
   width: 100%;
   display: none;
   padding: 5px 0 5px 10px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
@@ -116,7 +117,42 @@
   padding-left: 5px; }
 
 .even {
-  background: #E8F5FB; }
+  background: #E8F5FB;
+  padding: 3px; }
 
 .odd {
-  background: #fff; }
+  background: #fff;
+  padding: 3px; }
+
+#settings_user_detail {
+  vertical-align: top;
+  display: inline-block;
+  width: 250px; }
+
+#bitly_detail {
+  vertical-align: top;
+  display: inline-block; }
+
+.timeframe {
+  width: 650px;
+  margin: 0 auto;
+  margin-bottom: 40px; }
+
+#timeframe_box {
+  vertical-align: top;
+  display: inline-block;
+  width: 250px; }
+
+#manage_team_box {
+  vertical-align: top;
+  display: inline-block;
+  width: 300px;
+  margin-left: 50px; }
+
+#interval_not_updated {
+  padding: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid #cdcdcd;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px; }

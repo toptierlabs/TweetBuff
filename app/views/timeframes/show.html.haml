@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @timeframe.name
+%p
+  %b Value:
+  = @timeframe.value
+%p
+  %b Unit:
+  = @timeframe.unit
+
+= link_to 'Edit', edit_timeframe_path(@timeframe)
+\|
+= link_to 'Back', timeframes_path

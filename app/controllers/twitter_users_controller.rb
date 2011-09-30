@@ -5,14 +5,22 @@ class TwitterUsersController < ApplicationController
   TWITTER_API = {:key => "lKbJ5Wtlk010AbcaM6VA", :secret => "KXBLw1vtuF6GtOjiaT27XUpWQoLA1bXoVo3usfE"}
 
   def index
-    @twitter_users = current_user.twitter_users
-    unless @twitter_users.empty?
-      twitter_name = @twitter_users.first.login
-      twitter_user = current_user.twitter_users.find_by_permalink(twitter_name)
-      @buffer_preference = twitter_user.buffer_preferences.new
-      #user = User.find(current_user.id)
-      @buffers = twitter_user.user.buffer_preferences.newest_order
+    if params[:twitter_name]
+      @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+      @buffer_preference = @twitter_user.buffer_preferences.new
+      @buffers = @twitter_user.buffer_preferences.newest_order
+    else
+      @twitter_users = current_user.twitter_users
+      @twitter_user = @twitter_users.first
+      unless @twitter_user.nil?
+        twitter_name = @twitter_user.login
+        return redirect_to twitter_user_url(twitter_name)
+        #        twitter_user = current_user.twitter_users.find_by_permalink(twitter_name)
+        #        @buffer_preference = twitter_user.buffer_preferences.new
+        #        @buffers = twitter_user.buffer_preferences.newest_order
+      end
     end
+    @is_updated_interval = is_interval_updated?
   end
 
   def tweet_to_twitter
@@ -27,7 +35,7 @@ class TwitterUsersController < ApplicationController
             config.oauth_token_secret = user.access_secret
           end
           client = Twitter::Client.new
-          client.update(params[:tweet])
+          puts client.update(params[:tweet])
           page << "$('#post_notice').removeClass('error');"
           page << "$('#post_notice').addClass('success');"
           page << "$('#post_notice').show();"
@@ -44,6 +52,41 @@ class TwitterUsersController < ApplicationController
         end
       end
     end
+  end
+
+  def twitter_account_list
+    @twitter_users = current_user.twitter_users
+    render :layout => false
+  end
+
+  def settings
+    @is_updated_interval = is_interval_updated?
+    @options = []
+    @twitter_user = TwitterUser.find_by_login(params[:twitter_name])
+    timeframe = Timeframe.all
+    timeframe.each do |tf|
+      @options << ["#{tf.name}","#{tf.id}"]
+    end
+  end
+
+  def save_settings
+    tweet_interval = TweetInterval.find_by_twitter_user_id(params[:timeframe][:twitter_user_id])
+    if tweet_interval.update_attributes(params[:timeframe])
+      redirect_to :back, :notice => "thankyou, your settings has been updated."
+    end
+  end
+
+  private
+
+  def is_interval_updated?
+    twitter_user = TwitterUser.find_by_login(params[:twitter_name])
+    unless twitter_user.nil?
+      tweet_int = twitter_user.tweet_interval
+      if tweet_int.nil?
+        return "Please set up when #{twitter_user.login} tweets"
+      end
+    end
+    nil
   end
   
 end

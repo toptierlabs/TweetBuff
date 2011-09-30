@@ -18,12 +18,12 @@ class BufferPreferencesController < ApplicationController
     respond_with(@twitter_user, @buffer_preference) do |format|
       format.json {
         render(:json => { :twitter_user => {
-                            :login => @twitter_user.login,
-                            :name => @twitter_user.name},
-                          :buffer_preference => {
-                            :tweet_mode => @buffer_preference.tweet_mode,
-                            :name => @buffer_preference.name,
-                            :permalink => @buffer_preference.permalink}})
+              :login => @twitter_user.login,
+              :name => @twitter_user.name},
+            :buffer_preference => {
+              :tweet_mode => @buffer_preference.tweet_mode,
+              :name => @buffer_preference.name,
+              :permalink => @buffer_preference.permalink}})
       }
     end
   end
@@ -37,9 +37,17 @@ class BufferPreferencesController < ApplicationController
   # post    ":twitter_name/buffers"
   def create
     @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference])
-    if @buffer_preference.errors.empty? && !request.xhr?
-      #redirect_to(twitter_user_buffer_preferences_path(@twitter_user) + "#buffer=#{@buffer_preference.name}")
-      redirect_to :back, :notice => "Buffer succesfully queued"
+    if @buffer_preference.errors.empty?
+      if request.xhr?
+        render :update do |page|
+          page << "$('#post_notice').removeClass('error');"
+          page << "$('#post_notice').addClass('success');"
+          page << "$('#post_notice').show();"
+          page << "$('#post_notice').html('Your tweet has been queued.');"
+          page << "$('#loader').hide();"
+          page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
+        end
+      end
     else
       respond_with(@twitter_user, @buffer_preference)
     end
@@ -71,7 +79,7 @@ class BufferPreferencesController < ApplicationController
     render :layout => false
   end
 
-protected
+  protected
 
   def get_twitter_user
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
