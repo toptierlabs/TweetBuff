@@ -1,0 +1,5 @@
+=form_tag save_settings_path do
+  =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
+  =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+  =select_tag "timeframe[timeframe_id]", options_for_select(@options), :onchange => "$('#timeframe_form_container').load('#{other_ti_path}')"
+  =submit_tag "Update"

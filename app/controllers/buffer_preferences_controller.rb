@@ -38,6 +38,7 @@ class BufferPreferencesController < ApplicationController
   def create
     @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference])
     if @buffer_preference.errors.empty?
+      queue_to_dj
       if request.xhr?
         render :update do |page|
           page << "$('#post_notice').removeClass('error');"
@@ -86,4 +87,39 @@ class BufferPreferencesController < ApplicationController
     redirect_to(twitter_settings_path) and return if @twitter_user.blank?
   end
 
+  def queue_to_dj
+    @ti  = @twitter_user.tweet_interval
+    @tf = @ti.timeframe
+    if @tf
+      @post_at = @tf.value.to_i
+      if @tf.unit.eql?("minutes")
+        run_at = Time.now + @post_at.minutes
+      elsif @tf.unit.eql?("hours")
+        run_at = Time.now + @post_at.hours
+      end
+    else
+      minute_hours = @ti.other_interval.split(".")
+      year = Time.now.strftime('%Y')
+      month = Time.now.strftime('%m')
+      day = Time.now.strftime('%d')
+      hour = Time.now.strftime('%H')
+      minute = Time.now.strftime('%M')
+      minute_hour = minute_hours[0]
+      minute_hour = minute_hour.to_i + 12  if minute_hours[2].eql?('pm')
+      if minute_hour.to_i < hour.to_i
+        run_at = Time.utc(year,month,day,minute_hour,minute_hours[1]) + 1.day
+      elsif minute_hour.to_i == hour.to_i
+        if minute_hours[1].to_i < minute
+          run_at = Time.utc(year,month,day,minute_hour,minute_hours[1]) + 1.day
+        else
+          run_at = Time.utc(year,month,day,minute_hour,minute_hours[1])
+        end
+      else
+        run_at = Time.utc(year,month,day,minute_hour,minute_hours[1])
+      end
+    end
+    #queue to delayed job
+    Delayed::Job.enqueue(PostTweet.new(@twitter_user.id,@buffer_preference.id),1,run_at)
+  end
+  
 end

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Twitter user:
+  = @tweet_history.twitter_user_id
+%p
+  %b Last tweet:
+  = @tweet_history.last_tweet
+%p
+  %b Tweet remain:
+  = @tweet_history.tweet_remain
+
+= link_to 'Edit', edit_tweet_history_path(@tweet_history)
+\|
+= link_to 'Back', tweet_histories_path

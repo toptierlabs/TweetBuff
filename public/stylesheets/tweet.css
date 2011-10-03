@@ -200,6 +200,17 @@
 }
 
 /* line 174, app/stylesheets/tweet.scss */
+#default_timeframe_form_container {
+  padding-top: 10px;
+}
+
+/* line 178, app/stylesheets/tweet.scss */
+#custom_timeframe_form_container {
+  padding-top: 10px;
+  display: none;
+}
+
+/* line 183, app/stylesheets/tweet.scss */
 #manage_team_box {
   vertical-align: top;
   display: inline-block;
@@ -207,7 +218,7 @@
   margin-left: 50px;
 }
 
-/* line 181, app/stylesheets/tweet.scss */
+/* line 190, app/stylesheets/tweet.scss */
 #interval_not_updated {
   padding: 10px;
   font-size: 13px;

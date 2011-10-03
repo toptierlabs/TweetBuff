@@ -23,6 +23,9 @@ gem "simple_form"
 gem 'activemerchant', :require => 'active_merchant'
 gem "twitter"
 gem "jrails"
+gem 'whenever', :require => false
+gem "delayed_job",  :git => 'git://github.com/collectiveidea/delayed_job.git'
+gem 'delayed_job_active_record', :git => 'https://github.com/collectiveidea/delayed_job_active_record.git'
 
 
 group(:development, :production) do
@@ -49,6 +52,6 @@ group(:test, :cucumber) do
   gem "webrat"
 end
 
-group(:test) do
+#group(:test) do
   gem "ruby-debug19", :require => "ruby-debug"
-end
+#end

@@ -20,6 +20,7 @@ class TwitterUser < ActiveRecord::Base
   # Associations
   belongs_to :user
   has_many   :buffer_preferences
+  has_one   :tweet_history
   has_one :tweet_interval
 
   # Attributes

@@ -1,6 +1,8 @@
 -content_for :tweet_css do
   =stylesheet_link_tag "tweet.css"
 
+- count = 0
+
 #post_notice
 #general_dialog
 -unless @is_updated_interval.nil?
@@ -70,5 +72,11 @@
           %li
             #buffe_name_container{:class =>cycle("even","odd")}
               =buffer.name
+              %br
+              %span{:style => "color: #7BC3F5; font-weight: bold;"}
+                - tf = @twitter_user.tweet_interval.timeframe
+                - last_tweet = @twitter_user.tweet_history.last_tweet
+                //="Queued for #{get_time_from_now(tf.value,tf.unit,last_tweet,count)}"
+                - count +=1
       
       

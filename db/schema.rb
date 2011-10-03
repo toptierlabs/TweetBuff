@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110926070124) do
+ActiveRecord::Schema.define(:version => 20111003095246) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -60,6 +60,46 @@ ActiveRecord::Schema.define(:version => 20110926070124) do
 
   add_index "buffer_preferences", ["twitter_user_id"], :name => "index_buffer_preferences_on_twitter_user_id"
 
+  create_table "carts", :force => true do |t|
+    t.datetime "purchased_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "line_items", :force => true do |t|
+    t.integer  "plan_id"
+    t.integer  "cart_id"
+    t.integer  "qty"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payment_notifications", :force => true do |t|
+    t.text     "params"
+    t.integer  "cart_id"
+    t.string   "status"
+    t.string   "transaction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.float    "price"
@@ -70,6 +110,11 @@ ActiveRecord::Schema.define(:version => 20110926070124) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "num_of_team_member_per_account"
+  end
+
+  create_table "plans_timeframes", :id => false, :force => true do |t|
+    t.integer "plan_id"
+    t.integer "timeframe_id"
   end
 
   create_table "preferences", :force => true do |t|
@@ -83,9 +128,11 @@ ActiveRecord::Schema.define(:version => 20110926070124) do
   create_table "subcriptions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "plan_id"
-    t.datetime "expire"
+    t.date     "expire"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cart_id"
+    t.boolean  "active",     :default => false
   end
 
   create_table "time_definitions", :force => true do |t|
@@ -105,6 +152,32 @@ ActiveRecord::Schema.define(:version => 20110926070124) do
   add_index "time_definitions", ["interval", "interval_length"], :name => "index_time_definitions_on_interval_and_interval_length"
   add_index "time_definitions", ["interval", "start_minute"], :name => "index_time_definitions_on_interval_and_start_minute"
   add_index "time_definitions", ["start_hour", "start_minute"], :name => "index_time_definitions_on_start_hour_and_start_minute"
+
+  create_table "timeframes", :force => true do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.string   "unit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tweet_histories", :force => true do |t|
+    t.integer  "twitter_user_id"
+    t.datetime "last_tweet"
+    t.integer  "tweet_remain"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "buffer_id"
+  end
+
+  create_table "tweet_intervals", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "twitter_user_id"
+    t.integer  "timeframe_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "other_interval"
+  end
 
   create_table "tweets", :force => true do |t|
     t.integer  "twitter_user_id"

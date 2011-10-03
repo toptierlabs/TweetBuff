@@ -2,13 +2,11 @@ class TwitterUsersController < ApplicationController
 
   before_filter :authenticate_user!
 
-  TWITTER_API = {:key => "lKbJ5Wtlk010AbcaM6VA", :secret => "KXBLw1vtuF6GtOjiaT27XUpWQoLA1bXoVo3usfE"}
-
   def index
     if params[:twitter_name]
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
       @buffer_preference = @twitter_user.buffer_preferences.new
-      @buffers = @twitter_user.buffer_preferences.newest_order
+      @buffers = @twitter_user.buffer_preferences.oldest_order
     else
       @twitter_users = current_user.twitter_users
       @twitter_user = @twitter_users.first
@@ -67,16 +65,43 @@ class TwitterUsersController < ApplicationController
     timeframe.each do |tf|
       @options << ["#{tf.name}","#{tf.id}"]
     end
+    @options << ["other","99"]
+  end
+
+  def other_time_interval
+    render :layout => false
+  end
+
+  def default_interval
+    if user_sign_in?
+      @twitter_user = current_user.twitter_users
+    end
+    render :layout => false
   end
 
   def save_settings
-    tweet_interval = TweetInterval.find_by_twitter_user_id(params[:timeframe][:twitter_user_id])
-    if tweet_interval.update_attributes(params[:timeframe])
-      redirect_to :back, :notice => "thankyou, your settings has been updated."
+    t_uid = params[:timeframe][:twitter_user_id]
+    tf = params[:tfname]
+    if params[:timeframe][:timeframe_id].eql?("99")
+      other_time = "#{tf[:hour]}.#{tf[:minute]}.#{tf[:meridian]}"
+      tweet_interval = TweetInterval.find_by_twitter_user_id(t_uid)
+      if tweet_interval.update_attributes({:timeframe_id => nil, :other_interval => other_time})
+        redirect_to :back, :notice => "thankyou, your settings has been updated."
+      end
+    else
+      tweet_interval = TweetInterval.find_by_twitter_user_id(t_uid)
+      if tweet_interval.update_attributes(params[:timeframe].merge(:other_interval => nil))
+        redirect_to :back, :notice => "thankyou, your settings has been updated."
+      end
     end
+    
   end
 
   private
+
+  def is_tweet_history_created?(twitter_id)
+    
+  end
 
   def is_interval_updated?
     twitter_user = TwitterUser.find_by_login(params[:twitter_name])
@@ -90,3 +115,12 @@ class TwitterUsersController < ApplicationController
   end
   
 end
+
+
+#    tweet = TweetHistory.find(t_uid) rescue nil
+#    if tweet.nil?
+#      @tweet = TweetHistory.new({:twitter_user_id => t_uid, :last_tweet => Time.now, :tweet_remain => 6})
+#      @tweet.save
+#    else
+#      @tweet = tweet.update_attributes({:twitter_user_id => t_uid, :last_tweet => Time.now, :tweet_remain => 6})
+#    end

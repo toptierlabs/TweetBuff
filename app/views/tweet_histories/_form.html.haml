@@ -1,0 +1,10 @@
+= simple_form_for(@tweet_history) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :twitter_user_id
+    = f.input :last_tweet
+    = f.input :tweet_remain
+
+  .actions
+    = f.button :submit

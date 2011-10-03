@@ -1,0 +1,23 @@
+%h1 Listing tweet_histories
+
+%table
+  %tr
+    %th Twitter user
+    %th Last tweet
+    %th Tweet remain
+    %th
+    %th
+    %th
+
+  - @tweet_histories.each do |tweet_history|
+    %tr
+      %td= tweet_history.twitter_user_id
+      %td= tweet_history.last_tweet
+      %td= tweet_history.tweet_remain
+      %td= link_to 'Show', tweet_history
+      %td= link_to 'Edit', edit_tweet_history_path(tweet_history)
+      %td= link_to 'Destroy', tweet_history, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Tweet history', new_tweet_history_path
