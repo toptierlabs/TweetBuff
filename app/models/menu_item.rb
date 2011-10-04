@@ -15,6 +15,7 @@ class MenuItem < Hashie::Dash
     @path     = settings.key?(:path) ? settings.delete(:path)       : "/"
     @select   = settings.key?(:select) ? settings.delete(:select)   : "/^\/$/"
     @auth     = settings.key?(:auth) ? settings.delete(:auth)       : "any"
+    @method   = settings.key?(:method) ? settings.delete(:method)   : nil
     @submenu  = settings.key?(:submenu) ? settings.delete(:submenu) : nil
     @menu     = settings.key?(:menu) ? settings.delete(:menu)       : nil
   end
@@ -65,11 +66,7 @@ class MenuItem < Hashie::Dash
         if self.is_submenu? && (render_submenus ? true : self.selected)
           haml_concat(self.submenu.render(current_uri, options))
         else
-          if @path.eql?("/users/sign_out")
-            haml_tag(:a, I18n.t(self.translation_key), {"data-method" => :delete, :href => @path})
-          else
-            haml_tag(:a, I18n.t(self.translation_key), {:href => @path})
-          end
+          haml_tag(:a, I18n.t(self.translation_key), {"data-method" => @method, :href => @path})
         end
       end
     end

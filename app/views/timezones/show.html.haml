@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Timezone:
+  = @timezone.timezone
+
+= link_to 'Edit', edit_timezone_path(@timezone)
+\|
+= link_to 'Back', timezones_path

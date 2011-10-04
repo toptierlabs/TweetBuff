@@ -211,6 +211,11 @@
 }
 
 /* line 183, app/stylesheets/tweet.scss */
+#custom_tf_select {
+  padding: 3px;
+}
+
+/* line 187, app/stylesheets/tweet.scss */
 #manage_team_box {
   vertical-align: top;
   display: inline-block;
@@ -218,7 +223,7 @@
   margin-left: 50px;
 }
 
-/* line 190, app/stylesheets/tweet.scss */
+/* line 194, app/stylesheets/tweet.scss */
 #interval_not_updated {
   padding: 10px;
   font-size: 13px;

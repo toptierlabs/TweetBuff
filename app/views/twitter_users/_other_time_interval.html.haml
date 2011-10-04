@@ -1,0 +1,20 @@
+:javascript
+  var form_count = 1
+  function new_interval(){
+    $('#form_count').val(form_count+=1);
+    $('#custom_tf_select').clone().appendTo('#custom_tf_wrapper')
+  }
+= form_tag save_settings_path do
+  #custom_tf_wrapper
+    #custom_tf_select
+      =hour_select("tfname[hour][]")
+      =minute_select("tfname[minute][]")
+      =meridian("tfname[meridian][]")
+      %span{:style => "color: #a50000; font-weight: bold;", :onclick => "$('#form_count').val(form_count-=1); $(this).parents('#custom_tf_select').remove();"} X
+  =hidden_field :timeframe, :timeframe_id, :value => "99"
+  =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
+  =hidden_field_tag :form_count, "1"
+  =submit_tag "update"
+
+%input{:type => "button", :value => "New interval", :onclick => "new_interval();"}
+    

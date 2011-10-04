@@ -7,15 +7,14 @@ class TwitterUsersController < ApplicationController
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
       @buffer_preference = @twitter_user.buffer_preferences.new
       @buffers = @twitter_user.buffer_preferences.oldest_order
+      session[:current_twitter_user] = params[:twitter_name]
     else
       @twitter_users = current_user.twitter_users
       @twitter_user = @twitter_users.first
       unless @twitter_user.nil?
         twitter_name = @twitter_user.login
+        session[:current_twitter_user] = twitter_name
         return redirect_to twitter_user_url(twitter_name)
-        #        twitter_user = current_user.twitter_users.find_by_permalink(twitter_name)
-        #        @buffer_preference = twitter_user.buffer_preferences.new
-        #        @buffers = twitter_user.buffer_preferences.newest_order
       end
     end
     @is_updated_interval = is_interval_updated?
@@ -57,6 +56,11 @@ class TwitterUsersController < ApplicationController
     render :layout => false
   end
 
+  def update_timezone
+    @timezone = current_user.update_attribute(:timezone, params[:account][:timezone])
+    redirect_to :back, :notice => "Your timezone has been updated."
+  end
+
   def settings
     @is_updated_interval = is_interval_updated?
     @options = []
@@ -80,16 +84,21 @@ class TwitterUsersController < ApplicationController
   end
 
   def save_settings
-    t_uid = params[:timeframe][:twitter_user_id]
+    #debugger
+    twitter_uid = params[:timeframe][:twitter_user_id]
     tf = params[:tfname]
     if params[:timeframe][:timeframe_id].eql?("99")
-      other_time = "#{tf[:hour]}.#{tf[:minute]}.#{tf[:meridian]}"
-      tweet_interval = TweetInterval.find_by_twitter_user_id(t_uid)
-      if tweet_interval.update_attributes({:timeframe_id => nil, :other_interval => other_time})
+      other_time = ""
+      params[:form_count].to_i.times do |i|
+        (tf[:hour][i].to_i + 12) if tf[:meridian][i].eql?("pm")
+        other_time << "#{tf[:hour][i]}:#{tf[:minute][i]}|"
+      end
+      tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
+      if tweet_interval.update_attributes({:timeframe_id => nil, :other_interval => other_time.gsub("\n","")})
         redirect_to :back, :notice => "thankyou, your settings has been updated."
       end
     else
-      tweet_interval = TweetInterval.find_by_twitter_user_id(t_uid)
+      tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
       if tweet_interval.update_attributes(params[:timeframe].merge(:other_interval => nil))
         redirect_to :back, :notice => "thankyou, your settings has been updated."
       end

@@ -61,6 +61,10 @@ class BufferPreference < ActiveRecord::Base
     write_attribute(:tweet_mode, idx)
   end
 
+  def post_tweet
+    
+  end
+
   #
   # END tweet_mode overrides
   #

@@ -1,0 +1,5 @@
+=form_tag save_settings_path do
+  =hidden_field :timeframe, :user_id, :value => twitter_user.user.id
+  =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
+  =select_tag "timeframe[timeframe_id]", options_for_select(@options), :onchange => "if(this.value=='99'){$('#default_timeframe_form_container').hide(); $('#custom_timeframe_form_container').show();}"
+  =submit_tag "Update"

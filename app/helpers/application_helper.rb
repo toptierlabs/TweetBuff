@@ -28,5 +28,9 @@ module ApplicationHelper
   def meridian(field_name, selected = nil)
     select_tag(field_name, options_for_select([["AM","am"],["PM","pm"]]))
   end
+
+  def timezone_select(field_name, selected = nil)
+    select_tag(field_name,time_zone_options_for_select())
+  end
   
 end

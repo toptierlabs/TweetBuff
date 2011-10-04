@@ -1,0 +1,19 @@
+%h1 Listing timezones
+
+%table
+  %tr
+    %th Timezone
+    %th
+    %th
+    %th
+
+  - @timezones.each do |timezone|
+    %tr
+      %td= timezone.timezone
+      %td= link_to 'Show', timezone
+      %td= link_to 'Edit', edit_timezone_path(timezone)
+      %td= link_to 'Destroy', timezone, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Timezone', new_timezone_path

@@ -150,6 +150,9 @@
   padding-top: 10px;
   display: none; }
 
+#custom_tf_select {
+  padding: 3px; }
+
 #manage_team_box {
   vertical-align: top;
   display: inline-block;

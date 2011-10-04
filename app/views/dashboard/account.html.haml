@@ -44,9 +44,9 @@
   .timezone
     %span{:id => "detail_head"}
       Select your timezone
-    =form_tag "/" do
+    =form_tag update_timezone_path do
       .field_content
-        =text_field :account, :timezone, :class => "account_input"
+        = timezone_select("acccount[timezone]")
       %br
       %div{:style => "text-align: center; height: 99px;"}
         %img{:src => "/images/timezone_bird.jpg"}

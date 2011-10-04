@@ -13,6 +13,6 @@ class PostTweet < Struct.new(:twitter_user_id, :buffer_id)
     end
     client = Twitter::Client.new
     client.update(buffer.name)
-    buffer.destroy
+    buffer.update_attribute(:status, "success")
   end
 end

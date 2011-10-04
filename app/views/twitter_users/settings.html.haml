@@ -42,19 +42,9 @@
         = "Choose when #{@twitter_user.login} Tweets :"
       %br
       #default_timeframe_form_container
-        =form_tag save_settings_path do
-          =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
-          =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
-          =select_tag "timeframe[timeframe_id]", options_for_select(@options), :onchange => "if(this.value=='99'){$('#default_timeframe_form_container').hide(); $('#custom_timeframe_form_container').show();}"
-          =submit_tag "Update"
+        =render :partial => "default_interval", :locals => {:twitter_user => @twitter_user}
       #custom_timeframe_form_container
-        = form_tag save_settings_path do
-          =hour_select("tfname[hour]")
-          =minute_select("tfname[minute]")
-          =meridian("tfname[meridian]")
-          =hidden_field :timeframe, :timeframe_id, :value => "99"
-          =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
-          =submit_tag "Update"
+        =render :partial => "other_time_interval", :locals => {:twitter_user => @twitter_user}
         %br
         %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
       %br
