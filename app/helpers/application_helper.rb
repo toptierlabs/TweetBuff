@@ -30,7 +30,15 @@ module ApplicationHelper
   end
 
   def timezone_select(field_name, selected = nil)
-    select_tag(field_name,time_zone_options_for_select())
+    select_tag(field_name,time_zone_options_for_select(selected))
+  end
+
+  def custom_check_box(user)
+    if user.notify
+      return check_box("account","notify", :checked => "checked")
+    else
+      return check_box("account","notify")
+    end
   end
   
 end

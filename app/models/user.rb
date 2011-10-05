@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many    :tweets
   has_many    :subcriptions
   has_many    :tweet_intervals
-  has_one     :timezone
+#  has_one     :timezone
   scope :active_subscribtion, where(:active => true)
 
   

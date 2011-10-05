@@ -57,8 +57,15 @@ class TwitterUsersController < ApplicationController
   end
 
   def update_timezone
-    @timezone = current_user.update_attribute(:timezone, params[:account][:timezone])
+    #puts current_user
+    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
     redirect_to :back, :notice => "Your timezone has been updated."
+  end
+
+  def update_notify
+    @timezone = current_user.update_attribute("notify", params[:account][:notify])
+    notice = params[:account][:notify].eql?("1")? {:notice => "we will send you an email whenever your buffer is run out."} : {:notice => "You will not recieve notification email when your buffer is run out"}
+    redirect_to :back, notice
   end
 
   def settings

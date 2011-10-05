@@ -60,20 +60,18 @@
       %span{:style => "font-size: 15px; font-weight: bold; display: block; text-align: center;"}
         Queue | Performance | Analitics
       %br
-      %span{:style => "font-size: 12px; line-height: 35px; font-weight: bold; color: #5ECDEB;"}
-        =image_tag("/images/birds_64/6.png", :style => "width: 32px; height: 32px;", :align => "left")
-        Today
-      %span{:style => "font-size: 10px; color: #cdcdcd;"}
-        =Time.now.strftime("%d - %m - %Y")
-      %ul{:style => "list-style: none;"}
+      - unless @buffers.empty?
+        %span{:style => "font-size: 12px; line-height: 35px; font-weight: bold; color: #5ECDEB;"}
+          =image_tag("/images/birds_64/6.png", :style => "width: 32px; height: 32px;", :align => "left")
+          Today
+        %span{:style => "font-size: 10px; color: #cdcdcd;"}
+          =Time.now.strftime("%d - %m - %Y")
+      #buffer_wrapper
         -@buffers.each do |buffer|
-          %li
-            #buffe_name_container{:class =>cycle("even","odd")}
-              =buffer.name
-              %br
-              %span{:style => "color: #7BC3F5; font-weight: bold;"}
-                - tf = @twitter_user.tweet_interval.timeframe
-                - last_tweet = @twitter_user.tweet_history.last_tweet
-                ="Queued for #{buffer.run_at.strftime('%H:%M')}"
+          #buffer_name_container{:class =>cycle("even","odd")}
+            =buffer.name
+            %br
+            %span{:style => "color: #7BC3F5; font-weight: bold;"}
+              ="Queued for #{buffer.run_at.in_time_zone(buffer.user.timezone).strftime('%H:%M')}"
       
       

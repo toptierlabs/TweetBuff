@@ -31,9 +31,9 @@
   .notifications
     %span{:id => "detail_head"}
       Notifications
-    =form_tag "/" do
+    =form_tag update_notify_path do
       %div{:style => "float: left;"}
-        =check_box("notification","false")
+        =custom_check_box(@user)
       Remind me to add Tweets where i've run out in my buffer
       %br
       %div{:style => "text-align: center; height: 119px;"}
@@ -46,7 +46,7 @@
       Select your timezone
     =form_tag update_timezone_path do
       .field_content
-        = timezone_select("acccount[timezone]")
+        = timezone_select("account[timezone]", @user.timezone)
       %br
       %div{:style => "text-align: center; height: 99px;"}
         %img{:src => "/images/timezone_bird.jpg"}

@@ -27,6 +27,7 @@ main:
     path: /users/sign_out
     select: ^\/users\/sign_out.*$
     auth: in
+    method: delete
   goodies:
     path: /goodies
     select: ^\/goodies.*$

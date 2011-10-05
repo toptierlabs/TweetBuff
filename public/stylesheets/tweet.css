@@ -155,67 +155,73 @@
 }
 
 /* line 136, app/stylesheets/tweet.scss */
-#buffe_name_container {
+#buffer_name_container {
   padding-top: 8px;
   padding-left: 5px;
 }
 
 /* line 141, app/stylesheets/tweet.scss */
+#buffer_wrapper {
+  padding-top: 8px;
+  padding-left: 5px;
+}
+
+/* line 146, app/stylesheets/tweet.scss */
 .even {
   background: #E8F5FB;
   padding: 3px;
 }
 
-/* line 146, app/stylesheets/tweet.scss */
+/* line 151, app/stylesheets/tweet.scss */
 .odd {
   background: #fff;
   padding: 3px;
 }
 
-/* line 151, app/stylesheets/tweet.scss */
+/* line 156, app/stylesheets/tweet.scss */
 #settings_user_detail {
   vertical-align: top;
   display: inline-block;
   width: 250px;
 }
 
-/* line 157, app/stylesheets/tweet.scss */
+/* line 162, app/stylesheets/tweet.scss */
 #bitly_detail {
   vertical-align: top;
   display: inline-block;
 }
 
-/* line 162, app/stylesheets/tweet.scss */
+/* line 167, app/stylesheets/tweet.scss */
 .timeframe {
   width: 650px;
   margin: 0 auto;
   margin-bottom: 40px;
 }
 
-/* line 168, app/stylesheets/tweet.scss */
+/* line 173, app/stylesheets/tweet.scss */
 #timeframe_box {
   vertical-align: top;
   display: inline-block;
   width: 250px;
 }
 
-/* line 174, app/stylesheets/tweet.scss */
+/* line 179, app/stylesheets/tweet.scss */
 #default_timeframe_form_container {
   padding-top: 10px;
 }
 
-/* line 178, app/stylesheets/tweet.scss */
+/* line 183, app/stylesheets/tweet.scss */
 #custom_timeframe_form_container {
   padding-top: 10px;
   display: none;
 }
 
-/* line 183, app/stylesheets/tweet.scss */
+/* line 188, app/stylesheets/tweet.scss */
 #custom_tf_select {
   padding: 3px;
 }
 
-/* line 187, app/stylesheets/tweet.scss */
+/* line 192, app/stylesheets/tweet.scss */
 #manage_team_box {
   vertical-align: top;
   display: inline-block;
@@ -223,7 +229,7 @@
   margin-left: 50px;
 }
 
-/* line 194, app/stylesheets/tweet.scss */
+/* line 199, app/stylesheets/tweet.scss */
 #interval_not_updated {
   padding: 10px;
   font-size: 13px;

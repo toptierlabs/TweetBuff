@@ -15,6 +15,7 @@
 
 class BufferPreference < ActiveRecord::Base
 
+  acts_as_soft_delete_by_field
   # Constants
   TWEET_MODES = [:weekly_basic, :weekly_expert, :daily_basic, :daily_expert]
 
@@ -33,7 +34,7 @@ class BufferPreference < ActiveRecord::Base
   after_create      :create_time_definitions
   before_update     :detect_tweet_mode_change
   before_save       :update_permalink
-  scope :oldest_order, :order => "created_at ASC"
+  scope :oldest_order, :order => "created_at ASC", :conditions => ["deleted_at IS NULL"]
 
   # Class Methods
 
@@ -61,8 +62,27 @@ class BufferPreference < ActiveRecord::Base
     write_attribute(:tweet_mode, idx)
   end
 
-  def post_tweet
-    
+  def self.post_tweet
+    buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now])
+    buffers.each do |buffer|
+      log = "=========================\n"
+      log << "posting tweet to @#{buffer.twitter_user.login} at #{Time.now}\n"
+      log << "=========================\n\n"
+      file = File.open("log.txt","a+")
+      file.puts(log )
+      file.close
+      Twitter.configure do |config|
+        config.consumer_key       = TWITTER_API[:key]
+        config.consumer_secret    = TWITTER_API[:secret]
+        config.oauth_token        = buffer.twitter_user.access_token
+        config.oauth_token_secret = buffer.twitter_user.access_secret
+      end
+      client = Twitter::Client.new
+      client.update(buffer.name)
+      buffer.update_attribute(:status, "success")
+      buffer.soft_delete #mark deleted_at
+    end
+    exec("echo all tweet has been post.")
   end
 
   #
@@ -96,7 +116,7 @@ class BufferPreference < ActiveRecord::Base
     self.name
   end
 
-protected
+  protected
 
   def set_defaults
     self.tweet_mode ||= :weekly_basic

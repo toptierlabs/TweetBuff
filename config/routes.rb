@@ -1,5 +1,9 @@
 Tweetbuffer::Application.routes.draw do
 
+  resources :timezones
+
+  resources :tweet_histories
+
   resources :tweet_intervals
 
   resources :timeframes
@@ -44,6 +48,10 @@ Tweetbuffer::Application.routes.draw do
     get "/tweet_to_twitter" => "TwitterUsers#tweet_to_twitter", :as => :tweet_to_twitter
     get "/twitter_account_list" => "TwitterUsers#twitter_account_list"
     get "/settings" => "TwitterUsers#settings", :as => :twitter_settings
+    get "/settings/other_time_interval" => "TwitterUsers#other_time_interval", :as => :other_ti
+    get "/settings/default_interval" => "TwitterUsers#default_interval", :as => :default_ti
+    post "/settings/update_timezone" => "TwitterUsers#update_timezone", :as => :update_timezone
+    post "/settings/update_notify" => "TwitterUsers#update_notify", :as => :update_notify
     post "/save_settings" => "TwitterUsers#save_settings"
 
     scope ":twitter_name" do

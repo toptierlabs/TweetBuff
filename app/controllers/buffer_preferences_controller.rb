@@ -6,7 +6,7 @@ class BufferPreferencesController < ApplicationController
 
   # get     ":twitter_name/buffers"
   def index
-    @buffer_preferences = @twitter_user.buffer_preferences
+    @buffer_preferences = @twitter_user.buffer_preferences.all(:conditions => ["deleted_at IS NULL"])
     respond_with(@twitter_user, @buffer_preferences)
   end
 
@@ -40,12 +40,8 @@ class BufferPreferencesController < ApplicationController
       @buffer_preference.update_attribute(:run_at,@run_at)
       if request.xhr?
         render :update do |page|
-          page << "$('#post_notice').removeClass('error');"
-          page << "$('#post_notice').addClass('success');"
-          page << "$('#post_notice').show();"
-          page << "$('#post_notice').html('Your tweet has been queued.');"
-          page << "$('#loader').hide();"
-          page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
+          page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
+          page << "notification()"
         end
       end
     else
@@ -135,7 +131,7 @@ class BufferPreferencesController < ApplicationController
     end
     @run_at = run_at
     #queue to delayed job
-    Delayed::Job.enqueue(PostTweet.new(@twitter_user.id,@buffer_preference.id),1,run_at)
+    #Delayed::Job.enqueue(PostTweet.new(@twitter_user.id,@buffer_preference.id),1,run_at)
   end
 
 end
