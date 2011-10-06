@@ -67,11 +67,11 @@
         %span{:style => "font-size: 10px; color: #cdcdcd;"}
           =Time.now.strftime("%d - %m - %Y")
       #buffer_wrapper
-        -@buffers.each do |buffer|
+        -@buffers.each_with_index do |buffer,index|
           #buffer_name_container{:class =>cycle("even","odd")}
             =buffer.name
             %br
             %span{:style => "color: #7BC3F5; font-weight: bold;"}
-              ="Queued for #{buffer.run_at.in_time_zone(buffer.user.timezone).strftime('%H:%M')}"
+              ="Queued for #{time_in_word(buffer.added_time, buffer.run_at)}"
       
       

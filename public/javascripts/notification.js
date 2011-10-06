@@ -7,6 +7,5 @@ function notification(){
     $('#loader').hide();
     setTimeout("$('#post_notice').fadeOut()",3000)
     class_name = ($('#buffer_name_container').last().attr('class')=='even')? 'odd' : 'even';
-    alert(class_name)
     $('#new_buffer_name_container').addClass(class_name);
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111005052120) do
+ActiveRecord::Schema.define(:version => 20111006053122) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20111005052120) do
     t.datetime "run_at"
     t.string   "status"
     t.datetime "deleted_at"
+    t.integer  "added_time",                     :default => 0
   end
 
   add_index "buffer_preferences", ["twitter_user_id"], :name => "index_buffer_preferences_on_twitter_user_id"

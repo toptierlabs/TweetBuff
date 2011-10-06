@@ -40,5 +40,16 @@ module ApplicationHelper
       return check_box("account","notify")
     end
   end
+
+  def time_in_word(added_time, run_at)
+    case added_time
+    when 0
+        "Today #{run_at.strftime('%H:%M')}"
+    when 1
+        "Tommorow #{run_at.strftime('%H:%M')}"
+    else
+      run_at.strftime("%b %d %H:%M")
+    end
+  end
   
 end

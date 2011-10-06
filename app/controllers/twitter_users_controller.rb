@@ -97,7 +97,7 @@ class TwitterUsersController < ApplicationController
     if params[:timeframe][:timeframe_id].eql?("99")
       other_time = ""
       params[:form_count].to_i.times do |i|
-        (tf[:hour][i].to_i + 12) if tf[:meridian][i].eql?("pm")
+        #(tf[:hour][i].to_i + 12) if tf[:meridian][i].eql?("pm")
         other_time << "#{tf[:hour][i]}:#{tf[:minute][i]}|"
       end
       tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
@@ -129,14 +129,24 @@ class TwitterUsersController < ApplicationController
     end
     nil
   end
+
+  def self.send_notification
+    users = User.all
+    users.each do |user|
+      twitter_users = user.twitter_users
+      twitter_users.each do |twitter_user|
+        buffer_count = twitter_user.buffer_preferences.where(["deleted_at IS NOT NULL"]).count
+        if buffer_count < 1
+          log = "=========================\n"
+          log << "sending mail to @#{twitter_user.login} at #{Time.now}\n"
+          log << "=========================\n\n"
+          file = File.open("mailer_log.txt","a+")
+          file.puts(log )
+          file.close
+          Notifier.buffer_run_out(user, twitter_user).deliver
+        end
+      end
+    end
+  end
   
 end
-
-
-#    tweet = TweetHistory.find(t_uid) rescue nil
-#    if tweet.nil?
-#      @tweet = TweetHistory.new({:twitter_user_id => t_uid, :last_tweet => Time.now, :tweet_remain => 6})
-#      @tweet.save
-#    else
-#      @tweet = tweet.update_attributes({:twitter_user_id => t_uid, :last_tweet => Time.now, :tweet_remain => 6})
-#    end

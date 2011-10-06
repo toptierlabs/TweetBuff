@@ -68,7 +68,7 @@ class BufferPreference < ActiveRecord::Base
       log = "=========================\n"
       log << "posting tweet to @#{buffer.twitter_user.login} at #{Time.now}\n"
       log << "=========================\n\n"
-      file = File.open("log.txt","a+")
+      file = File.open("buffer_log.txt","a+")
       file.puts(log )
       file.close
       Twitter.configure do |config|
@@ -82,7 +82,7 @@ class BufferPreference < ActiveRecord::Base
       buffer.update_attribute(:status, "success")
       buffer.soft_delete #mark deleted_at
     end
-    exec("echo all tweet has been post.")
+    exec("echo all job clear.")
   end
 
   #

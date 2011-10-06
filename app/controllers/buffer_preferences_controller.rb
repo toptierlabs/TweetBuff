@@ -34,18 +34,19 @@ class BufferPreferencesController < ApplicationController
 
   # post    ":twitter_name/buffers"
   def create
-    @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-    if @buffer_preference.errors.empty?
-      queue_to_dj
-      @buffer_preference.update_attribute(:run_at,@run_at)
-      if request.xhr?
-        render :update do |page|
+    if request.xhr?
+      @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
+      errors = @buffer_preference.errors
+      update_run_at
+      #@buffer_preference.update_attribute(:run_at,@run_at)
+      render :update do |page|
+        if errors.empty?
           page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
           page << "notification()"
+        else
+          #errors.full_messages.each {|error| page << "alert('#{error}')"}
         end
       end
-    else
-      respond_with(@twitter_user, @buffer_preference)
     end
   end
 
@@ -81,10 +82,10 @@ class BufferPreferencesController < ApplicationController
     redirect_to(twitter_settings_path) and return if @twitter_user.blank?
   end
 
-  def queue_to_dj
+  def update_run_at
     @ti = @twitter_user.tweet_interval
     @tf = @ti.timeframe
-    
+
     if @tf
       @post_at = @tf.value.to_i
       if @tf.unit.eql?("minutes")
@@ -102,6 +103,7 @@ class BufferPreferencesController < ApplicationController
       year = Time.now.strftime('%Y')
       month = Time.now.strftime('%m')
       day = Time.now.strftime('%d')
+      date = Time.now.strftime('%D')
       hour = Time.now.strftime('%H')
       minute = Time.now.strftime('%M')
       run_sat = nil
@@ -121,17 +123,21 @@ class BufferPreferencesController < ApplicationController
       else
         run_sat = minute_hours[0]
       end
-      debugger
-      dj_min_hour = run_sat.split(":")
-      if hour > dj_min_hour[0]
-        run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) + 1.day
+      dj_min_hour = run_sat.split(":") rescue minute_hours[0].split(":")
+      last_buffer = buffer_not_success.last
+      if last_buffer.run_at.strftime("%H:%M").eql?(minute_hours.last) || last_buffer.added_time > 0 # didieu yeuh nu salah!!!!!!
+        last_run = last_buffer.run_at.strftime("%H:%M").eql?(minute_hours.last)? last_buffer.added_time+1 : last_buffer.added_time
+        run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) +last_run.day
+        session[:added_time] = last_buffer.added_time + 1 if run_sat.eql?(minute_hours.first)
+        #debugger
       else
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1])
+        added_time = 0
       end
     end
-    @run_at = run_at
-    #queue to delayed job
-    #Delayed::Job.enqueue(PostTweet.new(@twitter_user.id,@buffer_preference.id),1,run_at)
+    #debugger
+    #@run_at = run_at
+    @buffer_preference.update_attributes({:run_at => run_at, :added_time => session[:added_time]})
   end
 
 end
