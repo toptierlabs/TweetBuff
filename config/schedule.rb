@@ -5,3 +5,7 @@ end
 every 10.minutes do
   runner "TwitterUsersController.send_notification"
 end
+
+every :midnight do
+  runner "BufferPreference.update_added_time"
+end

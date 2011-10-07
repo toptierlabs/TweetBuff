@@ -3,6 +3,7 @@ class TwitterUsersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    #redirect_to twitter_user_url(session[:current_twitter_user]) unless session[:current_twitter_user].nil? redirect current url if user switch their twitter account
     if params[:twitter_name]
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
       @buffer_preference = @twitter_user.buffer_preferences.new
@@ -131,11 +132,11 @@ class TwitterUsersController < ApplicationController
   end
 
   def self.send_notification
-    users = User.all
+    users = User.where(["notify = 't'"])
     users.each do |user|
       twitter_users = user.twitter_users
       twitter_users.each do |twitter_user|
-        buffer_count = twitter_user.buffer_preferences.where(["deleted_at IS NOT NULL"]).count
+        buffer_count = twitter_user.buffer_preferences.where(["deleted_at IS NULL"]).count
         if buffer_count < 1
           log = "=========================\n"
           log << "sending mail to @#{twitter_user.login} at #{Time.now}\n"

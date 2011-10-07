@@ -41,15 +41,31 @@ module ApplicationHelper
     end
   end
 
-  def time_in_word(added_time, run_at)
+  def time_in_word(added_time,run_at)
+    tommorow = Time.now + 1.day
     case added_time
     when 0
-        "Today #{run_at.strftime('%H:%M')}"
+      "<span style='color: #7BC2EE; font-weight: bold;'>Today</span> <span style='color: #cdcdcd; font-size: 11px;'>#{Time.now.strftime('%b %d')}</span>".html_safe
     when 1
-        "Tommorow #{run_at.strftime('%H:%M')}"
+      "<span style='color: #7BC2EE; font-weight: bold;'>Tommorow</span> <span style='color: #cdcdcd; font-size: 11px;'>#{tommorow.strftime('%b %d')}</span>".html_safe
     else
-      run_at.strftime("%b %d %H:%M")
+      "<span style='color: #7BC2EE; font-weight: bold;'>#{run_at.strftime("%b %d")}</span>".html_safe
     end
+  end
+
+  def pack_buffer(m, flag)
+    #    strret = ""
+    #    strret << "<div style='border: 1px solid #000;' id='buffer_list_container_#{flag}'>" if flag != buffer.added_time
+    #    strret << "#{buffer.name} <br /><span style='color: #7BC2EE; font-style: italic; font-size: 13px;'>Queued for #{buffer.run_at.strftime('%H:%M %p')}</span> #{flag == buffer.added_time ? "</div>" : ''}"
+    #    strret.html_safe
+    data = ""
+    old_flag = flag.added_time
+    m.each_with_index do |buffer,index|
+      if old_flag == buffer.added_time
+        data = "<div style='padding-top: 7px;'>#{buffer.name} <br /> <span style='color: #7BC2EE; font-style: italic; font-size: 13px;'>Queued for #{buffer.run_at.strftime('%H:%M %p')}</span></div>"
+      end
+    end
+    return data.html_safe
   end
   
 end

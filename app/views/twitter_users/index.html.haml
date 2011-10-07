@@ -60,18 +60,19 @@
       %span{:style => "font-size: 15px; font-weight: bold; display: block; text-align: center;"}
         Queue | Performance | Analitics
       %br
-      - unless @buffers.empty?
-        %span{:style => "font-size: 12px; line-height: 35px; font-weight: bold; color: #5ECDEB;"}
-          =image_tag("/images/birds_64/6.png", :style => "width: 32px; height: 32px;", :align => "left")
-          Today
-        %span{:style => "font-size: 10px; color: #cdcdcd;"}
-          =Time.now.strftime("%d - %m - %Y")
       #buffer_wrapper
-        -@buffers.each_with_index do |buffer,index|
+        - old_buffer = nil
+        -@buffers.each do |buffer|
+          - if old_buffer != buffer.added_time
+            %div{:style => "background: #E8F5FB; margin: 5px 0 5px 0;"}
+              %span{:style => "float: left; margin-top: -10px;"}
+                %img{:src => "/images/birds_64/5.png", :width => 34, :height => 34}
+              = time_in_word(buffer.added_time, buffer.run_at)
           #buffer_name_container{:class =>cycle("even","odd")}
-            =buffer.name
+            = buffer.name
             %br
-            %span{:style => "color: #7BC3F5; font-weight: bold;"}
-              ="Queued for #{time_in_word(buffer.added_time, buffer.run_at)}"
+            %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
+              = "Queued for #{buffer.run_at.strftime('%H:%M %p')}"
+          - old_buffer = buffer.added_time
       
       

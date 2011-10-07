@@ -38,7 +38,7 @@ class BufferPreferencesController < ApplicationController
       @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
       errors = @buffer_preference.errors
       update_run_at
-      #@buffer_preference.update_attribute(:run_at,@run_at)
+      @buffer_preference.update_attributes({:run_at => @run_at, :added_time => session[:added_time]})
       render :update do |page|
         if errors.empty?
           page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
@@ -136,8 +136,8 @@ class BufferPreferencesController < ApplicationController
       end
     end
     #debugger
-    #@run_at = run_at
-    @buffer_preference.update_attributes({:run_at => run_at, :added_time => session[:added_time]})
+    @run_at = run_at
+    debugger
   end
 
 end
