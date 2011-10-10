@@ -33,7 +33,15 @@ class TwitterUsersController < ApplicationController
             config.oauth_token_secret = user.access_secret
           end
           client = Twitter::Client.new
-          puts client.update(params[:tweet])
+          status = params[:tweet]
+          url = status.match(/https?:\/\/[\S]+/)
+          unless url.nil?
+            bitly_api = current_user.bitly_api
+            bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
+            bitly_url = bitly.shorten(url.to_s).short_url
+            status = status.gsub(url.to_s,bitly_url)
+          end
+          client.update(status)
           page << "$('#post_notice').removeClass('error');"
           page << "$('#post_notice').addClass('success');"
           page << "$('#post_notice').show();"
@@ -71,6 +79,7 @@ class TwitterUsersController < ApplicationController
 
   def settings
     @is_updated_interval = is_interval_updated?
+    @bitly = BitlyApi.find(current_user.id)
     @options = []
     @twitter_user = TwitterUser.find_by_login(params[:twitter_name])
     timeframe = Timeframe.all

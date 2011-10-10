@@ -23,6 +23,7 @@ gem "simple_form"
 gem 'activemerchant', :require => 'active_merchant'
 gem "twitter"
 gem "jrails"
+gem "bitly"
 gem 'whenever', :require => false
 gem "acts_as_soft_delete_by_field"
 gem "delayed_job",  :git => 'git://github.com/collectiveidea/delayed_job.git'

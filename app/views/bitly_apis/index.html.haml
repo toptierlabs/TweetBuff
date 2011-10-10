@@ -1,0 +1,23 @@
+%h1 Listing bitly_apis
+
+%table
+  %tr
+    %th User
+    %th Bitly name
+    %th Api key
+    %th
+    %th
+    %th
+
+  - @bitly_apis.each do |bitly_api|
+    %tr
+      %td= bitly_api.user_id
+      %td= bitly_api.bitly_name
+      %td= bitly_api.api_key
+      %td= link_to 'Show', bitly_api
+      %td= link_to 'Edit', edit_bitly_api_path(bitly_api)
+      %td= link_to 'Destroy', bitly_api, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Bitly api', new_bitly_api_path

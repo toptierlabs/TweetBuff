@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @bitly_api.user_id
+%p
+  %b Bitly name:
+  = @bitly_api.bitly_name
+%p
+  %b Api key:
+  = @bitly_api.api_key
+
+= link_to 'Edit', edit_bitly_api_path(@bitly_api)
+\|
+= link_to 'Back', bitly_apis_path

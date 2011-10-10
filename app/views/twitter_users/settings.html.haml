@@ -23,15 +23,16 @@
   #bitly_detail
     %span{:style => "font-size: 12px; font-weight: bold; color: #7AC2F4;"}
       Add your bit.ly details
-    =form_tag "/", :style => "margin-top: 19px;" do
+    =form_tag save_detail_bitly_apis_path, :style => "margin-top: 19px;" do
       %div{:style => "display: inline-block;"}
         Username
         %br
-        =text_field :bitly, :username
+        =text_field :bitly_api, :bitly_name, :value => @bitly.bitly_name
       %div{:style => "display: inline-block;"}
         API Key
         %br
-        =text_field :bitly, :api_key
+        =text_field :bitly_api, :api_key, :value => @bitly.api_key
+        =hidden_field :bitly_api, :user_id, :value => current_user.id
       %div{:style => "display: inline-block;"}
         =submit_tag "save"
   #separator{:style => "margin-bottom: 30px !important;"}
@@ -48,8 +49,13 @@
         %br
         %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
       %br
-      //- tf = @twitter_user.tweet_interval.timeframe
-      //currently your tweet will post automaticly every #{tf.value} #{tf.unit}
+      - tf = @twitter_user.tweet_interval.timeframe
+      - if tf
+        currently your tweet will post automaticly every #{tf.value} #{tf.unit}
+      - else
+        - tf = @twitter_user.tweet_interval.other_interval
+        - tf = tf.split("|")
+        = other_tf_interval(tf)
     #manage_team_box
       %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
         Manage team members

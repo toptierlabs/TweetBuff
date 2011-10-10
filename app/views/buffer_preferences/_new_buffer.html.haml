@@ -1,5 +1,5 @@
 #new_buffer_name_container
   =buffer.name
   %br
-  %span{:style => "color: #7BC3F5; font-weight: bold;"}
-    ="Queued for #{buffer.run_at.in_time_zone(buffer.user.timezone).strftime('%H:%M')}"
+  %span{:style => "color: #7BC3F5; font-style: italic;"}
+    ="Queued for #{buffer.run_at.strftime('%H:%M %p')}"

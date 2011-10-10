@@ -38,6 +38,12 @@ Tweetbuffer::Application.routes.draw do
   end
 
   scope "twitter" do
+    resources :bitly_apis do
+      collection do
+        post "save_detail" => :create_or_update
+      end
+    end
+    
     controller :twitter_sessions do
       get   "authorize" => :new, :as => :twitter_authorize_account
       get   "callback" => :oauth_callback, :as => :twitter_callback

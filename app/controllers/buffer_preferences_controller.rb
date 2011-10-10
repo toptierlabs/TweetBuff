@@ -38,7 +38,6 @@ class BufferPreferencesController < ApplicationController
       @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
       errors = @buffer_preference.errors
       update_run_at
-      @buffer_preference.update_attributes({:run_at => @run_at, :added_time => session[:added_time]})
       render :update do |page|
         if errors.empty?
           page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
@@ -125,10 +124,12 @@ class BufferPreferencesController < ApplicationController
       end
       dj_min_hour = run_sat.split(":") rescue minute_hours[0].split(":")
       last_buffer = buffer_not_success.last
-      if last_buffer.run_at.strftime("%H:%M").eql?(minute_hours.last) || last_buffer.added_time > 0 # didieu yeuh nu salah!!!!!!
-        last_run = last_buffer.run_at.strftime("%H:%M").eql?(minute_hours.last)? last_buffer.added_time+1 : last_buffer.added_time
+      last_buffer_run = last_buffer.run_at rescue Time.now
+      last_buffer_added_time = last_buffer.added_time rescue 0
+      if last_buffer_run.strftime("%H:%M").eql?(minute_hours.last) || last_buffer_added_time > 0 # didieu yeuh nu salah!!!!!!
+        last_run = last_buffer_run.strftime("%H:%M").eql?(minute_hours.last)? last_buffer_added_time+1 : last_buffer_added_time
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) +last_run.day
-        session[:added_time] = last_buffer.added_time + 1 if run_sat.eql?(minute_hours.first)
+        added_time = last_buffer_added_time + 1 if run_sat.eql?(minute_hours.first)
         #debugger
       else
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1])
@@ -137,7 +138,7 @@ class BufferPreferencesController < ApplicationController
     end
     #debugger
     @run_at = run_at
-    debugger
+    @buffer_preference.update_attributes({:run_at => @run_at, :added_time => added_time})
   end
 
 end

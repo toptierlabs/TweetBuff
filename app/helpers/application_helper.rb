@@ -45,11 +45,11 @@ module ApplicationHelper
     tommorow = Time.now + 1.day
     case added_time
     when 0
-      "<span style='color: #7BC2EE; font-weight: bold;'>Today</span> <span style='color: #cdcdcd; font-size: 11px;'>#{Time.now.strftime('%b %d')}</span>".html_safe
+      "<span style='color: #fff; font-weight: bold;'>Today</span> <span style='color: #cdcdcd; font-size: 11px;'>#{Time.now.strftime('%b %d')}</span>".html_safe
     when 1
-      "<span style='color: #7BC2EE; font-weight: bold;'>Tommorow</span> <span style='color: #cdcdcd; font-size: 11px;'>#{tommorow.strftime('%b %d')}</span>".html_safe
+      "<span style='color: #fff; font-weight: bold;'>Tommorow</span> <span style='color: #cdcdcd; font-size: 11px;'>#{tommorow.strftime('%b %d')}</span>".html_safe
     else
-      "<span style='color: #7BC2EE; font-weight: bold;'>#{run_at.strftime("%b %d")}</span>".html_safe
+      "<span style='color: #fff; font-weight: bold;'>#{run_at.strftime("%b %d")}</span>".html_safe
     end
   end
 
@@ -66,6 +66,11 @@ module ApplicationHelper
       end
     end
     return data.html_safe
+  end
+
+  def other_tf_interval(timeframe)
+    ret = "currently your tweet will post automaticly every "
+    ret << timeframe.join(",")
   end
   
 end

@@ -1,0 +1,10 @@
+= simple_form_for(@bitly_api) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :user_id
+    = f.input :bitly_name
+    = f.input :api_key
+
+  .actions
+    = f.button :submit
