@@ -68,11 +68,18 @@
               %span{:style => "float: left; margin-top: -10px;"}
                 %img{:src => "/images/birds_64/5.png", :width => 34, :height => 34}
               = time_in_word(buffer.added_time, buffer.run_at)
-          #buffer_name_container{:class =>cycle("even","odd")}
+          #buffer_name_container{:class =>cycle("even","odd"), :onmouseover => "$('#actions_#{buffer.id}').css('visibility','visible');", :onmouseout => "$('#actions_#{buffer.id}').css('visibility','hidden')"}
             = buffer.name
             %br
             %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
               = "Queued for #{buffer.run_at.strftime('%H:%M %p')}"
+            %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
+              #tweet_now
+                %img{:src => "/images/twitter.png"}
+              #edit_buffer
+                %img{:src => "/images/edit.png"}
+              #delete_buffer
+                %img{:src => "/images/close-icon.png"}
           - old_buffer = buffer.added_time
       
       

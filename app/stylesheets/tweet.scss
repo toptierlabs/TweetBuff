@@ -204,3 +204,37 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
+
+#tweet_now, #edit_buffer, #delete_buffer{
+  background: -moz-linear-gradient(top, #fff, #cdcdcd);
+  background: -webkit-linear-gradient(top, #fff, #cdcdcd);
+  width: 30px;
+  height: 20px;
+  border: 1px solid #a9a9a9;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+#tweet_now{
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-radius-topleft: 5px;
+  -webkit-border-radius-bottomleft: 5px;
+  line-height: 30px;
+}
+
+#edit_buffer{
+  margin-left: -5px;
+  line-height: 30px;
+}
+
+#delete_buffer{
+  margin-left: -5px;
+  line-height: 30px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-radius-topright: 5px;
+  -webkit-border-radius-bottomright: 5px;
+}

@@ -238,3 +238,41 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
+
+/* line 208, app/stylesheets/tweet.scss */
+#tweet_now, #edit_buffer, #delete_buffer {
+  background: -moz-linear-gradient(top, white, #cdcdcd);
+  background: -webkit-linear-gradient(top, white, #cdcdcd);
+  width: 30px;
+  height: 20px;
+  border: 1px solid #a9a9a9;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+/* line 220, app/stylesheets/tweet.scss */
+#tweet_now {
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-radius-topleft: 5px;
+  -webkit-border-radius-bottomleft: 5px;
+  line-height: 30px;
+}
+
+/* line 228, app/stylesheets/tweet.scss */
+#edit_buffer {
+  margin-left: -5px;
+  line-height: 30px;
+}
+
+/* line 233, app/stylesheets/tweet.scss */
+#delete_buffer {
+  margin-left: -5px;
+  line-height: 30px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-radius-topright: 5px;
+  -webkit-border-radius-bottomright: 5px;
+}

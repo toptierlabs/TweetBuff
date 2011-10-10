@@ -47,6 +47,7 @@ class TwitterUsersController < ApplicationController
           page << "$('#post_notice').show();"
           page << "$('#post_notice').html('Your tweet has been posted.');"
           page << "$('#loader').hide();"
+          page << "$('#tweet_text').val('')"
           page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
         else
           page << "$('#post_notice').removeClass('success');"
