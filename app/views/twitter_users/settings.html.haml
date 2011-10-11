@@ -49,13 +49,15 @@
         %br
         %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
       %br
-      - tf = @twitter_user.tweet_interval.timeframe
-      - if tf
-        currently your tweet will post automaticly every #{tf.value} #{tf.unit}
-      - else
-        - tf = @twitter_user.tweet_interval.other_interval
-        - tf = tf.split("|")
-        = other_tf_interval(tf)
+      - ti = @twitter_user.tweet_interval
+      - unless ti.nil?
+        - tf = ti.timeframe
+        - if tf
+          currently your tweet will post automaticly every #{tf.value} #{tf.unit}
+        - else
+          - tf = @twitter_user.tweet_interval.other_interval
+          - tf = tf.split("|")
+          = other_tf_interval(tf)
     #manage_team_box
       %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
         Manage team members
