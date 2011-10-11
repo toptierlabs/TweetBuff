@@ -80,7 +80,7 @@ class TwitterUsersController < ApplicationController
 
   def settings
     @is_updated_interval = is_interval_updated?
-    @bitly = BitlyApi.find(current_user.id)
+    @bitly = BitlyApi.find(current_user.id) rescue nil
     @options = []
     @twitter_user = TwitterUser.find_by_login(params[:twitter_name])
     timeframe = Timeframe.all

@@ -74,11 +74,11 @@
             %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
               = "Queued for #{buffer.run_at.strftime('%H:%M %p')}"
             %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
-              #tweet_now
+              #tweet_now{:onclick => ""}
                 %img{:src => "/images/twitter.png"}
-              #edit_buffer
+              #edit_buffer{:onclick => ""}
                 %img{:src => "/images/edit.png"}
-              #delete_buffer
+              #delete_buffer{:onclick => ""}
                 %img{:src => "/images/close-icon.png"}
           - old_buffer = buffer.added_time
       

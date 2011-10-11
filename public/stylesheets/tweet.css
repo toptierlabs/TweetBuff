@@ -253,6 +253,19 @@
 }
 
 /* line 220, app/stylesheets/tweet.scss */
+#tweet_now:hover, #edit_buffer:hover, #delete_buffer:hover {
+  background: -moz-linear-gradient(top, #cdcdcd, white);
+  background: -webkit-linear-gradient(top, #cdcdcd, white);
+  width: 30px;
+  height: 20px;
+  border: 1px solid #a9a9a9;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+/* line 232, app/stylesheets/tweet.scss */
 #tweet_now {
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-bottomleft: 5px;
@@ -261,13 +274,13 @@
   line-height: 30px;
 }
 
-/* line 228, app/stylesheets/tweet.scss */
+/* line 240, app/stylesheets/tweet.scss */
 #edit_buffer {
   margin-left: -5px;
   line-height: 30px;
 }
 
-/* line 233, app/stylesheets/tweet.scss */
+/* line 245, app/stylesheets/tweet.scss */
 #delete_buffer {
   margin-left: -5px;
   line-height: 30px;
