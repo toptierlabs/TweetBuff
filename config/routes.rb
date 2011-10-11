@@ -5,6 +5,8 @@ Tweetbuffer::Application.routes.draw do
   match "api/check_sign_in_session" => "api/sessions#check_sign_in_session"
   #api tweet
   match "api/twitter_account_list" => "api/twitter_users#twitter_account_list"
+  match "api/post_to_twitter" => "api/twitter_users#post_to_twitter"
+  match "api/send_to_buff" => "api/twitter_users#send_to_buff"
 
   resources :timezones
 

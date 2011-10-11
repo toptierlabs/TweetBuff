@@ -37,9 +37,11 @@ class TwitterUsersController < ApplicationController
           url = status.match(/https?:\/\/[\S]+/)
           unless url.nil?
             bitly_api = current_user.bitly_api
-            bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
-            bitly_url = bitly.shorten(url.to_s).short_url
-            status = status.gsub(url.to_s,bitly_url)
+            unless bitly_api.nil?
+              bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
+              bitly_url = bitly.shorten(url.to_s).short_url
+              status = status.gsub(url.to_s,bitly_url)
+            end
           end
           client.update(status)
           page << "$('#post_notice').removeClass('error');"

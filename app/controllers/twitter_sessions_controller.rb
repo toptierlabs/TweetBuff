@@ -53,10 +53,13 @@ class TwitterSessionsController < ApplicationController
   end
 
   def count_twitter_user
-    plan_count = current_user.subcriptions.where(:active => 't').first.plan.num_of_tweet_account
-    twitter_user_count = current_user.twitter_users.count
-    if plan_count == twitter_user_count
-      redirect_to twitter_users_url, :notice => "You reach your number of twitter account for your account."
+    plan = current_user.subcriptions.where(:active => 't').first.plan
+    unless plan.nil?
+      plan_count = plan.num_of_tweet_account
+      twitter_user_count = current_user.twitter_users.count
+      if plan_count == twitter_user_count
+        redirect_to twitter_users_url, :notice => "You reach your number of twitter account for your account."
+      end
     end
   end
   
