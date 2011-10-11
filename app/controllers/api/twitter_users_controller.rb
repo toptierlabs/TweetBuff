@@ -20,9 +20,8 @@ class Api::TwitterUsersController < ApplicationController
       config.oauth_token_secret = user.access_secret
     end
     client = Twitter::Client.new
-    status = params[:tweet_message]
+    status = CGI.unescape(params[:tweet_message])
     url = status.match(/https?:\/\/[\S]+/)
-    debugger
     unless url.nil?
       bitly_api = current_user.bitly_api
       unless bitly_api.nil?
@@ -31,7 +30,12 @@ class Api::TwitterUsersController < ApplicationController
         status = status.gsub(url.to_s,bitly_url)
       end
     end
-    client.update(status)
+    begin
+      client.update(status)
+      @tweet_status = "Success : Your tweet has been posted."
+    rescue
+      @tweet_status = "Failed : Status is a duplicate."
+    end
     
     respond_to do |format|
       format.xml
