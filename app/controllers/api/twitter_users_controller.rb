@@ -32,9 +32,11 @@ class Api::TwitterUsersController < ApplicationController
     end
     begin
       client.update(status)
-      @tweet_status = "Success : Your tweet has been posted."
+      @tweet_status = 1
+      @tweet_message = "Success : Your tweet has been posted."
     rescue
-      @tweet_status = "Failed : Status is a duplicate."
+      @tweet_status = 0
+      @tweet_message = "Failed : Status is a duplicate."
     end
     
     respond_to do |format|

@@ -72,7 +72,7 @@
             = buffer.name
             %br
             %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
-              = "Queued for #{buffer.run_at.strftime('%H:%M %p')}"
+              = "Queued for #{buffer.run_at.strftime('%H:%M %p')}" unless buffer.run_at.nil?
             %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
               #tweet_now{:onclick => ""}
                 %img{:src => "/images/twitter.png"}
