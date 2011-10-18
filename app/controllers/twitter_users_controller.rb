@@ -70,7 +70,8 @@ class TwitterUsersController < ApplicationController
 
   def update_timezone
     #puts current_user
-    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
+#    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
+    @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
     redirect_to :back, :notice => "Your timezone has been updated."
   end
 

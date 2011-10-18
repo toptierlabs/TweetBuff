@@ -38,3 +38,29 @@ a {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
 }
+
+/* line 37, app/stylesheets/general.scss */
+#image-header {
+  text-align: center;
+}
+
+/* line 40, app/stylesheets/general.scss */
+#image-footer {
+  margin-top: 80px;
+  text-align: center;
+}
+
+/* line 44, app/stylesheets/general.scss */
+#image-sign-in {
+  position: absolute;
+  margin-left: 78px;
+  margin-top: -7px;
+}
+
+/* line 47, app/stylesheets/general.scss */
+.button-sign-in {
+  background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
+  cursor: pointer;
+  height: 32px;
+  width: 178px;
+}

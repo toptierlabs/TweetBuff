@@ -1,31 +1,44 @@
 /* line 1, app/stylesheets/plan.scss */
 .plan-container {
-  display: inline-block;
-  width: 215px;
+  /*display: inline-block;
+  float: left;
+  height: 553px;
   margin-left: 5px;
+  width: 263px;*/
+  display: inline-block;
+  float: left;
+  margin-left: 5px;
+  min-height: 624px;
+  width: 263px;
 }
 
-/* line 7, app/stylesheets/plan.scss */
+/* line 14, app/stylesheets/plan.scss */
+div.plan-container:hover {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 2px solid #3185C3;
+  background-color: #F8F8F8;
+}
+
+/* line 20, app/stylesheets/plan.scss */
 .top-part {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  background: #373737;
-  color: #dddddd;
+  color: #3185C3;
   padding: 5px;
 }
 
-/* line 15, app/stylesheets/plan.scss */
+/* line 26, app/stylesheets/plan.scss */
 .bottom-part {
-  margin-top: 10px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  background: #dddddd;
   color: #373737;
-  padding: 5px;
-  overflow: auto;
+  margin-top: 10px;
+  padding-left: 13px;
+  padding-right: 35px;
 }
 
-/* line 25, app/stylesheets/plan.scss */
+/* line 35, app/stylesheets/plan.scss */
 .bullet {
   -moz-border-radius: 10px 10px 10px 10px;
   background-color: #373737;
@@ -40,30 +53,32 @@
   width: 20px;
 }
 
-/* line 39, app/stylesheets/plan.scss */
+/* line 48, app/stylesheets/plan.scss */
 .description {
   bottom: 3px;
-  color: #373737;
+  color: #3185C3;
   display: block;
-  font-size: 11px;
-  margin-left: 40px;
+  font-size: 13px;
   position: relative;
+  right: -15px;
+  text-align: left;
 }
 
-/* line 48, app/stylesheets/plan.scss */
+/* line 58, app/stylesheets/plan.scss */
 #list {
-  border-bottom: 1px solid #a9a9a9;
   padding-top: 10px;
   min-height: 30px;
 }
 
-/* line 54, app/stylesheets/plan.scss */
+/* line 62, app/stylesheets/plan.scss */
 .signup {
+  margin-top: 15px;
+  padding-left: 70px;
+  position: absolute;
   text-align: center;
-  padding-left: 60px;
 }
 
-/* line 59, app/stylesheets/plan.scss */
+/* line 69, app/stylesheets/plan.scss */
 .signup_link {
   display: block;
   width: 90px;
@@ -74,4 +89,38 @@
   text-decoration: none;
   text-align: center;
   color: #000;
+}
+
+/* line 81, app/stylesheets/plan.scss */
+.plan-name {
+  font-family: Musa-Ornata;
+  font-size: 20px;
+}
+
+/* line 86, app/stylesheets/plan.scss */
+.plan-price {
+  font-family: Musa-Ornata;
+  font-size: 40px;
+}
+
+/* line 90, app/stylesheets/plan.scss */
+.plan-desc {
+  font-family: Musa-Ornata;
+  color: #A9C427;
+  font-size: 20px;
+}
+
+/* line 95, app/stylesheets/plan.scss */
+#box {
+  margin-bottom: -39px;
+  margin-left: 212px;
+  margin-top: -93px;
+  padding: 25px;
+  position: absolute;
+  width: 355px;
+}
+
+/* line 103, app/stylesheets/plan.scss */
+.button-header {
+  float: left;
 }

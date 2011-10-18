@@ -2,7 +2,7 @@
 Syntax error: File to import not found or unreadable: blueprint.
               Load paths:
                 Compass::SpriteImporter
-                /home/cybergarage/Workspace/tweet/tbuff/app/stylesheets
+                /home/cybergarage/fitria/project/new_project/tbuff/app/stylesheets
         on line 1 of app/stylesheets/ie.scss
 
 1: @import "blueprint";
@@ -86,4 +86,4 @@ app/stylesheets/ie.scss:1
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: blueprint.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/cybergarage/Workspace/tweet/tbuff/app/stylesheets\A         on line 1 of app/stylesheets/ie.scss\A \A 1: @import \"blueprint\";\A 2: \A 3: // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:\A 4: // @include blueprint-ie\A 5: \A 6: //Recommended Blueprint configuration with scoping and semantic layout:"; }
+  content: "Syntax error: File to import not found or unreadable: blueprint.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/cybergarage/fitria/project/new_project/tbuff/app/stylesheets\A         on line 1 of app/stylesheets/ie.scss\A \A 1: @import \"blueprint\";\A 2: \A 3: // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:\A 4: // @include blueprint-ie\A 5: \A 6: //Recommended Blueprint configuration with scoping and semantic layout:"; }

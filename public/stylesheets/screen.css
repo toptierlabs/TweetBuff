@@ -144,9 +144,25 @@ table.tweets tbody tr > td {
   border-bottom: 1px solid #ccc;
 }
 
-/* line 10, app/stylesheets/_layout.scss */
+@font-face {
+  font-family: TexGy;
+  src: url("/fonts/texgyreadventor-regular.otf");
+}
+
+@font-face {
+  font-family: TexGy;
+  font-weight: bold;
+  src: url("/fonts/texgyreadventor-bold.otf");
+}
+
+@font-face {
+  font-family: Musa-Ornata;
+  src: url("/fonts/nuornata.ttf");
+}
+
+/* line 25, app/stylesheets/_layout.scss */
 body {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: TexGy;
   font-size: 12px;
   border-top: 20px solid #79c1f3;
 }
@@ -760,7 +776,7 @@ body .prepend-top {
 body .append-bottom {
   margin-bottom: 1.5em;
 }
-/* line 15, app/stylesheets/_layout.scss */
+/* line 30, app/stylesheets/_layout.scss */
 body:before {
   position: absolute;
   width: 100%;
@@ -771,40 +787,42 @@ body:before {
   border-bottom: 1px solid #9ad0f6;
   top: 17px;
 }
-/* line 26, app/stylesheets/_layout.scss */
+/* line 41, app/stylesheets/_layout.scss */
 body div.container {
   width: 1024px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
   width: 938px;
+  text-align: center;
+  padding: 20px 0 20px 0;
 }
 
-/* line 32, app/stylesheets/_layout.scss */
+/* line 49, app/stylesheets/_layout.scss */
 #header {
   margin: 0 auto;
 }
-/* line 34, app/stylesheets/_layout.scss */
+/* line 51, app/stylesheets/_layout.scss */
 #header > .container {
   padding-top: 21px;
   position: relative;
 }
-/* line 37, app/stylesheets/_layout.scss */
+/* line 54, app/stylesheets/_layout.scss */
 #header > .container > h1, #header > .container > h2 {
   text-indent: -9999px;
 }
-/* line 40, app/stylesheets/_layout.scss */
+/* line 57, app/stylesheets/_layout.scss */
 #header > .container > h1 {
   background-image: url(/images/header.png);
   background-repeat: no-repeat;
   height: 91px;
   width: 172px;
 }
-/* line 46, app/stylesheets/_layout.scss */
+/* line 63, app/stylesheets/_layout.scss */
 #header > .container > h2 {
   width: 0;
 }
-/* line 50, app/stylesheets/_layout.scss */
+/* line 67, app/stylesheets/_layout.scss */
 #header > .container .menu#nav {
   position: absolute;
   top: 0;
@@ -813,7 +831,7 @@ body div.container {
   z-index: 10;
 }
 
-/* line 65, app/stylesheets/_layout.scss */
+/* line 82, app/stylesheets/_layout.scss */
 #footer {
   position: static;
   width: 100%;
@@ -822,7 +840,7 @@ body div.container {
   bottom: 0;
   padding: 6px 0 3px;
 }
-/* line 73, app/stylesheets/_layout.scss */
+/* line 90, app/stylesheets/_layout.scss */
 #footer:before {
   position: absolute;
   width: 100%;

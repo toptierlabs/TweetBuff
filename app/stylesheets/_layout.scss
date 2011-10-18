@@ -2,8 +2,23 @@
 
 $body_border_top: #79c1f3;
 $body_border_border: #9ad0f6;
+@font-face {
+	font-family: TexGy;
+	src: url('/fonts/texgyreadventor-regular.otf');
+}
 
-$blueprint-font-family: "Helvetica Neue", Arial, Helvetica, sans-serif !default;
+@font-face {
+	font-family: TexGy;	
+        font-weight: bold;
+	src: url('/fonts/texgyreadventor-bold.otf');
+}
+
+@font-face {
+	font-family: Musa-Ornata;
+	src: url('/fonts/nuornata.ttf');
+}
+
+$blueprint-font-family: TexGy !default;
 $blueprint-font-size: 12px !default;
 $font_color: #3d6caf;
 

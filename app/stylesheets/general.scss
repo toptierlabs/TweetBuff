@@ -34,3 +34,19 @@ a{
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
 }
+#image-header{
+  text-align: center;
+}
+#image-footer{
+  margin-top: 80px;
+    text-align: center;
+}
+#image-sign-in{
+position: absolute; margin-left: 78px; margin-top: -7px;
+}
+.button-sign-in{
+    background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 32px;
+    width: 178px;
+}

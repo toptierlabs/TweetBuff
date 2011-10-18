@@ -1,6 +1,6 @@
 class TwitterSessionsController < ApplicationController
 
-  before_filter :count_twitter_user, :only => [:new]
+  skip_before_filter :count_twitter_user, :only => [:new]
 
   def new
     oauth_callback = request.protocol + request.host_with_port + '/twitter/callback'
