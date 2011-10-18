@@ -952,9 +952,30 @@ form .input.required:hover {
 }
 /* line 13, app/stylesheets/_simple_form.scss */
 form .input label {
-    width: 121px;
+    /*    width: 121px;
+        display: inline-block;
+        vertical-align: top;*/
+    color: #3185C3;
     display: inline-block;
+    float: left;
+    margin-left: 156px;
+    text-align: left;
     vertical-align: top;
+    width: 100%;
+}
+form .remember label{
+    margin-left:0px;
+    width:65%;
+}
+form .remember input{
+    color: #3185C3;
+    display: inline-block;
+    float: left;
+    margin-left: 156px;
+    text-align: left;
+    vertical-align: top;
+    width: 10%;
+    float: left;
 }
 /* line 18, app/stylesheets/_simple_form.scss */
 form .input label abbr[title='required'] {
@@ -966,4 +987,7 @@ form .input textarea {
     height: 75px;
     width: 322px;
     resize: none;
+}
+.inputs input{
+    width:250px;
 }

@@ -52,15 +52,24 @@ a {
 
 /* line 44, app/stylesheets/general.scss */
 #image-sign-in {
+  float: left;
+  margin-left: 29px;
+  margin-top: 70px;
   position: absolute;
-  margin-left: 78px;
-  margin-top: -7px;
 }
 
-/* line 47, app/stylesheets/general.scss */
+/* line 50, app/stylesheets/general.scss */
 .button-sign-in {
   background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
   height: 32px;
+  width: 178px;
+}
+
+/* line 56, app/stylesheets/general.scss */
+.button-sign-up {
+  background: url("/images/sign-up.jpg") repeat scroll 0 0 transparent;
+  cursor: pointer;
+  height: 34px;
   width: 178px;
 }

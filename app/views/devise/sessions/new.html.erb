@@ -1,5 +1,5 @@
 <div id="box-sign-in">
-  <h2>Sign in</h2>
+  <h2 style="color: rgb(49, 133, 195); position: absolute; font-size: 36px; font-weight: bold; margin-left: 18px;">Sign-in</h2>
   <div id="image-sign-in">
     <%= image_tag("/images/birds_64/6.png") %>
   </div>
@@ -10,9 +10,11 @@
     </div>
     <div class="actions">
       <%= f.button :submit, "", :class => "button-sign-in" %>
+    </div>
+    <div class="remember">
       <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
     </div>
   <% end %>
-
+  <div style="clear:both;"></div>
   <%= render :partial => "devise/shared/links" %>
 </div>
