@@ -164,7 +164,7 @@ table.tweets tbody tr > td {
 body {
   font-family: TexGy;
   font-size: 12px;
-  border-top: 20px solid #79c1f3;
+/*  border-top: 20px solid #79c1f3;*/
 }
 /* line 28, app/stylesheets/_grid.scss */
 body .container {
@@ -777,7 +777,7 @@ body .append-bottom {
   margin-bottom: 1.5em;
 }
 /* line 30, app/stylesheets/_layout.scss */
-body:before {
+/*body:before {
   position: absolute;
   width: 100%;
   height: 1px;
@@ -786,16 +786,19 @@ body:before {
   border-top: 1px solid white;
   border-bottom: 1px solid #9ad0f6;
   top: 17px;
-}
+}*/
 /* line 41, app/stylesheets/_layout.scss */
 body div.container {
   width: 1024px;
   margin: 0 auto;
   overflow: hidden;
-  *zoom: 1;
+/*  zoom: 1;*/
   width: 938px;
   text-align: center;
   padding: 20px 0 20px 0;
+}
+body div.container {
+  
 }
 
 /* line 49, app/stylesheets/_layout.scss */
