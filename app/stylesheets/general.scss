@@ -42,7 +42,10 @@ a{
     text-align: center;
 }
 #image-sign-in{
-position: absolute; margin-left: 78px; margin-top: -7px;
+float: left;
+    margin-left: 29px;
+    margin-top: 70px;
+    position: absolute;
 }
 .button-sign-in{
     background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;

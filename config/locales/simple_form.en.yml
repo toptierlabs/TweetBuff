@@ -16,7 +16,8 @@ en:
       password_confirmation: "Confirm"
       user:
         new:
-          email: 'E-mail para efetuar o sign in.'
+#          email: 'E-mail para efetuar o sign in.'
+          email: 'E-mail'
         edit:
           email: 'E-mail.'
     # hints:
