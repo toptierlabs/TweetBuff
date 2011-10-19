@@ -1,0 +1,18 @@
+<div id="box-sign-in">
+  <h2 style="position: absolute; font-size: 36px; font-weight: bold; margin-left: 18px; color: rgb(122, 194, 244);">Sign-up</h2>
+  <div id="image-sign-in">
+    <%= image_tag("/images/birds_64/12.png") %>
+  </div>
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+    <div class="inputs">
+      <%= f.input :email, :autofocus => true %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+    </div>
+    <div class="actions">
+      <%= f.button :submit, "", :class => "button-sign-up" %>
+    </div>
+  <% end %>
+  <div style="clear:both;"></div>
+</div>

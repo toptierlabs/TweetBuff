@@ -62,19 +62,21 @@ a {
 .button-sign-in {
   background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
-  height: 32px;
-  width: 178px;
+  height: 29px;
+  width: 174px;
+  border: none;
 }
 
-/* line 56, app/stylesheets/general.scss */
+/* line 57, app/stylesheets/general.scss */
 .button-sign-up {
   background: url("/images/sign-up.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
-  height: 34px;
-  width: 178px;
+  height: 30px;
+  width: 174px;
+  border: none;
 }
 
-/* line 62, app/stylesheets/general.scss */
+/* line 64, app/stylesheets/general.scss */
 .button-forgotten {
   background: url("/images/get-recovery-instructions.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -82,7 +84,7 @@ a {
   width: 177px;
 }
 
-/* line 68, app/stylesheets/general.scss */
+/* line 70, app/stylesheets/general.scss */
 .button-change-password {
   background: url("/images/change-password.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -90,12 +92,12 @@ a {
   width: 177px;
 }
 
-/* line 74, app/stylesheets/general.scss */
+/* line 76, app/stylesheets/general.scss */
 .error_notification {
   color: red;
 }
 
-/* line 77, app/stylesheets/general.scss */
+/* line 79, app/stylesheets/general.scss */
 .error {
   color: red;
 }

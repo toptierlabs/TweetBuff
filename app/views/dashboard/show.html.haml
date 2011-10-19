@@ -1,2 +1,5 @@
-%h2= t("dashboard.show.header")
-%p= t("dashboard.show.description")
+- if session[:plan_id] == "1"
+    %h2= t("dashboard.show.header")
+    %p= t("dashboard.show.description")    
+- else
+    %div

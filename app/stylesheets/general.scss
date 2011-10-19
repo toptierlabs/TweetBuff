@@ -50,14 +50,16 @@ float: left;
 .button-sign-in{
     background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
     cursor: pointer;
-    height: 32px;
-    width: 178px;
+    height: 29px;
+    width: 174px;
+    border: none;
 }
 .button-sign-up{
     background: url("/images/sign-up.jpg") repeat scroll 0 0 transparent;
     cursor: pointer;
-    height: 34px;
-    width: 178px;
+    height: 30px;
+    width: 174px;
+    border: none;
 }
 .button-forgotten{
     background: url("/images/get-recovery-instructions.jpg") repeat scroll 0 0 transparent;

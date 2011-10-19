@@ -1,20 +1,43 @@
 -content_for :plan_css do
   = stylesheet_link_tag 'plan.css'
 
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $(function(){
+  $('div.annual-toggle span').click(function(e){
+  e.preventDefault();
+
+  $('div.annual-toggle span').removeClass('select');
+  $(this).addClass('select');
+
+  if($(this).hasClass('button_plan_annual')) {
+  $('div.top-part font.monthly').addClass('hidden');
+  $('div.top-part font.annual').removeClass('hidden');
+  } else {
+  $('div.top-part font.monthly').removeClass('hidden');
+  $('div.top-part font.annual').addClass('hidden');
+  }
+  });
+
+  $('div.annual-toggle span.button_plan_monthly').click();
+
+  });
+
+
 %div{:style => "margin: 0pt auto; width: 830px;"}
   %div{:id => "box"}
-    %div{:class => "button-header"}
-      = link_to image_tag("/images/monthly.jpg"), ""
-    %div{:class => "button-header"}
-      = link_to image_tag("/images/years.jpg"), ""
+    %div{:class => "annual-toggle"}
+      %span{:class => "button_plan_monthly"} Monthly
+      %span{:class => "button_plan_annual select"} 1 Year 15% OFF
+
   %div{:style => "clear: both; ", :id => "separator"}
     %img{:src => "/images/separator.jpg"}
-  - @plans.each do |plan|
+  - @plans.each do |plan|    
     .plan-container
       .top-part
         %span{:class => "plan-name"}= plan.name
         %br
-        %span{:class => "plan-price"}= "#{number_to_currency(plan.price)}/mo"
+        %font{:class => "monthly"}= "#{number_to_currency(plan.price)}/mo"
+        %font{:class => "annual"}= "#{format_price_years(plan.price)}/mo"
         %br
         - case(plan.name)
           -when "Free"
