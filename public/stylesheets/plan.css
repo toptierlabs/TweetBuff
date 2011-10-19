@@ -124,3 +124,49 @@ div.plan-container:hover {
 .button-header {
   float: left;
 }
+
+/* line 107, app/stylesheets/plan.scss */
+.annual {
+  font-family: Musa-Ornata;
+  font-size: 40px;
+}
+
+/* line 112, app/stylesheets/plan.scss */
+.monthly {
+  font-family: Musa-Ornata;
+  font-size: 40px;
+}
+
+/* line 117, app/stylesheets/plan.scss */
+.button_plan_monthly {
+  background: url("/images/button_select.png") repeat scroll 0 0 transparent;
+  font-size: 17px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  width: 156px;
+  height: 40px;
+  float: left;
+  margin-right: 5px;
+  padding: 5px;
+}
+
+/* line 130, app/stylesheets/plan.scss */
+.button_plan_annual {
+  background: url("/images/button_select.png") repeat scroll 0 0 transparent;
+  font-size: 17px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  width: 156px;
+  height: 40px;
+  float: left;
+  padding: 5px;
+}
+
+/* line 143, app/stylesheets/plan.scss */
+.select {
+  background: url("/images/button_unselect.png") repeat scroll 0 0 transparent;
+  width: 156px;
+  height: 40px;
+}

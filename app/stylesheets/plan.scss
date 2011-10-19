@@ -103,3 +103,45 @@ color: #373737;
 .button-header{
   float: left;
 }
+
+.annual{
+  font-family: Musa-Ornata;
+  font-size: 40px;
+}
+
+.monthly{
+  font-family: Musa-Ornata;
+  font-size: 40px;
+}
+
+.button_plan_monthly{
+  background: url("/images/button_select.png")repeat scroll 0 0 transparent;
+  font-size: 17px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  width: 156px;
+  height: 40px;
+  float: left;
+  margin-right: 5px;
+  padding: 5px;
+}
+
+.button_plan_annual{
+  background: url("/images/button_select.png")repeat scroll 0 0 transparent;
+  font-size: 17px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  width: 156px;
+  height: 40px;
+  float: left;
+  padding: 5px;
+}
+
+
+.select{
+  background: url("/images/button_unselect.png")repeat scroll 0 0 transparent;
+  width: 156px;
+  height: 40px;
+}
