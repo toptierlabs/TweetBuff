@@ -967,6 +967,11 @@ form .remember label{
     margin-left:0px;
     width:65%;
 }
+form .remember .hint{
+    background-color: white;
+    color: #3185C3;
+    margin-left: -650px;
+}
 form .remember input{
     color: #3185C3;
     display: inline-block;

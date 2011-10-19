@@ -1,19 +1,19 @@
-<h2>Change your password</h2>
-
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <%= f.input :reset_password_token, :as => :hidden %>
-  <%= f.full_error :reset_password_token %>
-
-  <div class="inputs">
-    <%= f.input :password, :label => "New password", :required => true %>
-    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+<div id="box-sign-in">
+  <h2 style="font-size: 36px; font-weight: bold; margin-left: 18px; position: relative; color: rgb(122, 194, 244);">Change your password</h2>
+  <div id="image-sign-in" style="float: left; margin-left: 29px; position: absolute; margin-top: 28px;">
+    <%= image_tag("/images/birds_64/6.png") %>
   </div>
+  <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="actions">
-    <%= f.button :submit, "Change my password" %>
-  </div>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+    <%= f.input :reset_password_token, :as => :hidden %>
+    <%= f.full_error :reset_password_token %>
+    <div class="inputs">
+      <%= f.input :password, :label => "New password", :required => true %>
+      <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+    </div>
+    <div class="actions">
+      <%= f.button :submit, "", :class => "button-change-password" %>
+    </div>
+  <% end %>
+</div>

@@ -38,11 +38,11 @@ module Tweetbuffer
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]  + [:password_confirmation]
-  config.generators do |g|
-    g.stylesheets false
-    #g.form_builder :simple_form
-    g.fixture_replacement :factory_girl, :dir => 'spec/factories'
-  end
+    config.generators do |g|
+      g.stylesheets false
+      #g.form_builder :simple_form
+      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+    end
 
   end
 end

@@ -59,3 +59,21 @@ float: left;
     height: 34px;
     width: 178px;
 }
+.button-forgotten{
+    background: url("/images/get-recovery-instructions.jpg") repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 33px;
+    width: 177px;
+}
+.button-change-password{
+    background: url("/images/change-password.jpg") repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 33px;
+    width: 177px;
+}
+.error_notification{
+  color: red;
+}
+.error{
+  color: red;
+}

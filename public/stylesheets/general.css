@@ -73,3 +73,29 @@ a {
   height: 34px;
   width: 178px;
 }
+
+/* line 62, app/stylesheets/general.scss */
+.button-forgotten {
+  background: url("/images/get-recovery-instructions.jpg") repeat scroll 0 0 transparent;
+  cursor: pointer;
+  height: 33px;
+  width: 177px;
+}
+
+/* line 68, app/stylesheets/general.scss */
+.button-change-password {
+  background: url("/images/change-password.jpg") repeat scroll 0 0 transparent;
+  cursor: pointer;
+  height: 33px;
+  width: 177px;
+}
+
+/* line 74, app/stylesheets/general.scss */
+.error_notification {
+  color: red;
+}
+
+/* line 77, app/stylesheets/general.scss */
+.error {
+  color: red;
+}
