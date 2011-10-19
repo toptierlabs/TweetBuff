@@ -1,5 +1,12 @@
-#new_buffer_name_container
-  =buffer.name
+#new_buffer_name_container{:class =>cycle("even","odd"), :onmouseover => "$('#actions_#{buffer.id}').css('visibility','visible');", :onmouseout => "$('#actions_#{buffer.id}').css('visibility','hidden')"}
+  = buffer.name
   %br
-  %span{:style => "color: #7BC3F5; font-style: italic;"}
+  %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
     ="Queued for #{buffer.run_at.strftime('%H:%M %p')}"
+  %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
+    #tweet_now{:onclick => ""}
+      %img{:src => "/images/twitter.png"}
+    #edit_buffer{:onclick => ""}
+      %img{:src => "/images/edit.png"}
+    #delete_buffer{:onclick => ""}
+      %img{:src => "/images/close-icon.png"}

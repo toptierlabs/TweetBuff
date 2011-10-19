@@ -1,6 +1,8 @@
 class DashboardController < ApplicationController
   
   before_filter :authenticate_user!
+  
+  before_filter :twitter_account_required, :except => :add_account
 
   def show
   end
@@ -30,6 +32,10 @@ class DashboardController < ApplicationController
     else
       redirect_to :back, :notice => "Invalid current password"
     end
+  end
+  
+  def add_account
+    
   end
 
 end

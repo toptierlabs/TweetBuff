@@ -139,13 +139,11 @@ class Api::TwitterUsersController < ApplicationController
         last_run = last_buffer_run.strftime("%H:%M").eql?(minute_hours.last)? last_buffer_added_time+1 : last_buffer_added_time
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) +last_run.day
         added_time = last_buffer_added_time + 1 if run_sat.eql?(minute_hours.first)
-        #debugger
       else
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1])
         added_time = 0
       end
     end
-    #debugger
     @run_at = run_at
     @buffer_preference.update_attributes({:run_at => @run_at, :added_time => added_time})
   end

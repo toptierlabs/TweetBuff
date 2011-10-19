@@ -1,5 +1,7 @@
 class BufferPreferencesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :twitter_account_required
+  
   before_filter :get_twitter_user
 
   respond_to :html, :json
@@ -35,15 +37,21 @@ class BufferPreferencesController < ApplicationController
   # post    ":twitter_name/buffers"
   def create
     if request.xhr?
-      @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-      errors = @buffer_preference.errors
-      update_run_at
-      render :update do |page|
-        if errors.empty?
-          page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
-          page << "notification()"
-        else
-          #errors.full_messages.each {|error| page << "alert('#{error}')"}
+      unless @twitter_user.tweet_interval.blank?
+        @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
+        errors = @buffer_preference.errors
+        update_run_at
+        render :update do |page|
+          if errors.empty?
+            page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
+            page << "notification()"
+          else
+            #errors.full_messages.each {|error| page << "alert('#{error}')"}
+          end
+        end
+      else
+        render :update do |page|
+          page.redirect_to :back
         end
       end
     end
@@ -130,13 +138,11 @@ class BufferPreferencesController < ApplicationController
         last_run = last_buffer_run.strftime("%H:%M").eql?(minute_hours.last)? last_buffer_added_time+1 : last_buffer_added_time
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) +last_run.day
         added_time = last_buffer_added_time + 1 if run_sat.eql?(minute_hours.first)
-        #debugger
       else
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1])
         added_time = 0
       end
     end
-    #debugger
     @run_at = run_at
     @buffer_preference.update_attributes({:run_at => @run_at, :added_time => added_time})
   end

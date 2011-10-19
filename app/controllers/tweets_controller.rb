@@ -1,6 +1,7 @@
 class TweetsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :twitter_account_required
   before_filter :get_buffer_preference
   after_filter :layout_renderer
 

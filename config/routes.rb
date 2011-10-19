@@ -7,6 +7,7 @@ Tweetbuffer::Application.routes.draw do
   match "api/twitter_account_list" => "api/twitter_users#twitter_account_list"
   match "api/post_to_twitter" => "api/twitter_users#post_to_twitter"
   match "api/send_to_buff" => "api/twitter_users#send_to_buff"
+  match "add_account" => "dashboard#add_account", :as => :add_account
 
   resources :timezones
 

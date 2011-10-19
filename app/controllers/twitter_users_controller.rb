@@ -1,6 +1,7 @@
 class TwitterUsersController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :twitter_account_required
 
   def index
     #redirect_to twitter_user_url(session[:current_twitter_user]) unless session[:current_twitter_user].nil? redirect current url if user switch their twitter account
@@ -70,7 +71,7 @@ class TwitterUsersController < ApplicationController
 
   def update_timezone
     #puts current_user
-#    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
+    #    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
     @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
     redirect_to :back, :notice => "Your timezone has been updated."
   end
@@ -105,7 +106,6 @@ class TwitterUsersController < ApplicationController
   end
 
   def save_settings
-    #debugger
     twitter_uid = params[:timeframe][:twitter_user_id]
     tf = params[:tfname]
     if params[:timeframe][:timeframe_id].eql?("99")
@@ -115,14 +115,20 @@ class TwitterUsersController < ApplicationController
         other_time << "#{tf[:hour][i]}:#{tf[:minute][i]}|"
       end
       tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
-      if tweet_interval.update_attributes({:timeframe_id => nil, :other_interval => other_time.gsub("\n","")})
-        redirect_to :back, :notice => "thankyou, your settings has been updated."
+      if tweet_interval.nil?
+        TweetInterval.create(:timeframe_id => nil, :other_interval => other_time.gsub("\n",""), :user_id => current_user.id, :twitter_user_id => twitter_uid)
+      else
+        tweet_interval.update_attributes({:timeframe_id => nil, :other_interval => other_time.gsub("\n","")})
       end
+      redirect_to :back, :notice => "thankyou, your settings has been updated."
     else
       tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
-      if tweet_interval.update_attributes(params[:timeframe].merge(:other_interval => nil))
-        redirect_to :back, :notice => "thankyou, your settings has been updated."
+      if tweet_interval.nil?
+        TweetInterval.create(params[:timeframe].merge(:other_interval => nil))
+      else
+        tweet_interval.update_attributes(params[:timeframe].merge(:other_interval => nil))
       end
+      redirect_to :back, :notice => "thankyou, your settings has been updated."
     end
     
   end

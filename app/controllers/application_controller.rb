@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   
   protect_from_forgery
+  #  before_filter :mailer_set_url_options
   before_filter :mailer_set_url_options
  
   def mailer_set_url_options
@@ -27,7 +28,13 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if resource.is_a?(User)
       flash[:notice] = t("dashboard.show.welcome", :name => resource.email)
-      return dashboard_path
+      # return dashboard_path
+      twitter_user = current_user.twitter_users.first
+      unless twitter_user.blank?
+        return twitter_user_path(current_user.twitter_users.first.login)
+      else
+        return add_account_path
+      end
     elsif resource.is_a?(AdminUser)
       return admin_path
     end
@@ -36,6 +43,17 @@ class ApplicationController < ActionController::Base
   def set_active_subscription
     if user_signed_in?
       subscription = Subcription.find(:all, :conditions => [""])
+    end
+  end
+  
+  protected
+  
+  def twitter_account_required
+    if user_signed_in?
+      if TwitterUser.find_by_user_id(current_user.id).nil?
+        redirect_to add_account_path
+        return
+      end
     end
   end
 
