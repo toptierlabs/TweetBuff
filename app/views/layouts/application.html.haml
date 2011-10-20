@@ -5,8 +5,14 @@
     %title
       = yield(:title) || "Untitled"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
-    
+
+    = javascript_include_tag :defaults
+    = javascript_include_tag "bpopup.js"
+    = javascript_include_tag "button.js"
+    = javascript_include_tag "notification.js"
     = javascript_include_tag "jquery.min.js"
+
+    = javascript_include_tag "easySlider1.5.js"
     = stylesheet_link_tag :jquery
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
@@ -22,6 +28,7 @@
     = yield(:tweet_css)
     = yield(:plan_css)
     = yield(:goodies_css)
+
   #image-header
     = image_tag("/images/header.jpg")
   %body
@@ -45,7 +52,3 @@
         = yield
     #image-footer
       = image_tag("/images/footer.jpg")
-    = javascript_include_tag :defaults
-    = javascript_include_tag "bpopup.js"
-    = javascript_include_tag "button.js"
-    = javascript_include_tag "notification.js"

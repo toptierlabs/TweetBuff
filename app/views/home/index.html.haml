@@ -6,14 +6,31 @@
         overflow: visible !important;
       }
 
+:javascript
+    $(document).ready(function(){
+        $("#slider").easySlider({
+                auto: true,
+                continuous: true
+        });
+    });
+%div{:id => "slider", :style => "width: 696px; margin: auto;"}
+  %ul{:style => "list-style:none;"}
+    %li
+      = image_tag "04.jpg"
+    %li
+      = image_tag "03.jpg"
+    %li
+      = image_tag "05.jpg"
+
+%br
 -content_for :signup_float do
   .float_signup
     %img{:src => "/images/signup_float.jpg"}
 
 #tryit_form
-  =form_tag "/" do
-    =text_field :tryit, :tweet, :id => "tryit_input"
-    =submit_tag "Try it out!", :class => "tryit_button"
+  = form_tag "/users/sign_up", :method => :get do
+    = text_field :tryit, :tweet, :id => "tryit_input"
+    = submit_tag "Try it out!", :class => "tryit_button"
 
 #home_container
   .statistics
