@@ -5,14 +5,15 @@
     =t("dashboard.twitter.authorize")
 - else
   - @twitter_users.each do |twitter_user|
-    .span-6
-      = profile_image(twitter_user, "_normal", 48, 48)
-    .span-10.last
-      .span-4
-        = t("dashboard.twitter.login")
-      .span-6.last
-        = twitter_user.login
-      .span-4
-        = t("dashboard.twitter.name")
-      .span-6.last
-        = twitter_user.name
+    .twitter-account{:style => "height: 112px; margin-left: 34px; float: left; width: 425px;"}
+      .span-6
+        = profile_image(twitter_user, "_normal", 48, 48)
+      .span-10.last
+        .span-4
+          = t("dashboard.twitter.login")
+        .span-6.last
+          = twitter_user.login
+        .span-4
+          = t("dashboard.twitter.name")
+        .span-6.last
+          = twitter_user.name

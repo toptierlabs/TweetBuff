@@ -38,22 +38,26 @@ class BufferPreferencesController < ApplicationController
   def create
     if request.xhr?
       unless @twitter_user.tweet_interval.blank?
-        @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-        errors = @buffer_preference.errors
-        update_run_at
-        render :update do |page|
-          if errors.empty?
-            page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
-            page << "$('#loader-buffer').hide();"
-            page << "$('#tweet_text').val('')"
-            page << "notification()"
-          else
-            #errors.full_messages.each {|error| page << "alert('#{error}')"}
+        @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+        @buffers = BufferPreference.find_all_by_twitter_user_id(@twitter_user.id).count
+        unless @buffers.eql?(is_max_tweet_buffer?(current_user).plan.num_of_tweet_in_buffer)
+          @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
+          errors = @buffer_preference.errors
+          update_run_at
+          render :update do |page|
+            if errors.empty?
+              page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
+              page << "$('#loader-buffer').hide();"
+              page << "$('#tweet_text').val('')"
+              page << "notification()"
+            else
+              #errors.full_messages.each {|error| page << "alert('#{error}')"}
+            end
           end
-        end
-      else
-        render :update do |page|
-          page.redirect_to :back
+        else
+          render :update do |page|
+            page.redirect_to :back
+          end
         end
       end
     end
@@ -147,6 +151,11 @@ class BufferPreferencesController < ApplicationController
     end
     @run_at = run_at
     @buffer_preference.update_attributes({:run_at => @run_at, :added_time => added_time})
+  end
+  
+  def is_max_tweet_buffer?(user)
+    accounts = TwitterUser.find_all_by_user_id(current_user.id).count
+    @active_plans = Subcription.active_subcription(current_user).first
   end
 
 end
