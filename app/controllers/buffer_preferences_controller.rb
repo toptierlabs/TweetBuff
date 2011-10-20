@@ -44,6 +44,8 @@ class BufferPreferencesController < ApplicationController
         render :update do |page|
           if errors.empty?
             page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
+            page << "$('#loader-buffer').hide();"
+            page << "$('#tweet_text').val('')"
             page << "notification()"
           else
             #errors.full_messages.each {|error| page << "alert('#{error}')"}

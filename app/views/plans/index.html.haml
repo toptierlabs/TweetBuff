@@ -72,7 +72,7 @@
       .signup
         - if user_signed_in?
           - if plan.id == @myplan
-            %span{:style => "font-size: 18px;"} Your current plan
+            %span{:style => "font-size: 18px; color: #3185C3; font-weight: bold; margin-left: -35px;"} Your current plan
           - else
             = link_to image_tag("/images/sign_up_now.jpg"), get_plan_clicked_when_signup_plan_path(plan)
         - else

@@ -7,7 +7,7 @@ class TwitterUsersController < ApplicationController
     #redirect_to twitter_user_url(session[:current_twitter_user]) unless session[:current_twitter_user].nil? redirect current url if user switch their twitter account
     if params[:twitter_name]
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-      @buffer_preference = @twitter_user.buffer_preferences.new
+      @buffer_preference = @twitter_user.buffer_preferences.new rescue nil
       @buffers = @twitter_user.buffer_preferences.oldest_order
       session[:current_twitter_user] = params[:twitter_name]
     else
@@ -20,6 +20,25 @@ class TwitterUsersController < ApplicationController
       end
     end
     @is_updated_interval = is_interval_updated?
+    
+    plans = Subcription.find_all_by_user_id(current_user.id)
+    @plans = plans.last
+    if @plans.plan.name.eql?("Free")
+      @total_buffer = 20
+    elsif @plans.plan.name.eql?("Pro")
+      @total_buffer = 60
+    end    
+    if @buffers.nil?
+      @count_buffer = 0
+    else
+      @count_buffer = @buffers.count
+    end
+  end
+  
+  def delete_buffer
+    @buffers = BufferPreference.find(params[:id])
+    @buffers.destroy
+    redirect_to :back
   end
 
   def tweet_to_twitter
@@ -92,6 +111,24 @@ class TwitterUsersController < ApplicationController
       @options << ["#{tf.name}","#{tf.id}"]
     end
     @options << ["other","99"]
+    
+    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    @twitter_id = @twitter_user.id
+    sent_buffers = BufferPreference.where("twitter_user_id = #{@twitter_id} AND deleted_at IS NOT NULL")
+    @sent_buffers = sent_buffers.count
+    plans = Subcription.find_all_by_user_id(current_user.id)
+    @plans = plans.last
+    if @plans.plan.name.eql?("Free")
+      @total_buffer = 20
+    elsif @plans.plan.name.eql?("Pro")
+      @total_buffer = 60
+    end
+    @buffers = @twitter_user.buffer_preferences.oldest_order
+    if @buffers.nil?
+      @count_buffer = 0
+    else
+      @count_buffer = @buffers.count
+    end
   end
 
   def other_time_interval

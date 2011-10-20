@@ -3,14 +3,20 @@ class TwitterSessionsController < ApplicationController
   skip_before_filter :count_twitter_user, :only => [:new]
 
   def new
-    oauth_callback = request.protocol + request.host_with_port + '/twitter/callback'
-    @request_token = TwitterAuth.consumer.get_request_token({:oauth_callback => oauth_callback})
-    session[:request_token] = @request_token.token
-    session[:request_token_secret] = @request_token.secret
+    is_max_tweet_account?(current_user)
+    @accounts = TwitterUser.find_all_by_user_id(current_user.id).count
+    if @accounts.eql?(is_max_tweet_account?(current_user).plan.num_of_tweet_account)
+      redirect_to :back, :notice => 'account is overload'
+    else
+      oauth_callback = request.protocol + request.host_with_port + '/twitter/callback'
+      @request_token = TwitterAuth.consumer.get_request_token({:oauth_callback => oauth_callback})
+      session[:request_token] = @request_token.token
+      session[:request_token_secret] = @request_token.secret
    
-    url = @request_token.authorize_url
-    url << "&oauth_callback=#{CGI.escape(TwitterAuth.oauth_callback)}" if TwitterAuth.oauth_callback?      
-    redirect_to url
+      url = @request_token.authorize_url
+      url << "&oauth_callback=#{CGI.escape(TwitterAuth.oauth_callback)}" if TwitterAuth.oauth_callback?      
+      redirect_to url      
+    end
   end
   
   def oauth_callback
@@ -61,6 +67,11 @@ class TwitterSessionsController < ApplicationController
         redirect_to twitter_users_url, :notice => "You reach your number of twitter account for your account."
       end
     end
+  end
+  
+  def is_max_tweet_account?(user)
+    accounts = TwitterUser.find_all_by_user_id(current_user.id).count
+    @active_plans = Subcription.active_subcription(current_user).first
   end
   
 end

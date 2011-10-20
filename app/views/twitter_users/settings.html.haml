@@ -14,10 +14,21 @@
       %img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
     #buffer_count
       %img{:src => "/images/buffer_count.jpg"}
+      - if user_signed_in?
+        - unless @plans.nil?
+          - if @plans.plan.name.eql?("Free")
+            %span{:style => "color:rgb(49, 133, 195); font-weight:bold; position:absolute; font-size:32px; margin-left:-43px; margin-top:-2px;"} #{@count_buffer}
+          - elsif @plans.plan.name.eql?("Pro")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-left: -43px; margin-top: -2px;"} #{@count_buffer}
+          - elsif @plans.plan.name.eql?("Premium")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-left: -43px; margin-top: -2px;"} Unlimited tweets per day
+        - else
+          %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-left: -43px; margin-top: -2px;"} 0
       %br
       In Buffer
     #buffer_count
       %img{:src => "/images/sent_from_buffer.jpg"}
+      %span{:style => "font-weight: bold; position: absolute; font-size: 32px; margin-top: 2px; margin-left: -44px; color: rgb(181, 226, 61);"} #{@sent_buffers}
       %br
       Sent from buffer
   #bitly_detail

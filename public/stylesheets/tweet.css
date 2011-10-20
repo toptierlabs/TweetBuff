@@ -80,48 +80,51 @@
   height: 49px;
   border: 0;
   margin-right: 10px;
+  cursor: pointer;
 }
 
-/* line 73, app/stylesheets/tweet.scss */
+/* line 74, app/stylesheets/tweet.scss */
 .post_now {
   background: url(/images/post_now.jpg) no-repeat;
   width: 167px;
   height: 49px;
   border: 0;
   margin-right: 10px;
+  cursor: pointer;
 }
 
-/* line 81, app/stylesheets/tweet.scss */
+/* line 83, app/stylesheets/tweet.scss */
 .queue_settings {
   background: url(/images/queue_setting.jpg) no-repeat;
   width: 167px;
   height: 49px;
   border: 0;
   margin-right: 10px;
+  cursor: pointer;
 }
 
-/* line 89, app/stylesheets/tweet.scss */
+/* line 92, app/stylesheets/tweet.scss */
 #separator {
   width: 100%;
   background: url(/images/separator.jpg) no-repeat center;
   height: 30px;
 }
 
-/* line 95, app/stylesheets/tweet.scss */
+/* line 98, app/stylesheets/tweet.scss */
 #ads {
   display: inline-block;
   width: 151px;
   vertical-align: top;
 }
 
-/* line 101, app/stylesheets/tweet.scss */
+/* line 104, app/stylesheets/tweet.scss */
 #buffer_list {
   vertical-align: top;
   display: inline-block;
   width: 730px;
 }
 
-/* line 107, app/stylesheets/tweet.scss */
+/* line 110, app/stylesheets/tweet.scss */
 #post_notice {
   border-bottom: 1px solid #cdcdcd;
   width: 100%;
@@ -134,17 +137,17 @@
   font-size: 20px;
 }
 
-/* line 119, app/stylesheets/tweet.scss */
+/* line 122, app/stylesheets/tweet.scss */
 .error {
   background: #F6CBCA;
 }
 
-/* line 123, app/stylesheets/tweet.scss */
+/* line 126, app/stylesheets/tweet.scss */
 .success {
   background: #D8E9D3;
 }
 
-/* line 127, app/stylesheets/tweet.scss */
+/* line 130, app/stylesheets/tweet.scss */
 #loader {
   position: absolute;
   text-align: center;
@@ -154,82 +157,92 @@
   display: none;
 }
 
-/* line 136, app/stylesheets/tweet.scss */
+/* line 138, app/stylesheets/tweet.scss */
+#loader-buffer {
+  position: absolute;
+  text-align: center;
+  top: 196px;
+  width: 100%;
+  right: -50px;
+  display: none;
+}
+
+/* line 147, app/stylesheets/tweet.scss */
 #buffer_name_container {
   padding-top: 8px;
   padding-left: 5px;
   text-align: left;
 }
 
-/* line 141, app/stylesheets/tweet.scss */
+/* line 152, app/stylesheets/tweet.scss */
 #new_buffer_name_container {
   padding-top: 8px;
   padding-left: 5px;
   text-align: left;
 }
 
-/* line 147, app/stylesheets/tweet.scss */
+/* line 158, app/stylesheets/tweet.scss */
 #buffer_wrapper {
   padding-top: 8px;
   padding-left: 5px;
 }
 
-/* line 152, app/stylesheets/tweet.scss */
+/* line 163, app/stylesheets/tweet.scss */
 .even {
   background: #E8F5FB;
   padding: 3px;
 }
 
-/* line 157, app/stylesheets/tweet.scss */
+/* line 168, app/stylesheets/tweet.scss */
 .odd {
   background: #fff;
   padding: 3px;
 }
 
-/* line 162, app/stylesheets/tweet.scss */
+/* line 173, app/stylesheets/tweet.scss */
 #settings_user_detail {
   vertical-align: top;
   display: inline-block;
   width: 250px;
 }
 
-/* line 168, app/stylesheets/tweet.scss */
+/* line 179, app/stylesheets/tweet.scss */
 #bitly_detail {
   vertical-align: top;
   display: inline-block;
 }
 
-/* line 173, app/stylesheets/tweet.scss */
+/* line 184, app/stylesheets/tweet.scss */
 .timeframe {
   width: 650px;
   margin: 0 auto;
   margin-bottom: 40px;
 }
 
-/* line 179, app/stylesheets/tweet.scss */
+/* line 190, app/stylesheets/tweet.scss */
 #timeframe_box {
   vertical-align: top;
   display: inline-block;
   width: 250px;
 }
 
-/* line 185, app/stylesheets/tweet.scss */
+/* line 196, app/stylesheets/tweet.scss */
 #default_timeframe_form_container {
   padding-top: 10px;
 }
 
-/* line 189, app/stylesheets/tweet.scss */
+/* line 200, app/stylesheets/tweet.scss */
 #custom_timeframe_form_container {
   padding-top: 10px;
   display: none;
 }
 
-/* line 194, app/stylesheets/tweet.scss */
+/* line 205, app/stylesheets/tweet.scss */
 #custom_tf_select {
   padding: 3px;
 }
 
-/* line 198, app/stylesheets/tweet.scss */
+/* line 209, app/stylesheets/tweet.scss */
 #manage_team_box {
   vertical-align: top;
   display: inline-block;
@@ -237,7 +250,7 @@
   margin-left: 50px;
 }
 
-/* line 205, app/stylesheets/tweet.scss */
+/* line 216, app/stylesheets/tweet.scss */
 #interval_not_updated {
   padding: 10px;
   font-size: 13px;
@@ -247,7 +260,7 @@
   -webkit-border-radius: 5px;
 }
 
-/* line 214, app/stylesheets/tweet.scss */
+/* line 225, app/stylesheets/tweet.scss */
 #tweet_now, #edit_buffer, #delete_buffer {
   background: -moz-linear-gradient(top, white, #cdcdcd);
   background: -webkit-linear-gradient(top, white, #cdcdcd);
@@ -260,7 +273,7 @@
   cursor: pointer;
 }
 
-/* line 226, app/stylesheets/tweet.scss */
+/* line 237, app/stylesheets/tweet.scss */
 #tweet_now:hover, #edit_buffer:hover, #delete_buffer:hover {
   background: -moz-linear-gradient(top, #cdcdcd, white);
   background: -webkit-linear-gradient(top, #cdcdcd, white);
@@ -273,7 +286,7 @@
   cursor: pointer;
 }
 
-/* line 238, app/stylesheets/tweet.scss */
+/* line 249, app/stylesheets/tweet.scss */
 #tweet_now {
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-bottomleft: 5px;
@@ -282,13 +295,13 @@
   line-height: 30px;
 }
 
-/* line 246, app/stylesheets/tweet.scss */
+/* line 257, app/stylesheets/tweet.scss */
 #edit_buffer {
   margin-left: -5px;
   line-height: 30px;
 }
 
-/* line 251, app/stylesheets/tweet.scss */
+/* line 262, app/stylesheets/tweet.scss */
 #delete_buffer {
   margin-left: -5px;
   line-height: 30px;

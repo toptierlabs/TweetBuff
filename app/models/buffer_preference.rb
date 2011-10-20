@@ -65,7 +65,7 @@ class BufferPreference < ActiveRecord::Base
   def self.post_tweet
     buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now])
     buffers.each do |buffer|
-      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?",Time.now.beginning_of_day, Time.now.end_of_day])
+      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?",Time.now.beginning_of_day, Time.now.end_of_day]).count
       twitter_user = buffer.twitter_user
       plan_count = twitter_user.user.subcriptions.where(["active = 't'"]).first.plan.num_of_tweet_per_day
       if tweeted < plan_count

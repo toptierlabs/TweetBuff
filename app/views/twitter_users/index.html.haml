@@ -31,6 +31,14 @@
           %img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
         #buffer_count
           %img{:src => "/images/t_count.jpg"}
+        - if user_signed_in?
+          - if @plans.plan.name.eql?("Free")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
+          - elsif @plans.plan.name.eql?("Pro")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
+          - elsif @plans.plan.name.eql?("Premium")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} Unlimited tweets per day
+
         #user_login
           =@twitter_user.login
         #mini_panel
@@ -46,10 +54,14 @@
           =image_tag("ajaxLoader.gif")
           %br
           Posting your tweet
+        #loader-buffer
+          =image_tag("ajaxLoader.gif")
+          %br
+          Add tweet to buffer
         =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
           =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
           #button_container
-            =submit_tag "", :class => "add_to_queue"
+            =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
             %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
             %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
     #separator
@@ -74,12 +86,12 @@
             %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
               = "Queued for #{buffer.run_at.strftime('%H:%M %p')}" unless buffer.run_at.nil?
             %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
-              #tweet_now{:onclick => ""}
+              #tweet_now{:onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('buffer.name').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
                 %img{:src => "/images/twitter.png"}
               #edit_buffer{:onclick => ""}
                 %img{:src => "/images/edit.png"}
               #delete_buffer{:onclick => ""}
-                %img{:src => "/images/close-icon.png"}
+                = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id)
           - old_buffer = buffer.added_time
       
       

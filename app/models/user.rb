@@ -13,10 +13,8 @@ class User < ActiveRecord::Base
   has_many    :tweets
   has_many    :subcriptions
   has_many    :tweet_intervals
-  has_one    :bitly_api
+  has_one    :bitly_api 
 #  has_one     :timezone
-  scope :active_subscription, where(:active => true)
-
   
   after_create :mark_as_free_subcription
 

@@ -8,7 +8,8 @@ Tweetbuffer::Application.routes.draw do
   match "api/post_to_twitter" => "api/twitter_users#post_to_twitter"
   match "api/send_to_buff" => "api/twitter_users#send_to_buff"
   match "add_account" => "dashboard#add_account", :as => :add_account
-
+  match 'twitter_users/delete_buffer/:id' => 'twitter_users#delete_buffer', :as => :delete_buffer, :via => :get
+  
   resources :timezones
 
   resources :tweet_histories
