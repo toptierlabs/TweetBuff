@@ -28,7 +28,8 @@
     #tweet_stuff
       .user_twitter_detail
         #profile_image
-          %img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
+          //%img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
+          = profile_image(@twitter_user, "_normal", 64, 64)
         #buffer_count
           %img{:src => "/images/t_count.jpg"}
         - if user_signed_in?
