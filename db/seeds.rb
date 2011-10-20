@@ -2,6 +2,7 @@ admin = AdminUser.create( :email => "bill@stackpointerllc.com",
   :name => "Bill Alton",
   :password => "temp4now",
   :password_confirmation => "temp4now")
+
 user = User.create( :email => "bill@stackpointerllc.com",
   :name => "Bill Alton",
   :password => "temp4now",
@@ -13,11 +14,12 @@ plan = Plan.create!(
     {:name=>"Premium",:price=>30.0,:num_of_tweet_per_day=>0,:num_of_tweet_in_buffer=>0,:num_of_tweet_account=>10,:free_browser_ext=>true, :num_of_team_member_per_account => 5}]
 )
 
-timeframe = Timeframe.create(
+timeframe = Timeframe.create!(
   [
     {:name=>"10 minutes",:value=>10,:unit=>"minutes"},
     {:name=>"15 minutes",:value=>15,:unit=>"minutes"},
     {:name=>"30 minutes",:value=>30,:unit=>"minutes"},
+    {:name=>"1 hours",:value=>1,:unit=>"hours"},
     {:name=>"2 hours",:value=>2,:unit=>"hours"},
     {:name=>"3 hours",:value=>3,:unit=>"hours"},
     {:name=>"4 hours",:value=>4,:unit=>"hours"},

@@ -106,7 +106,12 @@ class TwitterUsersController < ApplicationController
     @bitly = BitlyApi.find(current_user.id) rescue nil
     @options = []
     @twitter_user = TwitterUser.find_by_login(params[:twitter_name])
-    timeframe = Timeframe.all
+
+    user = User.find(current_user.id)
+    myplan = user.subcriptions.last.plan
+    @myplan_timeframes = myplan.timeframes
+    
+    timeframe = @myplan_timeframes
     timeframe.each do |tf|
       @options << ["#{tf.name}","#{tf.id}"]
     end
