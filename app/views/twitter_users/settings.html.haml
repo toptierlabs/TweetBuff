@@ -10,8 +10,8 @@
 
 .wrapper
   #settings_user_detail
-    #profile_image
-      %img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
+    #profile_image      
+      = profile_image(@twitter_user, "_normal", 64, 64)
     #buffer_count
       %img{:src => "/images/buffer_count.jpg"}
       %br
