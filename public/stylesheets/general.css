@@ -101,3 +101,40 @@ a {
 .error {
   color: red;
 }
+
+/* line 83, app/stylesheets/general.scss */
+#slideshow {
+  position: relative;
+  margin: auto;
+  height: 400px;
+}
+
+/* line 89, app/stylesheets/general.scss */
+#slideshow DIV {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  opacity: 0.0;
+  height: 400px;
+  background-color: #FFF;
+}
+
+/* line 99, app/stylesheets/general.scss */
+#slideshow DIV.active {
+  z-index: 10;
+  opacity: 1.0;
+}
+
+/* line 104, app/stylesheets/general.scss */
+#slideshow DIV.last-active {
+  z-index: 9;
+}
+
+/* line 108, app/stylesheets/general.scss */
+#slideshow DIV IMG {
+  height: 350px;
+  display: block;
+  border: 0;
+  margin-bottom: 10px;
+}

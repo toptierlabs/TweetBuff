@@ -6,9 +6,12 @@
       = yield(:title) || "Untitled"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
     
-    = javascript_include_tag "jquery.min.js"
-    
+    = javascript_include_tag "jquery.min.js"    
+    = javascript_include_tag "jquery-1.2.6.min.js"
+
+
     = stylesheet_link_tag :jquery
+    
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
     = stylesheet_link_tag 'general.css'
@@ -23,6 +26,26 @@
     = yield(:tweet_css)
     = yield(:plan_css)
     = yield(:goodies_css)
+
+
+  %script
+    function slideSwitch() {
+    var $active = $('#slideshow DIV.active');
+    if ( $active.length == 0 ) $active = $('#slideshow DIV:last');
+
+    var $next =  $active.next().length ? $active.next() : $('#slideshow DIV:first');
+
+    $active.addClass('last-active');
+
+    $next.css({opacity: 0.0}).addClass('active').animate({opacity: 1.0}, 1000, function() {
+    $active.removeClass('active last-active');
+    });
+    }
+
+    $(function() {
+    setInterval( "slideSwitch()", 5000 );
+    });
+
   #image-header
     = image_tag("/images/header.jpg")
   %body

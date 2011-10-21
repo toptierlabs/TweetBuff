@@ -6,19 +6,13 @@
         overflow: visible !important;
       }
 
-:javascript
-    $(document).ready(function(){
-        $("#slider").easySlider({
-                auto: true,
-                continuous: true
-        });
-    });
-%div{:id => "slider", :style => "width: 696px; margin: auto;"}
-  %ul{:style => "list-style:none;"}
-    %li
-      = image_tag "04.jpg"
-
-
+//%div{:id=>"slideshow"}
+//  %div{:class=>"active"}
+//    = image_tag "05.jpg"
+//  %div
+//    = image_tag "04.jpg"
+#sliders
+  = image_tag "image_slide.jpg"
 %br
 %br
 -content_for :signup_float do
