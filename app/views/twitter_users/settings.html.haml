@@ -78,7 +78,7 @@
       %div{:style => "font-weight: bold; color: #a9a9a9;"}
         %img{:src => "/images/birds_64/5.png", :height => "24", :width => "24"}
         someone@host.com
-      =form_tag "/" do
+      =form_tag "/invite_team_member" do
         =text_field :member, :email, :style => "width: 160px;"
         =submit_tag "invite"
       

@@ -13,4 +13,14 @@ class Notifier < ActionMailer::Base
 
     mail :to => user.email, :subject => "TweetBuff - you are running out of buffer."
   end
+  
+  def invite_team_member(team_member, referer, current_user)
+    @greeting = "Hi"
+    @team_member = team_member
+    @referer = referer
+    @user = current_user
+    
+    mail :to => team_member, :subject => "TweetBuff - Invited"
+  end
+  
 end

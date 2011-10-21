@@ -38,9 +38,44 @@ class TwitterUsersController < ApplicationController
   def delete_buffer
     @buffers = BufferPreference.find(params[:id])
     @buffers.destroy
+    if request.xhr?
+      @result_buffers = BufferPreference.find_all_by_twitter_user_id(current_user.twitter_users.first.id)
+      @twitter_user = current_user.twitter_users.first.id
+      render :update do |page|
+        page << "$('#buffer_wrapper').append(#{render :partial => "list_buffer" })"
+      end
+    end
     redirect_to :back
   end
 
+  def tweet_from_buffer
+    user = BufferPreference.find(params[:id]).twitter_user
+    Twitter.configure do |config|
+      config.consumer_key       = TWITTER_API[:key]
+      config.consumer_secret    = TWITTER_API[:secret]
+      config.oauth_token        = user.access_token
+      config.oauth_token_secret = user.access_secret
+    end
+    client = Twitter::Client.new
+    user_status = BufferPreference.find(params[:id])
+    status = user_status.permalink
+    user_status.deleted_at = Time.now
+    user_status.status = "success"
+    user_status.save!
+    
+    url = status.match(/https?:\/\/[\S]+/)
+    unless url.nil?
+      bitly_api = current_user.bitly_api
+      unless bitly_api.nil?
+        bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
+        bitly_url = bitly.shorten(url.to_s).short_url
+        status = status.gsub(url.to_s,bitly_url)
+      end
+    end
+    client.update(status)
+    redirect_to :back
+  end
+  
   def tweet_to_twitter
     if request.xhr?
       render :update do |page|
@@ -110,7 +145,7 @@ class TwitterUsersController < ApplicationController
     user = User.find(current_user.id)
     myplan = user.subcriptions.last.plan
     @myplan_timeframes = myplan.timeframes
-    
+
     timeframe = @myplan_timeframes
     timeframe.each do |tf|
       @options << ["#{tf.name}","#{tf.id}"]
@@ -134,6 +169,16 @@ class TwitterUsersController < ApplicationController
     else
       @count_buffer = @buffers.count
     end
+  end
+  
+  def invite_team_member
+    #    @team_member = User.create(:email=>params[:member][:email], :referal_id=>current_user.id, :validate=> false)
+    
+    @team_member = params[:member][:email]
+    @referer = current_user.email
+    Notifier.invite_team_member(@team_member, @referer, current_user).deliver
+    
+    redirect_to :back
   end
 
   def other_time_interval
@@ -190,6 +235,11 @@ class TwitterUsersController < ApplicationController
       end
     end
     nil
+  end
+  
+  def is_team_member?
+    current_user.referal_id.eql?(nil)
+    #    !self.referal_id.eql?(nil)
   end
 
   def self.send_notification

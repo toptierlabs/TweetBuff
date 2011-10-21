@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :referal_id
 
   has_many    :preferences
   has_many    :twitter_users
@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many    :tweet_intervals
   has_one    :bitly_api 
 #  has_one     :timezone
+  has_many :team_members
+  
   
   after_create :mark_as_free_subcription
 

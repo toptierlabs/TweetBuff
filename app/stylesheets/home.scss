@@ -26,7 +26,10 @@
   height: 36px;
   -moz-border-radius-bottomright: 4px;
   -moz-border-radius-topright: 4px;
+  -webkit-border-radius: 4px;
   margin-left: -3px;
+  color: #FFFFFF;
+  font-weight: bold;
 }
 
 #tryit_input{
@@ -35,6 +38,7 @@
   height: 30px;
   -moz-border-radius-topleft: 4px;
   -moz-border-radius-bottomleft: 4px;
+  -webkit-border-radius: 3px;
 }
 
 #detail_head{

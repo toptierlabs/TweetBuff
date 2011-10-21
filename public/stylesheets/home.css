@@ -30,19 +30,23 @@
   height: 36px;
   -moz-border-radius-bottomright: 4px;
   -moz-border-radius-topright: 4px;
+  -webkit-border-radius: 4px;
   margin-left: -3px;
+  color: #FFFFFF;
+  font-weight: bold;
 }
 
-/* line 32, app/stylesheets/home.scss */
+/* line 35, app/stylesheets/home.scss */
 #tryit_input {
   background: -moz-linear-gradient(top, #cdcdcd, white);
   width: 330px;
   height: 30px;
   -moz-border-radius-topleft: 4px;
   -moz-border-radius-bottomleft: 4px;
+  -webkit-border-radius: 3px;
 }
 
-/* line 40, app/stylesheets/home.scss */
+/* line 44, app/stylesheets/home.scss */
 #detail_head {
   color: #47AEF9;
   font-size: 16px;
@@ -51,7 +55,7 @@
   width: 200px;
 }
 
-/* line 48, app/stylesheets/home.scss */
+/* line 52, app/stylesheets/home.scss */
 .statistics {
   display: inline-block;
   width: 220px;
@@ -60,7 +64,7 @@
   margin-left: 10px;
 }
 
-/* line 56, app/stylesheets/home.scss */
+/* line 60, app/stylesheets/home.scss */
 #home_button_link {
   display: block;
   border: 0;
@@ -75,7 +79,7 @@
   line-height: 28px;
 }
 
-/* line 70, app/stylesheets/home.scss */
+/* line 74, app/stylesheets/home.scss */
 .analytic {
   display: inline-block;
   width: 220px;
@@ -84,7 +88,7 @@
   margin-left: 10px;
 }
 
-/* line 78, app/stylesheets/home.scss */
+/* line 82, app/stylesheets/home.scss */
 .testimoni {
   display: inline-block;
   width: 220px;

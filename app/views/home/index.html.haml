@@ -21,7 +21,7 @@
 
 #tryit_form
   = form_tag "/users/sign_up", :method => :get do
-    = text_field :tryit, :tweet, :id => "tryit_input"
+    = text_field :tryit, :tweet, :id => "tryit_input", :placeholder => "your tweeter account", :style => "font-style: italic; font-weight: bold;"
     = submit_tag "Try it out!", :class => "tryit_button"
 
 #home_container

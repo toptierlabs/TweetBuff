@@ -9,6 +9,7 @@ Tweetbuffer::Application.routes.draw do
   match "api/send_to_buff" => "api/twitter_users#send_to_buff"
   match "add_account" => "dashboard#add_account", :as => :add_account
   match 'twitter_users/delete_buffer/:id' => 'twitter_users#delete_buffer', :as => :delete_buffer, :via => :get
+  match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
   
   resources :timezones
 
@@ -62,6 +63,8 @@ Tweetbuffer::Application.routes.draw do
     get "/" => "TwitterUsers#index", :as => :twitter_users
     get "/twitt_account/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
     get "/tweet_to_twitter" => "TwitterUsers#tweet_to_twitter", :as => :tweet_to_twitter
+    get "/tweet_from_buffer/:id" => "TwitterUsers#tweet_from_buffer", :as => :tweet_from_buffer
+    
     get "/twitter_account_list" => "TwitterUsers#twitter_account_list"
     get "/settings" => "TwitterUsers#settings", :as => :twitter_settings
     get "/settings/other_time_interval" => "TwitterUsers#other_time_interval", :as => :other_ti

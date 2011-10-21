@@ -44,6 +44,7 @@ class TweetsController < ApplicationController
   def destroy
     @tweet = @buffer_preference.tweets.find_by_id(params[:id])
     @tweet.destroy
+    
     respond_with(@twitter_user, @buffer_preference, @tweet)
   end
 
@@ -61,7 +62,7 @@ class TweetsController < ApplicationController
   end
 
 
-protected
+  protected
 
   def get_twitter_user
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])

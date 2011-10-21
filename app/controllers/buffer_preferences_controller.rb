@@ -136,11 +136,17 @@ class BufferPreferencesController < ApplicationController
       else
         run_sat = minute_hours[0]
       end
+      
       dj_min_hour = run_sat.split(":") rescue minute_hours[0].split(":")
       last_buffer = buffer_not_success.last
       last_buffer_run = last_buffer.run_at rescue Time.now
       last_buffer_added_time = last_buffer.added_time rescue 0
-      if last_buffer_run.strftime("%H:%M").eql?(minute_hours.last) || last_buffer_added_time > 0 # didieu yeuh nu salah!!!!!!
+      if last_buffer_added_time.nil?
+        a = 0
+      else
+        a = last_buffer_added_time
+      end
+      if last_buffer_run.strftime("%H:%M").eql?(minute_hours.last) || a > 0  # didieu yeuh nu salah!!!!!!
         last_run = last_buffer_run.strftime("%H:%M").eql?(minute_hours.last)? last_buffer_added_time+1 : last_buffer_added_time
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) +last_run.day
         added_time = last_buffer_added_time + 1 if run_sat.eql?(minute_hours.first)

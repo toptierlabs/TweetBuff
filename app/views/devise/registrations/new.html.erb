@@ -7,6 +7,9 @@
     <%= f.error_notification %>
     <div class="inputs">
       <%= f.input :email, :autofocus => true %>
+      <div style="display: none;">
+        <%= f.input :referal_id, :value => params[:referal_id] %>
+      </div>
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
     </div>
