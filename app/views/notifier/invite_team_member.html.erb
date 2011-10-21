@@ -1,0 +1,5 @@
+Hai <%= @team_member %>,
+
+You are invited by <%= @referer %>
+
+<%= link_to "sign up team member", new_user_registration_url(:referal_id => @user.id) %>
