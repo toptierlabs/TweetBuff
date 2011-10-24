@@ -43,13 +43,14 @@ module ApplicationHelper
 
   def time_in_word(added_time,run_at)
     tommorow = Time.now + 1.day
-    case added_time
+    yesterday = Time.now - 1.day
+    case run_at
     when 0
-      "<span style='color: #fff; font-weight: bold;'>Today</span> <span style='color: #cdcdcd; font-size: 11px;'>#{Time.now.strftime('%b %d')}</span>".html_safe
+      "<span style='color: #fff; font-weight: bold;'>Today</span> <span style='color: #fff; font-weight: bold;'>#{Time.now.strftime('%b %d')}</span>".html_safe
     when 1
-      "<span style='color: #fff; font-weight: bold;'>Tommorow</span> <span style='color: #cdcdcd; font-size: 11px;'>#{tommorow.strftime('%b %d')}</span>".html_safe
+      "<span style='color: #fff; font-weight: bold;'>Tommorow</span> <span style='color: #fff; font-weight: bold;'>#{tommorow.strftime('%b %d')}</span>".html_safe
     else
-      "<span style='color: #fff; font-weight: bold;'>#{run_at.strftime("%b %d")}</span>".html_safe
+      "<span style='color: #fff; font-weight: bold;'>Today #{run_at.strftime("%b %d")}</span>".html_safe
     end
   end
 

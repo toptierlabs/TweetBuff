@@ -71,6 +71,18 @@
   cursor: pointer;
 }
 
+.update_buffer{
+  background: url("/images/button_select.png") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    height: 49px;
+    margin-right: 10px;
+    width: 167px;
+}
+
 .post_now{
   background: url(/images/post_now.jpg) no-repeat;
   width: 167px;

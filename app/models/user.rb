@@ -14,9 +14,8 @@ class User < ActiveRecord::Base
   has_many    :subcriptions
   has_many    :tweet_intervals
   has_one    :bitly_api 
-#  has_one     :timezone
+  #  has_one     :timezone
   has_many :team_members
-  
   
   after_create :mark_as_free_subcription
 

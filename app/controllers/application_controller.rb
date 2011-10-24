@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = t("dashboard.show.welcome", :name => resource.email)
       # return dashboard_path
       twitter_user = current_user.twitter_users.first
-      unless twitter_user.blank?
+      unless twitter_user.blank? or is_team_member?(3)
         return twitter_user_path(current_user.twitter_users.first.login)
       else
         return add_account_path
@@ -55,6 +55,16 @@ class ApplicationController < ActionController::Base
         return
       end
     end
+  end
+  
+  def is_max_tweet_buffer?(user)
+    accounts = TwitterUser.find_all_by_user_id(current_user.id).count
+    @active_plans = Subcription.active_subcription(current_user).first
+  end
+  
+  def is_team_member
+    @team_member = User.where("referal_id is NOT NULL")
+#    @team_member = User.where("referal_id is NOT NULL and referal_id = ?", current_user.id).first
   end
 
 end

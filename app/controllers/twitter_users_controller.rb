@@ -47,7 +47,25 @@ class TwitterUsersController < ApplicationController
     end
     redirect_to :back
   end
-
+  
+  def edit_buffer
+    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    @buffer = BufferPreference.find(params[:id])
+    #    render :layout => false
+    respond_to do |format|
+      format.js {render :edit_buffer}
+    end
+  end
+  
+  def update_buffer
+    @buffer = BufferPreference.find(params[:id])
+    @buffer.name = params[:buffer_preference][:name]
+    @buffer.save!
+    respond_to do |format|
+      format.js {render :update_buffer}
+    end
+  end
+  
   def tweet_from_buffer
     user = BufferPreference.find(params[:id]).twitter_user
     Twitter.configure do |config|

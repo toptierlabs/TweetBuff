@@ -1,0 +1,15 @@
+.tweet_form_buffer
+  #loader
+    =image_tag("ajaxLoader.gif")
+    %br
+    Posting your tweet
+  #loader-buffer
+    =image_tag("ajaxLoader.gif")
+    %br
+    Add tweet to buffer
+  = form_for @buffer, :remote => true, :url => update_buffer_path(@buffer.id) do |f|
+    =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
+    #button_container
+      =submit_tag "Update Buffer", :class => "update_buffer", :onclick => "$('#loader-buffer').show();"
+      %input{:type => "button",:class => "post_now", :onclick => ""}
+      %input{:type => "button",:class => "queue_settings", :onclick => ""}

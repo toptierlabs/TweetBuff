@@ -3,6 +3,8 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
   
   before_filter :twitter_account_required, :except => :add_account
+  
+#  before_filter :is_team_member, :except => :add_account
 
   def show
   end
@@ -35,7 +37,6 @@ class DashboardController < ApplicationController
   end
   
   def add_account
-    
   end
 
 end

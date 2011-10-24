@@ -9,6 +9,9 @@ Tweetbuffer::Application.routes.draw do
   match "api/send_to_buff" => "api/twitter_users#send_to_buff"
   match "add_account" => "dashboard#add_account", :as => :add_account
   match 'twitter_users/delete_buffer/:id' => 'twitter_users#delete_buffer', :as => :delete_buffer, :via => :get
+  match 'twitter_users/edit_buffer/:id' => 'twitter_users#edit_buffer', :as => :edit_buffer, :via => :get
+  match "twitter_users/:id/update_buffer" => "twitter_users#update_buffer", :as => :update_buffer
+#  get "/update_buffer/:id" => "TwitterUsers#update_buffer", :as => :update_buffer
   match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
   
   resources :timezones

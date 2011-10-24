@@ -4,8 +4,8 @@
   %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
     ="Queued for #{buffer.run_at.strftime('%H:%M %p')}"
   %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
-    #tweet_now{:onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
-      %img{:src => "/images/twitter.png"}
+    #tweet_now{:onclick => ""}
+      = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
     #edit_buffer{:onclick => ""}
       %img{:src => "/images/edit.png"}
     #delete_buffer{:onclick => ""}
