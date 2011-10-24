@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="stylesheets/application.css" title ="application_css" type="text/css"/> 
+
+        <script type="text/javascript" src="javascripts/jquery-1.6.4.js"></script>
+
+        <script type="text/javascript">
+            //Get baclground page
+            const BACKGROUND = chrome.extension.getBackgroundPage();
+            
+            //Sign In and Sign Out
+            function selectScreen(){
+                $('#ajax_loader').hide();
+                if (BACKGROUND.login_session_key == ""){
+                    showSignInScreen();
+                }else{
+                    showMainScreen();
+                    getProfileImage();
+                    if(BACKGROUND.flash_notice == BACKGROUND.flash_notice){
+                        $('#flash_notice').html(BACKGROUND.flash_notice);
+                        $('.submit_tweet').attr('disabled', false);
+                    }
+                    selectTwitterUser();
+                    sharePage();
+                }
+            }
+            function checkSignInSession(){
+                if (BACKGROUND.login_session_key == ""){
+                    $('#ajax_loader').show();
+                    BACKGROUND.signInSession();
+                }else{
+                    if(BACKGROUND.twitter_account_list.length == 0){
+                        $('#ajax_loader').show();
+                        BACKGROUND.getTwitterAccountList();
+                    }else{
+                        showMainScreen();
+                        getProfileImage();
+                        selectTwitterUser();
+                        sharePage();
+                    }
+                }
+            }
+            
+            function signInSubmit(){
+                $('#ajax_loader').show();
+                if (validateSignIn()){
+                    var email = $('#sign_in_email').val();
+                    var password = $('#sign_in_password').val();
+                    BACKGROUND.signIn(email, password);
+                }
+            }
+            function signUpSubmit(){
+                $('#ajax_loader').show();
+                if (validateSignUp()){
+                    var email = $('#sign_up_email').val();
+                    var password = $('#sign_up_password').val();
+                    var password_confirmation = $('#sign_up_password_confirmation').val();
+                    BACKGROUND.signUp(email, password, password_confirmation);
+                }
+            }
+            function signOutSubmit(){
+                $('#ajax_loader').show();
+                clearSessions();
+                BACKGROUND.signOut();
+            }
+            
+            
+            function showSignInScreen(){
+                $('#sign_up_screen').hide();
+                $('#main_screen').hide();
+                $('#sign_in_screen').show();
+                $('#sign_out_link').hide();
+                $('#sign_up_link').show();
+                $('#sign_in_link').hide();
+            }
+            
+            function showSignUpScreen(){
+                $('#main_screen').hide();
+                $('#sign_in_screen').hide();
+                $('#sign_up_screen').show();
+                $('#sign_out_link').hide();
+                $('#sign_up_link').hide();
+                $('#sign_in_link').show();
+            }
+            
+            function showMainScreen(){
+                $('#sign_in_screen').hide();
+                $('#sign_up_screen').hide();
+                $('#main_screen').show();
+                $('#sign_out_link').show();
+                $('#sign_up_link').hide();
+                $('#sign_in_link').hide();
+                
+            }
+            
+            //Validation
+            function validateSignUp(){
+                var email = $('#sign_up_email').val();
+                if (emailValidation(email)){
+                    if ($('#sign_up_password').val() == ""){
+                        $('#sign_up_error_messages').html("Password can't be blank");
+                        $('#ajax_loader').hide();
+                        return false;
+                    }else {
+                        if ($('#sign_up_password').val() == $('#sign_up_password_confirmation').val()){
+                            return true;
+                        }else {
+                            $('#sign_up_error_messages').html("Password confirmation doesn't match");
+                            $('#ajax_loader').hide();
+                            return false;
+                        }
+                    }
+                }else{
+                    $('#sign_up_error_messages').html("Invalid email address");
+                    $('#ajax_loader').hide();
+                    return false;
+                }
+            }
+            function validateSignIn(){
+                var email = $('#sign_in_email').val();
+                if (emailValidation(email)){
+                    if ($('#sign_in_password').val() == ""){
+                        $('#sign_in_error_messages').html("Password can't be blank");
+                    }else{
+                        return true;
+                    }
+                }else {
+                    $('#sign_in_error_messages').html("Invalid email address");
+                    $('#ajax_loader').hide();
+                    return false;
+                }
+            }
+            
+            function emailValidation(email){
+                var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  
+                if (emailPattern.test(email)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            
+            //submit to API application
+            function submitTweet(post_type){
+                clearFlashNotice();
+                $('#ajax_loader').show();
+                $('.submit_tweet').attr('disabled', true);
+                var tweet_message = $("#tweet_message").val();
+                if (post_type == "post_now"){
+                    BACKGROUND.postTweet(tweet_message);
+                }else if (post_type == "send_to_buff"){
+                    BACKGROUND.sendToBuff(tweet_message);
+                }
+            }
+            
+            //share page
+            function sharePage(){
+                chrome.tabs.getSelected(null, function(tab) {
+                    var current_page_info = tab.title + " " + tab.url;
+                    $('#tweet_message').val(current_page_info);
+                });
+            }
+            
+            //Select Twitter User
+            function selectTwitterUser(){
+                if (BACKGROUND.twitter_account_list.length == 0){
+                    $('#twitter_account_list').html("<a href='#' onclick='addTwitterAccount();'>Add Twitter Account</a>");
+                }else{
+                    twitter_list = "";
+                    twitter_list += "Sellect Twitter User: ";
+                    twitter_list += "<select id='twitter_list' onchange='changeTwitterAccountUsed(this.value)'>";
+                    for (i in BACKGROUND.twitter_account_list){
+                        if (BACKGROUND.twitter_account_list[i] == BACKGROUND.twitter_account_used){
+                            twitter_list += "<option selected='true' value='"+ BACKGROUND.twitter_account_list[i] +"'>"+ BACKGROUND.twitter_account_list[i] +"</option>";
+                        }else{
+                            twitter_list += "<option value='"+ BACKGROUND.twitter_account_list[i] +"'>"+ BACKGROUND.twitter_account_list[i] +"</option>";
+                        }
+                    }
+                    twitter_list += "</select><br />";
+                    twitter_list += "<a href='#' onclick='addTwitterAccount();'>Add Twitter Account</a>";
+                    $('#twitter_account_list').html(twitter_list);
+                }
+            }
+            
+            function changeTwitterAccountUsed(value){
+                BACKGROUND.twitter_account_used = value;
+            }
+            
+            function addTwitterAccount(){
+                chrome.tabs.create({url: "http://localhost:3000/twitter/authorize" });
+            }
+            
+            function getProfileImage(){
+                if(BACKGROUND.profile_image == ""){
+                    $('#profile_image').html("<img src='images/profile_image.png' style='width: 48px; height: 48px;'/>");
+                }else{
+                   $('#profile_image').html("<img src='"+ BACKGROUND.profile_image +"' style='width: 48px; height: 48px;'/>"); 
+                }
+            }
+            
+            //Clearing
+            function clearFlashNotice(){
+                $('#flash_notice').html('');
+            }
+            
+            function clearSessions(){
+                BACKGROUND.login_session_key = "";
+                BACKGROUND.twitter_account_list = new Array();
+                BACKGROUND.twitter_account_used = "";
+            }
+        </script>
+    </head>
+
+    <body onload="checkSignInSession();">
+        <div id="container">
+            <div id="navigator">
+                <a href="#" id="sign_up_link" style="display: none;" onclick="showSignUpScreen();">Sign Up</a>
+                <a href="#" id="sign_in_link" style="display: none;" onclick="showSignInScreen();">Sign In</a>
+                <a href="#" id="sign_out_link" style="display: none;" onclick="signOutSubmit();">Sign Out</a>
+            </div>
+
+            <div id="ajax_loader" style="display: none;">
+                <center><img id='loader_session' src='images/loader.gif' /></center>
+            </div>
+
+            <div id="flash_notice" style="color: green;">
+            </div>
+
+            <div id="sign_up_screen" style="display: none;">
+
+                <div id="sign_up_error_messages"> 
+                </div>
+
+                <b>Email</b><br />
+                <input type="text" id="sign_up_email"/><br />
+                <b>Password</b><br />
+                <input type="password" id="sign_up_password"/><br />
+                <b>Password Confirmation</b><br />
+                <input type="password" id="sign_up_password_confirmation"/><br />
+                <input type="submit" value="Sign Up" onclick="signUpSubmit();" />
+            </div>
+
+            <div id="sign_in_screen" style="display: none;">
+
+                <div id="sign_in_error_messages"> 
+                </div>
+                <b>Email</b><br />
+                <input type="text" id="sign_in_email"/><br />
+                <b>Password</b><br />
+                <input type="password" id="sign_in_password"/><br />
+                <input type="submit" value="Sign In" onclick="signInSubmit();" />
+            </div>
+
+            <div id="main_screen" style="display: none;">
+                <div id="profile_image" style="width: 48px; height: 48px;">
+                </div>
+                <div id="twitter_account_list">
+                </div>
+                <textarea id="tweet_message" cols="30" rows="5"></textarea> <br />
+                <input type="submit" id="post_now" class="submit_tweet" value="Post Now" onclick="submitTweet('post_now');" />
+                <input type="submit" id="send_to_buff" class="submit_tweet" value="Send to Buff" onclick="submitTweet('send_to_buff');" />
+            </div>
+        </div>
+    </body>
+</html>

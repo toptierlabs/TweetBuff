@@ -68,14 +68,20 @@ class Api::TwitterUsersController < ApplicationController
           @tweet_status = 0
           @tweet_message = "Failed : Can't find twitter account name with #{params[:twitter_name]}."
         else
-          buffer_preference = twitter_user.buffer_preferences.create(:name => CGI.unescape(params[:tweet_message]),:status => "uninitialized")
-          error_messages = buffer_preference.errors
-          if error_messages.blank?
-            @tweet_status = 1
-            @tweet_message = "Success : Your tweet has been sent to buff."
-          else
+          if twitter_user.tweet_interval.blank?
             @tweet_status = 0
-            @tweet_message = "Failed : Tweet message has already been taken."
+            @tweet_message = "Failed : You must setting quee setting first."
+          else
+            buffer_preference = twitter_user.buffer_preferences.create(:name => CGI.unescape(params[:tweet_message]),:status => "uninitialized")
+            error_messages = buffer_preference.errors
+            if error_messages.blank?
+              @tweet_status = 1
+              @tweet_message = "Success : Your tweet has been sent to buff."
+              update_run_at
+            else
+              @tweet_status = 0
+              @tweet_message = "Failed : Tweet message has already been taken."
+            end
           end
         end
       end

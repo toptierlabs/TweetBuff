@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+    <head>
+        <script type="text/javascript">
+            var url_api = "http://localhost:3000";
+            var login_session_key = "";
+            var twitter_account_list = new Array();
+            var twitter_account_used = "";
+            var flash_notice = "";
+            var profile_image = "";
+            
+            //Generate get parameters url
+            function EncodeQueryData(data)
+            {
+                var ret = [];
+                for (var d in data)
+                    ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+                return ret.join("&");
+            }
+            
+            //generate XMLHttpRequest()
+            function invoke(url_method, parameters, callback){
+                
+                var url = url_api + url_method + ".xml?" + parameters;
+                var req = new XMLHttpRequest();
+                if (url_method == "/users/sign_out"){
+                    req.open("DELETE", url, true);
+                }else{
+                    req.open("POST", url, true);
+                }
+                req.overrideMimeType('text/xml');
+                req.onreadystatechange = function () {
+                    if (req.readyState == 4) {
+                        if (req.status == 200) {
+                            callback(req.responseXML);
+                        }else if(req.status == 201){ //if sign in and sign up successfully
+                            callback(req.responseXML);
+                        }else if(req.status == 302){ //if logout successfully
+                            callback(req.responseXML);
+                        }else if(req.status == 401 || req.status == 422){ //if sign in failure, unauthorized, sign up failur
+                            getErrorMessage(req.responseXML);
+                        }
+                    }
+                };
+                req.send();
+                
+            }
+            
+            function getErrorMessage(doc){
+                var error_message = doc.getElementsByTagName('error')[0].childNodes[0].nodeValue;
+                clearAllSessions();
+                alert(error_message);
+            }
+            
+            function clearAllSessions(){
+                login_session_key = "";
+                twitter_account_list = new Array();
+                twitter_account_used = "";
+            }
+            function getView(){
+                var popups = chrome.extension.getViews({type: "popup"});
+                if(popups.length)
+                {
+                    popups[0].selectScreen();
+                }
+            }
+            
+            // Sign Up and Sign In
+            function signUp(email, password, password_confirmation){
+                var sign_up_data = {
+                    'user[email]' : email,
+                    'user[password]' : password,
+                    'user[password_confirmation]' : password_confirmation
+                }
+                var params = EncodeQueryData(sign_up_data);
+                invoke("/users",params, signUpCallBack);
+            }
+            
+            function signUpCallBack(doc){
+                login_session_key = doc.getElementsByTagName("email")[0].childNodes[0].nodeValue
+                getView();
+            }
+            
+            function signIn(email, password){
+                var sign_in_data = {
+                    'user[email]' : email,
+                    "user[password]" : password
+                }
+                var params = EncodeQueryData(sign_in_data);
+                invoke("/users/sign_in", params, signInCallBack);
+            }
+            
+            function signInCallBack(doc){
+                login_session_key = doc.getElementsByTagName("email")[0].childNodes[0].nodeValue
+                getTwitterAccountList();
+            }
+            
+            function signOut(){
+                invoke("/users/sign_out", "", signOutCallBack);
+            }
+            
+            function signOutCallBack(doc){
+                getView();
+            }
+            
+            function signInSession(){
+                invoke("/api/check_sign_in_session", "", signInSessionCallBack);
+            }
+            
+            function signInSessionCallBack(doc){
+                var sign_in_status = doc.getElementsByTagName("sign_in_status")[0].childNodes[0].nodeValue;
+                if (sign_in_status == '1') {
+                    login_session_key = doc.getElementsByTagName("login_session_key")[0].childNodes[0].nodeValue;
+                    getTwitterAccountList();
+                }
+                getView();
+            }
+            
+            
+            //Post Tweet
+            function postTweet(tweet_message){
+                var tweet_data = {
+                    'login_session_key' : login_session_key,
+                    'tweet_message' : escape(tweet_message),
+                    'twitter_name' : twitter_account_used
+                };
+                var params = EncodeQueryData(tweet_data);
+                invoke("/api/post_to_twitter", params, postTweetCallBack);
+            }
+            
+            function postTweetCallBack(doc){
+                var tweet_status = doc.getElementsByTagName("tweet_status")[0].childNodes[0].nodeValue;
+                flash_notice = doc.getElementsByTagName("tweet_message")[0].childNodes[0].nodeValue;
+                if (tweet_status == "0"){
+                    alert(flash_notice);
+                    flash_notice = "";
+                }else{
+                    getView();
+                }
+            }
+            //Post Tweet
+            function sendToBuff(tweet_message){
+                
+                var tweet_data = {
+                    'login_session_key' : login_session_key,
+                    'tweet_message' : escape(tweet_message),
+                    'twitter_name' : twitter_account_used
+                };
+                var params = EncodeQueryData(tweet_data);
+                invoke("/api/send_to_buff", params, sendToBuffCallBack);
+            }
+            
+            function sendToBuffCallBack(doc){
+                var tweet_status = doc.getElementsByTagName("tweet_status")[0].childNodes[0].nodeValue;
+                flash_notice = doc.getElementsByTagName("tweet_message")[0].childNodes[0].nodeValue;
+                
+                if (tweet_status == "0"){
+                    if (flash_notice == "Failed : You must setting quee setting first."){
+                        alert(flash_notice);
+                        flash_notice = "";
+                        chrome.tabs.create({url: url_api + "/twitter/settings?twitter_name=" + twitter_account_used });
+                    }else {
+                        alert(flash_notice);
+                        flash_notice = "";
+                    }
+                }else{
+                    getView();
+                }
+            }
+            
+            //get twitter account list
+            function getTwitterAccountList(){
+                invoke("/api/twitter_account_list", "", getTwitterAccountListCallBack);
+            }
+            
+            function getTwitterAccountListCallBack(doc){
+                var twitter_accounts = doc.getElementsByTagName("twitter_name");
+                if (twitter_accounts.length == 0){
+                    getView();
+                }else{
+                    profile_image = doc.getElementsByTagName("profile_image")[0].childNodes[0].nodeValue;
+                    for (i in twitter_accounts){
+                        if (i == 0){
+                            twitter_account_used = twitter_accounts[i].childNodes[0].nodeValue;
+                        }
+                        twitter_account_list.push(twitter_accounts[i].childNodes[0].nodeValue);
+                        getView();
+                    }
+                }
+            }
+        </script>
+    </head>
+</html>
