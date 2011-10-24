@@ -1,0 +1,12 @@
+body{
+    width: 300px;
+    height: 100px;
+}
+
+#sign_up_error_messages{
+    color: red;
+}
+#sign_in_error_messages{
+    color: red;
+}
+
