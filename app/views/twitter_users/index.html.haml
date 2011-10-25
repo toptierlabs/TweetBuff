@@ -69,6 +69,10 @@
           =image_tag("ajaxLoader.gif")
           %br
           Add tweet to buffer
+        #loader-edit-buffer{:style=> "display: none;"}
+          =image_tag("ajaxLoader.gif")
+          %br
+          Edit buffer
         =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
           =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
           #button_container
@@ -106,26 +110,7 @@
               #tweet_now{:onclick => ""}
                 = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
               //#edit_buffer{:onclick => "showDialog('Edit Buffer','#{edit_buffer_path(buffer.id)}'); return false;"}
-              #edit_buffer{:onclick => ""}
+              #edit_buffer{:onclick => "$('#loader-edit-buffer').show();"}
                 = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
               #delete_buffer{:onclick => ""}
                 = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id)
-
-          //- if old_buffer != buffer.added_time
-          %div{:style => "background: #79C1F3; margin: 5px 0 5px 0; display: none;"}
-            %span{:style => "float: left; margin-top: -10px;"}
-              %img{:src => "/images/birds_64/5.png", :width => 34, :height => 34}
-            //= time_in_word(buffer.added_time, buffer.run_at)
-            %span{:style => "color: #fff; font-weight: bold; display:none;"}
-              - buffer_each = buffer.run_at.strftime("%d").to_i
-              - time = Time.now.strftime("%d").to_i
-              - diff = time - buffer_each
-              - if buffer_each.eql?(time)
-                = "Today (#{Time.now.strftime('%b %d')})"
-              - elsif diff.eql?(-1)
-                = "Tomorrow (#{buffer.run_at.strftime('%b %d')})"
-              - else
-                = "A few days later (#{buffer.run_at.strftime('%b %d')})"
-          
-      
-      
