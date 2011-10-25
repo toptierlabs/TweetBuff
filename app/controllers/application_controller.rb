@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = t("dashboard.show.welcome", :name => resource.email)
       # return dashboard_path
       twitter_user = current_user.twitter_users.first
-      unless twitter_user.blank? or is_team_member?(3)
+      unless twitter_user.blank?
         return twitter_user_path(current_user.twitter_users.first.login)
       else
         return add_account_path
