@@ -77,7 +77,7 @@ class Api::TwitterUsersController < ApplicationController
             if error_messages.blank?
               @tweet_status = 1
               @tweet_message = "Success : Your tweet has been sent to buff."
-              update_run_at
+#              update_run_at
             else
               @tweet_status = 0
               @tweet_message = "Failed : Tweet message has already been taken."
