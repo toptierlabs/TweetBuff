@@ -1,0 +1,8 @@
+= simple_form_for(@suggestion) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :text
+
+  .actions
+    = f.button :submit

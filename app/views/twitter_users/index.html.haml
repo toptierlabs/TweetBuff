@@ -130,7 +130,7 @@
           =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
           %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
           %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
-          %input{:type => "button",:class => "suggest_a_tweet", :onclick => ""}
+          %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/suggestions'); return false;"} View Suggestions
     #separator
       // buffer list and ads
     #buffer_list

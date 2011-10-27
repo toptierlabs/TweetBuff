@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Text:
+  = @suggestion.text
+
+= link_to 'Edit', edit_suggestion_path(@suggestion)
+\|
+= link_to 'Back', suggestions_path

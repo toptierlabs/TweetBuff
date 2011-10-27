@@ -1,0 +1,5 @@
+- @suggestions.each do |suggestion|
+  %div{:id => "suggestions_box_dialog"}
+    %div{:style=>"margin-bottom: 15px;"}
+      = suggestion.text
+    %a{:href=>"#" , :class => "button-suggest"} Schedule this post!

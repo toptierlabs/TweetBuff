@@ -7,7 +7,6 @@
     %span{:style => "float: right;"}
       %a{:href => "#", :onclick => "$('#interval_not_updated').fadeOut('slow')"}
         %img{:src => "/images/close.png"}
-
 .wrapper
   #settings_user_detail
     #profile_image      
@@ -80,5 +79,3 @@
       =form_tag "/invite_team_member" do
         =text_field :member, :email, :style => "width: 160px;"
         =submit_tag "invite"
-      
-    
