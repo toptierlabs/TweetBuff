@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
     end
     @current_cart
   end
+  
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(User)
@@ -36,7 +37,7 @@ class ApplicationController < ActionController::Base
         return add_account_path
       end
     elsif resource.is_a?(AdminUser)
-      return admin_path
+      return admin_dashboard_path
     end
   end
 

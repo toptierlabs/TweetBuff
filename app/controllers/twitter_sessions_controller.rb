@@ -40,6 +40,7 @@ class TwitterSessionsController < ApplicationController
 
     @twitter_user = TwitterUser.identify_or_create_from_access_token(@access_token)
     @twitter_user.user = current_user
+    @twitter_user.account_type = "twitter"
     @twitter_user.save
     redirect_to twitter_settings_path(:twitter_name => @twitter_user.login)
   rescue Net::HTTPServerException => e

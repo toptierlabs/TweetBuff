@@ -36,11 +36,37 @@
           =link_to "View advantage", plans_path, :class => "adv_link"
 
     .tweet_stuff
+      .user_twitter_detail
+        #profile_image
+          //%img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
+          = profile_image(@twitter_user, "_normal", 64, 64)
+        .badge
+          - if @twitter_user.account_type.eql?("facebook")
+            = link_to image_tag("badge-facebook.png")
+          - elsif @twitter_user.account_type.eql?("twitter")
+            = link_to image_tag("badge-twitter.png")
+        #buffer_count
+          %img{:src => "/images/t_count.jpg"}
+        - if user_signed_in?
+          - if @plans.plan.name.eql?("Free")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
+          - elsif @plans.plan.name.eql?("Pro")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
+          - elsif @plans.plan.name.eql?("Premium")
+            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} Unlimited tweets per day
+        #user_login
+          =@twitter_user.login
+
       - @twitter_account_list.each do |account|
         - unless account.login.eql?(params[:twitter_name])
-          .user_detail{:style => "display: inline-block; border: 2px solid rgb(39, 110, 162); height: 50px; min-width: 180px;"}
+          .user_detail{:style => "display: inline-block; border: 2px solid rgb(39, 110, 162); height: 50px; min-width: 180px; border-radius: 10px 10px 10px 10px; margin-bottom: 5px;"}
             .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
               = profile_image(account, "_normal", 35, 31)
+            .badge
+              - if account.account_type.eql?("facebook")
+                = link_to image_tag("badge-facebook.png")
+              - elsif account.account_type.eql?("twitter")
+                = link_to image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
               //= account.login
               = link_to account.login, twitter_user_path(account.login)
@@ -48,9 +74,14 @@
               - if user_signed_in?
                 = "#{@count_each_buffer_account}"
         - else
-          .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: inline-block; min-width: 180px; background-color: rgb(214, 237, 240);"}
+          .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: none; min-width: 180px; background-color: rgb(214, 237, 240);"}
             .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
               = profile_image(@twitter_user, "_normal", 35, 31)
+            .badge
+              - if account.account_type.eql?("facebook")
+                = link_to image_tag("badge-facebook.png")
+              - elsif account.account_type.eql?("twitter")
+                = link_to image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
               = @twitter_user.login
               //= link_to account.login, twitter_user_path(account.login)
@@ -62,7 +93,7 @@
                   = "#{@count_buffer}"
                 - elsif @plans.plan.name.eql?("Premium")
                   = "~"
-      .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: inline-block; min-width: 180px; background-color: rgb(214, 237, 240);"}
+      .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: inline-block; min-width: 180px; background-color: rgb(214, 237, 240); border-radius: 10px 10px 10px 10px;"}
         .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
           = image_tag("add.png", width: 25, height: 25)
         %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}

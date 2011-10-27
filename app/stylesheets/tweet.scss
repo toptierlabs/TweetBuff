@@ -21,8 +21,19 @@
 
 .user_twitter_detail{
   display: inline-block;
-  width: 151px;
-  vertical-align: top;
+    vertical-align: top;
+    width: 187px;
+}
+
+.user_detail .badge{
+  margin-top: 30px;
+  position: absolute;
+}
+
+.user_twitter_detail .badge {
+    margin-left: 2px;
+    margin-top: 50px;
+    position: absolute;
 }
 
 #profile_image{
@@ -37,16 +48,16 @@
 
 #buffer_count{
   display: inline-block;
-  margin-left: -2px;
+    margin-left: 38px;
 }
 
 #user_login{
-  clear: both;
-  padding-left: 2px;
-  font-family: verdana;
-  font-size: 11px;
-  font-weight: bold;
-  color: #696969;
+ clear: both;
+    color: #696969;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: bold;
+    margin-left: 3px;
 }
 
 #mini_panel{
