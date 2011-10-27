@@ -12,25 +12,24 @@
   #settings_user_detail
     #profile_image      
       = profile_image(@twitter_user, "_normal", 64, 64)
-    #buffer_count
-      %img{:src => "/images/buffer_count.jpg"}
+    #buffer_count_blue      
       - if user_signed_in?
         - unless @plans.nil?
           - if @plans.plan.name.eql?("Free")
-            %span{:style => "color:rgb(49, 133, 195); font-weight:bold; position:absolute; font-size:32px; margin-left:-43px; margin-top:-2px;"} #{@count_buffer}
+            %span{:id => "buffer_count_text_blue"} #{@count_buffer}
           - elsif @plans.plan.name.eql?("Pro")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-left: -43px; margin-top: -2px;"} #{@count_buffer}
+            %span{:id => "buffer_count_text"} #{@count_buffer}
           - elsif @plans.plan.name.eql?("Premium")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-left: -43px; margin-top: -2px;"} Unlimited tweets per day
+            %span{:id => "buffer_count_text"} #{@count_buffer}
         - else
-          %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-left: -43px; margin-top: -2px;"} 0
+          %span{:id => "buffer_count_text"} 0
       %br
-      In Buffer
-    #buffer_count
-      %img{:src => "/images/sent_from_buffer.jpg"}
-      %span{:style => "font-weight: bold; position: absolute; font-size: 32px; margin-top: 2px; margin-left: -44px; color: rgb(181, 226, 61);"} #{@sent_buffers}
+      %div{:style=>"margin-top: 2px;"} In Buffer
+
+    #buffer_count_green
+      %span{:id => "buffer_count_text_green"} #{@sent_buffers}
       %br
-      Sent from buffer
+      %div{:style=>"width: 100px; margin-top: 2px;"} Sent from buffer
   #bitly_detail
     %span{:style => "font-size:12px; font-weight:bold; color:#7AC2F4;"}
       Add your bit.ly details
@@ -50,7 +49,7 @@
 
   .timeframe
     #timeframe_box
-      %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
+      %div{:id => "choose_tweet"}
         = "Choose when #{@twitter_user.login} Tweets :"
       %br
       #default_timeframe_form_container

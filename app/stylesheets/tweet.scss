@@ -26,12 +26,13 @@
 }
 
 #profile_image{
-  height: 32px;
-  width: 38px;
+  height: 64px;
+  width: 64px;
   border: 2px solid #D2EEFA;
   -moz-border-radius: 4px;
   -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
   display: inline-block;
+  float: left;
 }
 
 #buffer_count{
@@ -110,10 +111,11 @@
   cursor: pointer;
 }
 
-#separator{
-  width: 100%;
-  background: url(/images/separator.jpg) no-repeat center;
-  height: 30px;
+#separator{  
+  background: url(/images/separator.jpg);
+  margin: auto;
+  height: 22px;
+  width: 692px;
 }
 
 #ads{
@@ -194,6 +196,7 @@
 
 #settings_user_detail{
   vertical-align: top;
+  margin-top: 17px;
   display: inline-block;
   width: 250px;
 }
@@ -288,4 +291,42 @@
   -moz-border-radius-bottomright: 5px;
   -webkit-border-radius-topright: 5px;
   -webkit-border-radius-bottomright: 5px;
+}
+
+
+#buffer_count_blue{
+   background: url(/images/buffer_count.jpg);
+   width: 66px;
+   height: 53px;
+   float: left;
+   margin-left: 5px;
+}
+
+#buffer_count_green{
+   background: url(/images/sent_from_buffer.jpg);
+   width: 66px;
+   height: 53px;
+   float: left;
+   margin-left: 8px;
+}
+
+#buffer_count_text_blue{
+   color: #3185C3;
+   font-size: 32px;
+   font-weight: bold;
+   margin-left: 3px;   
+}
+
+#buffer_count_text_green{
+   color: #B5E23D;
+   font-size: 32px;
+   font-weight: bold;
+   margin-left: 15px;
+}
+
+#choose_tweet{
+   width: 255px;
+   color: #7AC2F4;
+   font-size: 13px;
+   font-weight: bold;
 }
