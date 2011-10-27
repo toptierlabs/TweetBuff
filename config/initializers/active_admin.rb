@@ -34,8 +34,8 @@ ActiveAdmin.setup do |config|
   # within the controller.
   config.authentication_method = :authenticate_admin_user!
   
-  config.logout_link_path = :destroy_admin_user_session_path
-  config.logout_link_method = :delete
+  #config.logout_link_path = :destroy_admin_user_session_path
+  #config.logout_link_method = :delete
 
   # == Current User
   #
