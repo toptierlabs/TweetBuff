@@ -22,6 +22,9 @@ Tweetbuffer::Application.routes.draw do
   resources :tweet_intervals
 
   resources :timeframes
+  
+  resources :suggestions
+  
 
   get "/goodies" => "goodies#index"
 
