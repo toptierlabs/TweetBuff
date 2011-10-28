@@ -28,6 +28,7 @@ Tweetbuffer::Application.routes.draw do
 
   get "/goodies" => "goodies#index"
   get "suggestions/tweet_suggestion/:twitter_name" => "suggestions#tweet_suggestion"
+  get "/update_setting_time" => "TwitterUsers#update_setting_time"
 
   resources :subcriptions
   resources :payment_notifications
@@ -92,6 +93,7 @@ Tweetbuffer::Application.routes.draw do
     post "/settings/update_timezone" => "TwitterUsers#update_timezone", :as => :update_timezone
     post "/settings/update_notify" => "TwitterUsers#update_notify", :as => :update_notify
     post "/save_settings" => "TwitterUsers#save_settings"
+    
 
     scope ":twitter_name" do
       controller :buffer_preferences do

@@ -45,10 +45,28 @@ class FacebookSessionsController < ApplicationController
     access_token = client.access_token!
 
     user = FbGraph::User.me(access_token).fetch
+    @user = TwitterUser.new(
+      :protected => "",
+      :user_id => current_user.id,
+      :friends_count => user.friends.count,
+      :statuses_count => user.statuses.count,
+      :followers_count => "",
+      :utc_offset => "",
+      #      :twitter_id => user.identifier, 
+      :login => user.username, 
+      #      :access_token => user.access_token.to_s, 
+      :access_secret => "", 
+      :remember_token=> "", 
+      :name => user.name, 
+      :profile_image_url => user.picture, 
+      :url => "" , 
+      :time_zone => user.timezone, 
+      :permalink => "", 
+      :account_type => "facebook" )
+    @user.twitter_id = user.identifier
+    @user.access_token = user.access_token.to_s
+    @user.save
     
-    user = TwitterUser.new(:user_id => current_user.id, :friends_count => user.friends.count, :statuses_count => user.posts.count, :twitter_id => user.__id__, :login => user.username, :access_token => user.access_token, :access_secret => "", :remember_token=> "", :name => user.name, :profile_image_url => user.picture, :url => "" , :time_zone => user.timezone, :permalink => "", :account_type => "facebook" )
-    user.save(false)
-    
-    redirect_to twitter_settings_path(:twitter_name => user.login)
+    redirect_to twitter_settings_path(:twitter_name => @user.login)
   end
 end

@@ -14,7 +14,7 @@ class TwitterUser < ActiveRecord::Base
     :followers_count,
     :favourites_count,
     :time_zone,
-    :utc_offset
+    :utc_offset,
   ]
 
   # Associations

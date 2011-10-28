@@ -107,72 +107,75 @@ class TwitterUsersController < ApplicationController
   
   def tweet_to_twitter
     if request.xhr?
-      render :update do |page|
-        unless params[:tweet].empty?
-          user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-          Twitter.configure do |config|
-            config.consumer_key       = TWITTER_API[:key]
-            config.consumer_secret    = TWITTER_API[:secret]
-            config.oauth_token        = user.access_token
-            config.oauth_token_secret = user.access_secret
-          end
-          client = Twitter::Client.new
-          status = params[:tweet]
-          url = status.match(/https?:\/\/[\S]+/)
-          unless url.nil?
-            bitly_api = current_user.bitly_api
-            unless bitly_api.nil?
-              bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
-              bitly_url = bitly.shorten(url.to_s).short_url
-              status = status.gsub(url.to_s,bitly_url)
+      @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+      if @twitter_user.account_type.eql?("facebook")
+        
+      elsif @twitter_user.account_type.eql?("twitter")
+        render :update do |page|
+          unless params[:tweet].empty?
+            user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+            Twitter.configure do |config|
+              config.consumer_key       = TWITTER_API[:key]
+              config.consumer_secret    = TWITTER_API[:secret]
+              config.oauth_token        = user.access_token
+              config.oauth_token_secret = user.access_secret
             end
+            client = Twitter::Client.new
+            status = params[:tweet]
+            url = status.match(/https?:\/\/[\S]+/)
+            unless url.nil?
+              bitly_api = current_user.bitly_api
+              unless bitly_api.nil?
+                bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
+                bitly_url = bitly.shorten(url.to_s).short_url
+                status = status.gsub(url.to_s,bitly_url)
+              end
+            end
+            client.update(status)
+            page << "$('#post_notice').removeClass('error');"
+            page << "$('#post_notice').addClass('success');"
+            page << "$('#post_notice').show();"
+            page << "$('#post_notice').html('Your tweet has been posted.');"
+            page << "$('#loader').hide();"
+            page << "$('#tweet_text').val('')"
+            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
+          else
+            page << "$('#post_notice').removeClass('success');"
+            page << "$('#post_notice').addClass('error');"
+            page << "$('#post_notice').show();"
+            page << "$('#post_notice').html('Please fill the form.');"
+            page << "$('#loader').hide();"
+            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
           end
-          client.update(status)
-          page << "$('#post_notice').removeClass('error');"
-          page << "$('#post_notice').addClass('success');"
-          page << "$('#post_notice').show();"
-          page << "$('#post_notice').html('Your tweet has been posted.');"
-          page << "$('#loader').hide();"
-          page << "$('#tweet_text').val('')"
-          page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
-        else
-          page << "$('#post_notice').removeClass('success');"
-          page << "$('#post_notice').addClass('error');"
-          page << "$('#post_notice').show();"
-          page << "$('#post_notice').html('Please fill the form.');"
-          page << "$('#loader').hide();"
-          page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
         end
-      end
-    else
-      user = BufferPreference.find(params[:id]).twitter_user
-      Twitter.configure do |config|
-        config.consumer_key       = TWITTER_API[:key]
-        config.consumer_secret    = TWITTER_API[:secret]
-        config.oauth_token        = user.access_token
-        config.oauth_token_secret = user.access_secret
-      end
-      client = Twitter::Client.new
-      user_status = BufferPreference.find(params[:id])
-      status = user_status.permalink
-      status = params[:tweet]
-      user_status.deleted_at = Time.now
-      user_status.status = "success"
-      user_status.save!
+      else
+        user = BufferPreference.find(params[:id]).twitter_user
+        Twitter.configure do |config|
+          config.consumer_key       = TWITTER_API[:key]
+          config.consumer_secret    = TWITTER_API[:secret]
+          config.oauth_token        = user.access_token
+          config.oauth_token_secret = user.access_secret
+        end
+        client = Twitter::Client.new
+        user_status = BufferPreference.find(params[:id])
+        status = user_status.permalink
+        status = params[:tweet]
+        user_status.deleted_at = Time.now
+        user_status.status = "success"
+        user_status.save!
     
-      url = status.match(/https?:\/\/[\S]+/)
-      unless url.nil?
-        bitly_api = current_user.bitly_api
-        unless bitly_api.nil?
-          bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
-          bitly_url = bitly.shorten(url.to_s).short_url
-          status = status.gsub(url.to_s,bitly_url)
+        url = status.match(/https?:\/\/[\S]+/)
+        unless url.nil?
+          bitly_api = current_user.bitly_api
+          unless bitly_api.nil?
+            bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
+            bitly_url = bitly.shorten(url.to_s).short_url
+            status = status.gsub(url.to_s,bitly_url)
+          end
         end
+        client.update(status)
+        redirect_to :back
       end
-      client.update(status)
-      redirect_to :back
-      
-      
     end
   end
 
@@ -197,6 +200,16 @@ class TwitterUsersController < ApplicationController
   def settings
     @is_updated_interval = is_interval_updated?
     @bitly = BitlyApi.find(current_user.id) rescue nil
+    
+    days = Day.all
+    #    @days = days.collect {|day| [day.day_name, day.id]}
+    #    @days = Day.collect_days(days)
+    
+    user = User.find(current_user.id)
+    @myplan = user.subcriptions.last.plan
+    #    @tweet_smart = myplan.num_of_tweet_per_day
+    #    @tweet_smart = tweet_smarts.collect {|time| [time.value, time.id]}
+    
     @options = []
     @twitter_user = TwitterUser.find_by_login(params[:twitter_name])
 
@@ -279,8 +292,35 @@ class TwitterUsersController < ApplicationController
       end
       redirect_to :back, :notice => "thankyou, your settings has been updated."
     end
-    
   end
+  
+  
+  def update_setting_time
+    if request.xhr?
+      twitter_uid = params[:tweet_id]
+      user = User.find(current_user.id)
+      myplan = user.subcriptions.last.plan
+      
+      time_tweet = params[:time_tweet]
+      tweet_day = params[:per_day]
+      setting = Subcription.find_by_user_id_and_active(user.id, 1)
+      setting.day_time_tweet = time_tweet
+      setting.tweet_per_day = tweet_day
+      setting.save!
+      errors = setting.errors
+      render :update do |page|
+        if errors.empty?
+          page << "$('#loader-buffer').hide();"
+          page << "notification()"
+        else
+          #errors.full_messages.each {|error| page << "alert('#{error}')"}
+        end
+      end
+    end
+  end
+  
+  
+  
 
   private
 
@@ -322,5 +362,6 @@ class TwitterUsersController < ApplicationController
       end
     end
   end
+  
   
 end
