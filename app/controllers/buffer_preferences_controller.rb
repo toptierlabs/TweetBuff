@@ -97,7 +97,7 @@ class BufferPreferencesController < ApplicationController
 
   def update_run_at
     # update
-    subcription_date = Subcription.find_by_user_id_and_active(current_user.id, 1)
+    subcription_date = Subcription.find_by_user_id_and_active(current_user.id, true)
     unless subcription_date.day_time_tweet.blank?      
       run_at_time = subcription_date.day_time_tweet
       @buffer_preference.update_attributes({:run_at => "#{run_at_time}", :added_time => ""})

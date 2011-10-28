@@ -31,7 +31,14 @@
       =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
       //=select_tag "timeframe[timeframe_id]", options_for_select(@tweet_smart)
       - if @myplan.name.eql?("Free")        
-        = radio_button_tag 'gender', 'male'        
+        = "1"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"1", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+        = "2"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"2", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+        = "4"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"4", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+        = "6"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
       - elsif @myplan.name.eql?("Pro")
         = "1"
         %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"1", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
@@ -41,10 +48,15 @@
         %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"4", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
         = "6"
         %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
-
-
       - elsif @myplan.name.eql?("Premium")
-        = radio_button_tag 'gender', 'male'
+        = "1"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"1", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+        = "2"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"2", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+        = "4"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"4", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+        = "6"
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
       
 
   .default_interval{:style => "float: left; border: 2px solid rgb(49, 133, 195); border-radius: 4px 4px 4px 4px; padding: 2px;"}
