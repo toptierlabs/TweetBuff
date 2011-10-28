@@ -17,13 +17,13 @@
           - if @plans.plan.name.eql?("Free")
             %span{:id => "buffer_count_text_blue"} #{@count_buffer}
           - elsif @plans.plan.name.eql?("Pro")
-            %span{:id => "buffer_count_text"} #{@count_buffer}
+            %span{:id => "buffer_count_text_blue"} #{@count_buffer}
           - elsif @plans.plan.name.eql?("Premium")
-            %span{:id => "buffer_count_text"} #{@count_buffer}
+            %span{:id => "buffer_count_text_blue"} #{@count_buffer}
         - else
           %span{:id => "buffer_count_text"} 0
       %br
-      %div{:style=>"margin-top: 2px;"} In Buffer
+      %div{:style=>"margin-top:2px;"} In Buffer
 
     #buffer_count_green
       %span{:id => "buffer_count_text_green"} #{@sent_buffers}
