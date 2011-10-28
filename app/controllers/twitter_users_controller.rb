@@ -303,7 +303,7 @@ class TwitterUsersController < ApplicationController
       
       time_tweet = params[:time_tweet]
       tweet_day = params[:per_day]
-      setting = Subcription.find_by_user_id_and_active(user.id, 1)
+      setting = Subcription.find_by_user_id_and_active(user.id, true)
       setting.day_time_tweet = time_tweet
       setting.tweet_per_day = tweet_day
       setting.save!
