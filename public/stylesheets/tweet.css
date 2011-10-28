@@ -380,6 +380,14 @@
 }
 
 /* line 332, app/stylesheets/tweet.scss */
+#buffer_count_text_blue_set {
+  color: #3185C3;
+  font-size: 32px;
+  font-weight: bold;
+  margin-left: -118px;
+}
+
+/* line 339, app/stylesheets/tweet.scss */
 #buffer_count_text_green {
   color: #B5E23D;
   font-size: 32px;
@@ -387,7 +395,7 @@
   margin-left: 15px;
 }
 
-/* line 339, app/stylesheets/tweet.scss */
+/* line 346, app/stylesheets/tweet.scss */
 #choose_tweet {
   width: 255px;
   color: #7AC2F4;
@@ -395,7 +403,7 @@
   font-weight: bold;
 }
 
-/* line 347, app/stylesheets/tweet.scss */
+/* line 354, app/stylesheets/tweet.scss */
 #box-tweet-suggest {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -431,8 +439,8 @@
   cursor: pointer;
 }
 
-/* line 382, app/stylesheets/tweet.scss */
-.button-suggest {
+/* line 389, app/stylesheets/tweet.scss */
+#button-suggest {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
@@ -468,7 +476,7 @@
   margin: auto;
 }
 
-/* line 419, app/stylesheets/tweet.scss */
+/* line 425, app/stylesheets/tweet.scss */
 #suggestions_box_dialog {
   padding: 10px;
   border-bottom: 1px solid #DDDDDD;

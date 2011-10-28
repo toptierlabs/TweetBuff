@@ -27,6 +27,7 @@ Tweetbuffer::Application.routes.draw do
   
 
   get "/goodies" => "goodies#index"
+  get "suggestions/tweet_suggestion/:twitter_name" => "suggestions#tweet_suggestion"
 
   resources :subcriptions
   resources :payment_notifications

@@ -45,13 +45,12 @@
             = link_to image_tag("badge-facebook.png")
           - elsif @twitter_user.account_type.eql?("twitter")
             = link_to image_tag("badge-twitter.png")
-        #buffer_count
-          %img{:src => "/images/t_count.jpg"}
+        #buffer_count_blue
         - if user_signed_in?
           - if @plans.plan.name.eql?("Free")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
+            %span{:id => "buffer_count_text_blue_set"} #{@count_buffer}
           - elsif @plans.plan.name.eql?("Pro")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
+            %span{:id => "buffer_count_text_blue_set"} #{@count_buffer}
           - elsif @plans.plan.name.eql?("Premium")
             %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} Unlimited tweets per day
         #user_login
@@ -130,7 +129,7 @@
           =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
           %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
           %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
-          %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/suggestions'); return false;"} View Suggestions
+          %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/suggestions?twitter_name=#{@twitter_user.login}'); return false;"} View Suggestions
     #separator
       // buffer list and ads
     #buffer_list

@@ -329,6 +329,13 @@
    margin-left: 3px;   
 }
 
+#buffer_count_text_blue_set{
+   color: #3185C3;
+   font-size: 32px;
+   font-weight: bold;
+   margin-left: -118px;
+}
+
 #buffer_count_text_green{
    color: #B5E23D;
    font-size: 32px;
@@ -379,7 +386,7 @@
     cursor: pointer;
 }
 
-.button-suggest{
+#button-suggest{
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
@@ -414,7 +421,6 @@
     cursor: pointer;
     margin: auto;
 }
-
 
 #suggestions_box_dialog{
     padding: 10px;
