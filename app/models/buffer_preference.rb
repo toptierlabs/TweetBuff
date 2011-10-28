@@ -34,7 +34,7 @@ class BufferPreference < ActiveRecord::Base
   after_create      :create_time_definitions
   before_update     :detect_tweet_mode_change
   before_save       :update_permalink
-  scope :oldest_order, :order => "created_at ASC", :conditions => ["deleted_at IS NULL"]
+  scope :oldest_order, :order => "created_at ASC, run_at ASC", :conditions => ["deleted_at IS NULL"]
 
   # Class Methods
 

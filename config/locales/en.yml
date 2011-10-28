@@ -17,7 +17,7 @@ en:
       buffer: "My Tweets"
       sign_out: "Sign Out"
       account_settings: "Account"
-      twitter_settings: "Twitter"
+#      twitter_settings: "Twitter"
       goodies: "Goodies"
       plans: "Plans & Pricing"
   tables:

@@ -11,7 +11,8 @@ Tweetbuffer::Application.routes.draw do
   match 'twitter_users/delete_buffer/:id' => 'twitter_users#delete_buffer', :as => :delete_buffer, :via => :get
   match 'twitter_users/edit_buffer/:id' => 'twitter_users#edit_buffer', :as => :edit_buffer, :via => :get
   match "twitter_users/:id/update_buffer" => "twitter_users#update_buffer", :as => :update_buffer
-#  get "/update_buffer/:id" => "TwitterUsers#update_buffer", :as => :update_buffer
+  match "twitter_users/add_an_account" => "twitter_users#add_an_account", :as => :add_an_account
+  #  get "/update_buffer/:id" => "TwitterUsers#update_buffer", :as => :update_buffer
   match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
   
   resources :timezones
@@ -50,7 +51,14 @@ Tweetbuffer::Application.routes.draw do
       get   "settings/twitter" => :twitter, :as => :twitter_settings
     end
   end
-
+  
+  scope "facebook" do
+    controller :facebook_sessions do
+      get   "authorize" => :new, :as => :facebook_authorize_account
+      get   "callback" => :oauth_callback, :as => :facebook_callback
+    end
+  end
+  
   scope "twitter" do
     resources :bitly_apis do
       collection do

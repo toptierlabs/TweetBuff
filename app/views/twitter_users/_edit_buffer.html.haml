@@ -12,4 +12,5 @@
     #button_container
       =submit_tag "Update Buffer", :class => "update_buffer", :onclick => "$('#loader-buffer').show();"
       %input{:type => "button",:class => "post_now", :onclick => ""}
+      = link_to "tweet", tweet_to_twitter_path, :class => "update_buffer"
       %input{:type => "button",:class => "queue_settings", :onclick => ""}

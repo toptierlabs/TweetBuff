@@ -22,7 +22,7 @@
   %a{:href => twitter_authorize_account_path}
     authorize now
 -else
-  .wrapper
+  .wrapper{:id => "tweet_stuff"}
     #go_pro
       %div{:style => "display: inline-block;"}
       =image_tag("bluebox.jpg", :style => "width: 32px; height: 32px;")
@@ -35,54 +35,73 @@
         %i
           =link_to "View advantage", plans_path, :class => "adv_link"
 
-    #tweet_stuff
-      .user_twitter_detail
-        #profile_image
-          //%img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
-          = profile_image(@twitter_user, "_normal", 64, 64)
-        #buffer_count
-          %img{:src => "/images/t_count.jpg"}
-        - if user_signed_in?
-          - if @plans.plan.name.eql?("Free")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
-          - elsif @plans.plan.name.eql?("Pro")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
-          - elsif @plans.plan.name.eql?("Premium")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} Unlimited tweets per day
+    .tweet_stuff
+      - @twitter_account_list.each do |account|
+        - unless account.login.eql?(params[:twitter_name])
+          .user_detail{:style => "display: inline-block; border: 2px solid rgb(39, 110, 162); height: 50px; min-width: 180px;"}
+            .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
+              = profile_image(account, "_normal", 35, 31)
+            %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
+              //= account.login
+              = link_to account.login, twitter_user_path(account.login)
+            %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
+              - if user_signed_in?
+                = "#{@count_each_buffer_account}"
+        - else
+          .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: inline-block; min-width: 180px; background-color: rgb(214, 237, 240);"}
+            .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
+              = profile_image(@twitter_user, "_normal", 35, 31)
+            %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
+              = @twitter_user.login
+              //= link_to account.login, twitter_user_path(account.login)
+            %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
+              - if user_signed_in?
+                - if @plans.plan.name.eql?("Free")
+                  = "#{@count_buffer}"
+                - elsif @plans.plan.name.eql?("Pro")
+                  = "#{@count_buffer}"
+                - elsif @plans.plan.name.eql?("Premium")
+                  = "~"
+      .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: inline-block; min-width: 180px; background-color: rgb(214, 237, 240);"}
+        .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
+          = image_tag("add.png", width: 25, height: 25)
+        %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
+          //= link_to "Add Account", twitter_authorize_account_path
+          = link_to "Add Account", add_an_account_path
+        
 
-        #user_login
-          =@twitter_user.login
-        #mini_panel
-          %ul{:style => "list-style: none;"}
-            %li{:style => "font-size: 14px; font-weight: bold;"}
-              %a{:href => twitter_authorize_account_path, :style => "color: #3468BB"}
-                %img{:src => "/images/add_blue.png", :width => 24, :height => 24} Add Account
-            %li{:style => "font-size: 14px; font-weight: bold;"}
-              %a{:href => "#", :style => "color:#3468BB", :onclick => "showDialog('Switch account','#{twitter_account_list_path}'); return false;"}
-                %img{:src => "/images/refresh_24.png", :width => 24, :height => 24} Switch Account
-      .tweet_form_buffer
-        #loader
-          =image_tag("ajaxLoader.gif")
-          %br
-          Posting your tweet
-        #loader-buffer
-          =image_tag("ajaxLoader.gif")
-          %br
-          Add tweet to buffer
-        #loader-edit-buffer{:style=> "display: none;"}
-          =image_tag("ajaxLoader.gif")
-          %br
-          Edit buffer
-        =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-          =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
-          #button_container
-            =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
-            %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
-            %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
+        #user_login{:style=> "display: none;"}
+          = @twitter_user.login
+      #mini_panel
+        %ul{:style => "list-style: none;"}
+          %li{:style => "font-size: 14px; font-weight: bold;"}
+            %a{:href => twitter_authorize_account_path, :style => "color: #3468BB; display: none;"}
+              %img{:src => "/images/add_blue.png", :width => 24, :height => 24} Add Account
+          %li{:style => "font-size: 14px; font-weight: bold; "}
+            %a{:href => "#", :style => "display:none; color:#3468BB", :onclick => "showDialog('Switch account','#{twitter_account_list_path}'); return false;"}
+              %img{:src => "/images/refresh_24.png", :width => 24, :height => 24} Switch Account
+    .tweet_form_buffer
+      #loader
+        =image_tag("ajaxLoader.gif")
+        %br
+        Posting your tweet
+      #loader-buffer
+        =image_tag("ajaxLoader.gif")
+        %br
+        Add tweet to buffer
+      #loader-edit-buffer{:style=> "display: none;"}
+        =image_tag("ajaxLoader.gif")
+        %br
+        Edit buffer
+      =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
+        =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
+        #button_container
+          =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
+          %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
+          %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
+          %input{:type => "button",:class => "suggest_a_tweet", :onclick => ""}
     #separator
       // buffer list and ads
-    #ads
-      = image_tag("/images/advertise.jpg")
     #buffer_list
       %span{:style => "font-size: 15px; font-weight: bold; display: block; text-align: center;"}
         Queue | Performance | Analitics
@@ -91,7 +110,8 @@
         - old_buffer = nil
         - today = Date.today
         //- @order_buffers = @buffers.order("run_at ASC")
-        - @order_buffers = BufferPreference.where("status = ?", "uninitialized").order("run_at ASC")
+        //- @order_buffers = BufferPreference.where("status = ?", "uninitialized").order("run_at ASC")
+        - @order_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
         - active_time = @order_buffers.first.run_at.to_date rescue today
         - @order_buffers.each_with_index do |buffer, i|
           - if active_time != buffer.run_at.to_date or i == 0
@@ -114,3 +134,5 @@
                 = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
               #delete_buffer{:onclick => ""}
                 = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id)
+    #ads
+      = image_tag("/images/advertise.jpg")

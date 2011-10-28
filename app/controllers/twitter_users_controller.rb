@@ -19,20 +19,31 @@ class TwitterUsersController < ApplicationController
         return redirect_to twitter_user_url(twitter_name)
       end
     end
-    @is_updated_interval = is_interval_updated?
     
+    @twitter_account_list = current_user.twitter_users
+    @is_updated_interval = is_interval_updated?
+
     plans = Subcription.find_all_by_user_id(current_user.id)
     @plans = plans.last
     if @plans.plan.name.eql?("Free")
       @total_buffer = 20
     elsif @plans.plan.name.eql?("Pro")
       @total_buffer = 60
-    end    
+    end
+    
     if @buffers.nil?
       @count_buffer = 0
     else
       @count_buffer = @buffers.count
     end
+    
+    @each_twitter_user = current_user.twitter_users
+    @each_twitter_user.each do |account|
+      @buffers_per_account = account.buffer_preferences.oldest_order
+      @count_each_buffer_account = @buffers_per_account.count
+    end
+    
+    
   end
   
   def delete_buffer
@@ -133,6 +144,35 @@ class TwitterUsersController < ApplicationController
           page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
         end
       end
+    else
+      user = BufferPreference.find(params[:id]).twitter_user
+      Twitter.configure do |config|
+        config.consumer_key       = TWITTER_API[:key]
+        config.consumer_secret    = TWITTER_API[:secret]
+        config.oauth_token        = user.access_token
+        config.oauth_token_secret = user.access_secret
+      end
+      client = Twitter::Client.new
+      user_status = BufferPreference.find(params[:id])
+      status = user_status.permalink
+      status = params[:tweet]
+      user_status.deleted_at = Time.now
+      user_status.status = "success"
+      user_status.save!
+    
+      url = status.match(/https?:\/\/[\S]+/)
+      unless url.nil?
+        bitly_api = current_user.bitly_api
+        unless bitly_api.nil?
+          bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
+          bitly_url = bitly.shorten(url.to_s).short_url
+          status = status.gsub(url.to_s,bitly_url)
+        end
+      end
+      client.update(status)
+      redirect_to :back
+      
+      
     end
   end
 
@@ -187,6 +227,10 @@ class TwitterUsersController < ApplicationController
     else
       @count_buffer = @buffers.count
     end
+  end
+  
+  def add_an_account
+    
   end
   
   def invite_team_member

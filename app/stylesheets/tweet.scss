@@ -13,8 +13,10 @@
   color: #2222ff
 }
 
-#tweet_stuff{
-  padding: 5px;
+.tweet_stuff{
+  /*padding: 5px;*/
+  float: left;
+    width: 200px;
 }
 
 .user_twitter_detail{
@@ -24,8 +26,8 @@
 }
 
 #profile_image{
-  width: 64px;
-  height: 64px;
+  height: 32px;
+  width: 38px;
   border: 2px solid #D2EEFA;
   -moz-border-radius: 4px;
   -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
@@ -51,11 +53,10 @@
 }
 
 .tweet_form_buffer{
-  width: 600px;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: -5px;
-  width: 725px;
+    margin-left: 210px;
+    position: relative;
+    vertical-align: top;
+    width: 725px;
 }
 
 #button_container{
@@ -100,6 +101,14 @@
   margin-right: 10px;
   cursor: pointer;
 }
+.suggest_a_tweet{
+  background: url(/images/suggest_a_tweet.jpg) no-repeat;
+  width: 167px;
+  height: 49px;
+  border: 0;
+  margin-right: 10px;
+  cursor: pointer;
+}
 
 #separator{
   width: 100%;
@@ -108,15 +117,16 @@
 }
 
 #ads{
-  display: inline-block;
-  width: 151px;
-  vertical-align: top;
+  margin-left: 7px;
+    vertical-align: top;
+    width: 151px;
 }
 
 #buffer_list{
-  vertical-align: top;
-  display: inline-block;
-  width: 730px;
+  float: right;
+    margin-right: -35px;
+    vertical-align: top;
+    width: 730px;
 }
 
 #post_notice{
