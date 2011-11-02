@@ -18,7 +18,41 @@
     $.get('/update_setting_time?tweet_id=' + id + '&per_day=' + per_day + '&time_tweet=' + time_tweet);
   }
 
-= select_tag "days", options_for_select(Day.collect_days), :onchange => "selectRoleType(this.value);"
+  function checkedBox(val){
+    check = jQuery('#check'+val).attr('checked');
+    if(check){
+      jQuery('#check'+val).removeAttr('checked');
+      jQuery('#link'+val).removeClass('active_checkbox_time_setting');
+    }else {
+      jQuery('#check'+val).attr('checked','checked');
+      jQuery('#link'+val).addClass('active_checkbox_time_setting');
+    }
+  }
+
+=# select_tag "days", options_for_select(Day.collect_days), :onchange => "selectRoleType(this.value);"
+= form_for save_time_setting_path do
+  %input{:type => "checkbox", :value => "1", :name => "days[]", :id => "check1", :class => "checkbox_time_setting"}
+  %input{:type => "checkbox", :value => "2", :name => "days[]", :id => "check2", :class => "checkbox_time_setting"}
+  %input{:type => "checkbox", :value => "3", :name => "days[]", :id => "check3", :class => "checkbox_time_setting"}
+  %input{:type => "checkbox", :value => "4", :name => "days[]", :id => "check4", :class => "checkbox_time_setting"}
+  %input{:type => "checkbox", :value => "5", :name => "days[]", :id => "check5", :class => "checkbox_time_setting"}
+  %input{:type => "checkbox", :value => "6", :name => "days[]", :id => "check6", :class => "checkbox_time_setting"}
+  %input{:type => "checkbox", :value => "7", :name => "days[]", :id => "check7", :class => "checkbox_time_setting"}
+
+  %a{:href => "#", :onclick => "checkedBox(1);", :id=>"link1"}sun
+  %a{:href => "#", :onclick => "checkedBox(2);", :id=>"link2"}mon
+  %a{:href => "#", :onclick => "checkedBox(3);", :id=>"link3"}tue
+  %a{:href => "#", :onclick => "checkedBox(4);", :id=>"link4"}wed
+  %a{:href => "#", :onclick => "checkedBox(5);", :id=>"link5"}thu
+  %a{:href => "#", :onclick => "checkedBox(6);", :id=>"link6"}fri
+  %a{:href => "#", :onclick => "checkedBox(7);", :id=>"link7"}sat
+  %br
+  %br
+  = select_tag :time_setting_type, options_for_select([["Tweet Smart", 1],["Choose your tweeting time", 2], ["Customize your tweeting time", 3]])
+  %br
+  %br
+  = submit_tag "Save Setting"
+
 #loader
   =image_tag("ajaxLoader.gif")
   %br

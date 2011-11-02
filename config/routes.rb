@@ -14,7 +14,10 @@ Tweetbuffer::Application.routes.draw do
   match "twitter_users/add_an_account" => "twitter_users#add_an_account", :as => :add_an_account
   #  get "/update_buffer/:id" => "TwitterUsers#update_buffer", :as => :update_buffer
   match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
-  
+
+
+  post "/save_time_setting" => "twitter_users#save_time_setting", :as => :save_time_setting
+
   resources :timezones
 
   resources :tweet_histories

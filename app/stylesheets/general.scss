@@ -111,3 +111,12 @@ float: left;
     border: 0;
     margin-bottom: 10px;
 }
+
+.checkbox_time_setting {
+    display: none;
+}
+
+a.active_checkbox_time_setting {
+  background: #AAAAAA;
+  padding: 3px;
+}
