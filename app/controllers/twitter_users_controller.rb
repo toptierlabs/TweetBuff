@@ -221,7 +221,7 @@ class TwitterUsersController < ApplicationController
     timeframe.each do |tf|
       @options << ["#{tf.name}","#{tf.id}"]
     end
-    @options << ["other","99"]
+#    @options << ["other","99"]
     
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
     @twitter_id = @twitter_user.id
