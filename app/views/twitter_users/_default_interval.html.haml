@@ -39,12 +39,12 @@
   = check_box_tag "days[]", "7", is_day_of_week_checked?(@twitter_user, "7"), :class => "checkbox_time_setting", :id => "check7"
 
   = link_to "sun", "#", :onclick => "checkedBox(1);", :id => "link1", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
-  = link_to "mon", "#", :onclick => "checkedBox(2);", :id => "link2", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
-  = link_to "tue", "#", :onclick => "checkedBox(3);", :id => "link3", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
-  = link_to "wed", "#", :onclick => "checkedBox(4);", :id => "link4", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
-  = link_to "thu", "#", :onclick => "checkedBox(5);", :id => "link5", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
-  = link_to "fri", "#", :onclick => "checkedBox(6);", :id => "link6", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
-  = link_to "sat", "#", :onclick => "checkedBox(7);", :id => "link7", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
+  = link_to "mon", "#", :onclick => "checkedBox(2);", :id => "link2", :class => "#{is_day_of_week_checked?(@twitter_user, "2") ? "active_checkbox_time_setting" : "" }"
+  = link_to "tue", "#", :onclick => "checkedBox(3);", :id => "link3", :class => "#{is_day_of_week_checked?(@twitter_user, "3") ? "active_checkbox_time_setting" : "" }"
+  = link_to "wed", "#", :onclick => "checkedBox(4);", :id => "link4", :class => "#{is_day_of_week_checked?(@twitter_user, "4") ? "active_checkbox_time_setting" : "" }"
+  = link_to "thu", "#", :onclick => "checkedBox(5);", :id => "link5", :class => "#{is_day_of_week_checked?(@twitter_user, "5") ? "active_checkbox_time_setting" : "" }"
+  = link_to "fri", "#", :onclick => "checkedBox(6);", :id => "link6", :class => "#{is_day_of_week_checked?(@twitter_user, "6") ? "active_checkbox_time_setting" : "" }"
+  = link_to "sat", "#", :onclick => "checkedBox(7);", :id => "link7", :class => "#{is_day_of_week_checked?(@twitter_user, "7") ? "active_checkbox_time_setting" : "" }"
   %br
   %br
   = select_tag :time_setting_type, options_for_select([["Tweet Smart", 'tweet_smart'],["Choose your tweeting time",'choose_tweeting_time'], ["Customize your tweeting time",'custom_tweeting_time']]), {:include_blank => "–Select Time Setting Type–", :onchange => "selectFileType(this.value); $('#file_type_'+this.value).val(this.value);"}
@@ -84,7 +84,7 @@
   %div{:id => "choose_tweeting_time", :style => "display:none;"}
     =hidden_field :timeframe, :user_id, :value => twitter_user.user.id
     =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
-    =select_tag "timeframe[timeframe_id]", options_for_select(@options)
+    =select_tag "timeframe_id", options_for_select(@options)
     %br
     = "start at"
     =hour_select("tfname[hour][]")

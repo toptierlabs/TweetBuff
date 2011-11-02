@@ -221,7 +221,6 @@ class TwitterUsersController < ApplicationController
     timeframe.each do |tf|
       @options << ["#{tf.name}","#{tf.id}"]
     end
-#    @options << ["other","99"]
     
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
     @twitter_id = @twitter_user.id
@@ -276,11 +275,47 @@ class TwitterUsersController < ApplicationController
         #(tf[:hour][i].to_i + 12) if tf[:meridian][i].eql?("pm")
         other_time << "#{tf[:hour][i]}:#{tf[:minute][i]}|"
       end
-      tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
+      tweet_interval = TimeSetting.find_by_twitter_user_id(twitter_uid)
+      year = Time.now.strftime('%Y')
+      month = Time.now.strftime('%m')
+      day = Time.now.strftime('%d')
       if tweet_interval.nil?
-        TweetInterval.create(:timeframe_id => nil, :other_interval => other_time.gsub("\n",""), :user_id => current_user.id, :twitter_user_id => twitter_uid)
+        if params[:time_setting_type].eql?("tweet_smart")
+          time_setting = 1
+          day_of_week = params[:days].join(",")
+          post_per_day = params[:day_time]
+          unless post_per_day.nil?
+            TimeSetting.create(:timeframe_id => nil, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => time_setting, :post_per_day => post_per_day, :day_of_week => day_of_week)
+          else
+            redirect_to :back, :notice => "error."
+          end
+        elsif params[:time_setting_type].eql?("choose_tweeting_time")
+          time_setting = 2
+          day_of_week = params[:days].join(",")
+          start_time = Time.utc(year,month,day,tf[:hour][0],tf[:minute][0])
+          TimeSetting.create(:timeframe_id => nil, :start_time => start_time, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => time_setting, :day_of_week => day_of_week)
+        elsif params[:time_setting_type].eql?("custom_tweeting_time")
+          time_setting = 3
+          day_of_week = params[:days].join(",")
+          custom_time = Time.utc(year,month,day,params[:tfname][:hour][1],params[:tfname][:minute][1])
+          TimeSetting.create(:timeframe_id => params[:timeframe_id], :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => time_setting, :day_of_week => day_of_week, :custom_time => custom_time)
+        end
       else
-        tweet_interval.update_attributes({:timeframe_id => nil, :other_interval => other_time.gsub("\n","")})
+        update_day_of_week = params[:days].join(",")
+        if params[:time_setting_type].eql?("tweet_smart")
+          #          unless params[:day_time].nil?
+          tweet_interval.update_attributes({:day_of_week => update_day_of_week, :post_per_day => params[:day_time]})
+          #            redirect_to :back, :notice => "thankyou, your settings has been updated." 
+          #          else
+          #            redirect_to :back, :notice => "error."
+          #          end
+        elsif params[:time_setting_type].eql?("choose_tweeting_time")
+          start_time = Time.utc(year,month,day,tf[:hour][0],tf[:minute][0])
+          tweet_interval.update_attributes({:day_of_week => update_day_of_week, :start_time => start_time, :post_per_day => nil, :timeframe_id => params[:timeframe_id], :custom_time => nil})
+        elsif params[:time_setting_type].eql?("custom_tweeting_time")
+          custom_time = Time.utc(year,month,day,params[:tfname][:hour][1],params[:tfname][:minute][1])
+          tweet_interval.update_attributes({:day_of_week => update_day_of_week, :timeframe_id => nil, :custom_time => custom_time, :post_per_day => nil})
+        end
       end
       redirect_to :back, :notice => "thankyou, your settings has been updated."
     else
@@ -293,7 +328,6 @@ class TwitterUsersController < ApplicationController
       redirect_to :back, :notice => "thankyou, your settings has been updated."
     end
   end
-  
   
   def update_setting_time
     if request.xhr?
@@ -316,6 +350,17 @@ class TwitterUsersController < ApplicationController
           #errors.full_messages.each {|error| page << "alert('#{error}')"}
         end
       end
+    else
+      twitter_uid = params[:tweet_id]
+      user = User.find(current_user.id)
+      myplan = user.subcriptions.last.plan
+      
+      time_tweet = params[:time_tweet]
+      tweet_day = params[:per_day]
+      setting = Subcription.find_by_user_id_and_active(user.id, true)
+      setting.day_time_tweet = time_tweet
+      setting.tweet_per_day = tweet_day
+      setting.save!
     end
   end
   
