@@ -15,8 +15,8 @@ Tweetbuffer::Application.routes.draw do
   #  get "/update_buffer/:id" => "TwitterUsers#update_buffer", :as => :update_buffer
   match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
 
-
-  post "/save_time_setting" => "twitter_users#save_time_setting", :as => :save_time_setting
+#  post "/save_time_setting" => "twitter_users#save_time_setting", :as => :save_time_setting
+  post "/save_settings" => "twitter_users#save_settings", :as => :save_settings
 
   resources :timezones
 
@@ -95,7 +95,7 @@ Tweetbuffer::Application.routes.draw do
     get "/settings/default_interval" => "TwitterUsers#default_interval", :as => :default_ti
     post "/settings/update_timezone" => "TwitterUsers#update_timezone", :as => :update_timezone
     post "/settings/update_notify" => "TwitterUsers#update_notify", :as => :update_notify
-    post "/save_settings" => "TwitterUsers#save_settings"
+#    post "/save_settings" => "TwitterUsers#save_settings"
     
 
     scope ":twitter_name" do

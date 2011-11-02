@@ -1,10 +1,9 @@
 :javascript
-  function selectRoleType(role){
-    jQuery(".current_role").hide();
-    jQuery(".current_role").removeClass("current_role");
-    jQuery("#default").show();
-    jQuery("#default").addClass("current_role");
-    //jQuery("#days").hide();
+  function selectFileType(fileType) {
+    jQuery(".current_type").hide();
+    jQuery(".current_type").removeClass("current_type");
+    jQuery("#"+fileType).show();
+    jQuery("#"+fileType).addClass("current_type");
   }
   var form_count = 1
   function new_interval(){
@@ -30,7 +29,7 @@
   }
 
 =# select_tag "days", options_for_select(Day.collect_days), :onchange => "selectRoleType(this.value);"
-= form_for save_time_setting_path do
+= form_tag save_settings_path do
   %input{:type => "checkbox", :value => "1", :name => "days[]", :id => "check1", :class => "checkbox_time_setting"}
   %input{:type => "checkbox", :value => "2", :name => "days[]", :id => "check2", :class => "checkbox_time_setting"}
   %input{:type => "checkbox", :value => "3", :name => "days[]", :id => "check3", :class => "checkbox_time_setting"}
@@ -48,16 +47,70 @@
   %a{:href => "#", :onclick => "checkedBox(7);", :id=>"link7"}sat
   %br
   %br
-  = select_tag :time_setting_type, options_for_select([["Tweet Smart", 1],["Choose your tweeting time", 2], ["Customize your tweeting time", 3]])
+  = select_tag :time_setting_type, options_for_select([["Tweet Smart", 'tweet_smart'],["Choose your tweeting time",'choose_tweeting_time'], ["Customize your tweeting time",'custom_tweeting_time']]), {:include_blank => "–Select Time Setting Type–", :onchange => "selectFileType(this.value); $('#file_type_'+this.value).val(this.value);"}
   %br
   %br
+  %div{:id => "tweet_smart", :style => "display:none;"}
+    =hidden_field :timeframe, :user_id, :value => twitter_user.user.id
+    =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
+    - if @myplan.name.eql?("Free")        
+      = "1"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"1", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "2"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"2", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "4"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"4", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "6"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+    - elsif @myplan.name.eql?("Pro")
+      = "1"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"1", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "2"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"2", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "4"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"4", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "6"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "9"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"9", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "25"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"25", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+    - elsif @myplan.name.eql?("Premium")
+      = "1"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"1", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "2"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"2", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "4"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"4", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+      = "6"
+      %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"}
+
+  %div{:id => "choose_tweeting_time", :style => "display:none;"}
+    =hidden_field :timeframe, :user_id, :value => twitter_user.user.id
+    =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
+    =select_tag "timeframe[timeframe_id]", options_for_select(@options)
+  %div{:id => "custom_tweeting_time", :style => "display:none;"}
+    #custom_tf_wrapper
+      #custom_tf_select
+        =hour_select("tfname[hour][]")
+        =minute_select("tfname[minute][]")
+        =meridian("tfname[meridian][]")
+        %span{:style => "color: #a50000; font-weight: bold; cursor: pointer;", :onclick => "$('#form_count').val(form_count-=1); $(this).parents('#custom_tf_select').remove();"} X
+    =hidden_field :timeframe, :timeframe_id, :value => "99"
+    =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
+    =hidden_field_tag :form_count, "1"
+    %input{:type => "button", :value => "New interval", :onclick => "new_interval();"}
+
+
   = submit_tag "Save Setting"
 
 #loader
   =image_tag("ajaxLoader.gif")
   %br
   Update time interval
-#default{:style => "display:none; position: relative; width: 360px;"}
+
+
+#default{:style => "display:none; position:relative; width:360px;"}
   .default_tweetsmart{:style => "float: left; border: 2px solid rgb(49, 133, 195); border-radius: 4px 4px 4px 4px; padding: 2px;"}
     Tweet Smart
     =form_tag save_settings_path do
@@ -90,7 +143,7 @@
         = "4"
         %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"4", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
         = "6"
-        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"} 
+        %input{:type=>"radio", :id=>"update_time", :name=>"day_time", :value=>"6", :onclick=>"update_time_tweet('#{twitter_user.id}', this.value);"}
       
 
   .default_interval{:style => "float: left; border: 2px solid rgb(49, 133, 195); border-radius: 4px 4px 4px 4px; padding: 2px;"}
@@ -115,6 +168,5 @@
       =hidden_field :timeframe, :twitter_user_id, :value => twitter_user.id
       =hidden_field_tag :form_count, "1"
       =submit_tag "update"
-
     %input{:type => "button", :value => "New interval", :onclick => "new_interval();"}
     %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
