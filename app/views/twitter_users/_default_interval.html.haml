@@ -30,21 +30,21 @@
 
 =# select_tag "days", options_for_select(Day.collect_days), :onchange => "selectRoleType(this.value);"
 = form_tag save_settings_path do
-  %input{:type => "checkbox", :value => "1", :name => "days[]", :id => "check1", :class => "checkbox_time_setting"}
-  %input{:type => "checkbox", :value => "2", :name => "days[]", :id => "check2", :class => "checkbox_time_setting"}
-  %input{:type => "checkbox", :value => "3", :name => "days[]", :id => "check3", :class => "checkbox_time_setting"}
-  %input{:type => "checkbox", :value => "4", :name => "days[]", :id => "check4", :class => "checkbox_time_setting"}
-  %input{:type => "checkbox", :value => "5", :name => "days[]", :id => "check5", :class => "checkbox_time_setting"}
-  %input{:type => "checkbox", :value => "6", :name => "days[]", :id => "check6", :class => "checkbox_time_setting"}
-  %input{:type => "checkbox", :value => "7", :name => "days[]", :id => "check7", :class => "checkbox_time_setting"}
+  = check_box_tag "days[]", "1", is_day_of_week_checked?(@twitter_user, "1"), :class => "checkbox_time_setting"
+  = check_box_tag "days[]", "2", is_day_of_week_checked?(@twitter_user, "2"), :class => "checkbox_time_setting"
+  = check_box_tag "days[]", "3", is_day_of_week_checked?(@twitter_user, "3"), :class => "checkbox_time_setting"
+  = check_box_tag "days[]", "4", is_day_of_week_checked?(@twitter_user, "4"), :class => "checkbox_time_setting"
+  = check_box_tag "days[]", "5", is_day_of_week_checked?(@twitter_user, "5"), :class => "checkbox_time_setting"
+  = check_box_tag "days[]", "6", is_day_of_week_checked?(@twitter_user, "6"), :class => "checkbox_time_setting"
+  = check_box_tag "days[]", "7", is_day_of_week_checked?(@twitter_user, "7"), :class => "checkbox_time_setting"
 
-  %a{:href => "#", :onclick => "checkedBox(1);", :id=>"link1"}sun
-  %a{:href => "#", :onclick => "checkedBox(2);", :id=>"link2"}mon
-  %a{:href => "#", :onclick => "checkedBox(3);", :id=>"link3"}tue
-  %a{:href => "#", :onclick => "checkedBox(4);", :id=>"link4"}wed
-  %a{:href => "#", :onclick => "checkedBox(5);", :id=>"link5"}thu
-  %a{:href => "#", :onclick => "checkedBox(6);", :id=>"link6"}fri
-  %a{:href => "#", :onclick => "checkedBox(7);", :id=>"link7"}sat
+  = link_to "sun", "#", :onclick => "checkedBox(1);", :id => "link1", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
+  = link_to "mon", "#", :onclick => "checkedBox(2);", :id => "link2", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
+  = link_to "tue", "#", :onclick => "checkedBox(3);", :id => "link3", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
+  = link_to "wed", "#", :onclick => "checkedBox(4);", :id => "link4", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
+  = link_to "thu", "#", :onclick => "checkedBox(5);", :id => "link5", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
+  = link_to "fri", "#", :onclick => "checkedBox(6);", :id => "link6", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
+  = link_to "sat", "#", :onclick => "checkedBox(7);", :id => "link7", :class => "#{is_day_of_week_checked?(@twitter_user, "1") ? "active_checkbox_time_setting" : "" }"
   %br
   %br
   = select_tag :time_setting_type, options_for_select([["Tweet Smart", 'tweet_smart'],["Choose your tweeting time",'choose_tweeting_time'], ["Customize your tweeting time",'custom_tweeting_time']]), {:include_blank => "–Select Time Setting Type–", :onchange => "selectFileType(this.value); $('#file_type_'+this.value).val(this.value);"}

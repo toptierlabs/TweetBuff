@@ -138,3 +138,14 @@ a {
   border: 0;
   margin-bottom: 10px;
 }
+
+/* line 115, app/stylesheets/general.scss */
+.checkbox_time_setting {
+  display: none;
+}
+
+/* line 119, app/stylesheets/general.scss */
+a.active_checkbox_time_setting {
+  background: #AAAAAA;
+  padding: 3px;
+}

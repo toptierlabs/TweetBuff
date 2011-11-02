@@ -22,6 +22,7 @@ class TwitterUser < ActiveRecord::Base
   has_many   :buffer_preferences
   has_one   :tweet_history
   has_one :tweet_interval
+  has_one :time_setting
 
   # Attributes
   attr_protected :twitter_id, :remember_token, :remember_token_expires_at

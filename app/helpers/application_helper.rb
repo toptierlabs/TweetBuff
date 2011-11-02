@@ -93,5 +93,11 @@ module ApplicationHelper
       end
     end
   end
+
+  def is_day_of_week_checked?(twitter_user, number_of_day)
+    time_setting = twitter_user.time_setting
+    return true if time_setting.blank?
+    time_setting.day_of_week.split(",").include?(number_of_day.to_s)    
+  end
   
 end
