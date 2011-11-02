@@ -303,12 +303,7 @@ class TwitterUsersController < ApplicationController
       else
         update_day_of_week = params[:days].join(",")
         if params[:time_setting_type].eql?("tweet_smart")
-          #          unless params[:day_time].nil?
-          tweet_interval.update_attributes({:day_of_week => update_day_of_week, :post_per_day => params[:day_time]})
-          #            redirect_to :back, :notice => "thankyou, your settings has been updated." 
-          #          else
-          #            redirect_to :back, :notice => "error."
-          #          end
+          tweet_interval.update_attributes({:day_of_week => update_day_of_week, :post_per_day => params[:day_time], :timeframe_id => nil, :start_time => nil})
         elsif params[:time_setting_type].eql?("choose_tweeting_time")
           start_time = Time.utc(year,month,day,tf[:hour][0],tf[:minute][0])
           tweet_interval.update_attributes({:day_of_week => update_day_of_week, :start_time => start_time, :post_per_day => nil, :timeframe_id => params[:timeframe_id], :custom_time => nil})

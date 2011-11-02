@@ -58,11 +58,16 @@
         %br
         %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
       %br
-      - ti = @twitter_user.tweet_interval
+      //- ti = @twitter_user.tweet_interval
+      - ti = @twitter_user.time_setting
       - unless ti.nil?
         - tf = ti.timeframe
         - if tf
-          currently your tweet will post automaticly every #{tf.value} #{tf.unit}
+          = "currently your tweet will post automaticly every #{tf.value} #{tf.unit} and start_at #{ti.start_time.to_date}"
+        - elsif !ti.post_per_day.nil?
+          currently your tweet will post automaticly #{ti.post_per_day} posts per day
+        - elsif !ti.custom_time.nil?
+          currently your tweet will post automaticly at #{ti.custom_time.to_date}
         - else
           - tf = @twitter_user.tweet_interval.other_interval
           - tf = tf.split("|")
