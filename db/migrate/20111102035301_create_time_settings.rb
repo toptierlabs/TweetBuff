@@ -5,6 +5,7 @@ class CreateTimeSettings < ActiveRecord::Migration
       t.integer :time_setting_type
       t.integer :post_per_day
       t.datetime :start_time
+      t.integer :timeframe_id
       t.integer :twitter_user_id
       t.integer :user_id
 
