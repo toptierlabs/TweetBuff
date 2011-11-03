@@ -100,4 +100,24 @@ module ApplicationHelper
     time_setting.day_of_week.split(",").include?(number_of_day.to_s)    
   end
   
+  def choose_hours_custom
+    hours = []
+    1.upto 12 do |i|
+      hours << [i, i] 
+    end
+    hours
+  end
+  
+  def choose_minutes_custom
+    minutes = []
+    0.upto 59  do |i|
+      minutes << [i, i] 
+    end
+    minutes
+  end
+  
+  def choose_meridians_custom
+    [["PM", "pm"],["AM", "am"]]
+  end
+  
 end

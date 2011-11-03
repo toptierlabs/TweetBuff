@@ -39,18 +39,22 @@ class BufferPreferencesController < ApplicationController
     if request.xhr?
       unless @twitter_user.tweet_interval.blank?
         @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-        @buffers = BufferPreference.find_all_by_twitter_user_id(@twitter_user.id).count
-        unless @buffers.eql?(is_max_tweet_buffer?(current_user).plan.num_of_tweet_in_buffer)
-          @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-          errors = @buffer_preference.errors
-          update_run_at
+        @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized")
+        buffer_count = @buffers.count
+        unless buffer_count.eql?(max_tweet_buffer_for_user(current_user))
+          @buffer_preference = @twitter_user.buffer_preferences.new(params[:buffer_preference].merge(:status => "uninitialized"))
+          p "---------------------askdkljasd ---"
+          p @buffer_preference.valid?
+          p @buffer_preference.errors
           render :update do |page|
-            if errors.empty?
+            if @buffer_preference.valid?
+              @buffer_preference.save
+              page.redirect_to :back
+            else
               page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
               page << "$('#loader-buffer').hide();"
               page << "$('#tweet_text').val('')"
               page << "notification()"
-            else
               #errors.full_messages.each {|error| page << "alert('#{error}')"}
             end
           end
@@ -97,20 +101,26 @@ class BufferPreferencesController < ApplicationController
 
   def update_run_at
     # update
-    subcription_date = Subcription.find_by_user_id_and_active(current_user.id, true)
-    unless subcription_date.day_time_tweet.blank?      
+    #    subcription_date = Subcription.find_by_user_id_and_active(current_user.id, true)
+    user = User.find(current_user.id)
+    subcription_date = user.subcriptions.last
+    
+    unless subcription_date.day_time_tweet.blank?
       run_at_time = subcription_date.day_time_tweet
       @buffer_preference.update_attributes({:run_at => "#{run_at_time}", :added_time => ""})
     else
-      @ti = @twitter_user.tweet_interval
+      #      @ti = @twitter_user.tweet_interval
+      @ti = @twitter_user.time_setting
       @tf = @ti.timeframe
 
       if @tf
         @post_at = @tf.value.to_i
         if @tf.unit.eql?("minutes")
-          run_at = Time.now + @post_at.minutes
+          #          run_at = Time.now + @post_at.minutes
+          run_at = @ti.start_time + @post_at.minutes
         elsif @tf.unit.eql?("hours")
-          run_at = Time.now + @post_at.hours
+          #          run_at = Time.now + @post_at.hours
+          run_at = @ti.start_time + @post_at.hours
         end
       else
         #block to check if user use other_interval
@@ -164,13 +174,14 @@ class BufferPreferencesController < ApplicationController
       @run_at = run_at
       @buffer_preference.update_attributes({:run_at => @run_at, :added_time => added_time})
     end
-    
-    
   end
   
-  def is_max_tweet_buffer?(user)
-    accounts = TwitterUser.find_all_by_user_id(current_user.id).count
-    @active_plans = Subcription.active_subcription(current_user).first
+  
+  
+  def max_tweet_buffer_for_user(user)
+    accounts = TwitterUser.find_all_by_user_id(user.id).count
+    active_plans = Subcription.active_subcription(user).first
+    active_plans.plan.num_of_tweet_in_buffer
   end
 
 end

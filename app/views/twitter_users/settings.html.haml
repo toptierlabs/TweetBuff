@@ -63,7 +63,7 @@
       - unless ti.nil?
         - tf = ti.timeframe
         - if tf
-          = "currently your tweet will post automaticly every #{tf.value} #{tf.unit} and start_at #{ti.start_time.to_date}"
+          = "currently your tweet will post automaticly every #{tf.value} #{tf.unit} and start_at #{ti.start_time}"
         - elsif !ti.post_per_day.nil?
           currently your tweet will post automaticly #{ti.post_per_day} posts per day
         - elsif !ti.custom_time.nil?

@@ -42,9 +42,9 @@
           = profile_image(@twitter_user, "_normal", 64, 64)
         .badge
           - if @twitter_user.account_type.eql?("facebook")
-            = link_to image_tag("badge-facebook.png")
+            = image_tag("badge-facebook.png")
           - elsif @twitter_user.account_type.eql?("twitter")
-            = link_to image_tag("badge-twitter.png")
+            = image_tag("badge-twitter.png")
         #buffer_count_blue
         - if user_signed_in?
           - if @plans.plan.name.eql?("Free")
@@ -63,9 +63,9 @@
               = profile_image(account, "_normal", 35, 31)
             .badge
               - if account.account_type.eql?("facebook")
-                = link_to image_tag("badge-facebook.png")
+                = image_tag("badge-facebook.png")
               - elsif account.account_type.eql?("twitter")
-                = link_to image_tag("badge-twitter.png")
+                = image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
               //= account.login
               = link_to account.login, twitter_user_path(account.login)
@@ -78,9 +78,9 @@
               = profile_image(@twitter_user, "_normal", 35, 31)
             .badge
               - if account.account_type.eql?("facebook")
-                = link_to image_tag("badge-facebook.png")
+                = image_tag("badge-facebook.png")
               - elsif account.account_type.eql?("twitter")
-                = link_to image_tag("badge-twitter.png")
+                = image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
               = @twitter_user.login
               //= link_to account.login, twitter_user_path(account.login)
@@ -154,7 +154,10 @@
             = buffer.name
             %br
             %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
-              = "Queued for #{buffer.run_at.strftime('%H:%M %p')}" unless buffer.run_at.nil?
+              - a = (buffer.run_at.strftime('%H')).to_i
+              - hour = ((buffer.run_at.strftime('%H')).to_i - 12).to_s
+              - minute = (buffer.run_at.strftime('%M'))
+              = "Queued for #{buffer.run_at.strftime('%I:%M %p')}" unless buffer.run_at.nil?
             %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
               //#tweet_now{:onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('buffer.name').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
               #tweet_now{:onclick => ""}

@@ -31,10 +31,14 @@ class BufferPreference < ActiveRecord::Base
 
   # Callbacks
   before_validation :set_defaults
-  after_create      :create_time_definitions
+  after_create      :update_run_at_new, :create_time_definitions
   before_update     :detect_tweet_mode_change
   before_save       :update_permalink
+  
   scope :oldest_order, :order => "created_at ASC, run_at ASC", :conditions => ["deleted_at IS NULL"]
+  scope :in_buffer_list, lambda{|twitter_user|
+    where("twitter_user_id = ? AND status = ?", twitter_user.id, "uninitialized")
+  }
 
   # Class Methods
 
@@ -128,6 +132,37 @@ class BufferPreference < ActiveRecord::Base
 
   def to_param
     self.name
+  end
+  
+  def update_run_at_new
+    time_setting = self.twitter_user.time_setting
+    
+    active_plans = Subcription.active_subcription(self.user).first
+    max = active_plans.plan.num_of_tweet_in_buffer
+ 
+    buffers = BufferPreference.in_buffer_list(self.twitter_user)
+    case time_setting.time_setting_type
+    when 1
+    
+    when 2
+      time_periode = time_setting.time_period.split(",")
+      now = Time.now
+      buffers.each do |buffer|
+        time_periode.each do|time|
+          dj_min_hour = time.split(":")
+          must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1])
+          if now < must_sent_time && buffers.select{|b| b.run_at.eql?(must_sent_time)}.blank?
+            buffer.update_attributes({:run_at => must_sent_time})
+          else
+            now = now+(time_setting.timeframe.value).send(time_setting.timeframe.unit)
+            buffer.update_attributes({:run_at => now})
+            break
+          end  
+        end
+      end 
+    when 3
+      
+    end
   end
 
   protected
