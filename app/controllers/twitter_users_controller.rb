@@ -317,6 +317,7 @@ class TwitterUsersController < ApplicationController
           x = []
           0.upto ((24/timeframe.value)-1) do |i|
             x << (start_time + (i*timeframe.value).hours).strftime('%H:%M')
+#            x << (start_time + (i*timeframe.value).hours).strftime('%Y-%m-%d %H:%M:%S')
           end
           ax = x.join(",")
           tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, :start_time => start_time, :post_per_day => nil, :timeframe_id => params[:timeframe_id], :custom_time => nil, :time_period => ax})
