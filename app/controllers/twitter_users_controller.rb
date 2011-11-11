@@ -105,6 +105,45 @@ class TwitterUsersController < ApplicationController
     redirect_to :back
   end
   
+  def update_status_from_buffer
+    user = BufferPreference.find(params[:id]).twitter_user
+    
+    me = FbGraph::User.me(user.access_token)
+    me.feed!(
+      :message => 'Updating via FbGraph',
+      :picture => 'https://graph.facebook.com/matake/picture',
+      :link => 'https://github.com/nov/fb_graph',
+      :name => 'FbGraph',
+      :description => 'A Ruby wrapper for Facebook Graph API'
+    )
+    
+    
+    Twitter.configure do |config|
+      config.consumer_key       = TWITTER_API[:key]
+      config.consumer_secret    = TWITTER_API[:secret]
+      config.oauth_token        = user.access_token
+      config.oauth_token_secret = user.access_secret
+    end
+    client = Twitter::Client.new
+    user_status = BufferPreference.find(params[:id])
+    status = user_status.permalink
+    user_status.deleted_at = Time.now
+    user_status.status = "success"
+    user_status.save!
+    
+    url = status.match(/https?:\/\/[\S]+/)
+    unless url.nil?
+      bitly_api = current_user.bitly_api
+      unless bitly_api.nil?
+        bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
+        bitly_url = bitly.shorten(url.to_s).short_url
+        status = status.gsub(url.to_s,bitly_url)
+      end
+    end
+    client.update(status)
+    redirect_to :back
+  end
+  
   def tweet_to_twitter
     if request.xhr?
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
@@ -202,13 +241,9 @@ class TwitterUsersController < ApplicationController
     @bitly = BitlyApi.find(current_user.id) rescue nil
     
     days = Day.all
-    #    @days = days.collect {|day| [day.day_name, day.id]}
-    #    @days = Day.collect_days(days)
     
     user = User.find(current_user.id)
     @myplan = user.subcriptions.last.plan
-    #    @tweet_smart = myplan.num_of_tweet_per_day
-    #    @tweet_smart = tweet_smarts.collect {|time| [time.value, time.id]}
     
     @options = []
     @twitter_user = TwitterUser.find_by_login(params[:twitter_name])
@@ -272,7 +307,6 @@ class TwitterUsersController < ApplicationController
     if params[:timeframe][:timeframe_id].eql?("99")
       other_time = ""
       params[:form_count].to_i.times do |i|
-        #(tf[:hour][i].to_i + 12) if tf[:meridian][i].eql?("pm")
         other_time << "#{tf[:hour][i]}:#{tf[:minute][i]}|"
       end
       tweet_interval = TimeSetting.find_by_twitter_user_id(twitter_uid)
@@ -284,26 +318,19 @@ class TwitterUsersController < ApplicationController
           time_setting = 1
           day_of_week = params[:days].join(",")
           post_per_day = params[:day_time]
-          unless post_per_day.nil?
-            TimeSetting.create(:timeframe_id => nil, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :post_per_day => post_per_day, :day_of_week => day_of_week)
-          else
-            redirect_to :back, :notice => "error."
+          time_periode = []
+          params[:day_time].to_i.times do |day_parameter|
+            rand_hour = rand(24)
+            random_hour =  rand_hour < 9 ? "0#{rand_hour}":"#{rand_hour}"
+            rand_minute = rand(60)
+            random_minute =  rand_minute < 9 ? "0#{rand_minute}":"#{rand_minute}"
+            time_periode << "#{random_hour}:#{random_minute}"
           end
-        elsif params[:time_setting_type].eql?("2")
-          time_setting = 2
-          day_of_week = params[:days].join(",")
-          start_time = Time.utc(year,month,day,tf[:hour][0],tf[:minute][0])
-          TimeSetting.create(:timeframe_id => nil, :start_time => start_time, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week)
-        elsif params[:time_setting_type].eql?("3")
-          time_setting = 3
-          day_of_week = params[:days].join(",")
-          custom_time = Time.utc(year,month,day,params[:tfname][:hour][1],params[:tfname][:minute][1])
-          TimeSetting.create(:timeframe_id => params[:timeframe_id], :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week, :custom_time => custom_time)
-        end
-      else
-        update_day_of_week = params[:days].join(",")
-        if params[:time_setting_type].eql?("1")
-          tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type],:day_of_week => update_day_of_week, :post_per_day => params[:day_time], :timeframe_id => nil, :start_time => nil})
+          sort_time_periode = time_periode.sort{|a,x| a <=> x}
+          custom_time_saved = sort_time_periode.join(",")
+          debugger
+          TimeSetting.create(:timeframe_id => nil, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_period => custom_time_saved, :time_setting_type => params[:time_setting_type], :post_per_day => post_per_day, :day_of_week => day_of_week)
+          
         elsif params[:time_setting_type].eql?("2")
           pm = ((params[:start_at][:hour]).to_i + 12).to_s
           am = params[:start_at][:hour]
@@ -317,17 +344,74 @@ class TwitterUsersController < ApplicationController
           x = []
           0.upto ((24/timeframe.value)-1) do |i|
             x << (start_time + (i*timeframe.value).hours).strftime('%H:%M')
-#            x << (start_time + (i*timeframe.value).hours).strftime('%Y-%m-%d %H:%M:%S')
+          end
+          ax = x.join(",")
+          
+          debugger
+          TimeSetting.create(:timeframe_id => nil, :start_time => start_time, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week, :time_period => ax)
+          
+        elsif params[:time_setting_type].eql?("3")
+          time_setting = 3
+          day_of_week = params[:days].join(",")
+          custom_time = Time.utc(year,month,day,params[:tfname][:hour][1],params[:tfname][:minute][1])
+          TimeSetting.create(:timeframe_id => params[:timeframe_id], :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week, :custom_time => custom_time)
+        end
+      else
+        update_day_of_week = params[:days].join(",")
+        if params[:time_setting_type].eql?("1")
+          time_periode = []
+          params[:day_time].to_i.times do |day_parameter|
+            rand_hour = rand(24)
+            random_hour =  rand_hour < 9 ? "0#{rand_hour}":"#{rand_hour}"
+            rand_minute = rand(60)
+            random_minute =  rand_minute < 9 ? "0#{rand_minute}":"#{rand_minute}"
+            time_periode << "#{random_hour}:#{random_minute}"
+          end
+          sort_time_periode = time_periode.sort{|a,x| a <=> x}
+          custom_time_saved = sort_time_periode.join(",")
+          tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type],:day_of_week => update_day_of_week, :time_period => custom_time_saved, :post_per_day => params[:day_time], :timeframe_id => nil, :start_time => nil})
+        elsif params[:time_setting_type].eql?("2")
+          pm = ((params[:start_at][:hour]).to_i + 12).to_s
+          am = params[:start_at][:hour]
+          minute = params[:start_at][:minute]
+          timeframe = Timeframe.find(params[:timeframe_id])
+          if params[:start_at][:meridian].eql?("pm")
+            start_time = Time.utc(year,month,day,pm,minute)
+          elsif params[:start_at][:meridian].eql?("am")
+            start_time = Time.utc(year,month,day,am,minute)
+          end
+          x = []
+          0.upto ((24/timeframe.value)-1) do |i|
+            x << (start_time + (i*timeframe.value).hours).strftime('%H:%M')
           end
           ax = x.join(",")
           tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, :start_time => start_time, :post_per_day => nil, :timeframe_id => params[:timeframe_id], :custom_time => nil, :time_period => ax})
           
         elsif params[:time_setting_type].eql?("3")
-          custom_time = Time.utc(year,month,day,params[:tfname][:hour][1],params[:tfname][:minute][1])
-          tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, :timeframe_id => nil, :custom_time => custom_time, :post_per_day => nil})
+          if params[:tfname][:hour][1].nil?
+            custom_time = Time.new(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""),nil, "+00:00")
+            tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, :timeframe_id => nil, :custom_time => custom_time, :post_per_day => nil})
+          else
+            many_custom_time = []
+            params[:new_form_count].to_i.times do |parameter|
+              if params[:tfname][:meridian][parameter].eql?("pm")
+                pm = (params[:tfname][:hour][parameter].to_i + 12).to_s
+                many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"
+              elsif params[:tfname][:meridian][parameter].eql?("am")
+                am = (params[:tfname][:hour][parameter]).to_s
+                many_custom_time << "#{am}:#{params[:tfname][:minute][parameter]}"
+              end
+            end
+            
+            sort_time_periode = many_custom_time.sort{|a,x| a <=> x}
+            custom_time_saved = sort_time_periode.join(",")
+
+            tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, :timeframe_id => nil, :time_period => custom_time_saved, :custom_time => nil, :post_per_day => nil})
+          end
         end
       end
-      redirect_to :back, :notice => "thankyou, your settings has been updated."
+      #      redirect_to :back, :notice => "thankyou, your settings has been updated."
+      redirect_to twitter_user_path(current_user.twitter_users.first.login), :notice => "thankyou, your settings has been updated."
     else
       tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
       if tweet_interval.nil?
@@ -335,7 +419,8 @@ class TwitterUsersController < ApplicationController
       else
         tweet_interval.update_attributes(params[:timeframe].merge(:other_interval => nil))
       end
-      redirect_to :back, :notice => "thankyou, your settings has been updated."
+      #      redirect_to :back, :notice => "thankyou, your settings has been updated."
+      redirect_to twitter_user_path(current_user.twitter_users.first.login), :notice => "thankyou, your settings has been updated."
     end
   end
   

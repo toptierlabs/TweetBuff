@@ -20,7 +20,7 @@ class TwitterSessionsController < ApplicationController
   end
   
   def oauth_callback
-    unless session[:request_token] && session[:request_token_secret] 
+    unless session[:request_token] && session[:request_token_secret]
       authentication_failed('No authentication information was found in the session. Please try again.') and return
     end
 
@@ -32,6 +32,7 @@ class TwitterSessionsController < ApplicationController
 
     oauth_verifier = params["oauth_verifier"]
     @access_token = @request_token.get_access_token(:oauth_verifier => oauth_verifier)
+    
     
     # The request token has been invalidated
     # so we nullify it in the session.

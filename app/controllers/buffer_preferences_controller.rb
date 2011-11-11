@@ -162,7 +162,7 @@ class BufferPreferencesController < ApplicationController
         else
           a = last_buffer_added_time
         end
-        if last_buffer_run.strftime("%H:%M").eql?(minute_hours.last) || a > 0  # didieu yeuh nu salah!!!!!!
+        if last_buffer_run.strftime("%H:%M").eql?(minute_hours.last) || a > 0
           last_run = last_buffer_run.strftime("%H:%M").eql?(minute_hours.last)? last_buffer_added_time+1 : last_buffer_added_time
           run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) +last_run.day
           added_time = last_buffer_added_time + 1 if run_sat.eql?(minute_hours.first)

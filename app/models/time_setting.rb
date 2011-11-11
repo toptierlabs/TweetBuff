@@ -9,6 +9,8 @@ class TimeSetting < ActiveRecord::Base
     BufferPreference.update_all("run_at = NULL", "twitter_user_id = #{twitter_user.id}")
     # BufferPreference.update_all("twitter_user_id = #{twitter_user.id}")
     buffer = twitter_user.buffer_preferences.first
-    buffer.update_run_at_new
+    unless buffer.nil?
+      buffer.update_run_at_new
+    end
   end
 end

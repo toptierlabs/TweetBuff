@@ -134,243 +134,6 @@ class BufferPreference < ActiveRecord::Base
     self.name
   end
   
-  #  def update_run_at_new
-  #    time_setting = self.twitter_user.time_setting
-  #    
-  #    active_plans = Subcription.active_subcription(self.user).first
-  #    max = active_plans.plan.num_of_tweet_in_buffer
-  # 
-  #    buffers = BufferPreference.in_buffer_list(self.twitter_user)
-  #    case time_setting.time_setting_type
-  #    when 1
-  #    
-  #    when 2
-  #      time_periode = time_setting.time_period.split(",")
-  #      time_now = Time.now
-  #      days = time_setting.day_of_week
-  #      now = Time.new(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, "+00:00")
-  #      buffers.each do |buffer|
-  #        time_periode.each do |time|
-  #          
-  #          dj_min_hour = time.split(":")
-  #          must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1],nil, "+00:00")
-  #          #          debugger
-  #          # if now < must_sent_time && buffers.select{|b| b.run_at.eql?(must_sent_time)}.blank?
-  #          if now < must_sent_time
-  #            
-  #            if days.include?(must_sent_time.strftime("%u"))
-  #              buffer.update_attributes({:run_at => must_sent_time})
-  #            else
-  #              while !days.include?(must_sent_time.strftime('%u'))
-  #                unless days.include?(must_sent_time.strftime('%u'))
-  #                  now = must_sent_time + 1.days
-  #                end
-  #              end
-  #              buffer.update_attributes({:run_at => now})
-  #              break
-  #            end
-  #            
-  #          else
-  #            now = must_sent_time + (time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #            if days.include?(now.strftime("%u"))
-  #              buffer.update_attributes({:run_at => now})
-  #            else
-  #              while !days.include?(now.strftime('%u'))
-  #                unless days.include?(now.strftime('%u'))
-  #                  now = now + 1.days
-  #                end
-  #              end
-  #              buffer.update_attributes({:run_at => now})
-  #              break
-  #            end
-  #          end  
-  #        end
-  #        
-  #      end 
-  #      
-  #    when 3
-  #      
-  #    end
-  #  end
-  
-  #  def update_run_at_new
-  #    time_setting = self.twitter_user.time_setting
-  #    
-  #    active_plans = Subcription.active_subcription(self.user).first
-  #    max = active_plans.plan.num_of_tweet_in_buffer
-  # 
-  #    buffers = BufferPreference.in_buffer_list(self.twitter_user)
-  #    case time_setting.time_setting_type
-  #    when 1
-  #    
-  #    when 2
-  #      time_periode = time_setting.time_period.split(",")
-  #      time_now = Time.now
-  #      days = time_setting.day_of_week
-  #      now = Time.new(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, "+00:00")
-  #      
-  #      buffers.each do |buffer|
-  #        time_periode.each do|time|
-  #          
-  #          dj_min_hour = time.split(":")
-  #          must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1],nil, "+00:00")
-  #          
-  ##          debugger
-  #          if now < must_sent_time && buffers.select{|b| b.run_at.eql?(must_sent_time)}.blank?
-  #            
-  #            if days.include?(must_sent_time.strftime('%u'))
-  #              buffer.update_attributes({:run_at => must_sent_time})
-  #            else
-  #              while !days.include?(must_sent_time.strftime('%u'))
-  #                unless days.include?(must_sent_time.strftime('%u'))
-  #                  must_sent_time = must_sent_time + 1.days
-  #                end
-  #              end
-  #              buffer.update_attributes({:run_at => must_sent_time})
-  #            end
-  #            
-  #            #            while !days.include?(must_sent_time.strftime('%u'))
-  #            #              unless days.include?(must_sent_time.strftime('%u'))
-  #            #                must_sent_time = must_sent_time + 1.days
-  #            #              end
-  #            #            end
-  #            #            buffer.update_attributes({:run_at => must_sent_time})
-  #            
-  #          else
-  #            while !days.include?(must_sent_time.strftime('%u'))
-  #              unless days.include?(must_sent_time.strftime('%u'))
-  #                must_sent_time = must_sent_time + 1.days
-  #              end
-  #            end
-  #            buffer.update_attributes({:run_at => must_sent_time})
-  #            break
-  #            
-  ##            # ditambahin dengan time interval yg dipilih (12 hours)
-  ##            now = must_sent_time + (time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  ##            
-  ##            # dicek harinya sama ga dengan selected days-nya
-  ##            while !days.include?(now.strftime('%u'))
-  ##              unless days.include?(now.strftime('%u'))
-  ##                now = now + 1.days
-  ##              end
-  ##            end
-  ##            buffer.update_attributes({:run_at => now})
-  ##            break
-  #          end  
-  #        end
-  #      end 
-  #    when 3
-  #      
-  #    end
-  #  end
-  
-  
-  #  def update_run_at_new
-  #    time_setting = self.twitter_user.time_setting
-  #    
-  #    active_plans = Subcription.active_subcription(self.user).first
-  #    max = active_plans.plan.num_of_tweet_in_buffer
-  #    days = time_setting.day_of_week
-  #    buffers = BufferPreference.in_buffer_list(self.twitter_user)
-  #    case time_setting.time_setting_type
-  #    when 1
-  #      
-  #    when 2
-  #      time_periode = time_setting.time_period.split(",")
-  #      now = Time.now
-  #      buffers.each do |buffer|
-  #        time_periode.each do|time|
-  #          dj_min_hour = time.split(":")
-  #          # must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1])
-  #          must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1],nil, "+00:00")
-  #          # must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1],nil, "-14:00")
-  #          # if now < must_sent_time && buffers.select{|b| b.run_at.eql?(must_sent_time)}.blank?
-  #          debugger
-  #          if now < must_sent_time
-  #            
-  #            if days.include?(must_sent_time.strftime('%u'))
-  #              buffer.update_attributes({:run_at => must_sent_time})
-  #            else
-  #              # start_time = time_setting.start_time
-  #              # now = start_time + (time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #            end
-  #            
-  #          else
-  #            #            start_time = time_setting.start_time
-  #            #            start_time = Time.new(start_time.year,start_time.month,start_time.day,start_time.hour,start_time.min)
-  #            #            if start_time < now
-  #            #              sent_time = start_time + (time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #            #              if sent_time > now
-  #            #                buffer.update_attributes({:run_at => sent_time})
-  #            #              end
-  #            #            end
-  #            
-  #            now = now + (time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #            if days.include?(now.strftime('%u'))
-  #              buffer.update_attributes({:run_at => now})
-  #            else
-  #              start_time = time_setting.start_time
-  #              now = start_time + (time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #            end
-  #            
-  #            # break
-  #          end
-  #          
-  #        end
-  #      end 
-  #    when 3
-  #      
-  #    end
-  #  end
-  
-  
-  
-  
-  #  def update_run_at_new
-  #    time_setting = self.twitter_user.time_setting
-  #    
-  #    active_plans = Subcription.active_subcription(self.user).first
-  #    max = active_plans.plan.num_of_tweet_in_buffer
-  #    days = time_setting.day_of_week
-  #    buffers = BufferPreference.in_buffer_list(self.twitter_user)
-  #    case time_setting.time_setting_type
-  #    when 1
-  #      
-  #    when 2
-  #      time_periode = time_setting.time_period.split(",")
-  #      now = Time.now
-  #      buffers.each do |buffer|
-  #        time_periode.each do|time|
-  #          #time period = ["16:00", "04:00"]
-  #          #          require 'pp'
-  #          #          pp '-------------------------------'
-  #          #          pp time_periode
-  #          #          
-  #          dj_min_hour = time.split(":")
-  #          must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1])
-  #          # must_sent_time = 2011-11-07 16:00:00 +0700          
-  #          if now < must_sent_time
-  #            buffer.update_attributes({:run_at => must_sent_time})
-  #          else
-  #            day_of_must_sent_time = must_sent_time.strftime('%u')
-  #            if days.include?(day_of_must_sent_time)
-  #              now = now+(time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #              buffer.update_attributes({:run_at => now})
-  #            else
-  #              
-  #       
-  #              buffer.update_attributes({:run_at => now})
-  #            end
-  #            
-  #            break
-  #          end  
-  #        end 
-  #      end 
-  #    when 3
-  #      
-  #    end
-  #  end
-  
   def update_run_at_new
     time_setting = self.twitter_user.time_setting
     active_plans = Subcription.active_subcription(self.user).first
@@ -381,157 +144,95 @@ class BufferPreference < ActiveRecord::Base
     
     days = ["1","2","3","4","5","6","7"]
     
-    another_day = []
-    1.upto(7) do |p|
-      unless days.include?(p)
-        another_day << p
-      end
-    end
-    
+        
     time_now = Time.now
     current_time = Time.new(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, "+00:00")
     
     time_periode = time_setting.time_period.split(",")
     
     must_sent_time = nil
-    #    time_periode.each do |time|
     dj_min_hour = time_periode.first.split(":")
     must_sent_time = Time.new(current_time.year,current_time.month,current_time.day,dj_min_hour[0],dj_min_hour[1],nil, "+00:00")
-    #    end
     parameter = 0
+    
+    case time_setting.time_setting_type
+    when 1
+      do_option_3(buffers, selected_days, time_periode)
+      
+    when 2
+      do_option_3(buffers, selected_days, time_periode)
+      
+    when 3
+      do_option_3(buffers, selected_days,time_periode )
+      
+    end
+  end
+
+  protected
+  
+  def do_option_3(buffers, selected_days, time_periode)
+    send_time = Time.now
+    start_time = send_time
+    is_breaked = false
     buffers.each do |buffer|
-      puts "#{buffer.id}"
-      parameter += 1
-      days.each do |day|
-        if selected_days.include?(day)
-          if current_time > must_sent_time
-            now = must_sent_time + ((time_setting.timeframe.value).send(time_setting.timeframe.unit)*parameter)
-            if selected_days.include?(now.strftime('%u')) and !buffers.map(&:run_at).include?(now)
-              buffer.update_attributes({:run_at => now}) if buffer.run_at.nil?
-              break
+      puts "--------- this is the buffer -------------"
+      p buffer
+      1.upto 365 do |day|
+        puts "----------- this is the days #{day} --------"
+        send_time = send_time+(day-1).days if is_breaked
+        is_breaked = false
+        puts send_time.strftime("%u")
+        puts selected_days.include?(send_time.strftime("%u"))
+        if selected_days.include?(send_time.strftime("%u"))
+          time_periode.each do |time|
+            puts "------------ and for time periode ----------"
+            p time
+            selected_time = "#{send_time.strftime("%Y")}-#{send_time.strftime("%m")}-#{send_time.strftime("%d")} #{time.split(":").first}:#{time.split(":").last}:00"
+            p "selected_time -------- #{selected_time.to_time}"
+            p "send time ----------- #{start_time}"
+            p "cek lebih waktunya ------- #{start_time.strftime("%Y-%m-%d %H:%M:00") > selected_time.to_time.strftime("%Y-%m-%d %H:%M:00")}"
+            if buffers.map(&:run_at).include?(selected_time.to_time) or start_time.strftime("%Y-%m-%d %H:%M:00") > selected_time.to_time.strftime("%Y-%m-%d %H:%M:00")
+              puts "Jam #{time} ada yang ngisi atau udah kadaluarsa"
+              is_breaked = true if time_periode.index(time).eql?(time_periode.length-1)
+              next 
             else
-              1.upto(42) do |s|
-                now = must_sent_time + ((time_setting.timeframe.value).send(time_setting.timeframe.unit)*s)
-                if selected_days.include?(now.strftime('%u')) and !buffers.map(&:run_at).include?(now)
-                  buffer.update_attributes({:run_at => now}) if buffer.run_at.nil?
-                  break
-                else
-                  next
-                end
-              end
-            end
-          else
-            if buffers.map(&:run_at).include?(must_sent_time)
-              1.upto(42) do |data|
-                now = must_sent_time + ((time_setting.timeframe.value).send(time_setting.timeframe.unit)*data)
-                if selected_days.include?(now.strftime('%u')) and !buffers.map(&:run_at).include?(now)
-                  buffer.update_attributes({:run_at => now}) if buffer.run_at.nil?
-                  break
-                else
-                  next
-                end
-              end
-            else
-              now = must_sent_time
-              buffer.update_attributes({:run_at => now}) if buffer.run_at.nil?
+              puts "buffer ke isi run at nya"
+              buffer.update_attribute(:run_at, selected_time)
+              is_breaked = true
               break
             end
           end
         else
-          next
+          send_time = send_time + 1.days
+          puts "ke hari berikut nya #{send_time}"
         end
+        break if !buffer.run_at.eql?(nil)
+        p "------------ end day ----------"
       end
+      p "--------------- end buffer---------------"
+    end
+    
+  end
+  
+  def aduh(must_sent_time, buffers, buffer, tme, selected_days)
+    1.upto(360) do |tested|
+      must_sent_time1 = must_sent_time + tested.days
+      must_sent_time1 = (Time.new(must_sent_time1.year,must_sent_time1.month,must_sent_time1.day,tme.split(":")[0],tme.split(":")[1],nil, "+00:00"))
+      if selected_days.include?(must_sent_time1.strftime("%u")) 
+        if buffers.map(&:run_at).include?(must_sent_time1)
+          puts "asf"
+          next
+        else
+          puts "2-- -------- #{tme}----#{must_sent_time1}"
+          buffer.update_attributes({:run_at => must_sent_time1}) if buffer.run_at.nil?
+          return buffer
+        end
+      else
+        puts "#{tested}----#{must_sent_time}-----#{must_sent_time1}"
+      end
+                  
     end
   end
-
-  #  def update_run_at_new
-  #    time_setting = self.twitter_user.time_setting
-  #    
-  #    active_plans = Subcription.active_subcription(self.user).first
-  #    max = active_plans.plan.num_of_tweet_in_buffer
-  #    
-  #    days = time_setting.day_of_week.split(",")
-  #    
-  #    buffers = BufferPreference.in_buffer_list(self.twitter_user)
-  #    case time_setting.time_setting_type
-  #    when 1
-  #    
-  #    when 2
-  #      time_periode = time_setting.time_period.split(",")
-  #      now = Time.now
-  #      buffers.each do |buffer|
-  #        time_periode.each do|time|
-  #          
-  #          dj_min_hour = time.split(":")
-  #          must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1])
-  #          if now < must_sent_time && buffers.select{|b| b.run_at.eql?(must_sent_time)}.blank?
-  #            buffer.update_attributes({:run_at => must_sent_time})
-  #          else
-  #            day_of_must_sent_time = must_sent_time.strftime('%u')
-  #            days.each do |day|
-  #              if day.eql?(day_of_must_sent_time)
-  #                require "pp"
-  #                pp "------"
-  #                pp now
-  #                now = now+(time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #                buffer.update_attributes({:run_at => now})
-  #              else
-  #                require "pp"
-  #                pp now
-  #                pp "------**/*******"
-  #                count = day.to_i - day_of_must_sent_time.to_i
-  #                aa = now + count.days
-  #                now = Time.new(aa.year,aa.month,aa.day,dj_min_hour[0],dj_min_hour[1]) + 7.hours
-  #                buffer.update_attributes({:run_at => now})
-  #              end
-  #              # now = now+(time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #              # buffer.update_attributes({:run_at => now})
-  #            end  
-  #          end
-  #        end
-  #      end 
-  #    when 3
-  #      
-  #    end
-  #  end
-  
-  
-  
-  
-  #  def update_run_at_new
-  #    time_setting = self.twitter_user.time_setting
-  #      
-  #    active_plans = Subcription.active_subcription(self.user).first
-  #    max = active_plans.plan.num_of_tweet_in_buffer
-  #   
-  #    days = time_setting.day_of_week.split(",")
-  #      
-  #    buffers = BufferPreference.in_buffer_list(self.twitter_user)
-  #    case time_setting.time_setting_type
-  #    when 1
-  #      
-  #    when 2
-  #      time_periode = time_setting.time_period.split(",")
-  #      now = Time.now
-  #      buffers.each do |buffer|
-  #        time_periode.each do|time|
-  #          dj_min_hour = time.split(":")
-  #          must_sent_time = Time.new(now.year,now.month,now.day,dj_min_hour[0],dj_min_hour[1])
-  #          # if now < must_sent_time && buffers.select{|b| b.run_at.eql?(must_sent_time)}.blank?
-  #          if now < must_sent_time
-  #            buffer.update_attributes({:run_at => must_sent_time})
-  #          elsif now > must_sent_time
-  #            now = now+(time_setting.timeframe.value).send(time_setting.timeframe.unit)
-  #            buffer.update_attributes({:run_at => now})
-  #          end  
-  #        end
-  #      end 
-  #    when 3
-  #        
-  #    end
-  #  end
-
-  protected
 
   def set_defaults
     self.tweet_mode ||= :weekly_basic

@@ -53,7 +53,7 @@
       %br
       #default_timeframe_form_container
         =render :partial => "default_interval", :locals => {:twitter_user => @twitter_user}
-      #custom_timeframe_form_container
+      #custom_timeframe_form_container{:style => "display: none;"}
         =render :partial => "other_time_interval", :locals => {:twitter_user => @twitter_user}
         %br
         %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
@@ -67,7 +67,7 @@
         - elsif !ti.post_per_day.nil?
           currently your tweet will post automaticly #{ti.post_per_day} posts per day
         - elsif !ti.custom_time.nil?
-          currently your tweet will post automaticly at #{ti.custom_time.to_date}
+          currently your tweet will post automaticly at #{ti.custom_time}
         - else
           - tf = @twitter_user.tweet_interval.other_interval
           - tf = tf.split("|")
