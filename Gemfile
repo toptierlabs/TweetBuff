@@ -32,7 +32,8 @@ gem "acts_as_soft_delete_by_field"
 gem "fb_graph"
 #gem "omniauth", "0.3"
 
-
+#gem "grackle"
+gem 'crack'
 
 group(:development, :production) do
   gem "mysql"

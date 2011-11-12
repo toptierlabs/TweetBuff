@@ -148,7 +148,13 @@ class TwitterUsersController < ApplicationController
     if request.xhr?
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
       if @twitter_user.account_type.eql?("facebook")
-        
+        render :update do |page|
+          unless params[:tweet].empty?
+            user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+            me = FbGraph::User.me(user.access_token)
+            me.feed!(:message => params[:tweet])
+          end
+        end
       elsif @twitter_user.account_type.eql?("twitter")
         render :update do |page|
           unless params[:tweet].empty?
@@ -328,7 +334,6 @@ class TwitterUsersController < ApplicationController
           end
           sort_time_periode = time_periode.sort{|a,x| a <=> x}
           custom_time_saved = sort_time_periode.join(",")
-          debugger
           TimeSetting.create(:timeframe_id => nil, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_period => custom_time_saved, :time_setting_type => params[:time_setting_type], :post_per_day => post_per_day, :day_of_week => day_of_week)
           
         elsif params[:time_setting_type].eql?("2")
@@ -347,7 +352,6 @@ class TwitterUsersController < ApplicationController
           end
           ax = x.join(",")
           
-          debugger
           TimeSetting.create(:timeframe_id => nil, :start_time => start_time, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week, :time_period => ax)
           
         elsif params[:time_setting_type].eql?("3")

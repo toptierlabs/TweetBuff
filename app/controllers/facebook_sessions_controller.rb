@@ -30,7 +30,8 @@ class FacebookSessionsController < ApplicationController
 
     # redirect user to facebook
     redirect_to client.authorization_uri(
-      :scope => [:email, :read_stream, :offline_access]
+      #      :scope => [:email, :read_stream, :offline_access]
+      {:scope => [:publish_stream, :offline_access, :email]}
     )
     access_token = client.access_token!
     me = FbGraph::User.me(access_token)
@@ -43,7 +44,7 @@ class FacebookSessionsController < ApplicationController
     client.redirect_uri = "http://localhost:3000/facebook/callback"
     client.authorization_code = params[:code]
     access_token = client.access_token!
-
+    #debugger
     user = FbGraph::User.me(access_token).fetch
     @user = TwitterUser.new(
       :protected => "",
