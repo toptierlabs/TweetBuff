@@ -68,7 +68,7 @@ class Api::TwitterUsersController < ApplicationController
           @tweet_status = 0
           @tweet_message = "Failed : Can't find twitter account name with #{params[:twitter_name]}."
         else
-          if twitter_user.tweet_interval.blank?
+          if twitter_user.time_setting.blank?
             @tweet_status = 0
             @tweet_message = "Failed : You must setting quee setting first."
           else
@@ -77,7 +77,7 @@ class Api::TwitterUsersController < ApplicationController
             if error_messages.blank?
               @tweet_status = 1
               @tweet_message = "Success : Your tweet has been sent to buff."
-#              update_run_at
+              #              update_run_at
             else
               @tweet_status = 0
               @tweet_message = "Failed : Tweet message has already been taken."
@@ -97,7 +97,7 @@ class Api::TwitterUsersController < ApplicationController
   protected
   
   def update_run_at
-    @ti = @twitter_user.tweet_interval
+    @ti = @twitter_user.time_setting
     @tf = @ti.timeframe
 
     if @tf

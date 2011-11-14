@@ -37,13 +37,12 @@ class BufferPreferencesController < ApplicationController
   # post    ":twitter_name/buffers"
   def create
     if request.xhr?
-      unless @twitter_user.tweet_interval.blank?
+      unless @twitter_user.time_setting.blank?
         @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
         @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized")
         buffer_count = @buffers.count
         unless buffer_count.eql?(max_tweet_buffer_for_user(current_user))
           @buffer_preference = @twitter_user.buffer_preferences.new(params[:buffer_preference].merge(:status => "uninitialized"))
-          p "---------------------askdkljasd ---"
           p @buffer_preference.valid?
           p @buffer_preference.errors
           render :update do |page|
@@ -109,7 +108,6 @@ class BufferPreferencesController < ApplicationController
       run_at_time = subcription_date.day_time_tweet
       @buffer_preference.update_attributes({:run_at => "#{run_at_time}", :added_time => ""})
     else
-      #      @ti = @twitter_user.tweet_interval
       @ti = @twitter_user.time_setting
       @tf = @ti.timeframe
 

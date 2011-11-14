@@ -26,7 +26,7 @@ class SuggestionsController < InheritedResources::Base
   end
 
   def update_run_at
-    @ti = @twitter_user.tweet_interval
+    @ti = @twitter_user.time_setting
     @tf = @ti.timeframe
 
     if @tf
