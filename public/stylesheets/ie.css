@@ -76,6 +76,7 @@ app/stylesheets/ie.scss:1
 /home/cybergarage/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.9/lib/action_dispatch/middleware/static.rb:30:in `call'
 /home/cybergarage/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.9/lib/rails/application.rb:168:in `call'
 /home/cybergarage/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.9/lib/rails/application.rb:77:in `method_missing'
+/home/cybergarage/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.9/lib/rails/rack/debugger.rb:21:in `call'
 /home/cybergarage/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.9/lib/rails/rack/log_tailer.rb:14:in `call'
 /home/cybergarage/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.3/lib/rack/content_length.rb:13:in `call'
 /home/cybergarage/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.3/lib/rack/handler/webrick.rb:52:in `service'
