@@ -124,7 +124,7 @@
         %br
         Edit buffer
       =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-        =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
+        =f.text_area :name, :style => "width: 725px; height: 70px; background: -moz-linear-gradient(center top , rgb(252, 252, 252), rgb(252, 252, 252)) repeat scroll 0pt 0pt transparent; border-bottom: 13px solid rgb(36, 157, 236); -moz-border-radius: 11px 11px 11px 11px; -webkit-border-radius: 11px 11px 11px 11px;", :id => "tweet_text", :placeholder => "add tweet here ..."
         #button_container
           =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
           %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}

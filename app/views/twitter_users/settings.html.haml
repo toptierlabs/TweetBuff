@@ -58,16 +58,15 @@
         %br
         %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
       %br
-      //- ti = @twitter_user.tweet_interval
       - ti = @twitter_user.time_setting
       - unless ti.nil?
         - tf = ti.timeframe
         - if ti.time_setting_type.eql?(1)
-          = "currently your tweet will post automaticly every #{tf.value} #{tf.unit} and start_at #{ti.start_time}"
+          currently your tweet will post automaticly post #{ti.post_per_day} post per day and #{ti.time_period.split(",")[1]}
         - elsif ti.time_setting_type.eql?(2)
-          currently your tweet will post automaticly in #{ti.time_period.split(",")[0]} and #{ti.time_period.split(",")[1]}
+          currently your tweet will post automaticly post every #{ti.timeframe.value} #{ti.timeframe.unit} per day in #{ti.time_period.split(",")[0]}, #{ti.time_period.split(",")[1]}, #{ti.time_period.split(",")[2]}, #{ti.time_period.split(",")[3]}, #{ti.time_period.split(",")[4]}, #{ti.time_period.split(",")[5]}, #{ti.time_period.split(",")[6]}
         - elsif ti.time_setting_type.eql?(3)
-          currently your tweet will post automaticly in #{ti.time_period.split(",")[0]} and #{ti.time_period.split(",")[1]}
+          currently your tweet will post automaticly in #{ti.time_period.split(",")[0]}, #{ti.time_period.split(",")[1]}, #{ti.time_period.split(",")[2]}, #{ti.time_period.split(",")[3]}, #{ti.time_period.split(",")[4]}, #{ti.time_period.split(",")[5]}, #{ti.time_period.split(",")[6]}
     #manage_team_box
       %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
         Manage team members
