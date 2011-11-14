@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010040515) do
+ActiveRecord::Schema.define(:version => 20111103041004) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -79,6 +79,10 @@ ActiveRecord::Schema.define(:version => 20111010040515) do
     t.integer  "user_id"
   end
 
+  create_table "days", :force => true do |t|
+    t.string "day_name"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -144,7 +148,15 @@ ActiveRecord::Schema.define(:version => 20111010040515) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cart_id"
-    t.boolean  "active",     :default => false
+    t.boolean  "active",         :default => false
+    t.date     "day_time_tweet"
+    t.integer  "tweet_per_day"
+  end
+
+  create_table "suggestions", :force => true do |t|
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "time_definitions", :force => true do |t|
@@ -164,6 +176,20 @@ ActiveRecord::Schema.define(:version => 20111010040515) do
   add_index "time_definitions", ["interval", "interval_length"], :name => "index_time_definitions_on_interval_and_interval_length"
   add_index "time_definitions", ["interval", "start_minute"], :name => "index_time_definitions_on_interval_and_start_minute"
   add_index "time_definitions", ["start_hour", "start_minute"], :name => "index_time_definitions_on_start_hour_and_start_minute"
+
+  create_table "time_settings", :force => true do |t|
+    t.string   "day_of_week"
+    t.integer  "time_setting_type"
+    t.integer  "post_per_day"
+    t.datetime "start_time"
+    t.integer  "timeframe_id"
+    t.integer  "twitter_user_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "custom_time"
+    t.string   "time_period"
+  end
 
   create_table "timeframes", :force => true do |t|
     t.string   "name"
@@ -225,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20111010040515) do
     t.string  "url"
     t.string  "time_zone"
     t.string  "permalink"
+    t.string  "account_type"
   end
 
   create_table "users", :force => true do |t|
@@ -240,8 +267,12 @@ ActiveRecord::Schema.define(:version => 20111010040515) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "timezone"
+    t.integer  "timezone_id"
     t.boolean  "notify",                                :default => false
+    t.integer  "referal_id"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
