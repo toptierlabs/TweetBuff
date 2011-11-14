@@ -44,7 +44,6 @@ class FacebookSessionsController < ApplicationController
     client.redirect_uri = "http://localhost:3000/facebook/callback"
     client.authorization_code = params[:code]
     access_token = client.access_token!
-    #debugger
     user = FbGraph::User.me(access_token).fetch
     @user = TwitterUser.new(
       :protected => "",

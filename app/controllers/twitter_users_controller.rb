@@ -153,6 +153,13 @@ class TwitterUsersController < ApplicationController
             user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
             me = FbGraph::User.me(user.access_token)
             me.feed!(:message => params[:tweet])
+            page << "$('#post_notice').removeClass('error');"
+            page << "$('#post_notice').addClass('success');"
+            page << "$('#post_notice').show();"
+            page << "$('#post_notice').html('Your tweet has been posted.');"
+            page << "$('#loader').hide();"
+            page << "$('#tweet_text').val('')"
+            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
           end
         end
       elsif @twitter_user.account_type.eql?("twitter")
@@ -414,8 +421,8 @@ class TwitterUsersController < ApplicationController
           end
         end
       end
-      #      redirect_to :back, :notice => "thankyou, your settings has been updated."
-      redirect_to twitter_user_path(current_user.twitter_users.first.login), :notice => "thankyou, your settings has been updated."
+      redirect_to :back, :notice => "thankyou, your settings has been updated."
+      # redirect_to twitter_user_path(current_user.twitter_users.first.login), :notice => "thankyou, your settings has been updated."
     else
       tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
       if tweet_interval.nil?
@@ -423,8 +430,8 @@ class TwitterUsersController < ApplicationController
       else
         tweet_interval.update_attributes(params[:timeframe].merge(:other_interval => nil))
       end
-      #      redirect_to :back, :notice => "thankyou, your settings has been updated."
-      redirect_to twitter_user_path(current_user.twitter_users.first.login), :notice => "thankyou, your settings has been updated."
+      redirect_to :back, :notice => "thankyou, your settings has been updated."
+      # redirect_to twitter_user_path(current_user.twitter_users.first.login), :notice => "thankyou, your settings has been updated."
     end
   end
   
@@ -475,7 +482,8 @@ class TwitterUsersController < ApplicationController
   def is_interval_updated?
     twitter_user = TwitterUser.find_by_login(params[:twitter_name])
     unless twitter_user.nil?
-      tweet_int = twitter_user.tweet_interval
+#      tweet_int = twitter_user.tweet_interval
+      tweet_int = twitter_user.time_setting
       if tweet_int.nil?
         return "Please set up when #{twitter_user.login} tweets"
       end
