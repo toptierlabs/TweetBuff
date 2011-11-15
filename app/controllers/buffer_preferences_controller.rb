@@ -73,22 +73,24 @@ class BufferPreferencesController < ApplicationController
         @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
         @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized").count
         unless @buffers.eql?(max_tweet_buffer_for_user(current_user))
-          @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-          errors = @buffer_preference.errors
-          update_run_at
+#          errors = @buffer_preference.errors
           render :update do |page|
-            if errors.empty?
+#            if errors.empty?
               if params[:buffer_preference][:name].blank?
-                redirect_to :back, :notice => "Please enter your tweet."
+                # redirect_to :back, :notice => "Please enter your tweet."
+                page << "$('#loader-buffer').hide();"
+                page << "error()"
               else
+                @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
+                update_run_at
                 page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
                 page << "$('#loader-buffer').hide();"
                 page << "$('#tweet_text').val('')"
                 page << "notification()"
               end
-            else
+#            else
               #errors.full_messages.each {|error| page << "alert('#{error}')"}
-            end
+#            end
           end
         else
           render :update do |page|
@@ -158,15 +160,15 @@ class BufferPreferencesController < ApplicationController
     
        
     
-#    last_time = (buffers.map(&:run_at).last).strftime("%H:%M")
-#    array_ke = times.index(last_time)
-#    if times[array_ke+1].nil?
-#      run_at = times.first
-#      @buffer_preference.update_attributes({:run_at => run_at})
-#    else
-#      run_at = times[array_ke+1]
-#      @buffer_preference.update_attributes({:run_at => run_at})
-#    end
+    #    last_time = (buffers.map(&:run_at).last).strftime("%H:%M")
+    #    array_ke = times.index(last_time)
+    #    if times[array_ke+1].nil?
+    #      run_at = times.first
+    #      @buffer_preference.update_attributes({:run_at => run_at})
+    #    else
+    #      run_at = times[array_ke+1]
+    #      @buffer_preference.update_attributes({:run_at => run_at})
+    #    end
 
     
     #    # update

@@ -175,28 +175,16 @@ class BufferPreference < ActiveRecord::Base
     start_time = send_time
     is_breaked = false
     buffers.each do |buffer|
-      puts "--------- this is the buffer -------------"
-      p buffer
       1.upto 365 do |day|
-        puts "----------- this is the days #{day} --------"
         send_time = send_time+(day-1).days if is_breaked
         is_breaked = false
-        puts send_time.strftime("%u")
-        puts selected_days.include?(send_time.strftime("%u"))
         if selected_days.include?(send_time.strftime("%u"))
           time_periode.each do |time|
-            puts "------------ and for time periode ----------"
-            p time
             selected_time = "#{send_time.strftime("%Y")}-#{send_time.strftime("%m")}-#{send_time.strftime("%d")} #{time.split(":").first}:#{time.split(":").last}:00"
-            p "selected_time -------- #{selected_time.to_time}"
-            p "send time ----------- #{start_time}"
-            p "cek lebih waktunya ------- #{start_time.strftime("%Y-%m-%d %H:%M:00") > selected_time.to_time.strftime("%Y-%m-%d %H:%M:00")}"
             if buffers.map(&:run_at).include?(selected_time.to_time) or start_time.strftime("%Y-%m-%d %H:%M:00") > selected_time.to_time.strftime("%Y-%m-%d %H:%M:00")
-              puts "Jam #{time} ada yang ngisi atau udah kadaluarsa"
               is_breaked = true if time_periode.index(time).eql?(time_periode.length-1)
               next 
             else
-              puts "buffer ke isi run at nya"
               buffer.update_attribute(:run_at, selected_time)
               is_breaked = true
               break
@@ -204,12 +192,9 @@ class BufferPreference < ActiveRecord::Base
           end
         else
           send_time = send_time + 1.days
-          puts "ke hari berikut nya #{send_time}"
         end
         break if !buffer.run_at.eql?(nil)
-        p "------------ end day ----------"
       end
-      p "--------------- end buffer---------------"
     end
     
   end

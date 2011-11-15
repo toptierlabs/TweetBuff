@@ -173,10 +173,18 @@
 }
 #loader-buffer{
   position: absolute;
+  right: 4px;
   text-align: center;
-  top: 196px;
+  top: -63px;
   width: 100%;
-  right: -50px;
+  display: none;
+}
+#loader-edit-buffer{
+  position: absolute;
+  right: 4px;
+  text-align: center;
+  top: -63px;
+  width: 100%;
   display: none;
 }
 
