@@ -35,8 +35,6 @@ class BufferPreference < ActiveRecord::Base
   before_update     :detect_tweet_mode_change
   before_save       :update_permalink
   
-#  after_create :update_run_at_when_add_buffer
-  
   scope :oldest_order, :order => "created_at ASC, run_at ASC", :conditions => ["deleted_at IS NULL"]
   scope :in_buffer_list, lambda{|twitter_user|
     where("twitter_user_id = ? AND status = ?", twitter_user.id, "uninitialized")
@@ -50,17 +48,8 @@ class BufferPreference < ActiveRecord::Base
   #
   # BEGIN tweet_mode overrides
   # so we can use human-readable names for modes
-  #
-  def update_run_at_when_add_buffer
-    twitter_user = self.twitter_user
-    BufferPreference.update_all("run_at = NULL", "twitter_user_id = #{twitter_user.id}")
-    # BufferPreference.update_all("twitter_user_id = #{twitter_user.id}")
-    buffer = twitter_user.buffer_preferences.last
-    unless buffer.nil?
-      buffer.update_run_at_new
-    end
-  end
   
+    
   def tweet_mode
     mode = read_attribute(:tweet_mode)
     if mode.nil?
