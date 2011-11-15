@@ -36,53 +36,25 @@ class BufferPreferencesController < ApplicationController
 
   # post    ":twitter_name/buffers"
   
-  def create
-    if request.xhr?
-      unless @twitter_user.time_setting.blank?
-        @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-        @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized")
-        buffer_count = @buffers.count
-        unless buffer_count.eql?(max_tweet_buffer_for_user(current_user))
-          @buffer_preference = @twitter_user.buffer_preferences.new(params[:buffer_preference].merge(:status => "uninitialized"))
-          p @buffer_preference.valid?
-          p @buffer_preference.errors
-          render :update do |page|
-            if @buffer_preference.valid?
-              @buffer_preference.save
-              page.redirect_to :back
-            else
-              page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
-              page << "$('#loader-buffer').hide();"
-              page << "$('#tweet_text').val('')"
-              page << "notification()"
-              #errors.full_messages.each {|error| page << "alert('#{error}')"}
-            end
-          end
-        else
-          render :update do |page|
-            page.redirect_to :back
-          end
-        end
-      end
-    end
-  end
-  
   #  def create
   #    if request.xhr?
-  #      unless @twitter_user.tweet_interval.blank?
+  #      unless @twitter_user.time_setting.blank?
   #        @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-  #        @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized").count
-  #        unless @buffers.eql?(max_tweet_buffer_for_user(current_user))
-  #          @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-  #          errors = @buffer_preference.errors
-  #          update_run_at
+  #        @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized")
+  #        buffer_count = @buffers.count
+  #        unless buffer_count.eql?(max_tweet_buffer_for_user(current_user))
+  #          @buffer_preference = @twitter_user.buffer_preferences.new(params[:buffer_preference].merge(:status => "uninitialized"))
+  #          p @buffer_preference.valid?
+  #          p @buffer_preference.errors
   #          render :update do |page|
-  #            if errors.empty?
+  #            if @buffer_preference.valid?
+  #              @buffer_preference.save
+  #              page.redirect_to :back
+  #            else
   #              page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
   #              page << "$('#loader-buffer').hide();"
   #              page << "$('#tweet_text').val('')"
   #              page << "notification()"
-  #            else
   #              #errors.full_messages.each {|error| page << "alert('#{error}')"}
   #            end
   #          end
@@ -94,6 +66,38 @@ class BufferPreferencesController < ApplicationController
   #      end
   #    end
   #  end
+  
+  def create
+    if request.xhr?
+      unless @twitter_user.tweet_interval.blank?
+        @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+        @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized").count
+        unless @buffers.eql?(max_tweet_buffer_for_user(current_user))
+          @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
+          errors = @buffer_preference.errors
+          update_run_at
+          render :update do |page|
+            if errors.empty?
+              if params[:buffer_preference][:name].blank?
+                redirect_to :back, :notice => "Please enter your tweet."
+              else
+                page.insert_html :bottom, :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
+                page << "$('#loader-buffer').hide();"
+                page << "$('#tweet_text').val('')"
+                page << "notification()"
+              end
+            else
+              #errors.full_messages.each {|error| page << "alert('#{error}')"}
+            end
+          end
+        else
+          render :update do |page|
+            page.redirect_to :back
+          end
+        end
+      end
+    end
+  end
 
   # get     ":twitter_name/:buffer_name/edit"
   def edit
@@ -133,17 +137,36 @@ class BufferPreferencesController < ApplicationController
     aa.time_period.split(",")
     buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", a.id, "uninitialized")
     buffers.map(&:run_at)
+    bl = buffers.last
+    bl.run_at = nil
+    bl.save!
+    
     times = aa.time_period.split(",")
-    last_time = (buffers.map(&:run_at).last).strftime("%H:%M")
-    times.index(last_time)
+    
+    abc = buffers[buffers.count - 2]
+    last_time = (abc.run_at).strftime("%H:%M")
+    last_date = (abc.run_at).strftime("%Y-%m-%d")
     array_ke = times.index(last_time)
     if times[array_ke+1].nil?
       run_at = times.first
       @buffer_preference.update_attributes({:run_at => run_at})
     else
       run_at = times[array_ke+1]
-      @buffer_preference.update_attributes({:run_at => run_at})
+      save_run_at = Time.new(last_date.split("-")[0],last_date.split("-")[1],last_date.split("-")[2],run_at.split(":")[0],run_at.split(":")[1],nil, "+00:00")
+      @buffer_preference.update_attributes({:run_at => save_run_at})
     end
+    
+       
+    
+#    last_time = (buffers.map(&:run_at).last).strftime("%H:%M")
+#    array_ke = times.index(last_time)
+#    if times[array_ke+1].nil?
+#      run_at = times.first
+#      @buffer_preference.update_attributes({:run_at => run_at})
+#    else
+#      run_at = times[array_ke+1]
+#      @buffer_preference.update_attributes({:run_at => run_at})
+#    end
 
     
     #    # update
