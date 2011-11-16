@@ -93,6 +93,26 @@ module ApplicationHelper
       end
     end
   end
+  
+  def show_buffer_published_date_title(buffer, active_time = Date.today)
+    if buffer.deleted_at.to_date < active_time
+      case (active_time - buffer.deleted_at.to_date).to_i
+      when 1 
+        "Yesterday (#{buffer.deleted_at.strftime('%b %d')})"
+      else
+        buffer.deleted_at.strftime('%b %d')
+      end
+    elsif buffer.deleted_at.to_date == active_time
+      "Today (#{Time.now.strftime('%b %d')})"
+    elsif buffer.deleted_at.to_date > active_time
+      case (buffer.deleted_at.to_date - active_time).to_i
+      when 1
+        "Tomorrow (#{buffer.deleted_at.strftime('%b %d')})"
+      else
+        buffer.deleted_at.strftime('%b %d')    
+      end
+    end
+  end
 
   def is_day_of_week_checked?(twitter_user, number_of_day)
     time_setting = twitter_user.time_setting

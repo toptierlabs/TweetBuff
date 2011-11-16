@@ -134,7 +134,11 @@
       // buffer list and ads
     #buffer_list
       %span{:style => "font-size: 15px; font-weight: bold; display: block; text-align: center;"}
-        Queue | Performance | Analitics
+        = link_to "Queue", "", :class => "qpa all", :id => "queue", :remote => true, :onclick => "$('#loader-tab').show();$('#buffer_wrapper').hide();"
+        = link_to "Performance", twitter_user_performance_path, :class => "qpa", :id => "performance", :remote => true, :onclick => "$('#loader-tab').show();$('#buffer_wrapper').hide();"
+        = link_to "Analytics", twitter_user_analytic_path, :class => "qpa", :id => "analytic", :remote => true, :onclick => "$('#loader-tab').show();$('#buffer_wrapper').hide();"
+      #loader-tab{:style => "position: absolute; padding: 0px 42px; margin-left: 305px; margin-top: 60px;display:none;"}
+        = image_tag("a-loader.gif")
       %br
       #buffer_wrapper
         - old_buffer = nil

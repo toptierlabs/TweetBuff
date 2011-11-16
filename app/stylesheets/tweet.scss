@@ -267,7 +267,7 @@
   -webkit-border-radius: 5px;
 }
 
-#tweet_now, #edit_buffer, #delete_buffer{
+#tweet_now, #edit_buffer, #delete_buffer, #reached_buffer{
   background: -moz-linear-gradient(top, #fff, #cdcdcd);
   background: -webkit-linear-gradient(top, #fff, #cdcdcd);
   width: 30px;
@@ -302,6 +302,10 @@
 #edit_buffer{
   margin-left: -5px;
   line-height: 30px;
+}
+
+#reached_buffer{
+  margin-left: -5px;
 }
 
 #delete_buffer{

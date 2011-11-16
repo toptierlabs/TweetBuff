@@ -313,7 +313,7 @@
 }
 
 /* line 270, app/stylesheets/tweet.scss */
-#tweet_now, #edit_buffer, #delete_buffer {
+#tweet_now, #edit_buffer, #delete_buffer, #reached_buffer {
   background: -moz-linear-gradient(top, white, #cdcdcd);
   background: -webkit-linear-gradient(top, white, #cdcdcd);
   width: 30px;
@@ -354,6 +354,11 @@
 }
 
 /* line 307, app/stylesheets/tweet.scss */
+#reached_buffer {
+  margin-left: -5px;
+}
+
+/* line 311, app/stylesheets/tweet.scss */
 #delete_buffer {
   margin-left: -5px;
   line-height: 30px;
@@ -363,7 +368,7 @@
   -webkit-border-radius-bottomright: 5px;
 }
 
-/* line 317, app/stylesheets/tweet.scss */
+/* line 321, app/stylesheets/tweet.scss */
 #buffer_count_blue {
   background: url(/images/buffer_count.jpg);
   width: 66px;
@@ -372,7 +377,7 @@
   margin-left: 5px;
 }
 
-/* line 325, app/stylesheets/tweet.scss */
+/* line 329, app/stylesheets/tweet.scss */
 #buffer_count_green {
   background: url(/images/sent_from_buffer.jpg);
   width: 66px;
@@ -381,7 +386,7 @@
   margin-left: 8px;
 }
 
-/* line 333, app/stylesheets/tweet.scss */
+/* line 337, app/stylesheets/tweet.scss */
 #buffer_count_text_blue {
   color: #3185C3;
   font-size: 32px;
@@ -389,7 +394,7 @@
   margin-left: 3px;
 }
 
-/* line 340, app/stylesheets/tweet.scss */
+/* line 344, app/stylesheets/tweet.scss */
 #buffer_count_text_blue_set {
   color: #3185C3;
   font-size: 32px;
@@ -397,7 +402,7 @@
   margin-left: -118px;
 }
 
-/* line 347, app/stylesheets/tweet.scss */
+/* line 351, app/stylesheets/tweet.scss */
 #buffer_count_text_green {
   color: #B5E23D;
   font-size: 32px;
@@ -405,7 +410,7 @@
   margin-left: 15px;
 }
 
-/* line 354, app/stylesheets/tweet.scss */
+/* line 358, app/stylesheets/tweet.scss */
 #choose_tweet {
   width: 255px;
   color: #7AC2F4;
@@ -413,7 +418,7 @@
   font-weight: bold;
 }
 
-/* line 362, app/stylesheets/tweet.scss */
+/* line 366, app/stylesheets/tweet.scss */
 #box-tweet-suggest {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -449,7 +454,7 @@
   cursor: pointer;
 }
 
-/* line 397, app/stylesheets/tweet.scss */
+/* line 401, app/stylesheets/tweet.scss */
 #button-suggest {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -486,7 +491,7 @@
   margin: auto;
 }
 
-/* line 433, app/stylesheets/tweet.scss */
+/* line 437, app/stylesheets/tweet.scss */
 #suggestions_box_dialog {
   padding: 10px;
   border-bottom: 1px solid #DDDDDD;

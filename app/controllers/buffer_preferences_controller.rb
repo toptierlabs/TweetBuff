@@ -69,7 +69,7 @@ class BufferPreferencesController < ApplicationController
   
   def create
     if request.xhr?
-      unless @twitter_user.tweet_interval.blank?
+      unless @twitter_user.time_setting.blank?
         @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
         @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized").count
         unless @buffers.eql?(max_tweet_buffer_for_user(current_user))

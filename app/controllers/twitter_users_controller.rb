@@ -2,48 +2,47 @@ class TwitterUsersController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :twitter_account_required
+  before_filter :dashboard_account, :only => [:index, :performance, :analytic]
 
   def index
     #redirect_to twitter_user_url(session[:current_twitter_user]) unless session[:current_twitter_user].nil? redirect current url if user switch their twitter account
-    if params[:twitter_name]
-      @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-      @buffer_preference = @twitter_user.buffer_preferences.new rescue nil
-      @buffers = @twitter_user.buffer_preferences.oldest_order
-      session[:current_twitter_user] = params[:twitter_name]
-    else
-      @twitter_users = current_user.twitter_users
-      @twitter_user = @twitter_users.first
-      unless @twitter_user.nil?
-        twitter_name = @twitter_user.login
-        session[:current_twitter_user] = twitter_name
-        return redirect_to twitter_user_url(twitter_name)
+    if request.xhr?
+      render :update do |page|
+        page.replace_html "buffer_wrapper", :partial => "queue", :locals => {:twitter_user => @twitter_user}
+        page << "jQuery('#loader-tab').hide();jQuery('#buffer_wrapper').show();"
+        page << "jQuery('#queue').addClass('qpa');jQuery('#performance').removeClass('performance');jQuery('#analytic').removeClass('analytic');"
+        page << "jQuery('#queue').addClass('queue');"
       end
     end
-    
-    @twitter_account_list = current_user.twitter_users
-    @is_updated_interval = is_interval_updated?
-
-    plans = Subcription.find_all_by_user_id(current_user.id)
-    @plans = plans.last
-    if @plans.plan.name.eql?("Free")
-      @total_buffer = 20
-    elsif @plans.plan.name.eql?("Pro")
-      @total_buffer = 60
+  end
+  
+  def performance
+    twitter_user = TwitterUser.find_by_permalink(params[:twitter_name])
+    if twitter_user.account_type.eql?("facebook")
+      @reached = twitter_user.friends_count
+    elsif twitter_user.account_type.eql?("twitter")
+      @reached = twitter_user.followers_count
     end
-    
-    if @buffers.nil?
-      @count_buffer = 0
-    else
-      @count_buffer = @buffers.count
+    @buffer_success = BufferPreference.where("twitter_user_id = ? AND status = ? ", twitter_user.id, "success").order("deleted_at ASC")
+    if request.xhr?
+      render :update do |page|
+        page.replace_html "buffer_wrapper", :partial => "performance", :locals => {:twitter_user => @twitter_user}
+        page << "jQuery('#loader-tab').hide();jQuery('#buffer_wrapper').show();"
+        page << "jQuery('#performance').addClass('qpa');jQuery('#queue').removeClass('all');jQuery('#analytic').removeClass('analytic');jQuery('#queue').removeClass('queue');"
+        page << "jQuery('#performance').addClass('performance');"
+      end
     end
-    
-    @each_twitter_user = current_user.twitter_users
-    @each_twitter_user.each do |account|
-      @buffers_per_account = account.buffer_preferences.oldest_order
-      @count_each_buffer_account = @buffers_per_account.count
+  end
+  
+  def analytic
+    if request.xhr?
+      render :update do |page|
+        page.replace_html "buffer_wrapper", :partial => "analytic", :locals => {:twitter_user => @twitter_user}
+        page << "jQuery('#loader-tab').hide();jQuery('#buffer_wrapper').show();"
+        page << "jQuery('#analytic').addClass('qpa');jQuery('#queue').removeClass('all');jQuery('#performance').removeClass('performance');jQuery('#queue').removeClass('queue')"
+        page << "jQuery('#analytic').addClass('analytic');"
+      end
     end
-    
-    
   end
   
   def delete_buffer
@@ -393,8 +392,13 @@ class TwitterUsersController < ApplicationController
             many_custom_time = []
             params[:new_form_count].to_i.times do |parameter|
               if params[:tfname][:meridian][parameter].eql?("pm")
-                pm = (params[:tfname][:hour][parameter].to_i + 12).to_s
-                many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"
+                if params[:tfname][:hour][parameter].eql?("12")
+                  pm = (params[:tfname][:hour][parameter].to_i - 12).to_s
+                  many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"
+                else
+                  pm = (params[:tfname][:hour][parameter].to_i + 12).to_s
+                  many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"                  
+                end
               elsif params[:tfname][:meridian][parameter].eql?("am")
                 am = (params[:tfname][:hour][parameter]).to_s
                 many_custom_time << "#{am}:#{params[:tfname][:minute][parameter]}"
@@ -462,6 +466,47 @@ class TwitterUsersController < ApplicationController
 
   private
 
+  
+  def dashboard_account
+    if params[:twitter_name]
+      @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+      @buffer_preference = @twitter_user.buffer_preferences.new rescue nil
+      @buffers = @twitter_user.buffer_preferences.oldest_order
+      session[:current_twitter_user] = params[:twitter_name]
+    else
+      @twitter_users = current_user.twitter_users
+      @twitter_user = @twitter_users.first
+      unless @twitter_user.nil?
+        twitter_name = @twitter_user.login
+        session[:current_twitter_user] = twitter_name
+        return redirect_to twitter_user_url(twitter_name)
+      end
+    end
+    
+    @twitter_account_list = current_user.twitter_users
+    @is_updated_interval = is_interval_updated?
+
+    plans = Subcription.find_all_by_user_id(current_user.id)
+    @plans = plans.last
+    if @plans.plan.name.eql?("Free")
+      @total_buffer = 20
+    elsif @plans.plan.name.eql?("Pro")
+      @total_buffer = 60
+    end
+    
+    if @buffers.nil?
+      @count_buffer = 0
+    else
+      @count_buffer = @buffers.count
+    end
+    
+    @each_twitter_user = current_user.twitter_users
+    @each_twitter_user.each do |account|
+      @buffers_per_account = account.buffer_preferences.oldest_order
+      @count_each_buffer_account = @buffers_per_account.count
+    end
+  end
+  
   def is_tweet_history_created?(twitter_id)
     
   end

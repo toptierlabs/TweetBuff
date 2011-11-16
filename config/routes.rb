@@ -86,6 +86,10 @@ Tweetbuffer::Application.routes.draw do
     
     get "/" => "TwitterUsers#index", :as => :twitter_users
     get "/twitt_account/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
+    
+    get "/performance/:twitter_name" => "TwitterUsers#performance", :as => :twitter_user_performance
+    get "/analytic/:twitter_name" => "TwitterUsers#analytic", :as => :twitter_user_analytic
+    
     get "/tweet_to_twitter" => "TwitterUsers#tweet_to_twitter", :as => :tweet_to_twitter
     get "/tweet_from_buffer/:id" => "TwitterUsers#tweet_from_buffer", :as => :tweet_from_buffer
     
