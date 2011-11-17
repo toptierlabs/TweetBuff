@@ -180,6 +180,8 @@
                     }
                     twitter_list += "</select><br />";
                     twitter_list += "<a href='#' onclick='addTwitterAccount();'>Add Twitter Account</a>";
+                    twitter_list += "</select><br />"
+                    twitter_list += "<a href='#' onclick='addFacebookAccount();'>Add Facebook Account</a>";
                     $('#twitter_account_list').html(twitter_list);
                 }
             }
@@ -190,6 +192,9 @@
             
             function addTwitterAccount(){
                 chrome.tabs.create({url: "http://localhost:3000/twitter/authorize" });
+            }
+            function addFacebookAccount(){
+                chrome.tabs.create({url: "http://localhost:3000/facebook/authorize" });
             }
             
             function getProfileImage(){
