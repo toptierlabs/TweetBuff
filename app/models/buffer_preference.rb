@@ -143,16 +143,16 @@ class BufferPreference < ActiveRecord::Base
     selected_days = time_setting.day_of_week.split(",")
     
     days = ["1","2","3","4","5","6","7"]
-    
-        
     time_now = Time.now
-    current_time = Time.new(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, "+00:00")
-    
+    # current_time = Time.utc(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, "+00:00")
+    current_time = Time.new(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, self.user.timezone_id)
+
     time_periode = time_setting.time_period.split(",")
     
     must_sent_time = nil
     dj_min_hour = time_periode.first.split(":")
-    must_sent_time = Time.new(current_time.year,current_time.month,current_time.day,dj_min_hour[0],dj_min_hour[1],nil, "+00:00")
+    # must_sent_time = Time.new(current_time.year,current_time.month,current_time.day,dj_min_hour[0],dj_min_hour[1],nil, "+00:00")
+    must_sent_time = Time.new(current_time.year,current_time.month,current_time.day,dj_min_hour[0],dj_min_hour[1],nil, self.user.timezone_id)
     parameter = 0
     
     do_run_at(buffers, selected_days, time_periode)
@@ -192,7 +192,7 @@ class BufferPreference < ActiveRecord::Base
   def aduh(must_sent_time, buffers, buffer, tme, selected_days)
     1.upto(360) do |tested|
       must_sent_time1 = must_sent_time + tested.days
-      must_sent_time1 = (Time.new(must_sent_time1.year,must_sent_time1.month,must_sent_time1.day,tme.split(":")[0],tme.split(":")[1],nil, "+00:00"))
+      must_sent_time1 = (Time.utc(must_sent_time1.year,must_sent_time1.month,must_sent_time1.day,tme.split(":")[0],tme.split(":")[1],nil, "+00:00"))
       if selected_days.include?(must_sent_time1.strftime("%u")) 
         if buffers.map(&:run_at).include?(must_sent_time1)
           puts "asf"

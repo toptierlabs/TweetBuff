@@ -209,7 +209,19 @@ class TwitterUsersController < ApplicationController
   def update_timezone
     #puts current_user
     #    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
-    @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
+    Time.zone = params[:account][:timezone]
+    time_zone = (Time.zone.now).strftime("%z").split(//)
+    cc = []
+    cc << time_zone[0]
+    cc << time_zone[1]
+    cc << time_zone[2]
+    cc << ":"
+    cc << time_zone[3]
+    cc << time_zone[4]
+
+    interval_time_zone = cc.join("")
+    # @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
+    @timezone = current_user.update_attribute("timezone_id", interval_time_zone)
     redirect_to :back, :notice => "Your timezone has been updated."
   end
 
@@ -332,7 +344,8 @@ class TwitterUsersController < ApplicationController
           TimeSetting.create(:timeframe_id => nil, :start_time => start_time, :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week, :time_period => ax)
         elsif params[:time_setting_type].eql?("3")
           if params[:tfname][:hour][1].nil?
-            custom_time = Time.new(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""),nil, "+00:00")
+            # custom_time = Time.utc(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""),nil, "+00:00")
+            custom_time = Time.new(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""),nil, current_user.timezone_id)
             TimeSetting.create(:timeframe_id => params[:timeframe_id], :user_id => current_user.id, :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week, :custom_time => custom_time, :time_period => custom_time_saved)
           else
             many_custom_time = []
@@ -386,7 +399,7 @@ class TwitterUsersController < ApplicationController
           
         elsif params[:time_setting_type].eql?("3")
           if params[:tfname][:hour][1].nil?
-            custom_time = Time.new(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""),nil, "+00:00")
+            custom_time = Time.utc(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""),nil, "+00:00")
             tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, :timeframe_id => nil, :custom_time => custom_time, :post_per_day => nil})
           else
             many_custom_time = []

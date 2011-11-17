@@ -164,7 +164,7 @@ table.tweets tbody tr > td {
 body {
     font-family: TexGy;
     font-size: 12px;
-    width: auto;
+/*    width: auto;*/
     /*  border-top: 20px solid #79c1f3;*/
 }
 /* line 28, app/stylesheets/_grid.scss */

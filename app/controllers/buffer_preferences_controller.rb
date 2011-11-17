@@ -154,7 +154,7 @@ class BufferPreferencesController < ApplicationController
       @buffer_preference.update_attributes({:run_at => run_at})
     else
       run_at = times[array_ke+1]
-      save_run_at = Time.new(last_date.split("-")[0],last_date.split("-")[1],last_date.split("-")[2],run_at.split(":")[0],run_at.split(":")[1],nil, "+00:00")
+      save_run_at = Time.utc(last_date.split("-")[0],last_date.split("-")[1],last_date.split("-")[2],run_at.split(":")[0],run_at.split(":")[1],nil, "+00:00")
       @buffer_preference.update_attributes({:run_at => save_run_at})
     end
     
