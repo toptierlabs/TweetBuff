@@ -67,14 +67,14 @@ class BufferPreference < ActiveRecord::Base
   end
 
   def self.post_tweet
-    buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now])
+    buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now.in_time_zone])
     buffers.each do |buffer|
-      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?",Time.now.beginning_of_day, Time.now.end_of_day]).count
+      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?",Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day]).count
       twitter_user = buffer.twitter_user
       plan_count = twitter_user.user.subcriptions.where(["active = 't'"]).first.plan.num_of_tweet_per_day
       if tweeted < plan_count
         log = "=========================\n"
-        log << "posting tweet to @#{twitter_user.login} at #{Time.now}\n"
+        log << "posting tweet to @#{twitter_user.login} at #{Time.now.in_time_zone}\n"
         log << "=========================\n\n"
         file = File.open("buffer_log.txt","a+")
         file.puts(log )
@@ -136,24 +136,9 @@ class BufferPreference < ActiveRecord::Base
   
   def update_run_at_new
     time_setting = self.twitter_user.time_setting
-    active_plans = Subcription.active_subcription(self.user).first
-    max = active_plans.plan.num_of_tweet_in_buffer
-    
     buffers = BufferPreference.in_buffer_list(self.twitter_user)
     selected_days = time_setting.day_of_week.split(",")
-    
-    days = ["1","2","3","4","5","6","7"]
-    time_now = Time.now
-    # current_time = Time.utc(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, "+00:00")
-    current_time = Time.new(time_now.year,time_now.month,time_now.day,time_now.hour,time_now.min,time_now.sec, self.user.timezone_id)
-
     time_periode = time_setting.time_period.split(",")
-    
-    must_sent_time = nil
-    dj_min_hour = time_periode.first.split(":")
-    # must_sent_time = Time.new(current_time.year,current_time.month,current_time.day,dj_min_hour[0],dj_min_hour[1],nil, "+00:00")
-    must_sent_time = Time.new(current_time.year,current_time.month,current_time.day,dj_min_hour[0],dj_min_hour[1],nil, self.user.timezone_id)
-    parameter = 0
     
     do_run_at(buffers, selected_days, time_periode)
   end
@@ -161,7 +146,7 @@ class BufferPreference < ActiveRecord::Base
   protected
   
   def do_run_at(buffers, selected_days, time_periode)
-    send_time = Time.now
+    send_time = Time.now.utc
     start_time = send_time
     is_breaked = false
     buffers.each do |buffer|
@@ -189,26 +174,6 @@ class BufferPreference < ActiveRecord::Base
     
   end
   
-  def aduh(must_sent_time, buffers, buffer, tme, selected_days)
-    1.upto(360) do |tested|
-      must_sent_time1 = must_sent_time + tested.days
-      must_sent_time1 = (Time.utc(must_sent_time1.year,must_sent_time1.month,must_sent_time1.day,tme.split(":")[0],tme.split(":")[1],nil, "+00:00"))
-      if selected_days.include?(must_sent_time1.strftime("%u")) 
-        if buffers.map(&:run_at).include?(must_sent_time1)
-          puts "asf"
-          next
-        else
-          puts "2-- -------- #{tme}----#{must_sent_time1}"
-          buffer.update_attributes({:run_at => must_sent_time1}) if buffer.run_at.nil?
-          return buffer
-        end
-      else
-        puts "#{tested}----#{must_sent_time}-----#{must_sent_time1}"
-      end
-                  
-    end
-  end
-
   def set_defaults
     self.tweet_mode ||= :weekly_basic
     self.timezone   ||= "UTC"

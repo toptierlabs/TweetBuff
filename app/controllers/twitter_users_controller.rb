@@ -210,18 +210,21 @@ class TwitterUsersController < ApplicationController
     #puts current_user
     #    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
     Time.zone = params[:account][:timezone]
-    time_zone = (Time.zone.now).strftime("%z").split(//)
-    cc = []
-    cc << time_zone[0]
-    cc << time_zone[1]
-    cc << time_zone[2]
-    cc << ":"
-    cc << time_zone[3]
-    cc << time_zone[4]
-
-    interval_time_zone = cc.join("")
-    # @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
-    @timezone = current_user.update_attribute("timezone_id", interval_time_zone)
+    timezone = Time.zone.to_s.split(") ").last
+    @timezone = current_user.update_attribute("timezone_id", timezone)
+    
+#    time_zone = (Time.zone.now).strftime("%z").split(//)
+#    cc = []
+#    cc << time_zone[0]
+#    cc << time_zone[1]
+#    cc << time_zone[2]
+#    cc << ":"
+#    cc << time_zone[3]
+#    cc << time_zone[4]
+#
+#    interval_time_zone = cc.join("")
+#    # @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
+#    @timezone = current_user.update_attribute("timezone_id", interval_time_zone)
     redirect_to :back, :notice => "Your timezone has been updated."
   end
 

@@ -1,16 +1,43 @@
 class SuggestionsController < InheritedResources::Base
   def index
     @suggestions = Suggestion.all
-    @twitter_user = params[:twitter_name]
+    @suggestion = Suggestion.new
+    
+    @twitter_user_name = params[:twitter_name]
+    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    @buffer_preferences = @twitter_user.buffer_preferences.all(:conditions => ["deleted_at IS NULL"])
     
     render :layout => false
   end
+  
+  def create
+    if request.xhr?
+      @suggestion = Suggestion.create(:text => params["suggestion"]["text"], :category_name => params["suggestion"]["category_name"], :user_id => params["suggestion"]["user_id"], :twitter_user_id => params["suggestion"]["twitter_user_id"])
+      @suggestion.save
+      @twitter_user = current_user.twitter_users.find(params[:suggestion]["twitter_user_id"])
+      @buffer_preference =  @twitter_user.buffer_preferences.create(:name => params["suggestion"]["text"], :status => "uninitialized")
+      @buffer_preference = @buffer_preference.update_run_at_new.last
+      errors = @buffer_preference.errors
+      
+      render :update do |page|
+        if errors.empty?
+          page.insert_html :bottom, :buffer_wrapper, :partial => "buffer_preferences/new_buffer", :locals => {:buffer => @buffer_preference}
+          page << "$('#loader-buffer').hide();"
+          page << "$('#tweet_text').val('')"
+          page << "notification()"
+        else
+          #errors.full_messages.each {|error| page << "alert('#{error}')"}
+        end
+      end
+    end
+  end
 
-  def tweet_suggestion    
+  def tweet_suggestion
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
     @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preferences].merge(:status => "uninitialized"))
+    @buffer_preference = @buffer_preference.update_run_at_new.last
     errors = @buffer_preference.errors
-    update_run_at
+    # update_run_at
 
     render :update do |page|
       if errors.empty?
@@ -21,7 +48,7 @@ class SuggestionsController < InheritedResources::Base
       else
         #errors.full_messages.each {|error| page << "alert('#{error}')"}
       end
-    end   
+    end
     
   end
 

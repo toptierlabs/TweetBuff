@@ -20,7 +20,9 @@ class TwitterUser < ActiveRecord::Base
   # Associations
   belongs_to :user
   has_many   :buffer_preferences
-#  has_one   :tweet_history
+  
+  has_many   :suggestions
+  #  has_one   :tweet_history
   has_one :tweet_interval
   has_one :time_setting
 
@@ -67,7 +69,7 @@ class TwitterUser < ActiveRecord::Base
     self.login.parameterize
   end
 
-protected
+  protected
 
   def update_permalink
     self.permalink = self.to_param

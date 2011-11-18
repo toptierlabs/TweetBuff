@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   #  has_one     :timezone
   has_many :team_members
   
+  has_many   :suggestions
+  
   after_create :mark_as_free_subcription
 
   private

@@ -3,7 +3,7 @@
     $('#loader-buffer').show();
     var tweet = tweet_user
     $.ajax({
-      url: "/suggestions/tweet_suggestion/#{@twitter_user}",
+      url: "/suggestions/tweet_suggestion/#{@twitter_user_name}",
       type: 'GET',
       async: true,
       processData: true,
@@ -16,8 +16,24 @@
   }
 
 
+%div{:id => "suggestions_box_dialog"}
+  %div{:style=>"margin-bottom: 15px;"}
+    = form_for @suggestion, :url => "/twitter/#{current_user.twitter_users.find_by_permalink(params[:twitter_name]).login}/suggestions", :remote => true do |f|
+      = f.hidden_field :user_id, :value => current_user.id
+      = f.hidden_field :twitter_user_id, :value => current_user.twitter_users.find_by_permalink(params[:twitter_name]).id
+      = f.text_field :text, :placeholder => "your suggestion"
+      %br
+      = f.text_field :category_name, :placeholder => "category_name"
+      %br
+      = f.submit "Create Suggestion", :onclick => "jQuery('#general_dialog').hide();jQuery('#bModal').remove();jQuery('#loader-buffer').show();"
+%br
 - @suggestions.each do |suggestion|
   %div{:id => "suggestions_box_dialog"}
     %div{:style=>"margin-bottom: 15px;"}
       = suggestion.text
     %a{:href=>"#" , :class => "bClose", :id => "button-suggest", :onclick=>"tweet_suggestions(\"#{suggestion.text}\")"} Schedule this post!
+
+#loader-buffer
+  =image_tag("ajaxLoader.gif")
+  %br
+  Add suggestion to buffer
