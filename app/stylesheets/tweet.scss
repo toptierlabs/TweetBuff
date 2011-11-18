@@ -31,7 +31,7 @@
 }
 
 .user_twitter_detail .badge {
-    margin-left: 2px;
+    margin-left: 18px;
     margin-top: 50px;
     position: absolute;
 }
@@ -44,6 +44,7 @@
   -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
   display: inline-block;
   float: left;
+  margin-left: 16px;
 }
 
 #buffer_count{
@@ -131,7 +132,7 @@
 }
 
 #ads{
-  margin-left: 7px;
+    margin-left: 20px;
     vertical-align: top;
     width: 151px;
 }
@@ -323,7 +324,7 @@
    width: 66px;
    height: 53px;
    float: left;
-   margin-left: 5px;
+   margin-left: 17px;
 }
 
 #buffer_count_green{
@@ -345,7 +346,7 @@
    color: #3185C3;
    font-size: 32px;
    font-weight: bold;
-   margin-left: -118px;
+   margin-left: -84px;
 }
 
 #buffer_count_text_green{

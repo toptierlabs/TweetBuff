@@ -17,7 +17,24 @@ class TwitterUsersController < ApplicationController
   end
   
   def performance
-    twitter_user = TwitterUser.find_by_permalink(params[:twitter_name])
+    twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    if twitter_user.account_type.eql?("facebook")
+      me = FbGraph::User.me(twitter_user.access_token)
+      @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
+      unless @buffers.count.eql?(0)
+        @buffers.each do |buffer|
+          id_status = buffer.id_status.to_s
+          feed = me.statuses.select{|s| s.identifier.eql?(id_status)}.first
+          @like_feed = feed.likes.count
+          @comment_feed = feed.comments.count
+        end
+      end      
+    elsif twitter_user.account_type.eql?("twitter")
+      
+    end
+    
+    #    feed = me.posts.first
+        
     if twitter_user.account_type.eql?("facebook")
       @reached = twitter_user.friends_count
     elsif twitter_user.account_type.eql?("twitter")
@@ -35,6 +52,10 @@ class TwitterUsersController < ApplicationController
   end
   
   def analytic
+    user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    me = FbGraph::User.me(user.access_token)
+    #    me.friends.map{|s| s.sports}
+
     if request.xhr?
       render :update do |page|
         page.replace_html "buffer_wrapper", :partial => "analytic", :locals => {:twitter_user => @twitter_user}
@@ -81,7 +102,8 @@ class TwitterUsersController < ApplicationController
     if user.account_type.eql?("facebook")
       me = FbGraph::User.me(user.access_token)
       user_status = BufferPreference.find(params[:id])
-      me.feed!(:message => user_status.name)
+      feed = me.feed!(:message => user_status.name)
+      user_status.id_status = feed.identifier.split("_")[1]
       user_status.deleted_at = Time.now
       user_status.status = "success"
       user_status.save!
@@ -213,18 +235,18 @@ class TwitterUsersController < ApplicationController
     timezone = Time.zone.to_s.split(") ").last
     @timezone = current_user.update_attribute("timezone_id", timezone)
     
-#    time_zone = (Time.zone.now).strftime("%z").split(//)
-#    cc = []
-#    cc << time_zone[0]
-#    cc << time_zone[1]
-#    cc << time_zone[2]
-#    cc << ":"
-#    cc << time_zone[3]
-#    cc << time_zone[4]
-#
-#    interval_time_zone = cc.join("")
-#    # @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
-#    @timezone = current_user.update_attribute("timezone_id", interval_time_zone)
+    #    time_zone = (Time.zone.now).strftime("%z").split(//)
+    #    cc = []
+    #    cc << time_zone[0]
+    #    cc << time_zone[1]
+    #    cc << time_zone[2]
+    #    cc << ":"
+    #    cc << time_zone[3]
+    #    cc << time_zone[4]
+    #
+    #    interval_time_zone = cc.join("")
+    #    # @timezone = current_user.update_attribute("timezone_id", params[:account][:timezone])
+    #    @timezone = current_user.update_attribute("timezone_id", interval_time_zone)
     redirect_to :back, :notice => "Your timezone has been updated."
   end
 

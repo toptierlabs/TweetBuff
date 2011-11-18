@@ -19,6 +19,10 @@
         - hour = ((buffer.deleted_at.strftime('%H')).to_i - 12).to_s
         - minute = (buffer.deleted_at.strftime('%M'))
         = "Published at #{buffer.deleted_at.strftime('%I:%M %p')}" unless buffer.deleted_at.nil?
+        %span{:style => "font-style: italic; color: rgb(39, 110, 162); font-size: 12px;"}
+          = "#{@like_feed} people like this "
+          - unless @comment_feed.nil?
+            = "--#{@comment_feed} people commented in this post."
       //%span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
       %span{:id => "actions_#{buffer.id}", :style => "float: right; margin-top: -15px;"}
         #tweet_now{:onclick => ""}
