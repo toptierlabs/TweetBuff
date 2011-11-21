@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   
   def is_team_member
     @team_member = User.where("referal_id is NOT NULL")
-#    @team_member = User.where("referal_id is NOT NULL and referal_id = ?", current_user.id).first
+    #    @team_member = User.where("referal_id is NOT NULL and referal_id = ?", current_user.id).first
   end
 
 end

@@ -25,12 +25,30 @@ class TwitterUsersController < ApplicationController
         @buffers.each do |buffer|
           id_status = buffer.id_status.to_s
           feed = me.statuses.select{|s| s.identifier.eql?(id_status)}.first
-          @like_feed = feed.likes.count
-          @comment_feed = feed.comments.count
+          unless feed.nil?
+            @like_feed = feed.likes.count
+            @comment_feed = feed.comments.count
+          end
         end
-      end      
+      end    
     elsif twitter_user.account_type.eql?("twitter")
-      
+      Twitter.configure do |config|
+        config.consumer_key       = TWITTER_API[:key]
+        config.consumer_secret    = TWITTER_API[:secret]
+        config.oauth_token        = twitter_user.access_token
+        config.oauth_token_secret = twitter_user.access_secret
+      end
+      client = Twitter::Client.new
+      @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
+      unless @buffers.count.eql?(0)
+        @buffers.each do |buffer|
+          id_status = buffer.id_status.to_s
+          feed = client.status(id_status)
+          unless feed.nil?
+            @retweet_count = feed.retweet_count
+          end
+        end
+      end
     end
     
     #    feed = me.posts.first
@@ -120,8 +138,7 @@ class TwitterUsersController < ApplicationController
       status = user_status.permalink
       user_status.deleted_at = Time.now
       user_status.status = "success"
-      user_status.save!
-    
+      
       url = status.match(/https?:\/\/[\S]+/)
       unless url.nil?
         bitly_api = current_user.bitly_api
@@ -131,7 +148,9 @@ class TwitterUsersController < ApplicationController
           status = status.gsub(url.to_s,bitly_url)
         end
       end
-      client.update(status)
+      post_to_twitter = client.update(status)
+      user_status.id_status = post_to_twitter.id
+      user_status.save!
       redirect_to :back
     end
   end
