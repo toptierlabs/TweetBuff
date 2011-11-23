@@ -31,7 +31,7 @@ class FacebookSessionsController < ApplicationController
     # redirect user to facebook
     redirect_to client.authorization_uri(
       #      :scope => [:email, :read_stream, :offline_access]
-      {:scope => [:publish_stream, :offline_access, :email]}
+      {:scope => [:publish_stream, :offline_access, :email, :user_interests, :friends_interests ]}
     )
     access_token = client.access_token!
     me = FbGraph::User.me(access_token)

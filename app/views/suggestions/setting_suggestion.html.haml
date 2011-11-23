@@ -1,0 +1,42 @@
+:javascript
+  function tweet_suggestions(tweet_user){
+    $('#loader-buffer').show();
+    var tweet = tweet_user
+    $.ajax({
+      url: "/suggestions/tweet_suggestion/#{@twitter_user_name}",
+      type: 'GET',
+      async: true,
+      processData: true,
+      dataType: "script",         
+      data: {"buffer_preferences[name]" : tweet},
+      success: function(){
+        //$(this).addClass("done");
+      }
+    });
+  }
+  
+  function selectRoleType(role){
+    jQuery(".current_role").hide();
+    jQuery(".current_role").removeClass("current_role");
+    jQuery("#high"+role).show();
+    jQuery("#high"+role).addClass("current_role");
+  }
+
+
+%div{:id => "suggestions_box_dialog"}
+  %div{:style=>"margin-bottom: 15px;"}
+    = form_for @suggestion, :url => "/twitter/#{current_user.twitter_users.find_by_permalink(params[:twitter_name]).login}/suggestions", :remote => true do |f|
+      = f.hidden_field :user_id, :value => current_user.id
+      = f.hidden_field :twitter_user_id, :value => current_user.twitter_users.find_by_permalink(params[:twitter_name]).id
+      = f.text_field :text, :placeholder => "Your Suggestion"
+      %br
+      = select_tag "category", options_for_select(@categories), :onchange => "selectRoleType(this.value);"
+      #high0{:style => "display:none;"}
+        %span= f.text_field :category_id, :placeholder => "Category Name"
+      %br
+      = f.submit "Create Suggestion", :onclick => "jQuery('#general_dialog').hide();jQuery('#bModal').remove();jQuery('#loader-buffer').show();"
+
+#loader-buffer
+  =image_tag("ajaxLoader.gif")
+  %br
+  Add suggestion to buffer

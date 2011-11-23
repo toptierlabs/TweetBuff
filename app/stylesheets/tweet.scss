@@ -225,6 +225,7 @@
 #bitly_detail{
   vertical-align: top;
   display: inline-block;
+  margin-left: 30px;
 }
 
 .timeframe{
@@ -257,6 +258,14 @@
   display: inline-block;
   width: 300px;
   margin-left: 50px;
+}
+
+#manage_suggestions{
+    display: inline-block;
+    margin-left: 315px;
+    margin-top: -85px;
+    vertical-align: top;
+    width: 300px;
 }
 
 #interval_not_updated{

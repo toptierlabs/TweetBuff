@@ -1,3 +1,4 @@
+#general_dialog
 -content_for :tweet_css do
   =stylesheet_link_tag "tweet.css"
 
@@ -79,3 +80,9 @@
       =form_tag "/invite_team_member" do
         =text_field :member, :email, :style => "width: 160px;"
         =submit_tag "invite"
+    #manage_suggestions
+      %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
+        Manage Suggestions
+        %br
+      %div{:style => "margin-right: 72px; margin-top: 10px;"}
+        %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/setting_suggestion?twitter_name=#{@twitter_user.login}'); return false;"} Setting Suggestions

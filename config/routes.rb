@@ -32,6 +32,10 @@ Tweetbuffer::Application.routes.draw do
 
   get "/goodies" => "goodies#index"
   get "suggestions/tweet_suggestion/:twitter_name" => "suggestions#tweet_suggestion"
+  
+  match "setting_suggestion" => "Suggestions#setting_suggestion", :as => :setting_suggestion, :via => :get
+  match "get_category/:id" => "Suggestions#get_category", :as => :get_category, :via => :post
+  
   get "/update_setting_time" => "TwitterUsers#update_setting_time"
 
   resources :subcriptions

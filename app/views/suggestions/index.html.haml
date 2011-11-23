@@ -14,25 +14,22 @@
       }
     });
   }
+  
+  function selectFileType(fileType) {
+    jQuery(".current_type").hide();
+    jQuery(".current_type").removeClass("current_type");
+    jQuery("#"+fileType).show();
+    jQuery("#"+fileType).addClass("current_type");
+  }
 
 
 %div{:id => "suggestions_box_dialog"}
-  %div{:style=>"margin-bottom: 15px;"}
-    = form_for @suggestion, :url => "/twitter/#{current_user.twitter_users.find_by_permalink(params[:twitter_name]).login}/suggestions", :remote => true do |f|
-      = f.hidden_field :user_id, :value => current_user.id
-      = f.hidden_field :twitter_user_id, :value => current_user.twitter_users.find_by_permalink(params[:twitter_name]).id
-      = f.text_field :text, :placeholder => "your suggestion"
-      %br
-      = f.text_field :category_name, :placeholder => "category_name"
-      %br
-      = f.submit "Create Suggestion", :onclick => "jQuery('#general_dialog').hide();jQuery('#bModal').remove();jQuery('#loader-buffer').show();"
-%br
-- @suggestions.each do |suggestion|
-  %div{:id => "suggestions_box_dialog"}
-    %div{:style=>"margin-bottom: 15px;"}
-      = suggestion.text
-    %a{:href=>"#" , :class => "bClose", :id => "button-suggest", :onclick=>"tweet_suggestions(\"#{suggestion.text}\")"} Schedule this post!
-
+  = form_tag get_category_path(:file_type), :remote => true do
+    = select_tag :file_type, options_for_select(@categories), {:include_blank => "–Select File Type–", :onchange => "selectFileType(this.value); $('#file_type_'+this.value).val(this.value);jQuery('.type').attr('id',this.value);jQuery('#get-submit').click();"}
+    = submit_tag "get", :id => "get-submit", :style => "display:none;"
+  //= select_tag :file_type, options_for_select(@categories), {:include_blank => "–Select File Type–", :onchange => remote_function(:url => {:controller => 'suggestions', :action => 'setting_suggestion'})}
+%div{:id => "selected_suggestion"}
+    
 #loader-buffer
   =image_tag("ajaxLoader.gif")
   %br

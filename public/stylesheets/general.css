@@ -15,6 +15,8 @@ a {
 
 /* line 14, app/stylesheets/general.scss */
 #general_dialog {
+  /* overflow: scroll; 
+  height: 350px;*/
   font-size: 12px;
   background: #ffffff;
   padding: 10px !important;
@@ -28,7 +30,7 @@ a {
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
 }
 
-/* line 28, app/stylesheets/general.scss */
+/* line 30, app/stylesheets/general.scss */
 #dialog_header {
   background: #cdcdcd;
   font-size: 14px;
@@ -39,18 +41,18 @@ a {
   -webkit-border-radius: 3px;
 }
 
-/* line 37, app/stylesheets/general.scss */
+/* line 39, app/stylesheets/general.scss */
 #image-header {
   text-align: center;
 }
 
-/* line 40, app/stylesheets/general.scss */
+/* line 42, app/stylesheets/general.scss */
 #image-footer {
-  margin-top: 80px;
+  /*margin-top: 80px;*/
   text-align: center;
 }
 
-/* line 44, app/stylesheets/general.scss */
+/* line 46, app/stylesheets/general.scss */
 #image-sign-in {
   float: left;
   margin-left: 29px;
@@ -58,7 +60,7 @@ a {
   position: absolute;
 }
 
-/* line 50, app/stylesheets/general.scss */
+/* line 52, app/stylesheets/general.scss */
 .button-sign-in {
   background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -67,7 +69,7 @@ a {
   border: none;
 }
 
-/* line 57, app/stylesheets/general.scss */
+/* line 59, app/stylesheets/general.scss */
 .button-sign-up {
   background: url("/images/sign-up.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -76,7 +78,7 @@ a {
   border: none;
 }
 
-/* line 64, app/stylesheets/general.scss */
+/* line 66, app/stylesheets/general.scss */
 .button-forgotten {
   background: url("/images/get-recovery-instructions.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -84,7 +86,7 @@ a {
   width: 177px;
 }
 
-/* line 70, app/stylesheets/general.scss */
+/* line 72, app/stylesheets/general.scss */
 .button-change-password {
   background: url("/images/change-password.jpg") repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -92,24 +94,24 @@ a {
   width: 177px;
 }
 
-/* line 76, app/stylesheets/general.scss */
+/* line 78, app/stylesheets/general.scss */
 .error_notification {
   color: red;
 }
 
-/* line 79, app/stylesheets/general.scss */
+/* line 81, app/stylesheets/general.scss */
 .error {
   color: red;
 }
 
-/* line 83, app/stylesheets/general.scss */
+/* line 85, app/stylesheets/general.scss */
 #slideshow {
   position: relative;
   margin: auto;
   height: 400px;
 }
 
-/* line 89, app/stylesheets/general.scss */
+/* line 91, app/stylesheets/general.scss */
 #slideshow DIV {
   position: absolute;
   top: 0;
@@ -120,18 +122,18 @@ a {
   background-color: #FFF;
 }
 
-/* line 99, app/stylesheets/general.scss */
+/* line 101, app/stylesheets/general.scss */
 #slideshow DIV.active {
   z-index: 10;
   opacity: 1.0;
 }
 
-/* line 104, app/stylesheets/general.scss */
+/* line 106, app/stylesheets/general.scss */
 #slideshow DIV.last-active {
   z-index: 9;
 }
 
-/* line 108, app/stylesheets/general.scss */
+/* line 110, app/stylesheets/general.scss */
 #slideshow DIV IMG {
   height: 350px;
   display: block;
@@ -139,12 +141,12 @@ a {
   margin-bottom: 10px;
 }
 
-/* line 115, app/stylesheets/general.scss */
+/* line 117, app/stylesheets/general.scss */
 .checkbox_time_setting {
   display: none;
 }
 
-/* line 119, app/stylesheets/general.scss */
+/* line 121, app/stylesheets/general.scss */
 a.active_checkbox_time_setting {
   background: #AAAAAA;
   padding: 3px;

@@ -1,7 +1,13 @@
 class SuggestionsController < InheritedResources::Base
+  
   def index
     @suggestions = Suggestion.all
+    #    @suggestions = Suggestion.find_all_by_category_id(params[:suggestion][:category_id])
+
     @suggestion = Suggestion.new
+    
+    categories = Category.all
+    @categories = categories.collect {|category| [category.name_of_category, category.id]}
     
     @twitter_user_name = params[:twitter_name]
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
@@ -10,23 +16,53 @@ class SuggestionsController < InheritedResources::Base
     render :layout => false
   end
   
+  def setting_suggestion
+    @suggestions = Suggestion.all
+    @suggestion = Suggestion.new
+    
+    categories = Category.all
+    @categories = categories.collect {|category| [category.name_of_category, category.id]} + [["Create New Category",0]]
+    
+    @twitter_user_name = params[:twitter_name]
+    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    @buffer_preferences = @twitter_user.buffer_preferences.all(:conditions => ["deleted_at IS NULL"])
+    
+    render :layout => false
+  end
+  
+  def get_category
+    @suggests = Suggestion.find_all_by_category_id(params[:file_type])
+    render :update do |page|
+      page.replace_html "selected_suggestion", :partial => "select_file_type", :locals => {:suggest => @suggests}
+    end
+  end
+  
   def create
     if request.xhr?
-      @suggestion = Suggestion.create(:text => params["suggestion"]["text"], :category_name => params["suggestion"]["category_name"], :user_id => params["suggestion"]["user_id"], :twitter_user_id => params["suggestion"]["twitter_user_id"])
-      @suggestion.save
-      @twitter_user = current_user.twitter_users.find(params[:suggestion]["twitter_user_id"])
-      @buffer_preference =  @twitter_user.buffer_preferences.create(:name => params["suggestion"]["text"], :status => "uninitialized")
-      @buffer_preference = @buffer_preference.update_run_at_new.last
-      errors = @buffer_preference.errors
+      new_category = params[:category]
+      suggest_category = params[:suggestion][:category_id]
       
+      if suggest_category.eql?("")
+        @suggestion = Suggestion.create(:text => params["suggestion"]["text"], :category_id => new_category, :user_id => params["suggestion"]["user_id"], :twitter_user_id => params["suggestion"]["twitter_user_id"])
+      elsif !suggest_category.nil?
+        @category = Category.create(:name_of_category => suggest_category)
+        @suggestion = Suggestion.create(:text => params["suggestion"]["text"], :category_id => @category.id, :user_id => params["suggestion"]["user_id"], :twitter_user_id => params["suggestion"]["twitter_user_id"])
+      end
+      
+      
+      #      @twitter_user = current_user.twitter_users.find(params[:suggestion]["twitter_user_id"])
+      #      @buffer_preference =  @twitter_user.buffer_preferences.create(:name => params["suggestion"]["text"], :status => "uninitialized")
+      #      @buffer_preference = @buffer_preference.update_run_at_new.last
+      #      errors = @buffer_preference.errors
+      errors = @suggestion.errors
       render :update do |page|
         if errors.empty?
-          page.insert_html :bottom, :buffer_wrapper, :partial => "buffer_preferences/new_buffer", :locals => {:buffer => @buffer_preference}
+          #          page.insert_html :bottom, :buffer_wrapper, :partial => "buffer_preferences/new_buffer", :locals => {:buffer => @buffer_preference}
           page << "$('#loader-buffer').hide();"
           page << "$('#tweet_text').val('')"
           page << "notification()"
         else
-          #errors.full_messages.each {|error| page << "alert('#{error}')"}
+          page.redirect_to :back
         end
       end
     end
@@ -115,5 +151,6 @@ class SuggestionsController < InheritedResources::Base
     @run_at = run_at
     @buffer_preference.update_attributes({:run_at => @run_at, :added_time => added_time})
   end
+  
 
 end
