@@ -1,7 +1,64 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
-  text: MyText
-
+  id: 1
+  text: Join us
+  created_at: 2011-11-23 06:24:00
+  updated_at: 2011-11-23 06:24:00
+  category_id: 1
+  user_id: 3
+  twitter_user_id: 6
 two:
-  text: MyText
+  id: 2
+  text: join with us in 41studio :')
+  created_at: 2011-11-23 06:25:59
+  updated_at: 2011-11-23 06:25:59
+  category_id: 2
+  user_id: 3
+  twitter_user_id: 6
+three:
+  id: 3
+  text: Haiiii
+  created_at: 2011-11-23 06:52:40
+  updated_at: 2011-11-23 06:52:40
+  category_id: 1
+  user_id: 3
+  twitter_user_id: 6
+four:
+  id: 4
+  text: holaa
+  created_at: 2011-11-23 06:52:57
+  updated_at: 2011-11-23 06:52:57
+  category_id: 2
+  user_id: 3
+  twitter_user_id: 6
+five:
+  id: 5
+  text: join with us in 41studio :')
+  created_at: 2011-11-23 10:44:16
+  updated_at: 2011-11-23 10:44:16
+  category_id: 2
+  user_id: 3
+  twitter_user_id: 6
+six:
+  id: 6
+  text: love programming
+  created_at: 2011-11-23 10:52:32
+  updated_at: 2011-11-23 10:52:32
+  category_id: 2
+  user_id: 3
+  twitter_user_id: 6
+seven:
+  id: 7
+  text: Come On !
+  created_at: 2011-11-24 03:21:23
+  updated_at: 2011-11-24 03:21:23
+  category_id: 3
+  user_id: 3
+  twitter_user_id: 6
+eight:
+  id: 8
+  text: Ragnarok
+  created_at: 2011-11-24 03:26:34
+  updated_at: 2011-11-24 03:26:34
+  category_id: 3
+  user_id: 3
+  twitter_user_id: 6

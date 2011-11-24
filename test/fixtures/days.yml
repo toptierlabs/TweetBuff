@@ -1,0 +1,21 @@
+one:
+  id: 1
+  day_name: Sunday
+two:
+  id: 2
+  day_name: Monday
+three:
+  id: 3
+  day_name: Tuesday
+four:
+  id: 4
+  day_name: Wednesday
+five:
+  id: 5
+  day_name: Thursday
+six:
+  id: 6
+  day_name: Friday
+seven:
+  id: 7
+  day_name: Saturday

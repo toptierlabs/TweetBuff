@@ -8,11 +8,15 @@
     %span{:style => "float: right;"}
       %a{:href => "#", :onclick => "$('#interval_not_updated').fadeOut('slow')"}
         %img{:src => "/images/close.png"}
+#loader-category{:style => "display:none;"}
+  =image_tag("ajaxLoader.gif")
+  %br
+  Add suggestion to list suggestion
 .wrapper
   #settings_user_detail
-    #profile_image      
+    #profile_image
       = profile_image(@twitter_user, "_normal", 64, 64)
-    #buffer_count_blue      
+    #buffer_count_blue
       - if user_signed_in?
         - unless @plans.nil?
           - if @plans.plan.name.eql?("Free")
@@ -85,4 +89,4 @@
         Manage Suggestions
         %br
       %div{:style => "margin-right: 72px; margin-top: 10px;"}
-        %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/setting_suggestion?twitter_name=#{@twitter_user.login}'); return false;"} Setting Suggestions
+        %div{:id => "box-tweet-suggest", :onclick => "showDialog('Create Suggestions', '/setting_suggestion?twitter_name=#{@twitter_user.login}'); return false;"} Setting Suggestions

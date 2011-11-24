@@ -1,0 +1,224 @@
+one:
+  id: 1
+  user_id: 1
+  created_at: 2011-10-17 09:37:45
+  updated_at: 2011-10-17 09:37:45
+  active: true
+two:
+  id: 2
+  user_id: 2
+  plan_id: 1
+  created_at: 2011-10-17 09:44:09
+  updated_at: 2011-10-17 09:44:09
+  active: true
+three:
+  id: 3
+  user_id: 3
+  plan_id: 1
+  created_at: 2011-10-18 01:43:09
+  updated_at: 2011-10-28 11:26:20
+  active: false
+  day_time_tweet: 2011-11-04
+  tweet_per_day: 2
+four:
+  id: 4
+  user_id: 4
+  plan_id: 1
+  created_at: 2011-10-19 04:19:59
+  updated_at: 2011-10-19 04:19:59
+  active: true
+five:
+  id: 5
+  user_id: 5
+  plan_id: 1
+  created_at: 2011-10-19 04:22:19
+  updated_at: 2011-10-19 04:22:19
+  active: true
+six:
+  id: 6
+  user_id: 6
+  plan_id: 1
+  created_at: 2011-10-19 04:26:38
+  updated_at: 2011-10-19 04:26:38
+  active: true
+seven:
+  id: 7
+  user_id: 7
+  plan_id: 1
+  created_at: 2011-10-19 04:29:38
+  updated_at: 2011-10-19 04:29:38
+  active: true
+eight:
+  id: 8
+  user_id: 8
+  plan_id: 1
+  created_at: 2011-10-19 04:36:08
+  updated_at: 2011-10-19 04:36:08
+  active: true
+nine:
+  id: 9
+  user_id: 9
+  plan_id: 1
+  created_at: 2011-10-19 04:38:46
+  updated_at: 2011-10-19 04:38:46
+  active: true
+ten:
+  id: 10
+  user_id: 10
+  plan_id: 1
+  created_at: 2011-10-19 09:18:07
+  updated_at: 2011-10-19 09:18:07
+  active: true
+eleven:
+  id: 11
+  user_id: 3
+  plan_id: 2
+  expire: 2011-11-19
+  created_at: 2011-10-20 02:52:41
+  updated_at: 2011-11-02 03:13:09
+  active: true
+  tweet_per_day: 25
+twelve:
+  id: 12
+  user_id: 3
+  plan_id: 2
+  expire: 2011-12-19
+  created_at: 2011-10-20 02:54:24
+  updated_at: 2011-10-20 02:54:24
+  active: false
+thirteen:
+  id: 13
+  user_id: 3
+  plan_id: 1
+  expire: 2011-12-19
+  created_at: 2011-10-20 02:56:21
+  updated_at: 2011-10-20 02:56:21
+  active: false
+fourteen:
+  id: 14
+  user_id: 11
+  plan_id: 1
+  created_at: 2011-10-21 01:58:48
+  updated_at: 2011-10-21 01:58:48
+  active: true
+fiveteen:
+  id: 15
+  user_id: 12
+  plan_id: 1
+  created_at: 2011-10-21 10:04:32
+  updated_at: 2011-10-21 10:04:32
+  active: true
+sixteen:
+  id: 16
+  user_id: 13
+  plan_id: 1
+  created_at: 2011-10-21 10:09:02
+  updated_at: 2011-10-21 10:09:02
+  active: true
+seventeen:
+  id: 17
+  user_id: 14
+  plan_id: 1
+  created_at: 2011-10-21 10:10:45
+  updated_at: 2011-10-21 10:10:45
+  active: true
+eighteen:
+  id: 18
+  user_id: 15
+  plan_id: 1
+  created_at: 2011-10-21 10:16:45
+  updated_at: 2011-10-21 10:16:45
+  active: true
+nineteen:
+  id: 19
+  user_id: 16
+  plan_id: 1
+  created_at: 2011-10-21 10:18:55
+  updated_at: 2011-10-21 10:18:55
+  active: true
+twenty:
+  id: 20
+  user_id: 17
+  plan_id: 1
+  created_at: 2011-10-21 10:25:37
+  updated_at: 2011-10-21 10:25:37
+  active: true
+twentyone:
+  id: 21
+  user_id: 18
+  plan_id: 1
+  created_at: 2011-10-21 10:34:52
+  updated_at: 2011-10-21 10:34:52
+  active: true
+twentytwo:
+  id: 22
+  user_id: 19
+  plan_id: 1
+  created_at: 2011-10-21 10:39:13
+  updated_at: 2011-10-21 10:39:13
+  active: true
+twentythree:
+  id: 23
+  user_id: 20
+  plan_id: 1
+  created_at: 2011-10-21 10:41:40
+  updated_at: 2011-10-21 10:41:40
+  active: true
+twentyfour:
+  id: 24
+  user_id: 21
+  plan_id: 1
+  created_at: 2011-10-25 05:12:36
+  updated_at: 2011-10-25 05:12:36
+  active: true
+twentyfive:
+  id: 25
+  user_id: 22
+  plan_id: 1
+  created_at: 2011-10-25 07:47:57
+  updated_at: 2011-10-25 07:47:57
+  active: true
+twentysix:
+  id: 26
+  user_id: 23
+  plan_id: 2
+  created_at: 2011-11-03 06:24:50
+  updated_at: 2011-11-14 03:41:51
+  active: true
+  day_time_tweet: 2011-11-17
+  tweet_per_day: 1
+twentyseven:
+  id: 27
+  user_id: 24
+  plan_id: 1
+  created_at: 2011-11-21 02:32:02
+  updated_at: 2011-11-21 02:32:02
+  active: true
+twentyeight:
+  id: 28
+  user_id: 25
+  plan_id: 1
+  created_at: 2011-11-21 02:36:25
+  updated_at: 2011-11-21 02:36:25
+  active: true
+twentynine:
+  id: 29
+  user_id: 26
+  plan_id: 1
+  created_at: 2011-11-21 02:53:33
+  updated_at: 2011-11-21 02:53:33
+  active: true
+thirty:
+  id: 30
+  user_id: 27
+  plan_id: 1
+  created_at: 2011-11-21 02:55:48
+  updated_at: 2011-11-21 02:55:48
+  active: true
+thirtyone:
+  id: 31
+  user_id: 24
+  plan_id: 1
+  created_at: 2011-11-22 09:16:48
+  updated_at: 2011-11-22 09:16:48
+  active: true

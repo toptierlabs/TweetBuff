@@ -34,9 +34,11 @@ gem "fb_graph"
 
 #gem "grackle"
 gem 'crack'
+gem "pg"
 
 group(:development, :production) do
   gem "mysql"
+#  gem "pg"
 end
 
 group(:test, :cucumber, :development) do

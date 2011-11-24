@@ -1,0 +1,18 @@
+one:
+  id: 1
+  email: admin@example.com
+  encrypted_password: $2a$10$xUwdvIhk8FVAfLOz5QmxKekKQFbc3LKF1vnORWYx2UsXSeKnDiiIG
+  sign_in_count: 0
+  created_at: 2011-10-17 09:36:53
+  updated_at: 2011-10-17 09:36:53
+two:
+  id: 2
+  email: bill@stackpointerllc.com
+  encrypted_password: $2a$10$8zJwlXRuTYYWW4GQSZI.lOjRHc9xfV1I5DFxVi1sH7/Ez0bxF6fPC
+  sign_in_count: 12
+  current_sign_in_at: 2011-11-17 02:49:44
+  last_sign_in_at: 2011-11-14 04:32:05
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-17 09:37:45
+  updated_at: 2011-11-17 06:18:47

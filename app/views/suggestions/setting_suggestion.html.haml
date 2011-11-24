@@ -34,9 +34,4 @@
       #high0{:style => "display:none;"}
         %span= f.text_field :category_id, :placeholder => "Category Name"
       %br
-      = f.submit "Create Suggestion", :onclick => "jQuery('#general_dialog').hide();jQuery('#bModal').remove();jQuery('#loader-buffer').show();"
-
-#loader-buffer
-  =image_tag("ajaxLoader.gif")
-  %br
-  Add suggestion to buffer
+      = f.submit "Create Suggestion", :onclick => "jQuery('#general_dialog').hide();jQuery('#bModal').remove();jQuery('#loader-buffer').show(); jQuery('#loader-category').show();"

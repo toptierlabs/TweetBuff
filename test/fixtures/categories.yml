@@ -1,0 +1,15 @@
+one:
+  id: 1
+  name_of_category: Web Design
+  created_at: 2011-11-23 17:42:33
+  updated_at: 2011-11-23 17:42:36
+two:
+  id: 2
+  name_of_category: Programming
+  created_at: 2011-11-23 10:44:16
+  updated_at: 2011-11-23 10:44:16
+three:
+  id: 3
+  name_of_category: Game
+  created_at: 2011-11-24 03:21:23
+  updated_at: 2011-11-24 03:21:23

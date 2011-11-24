@@ -1,17 +1,50 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
-  day_of_week: MyString
-  time_setting_type: 1
-  post_per_day: 1
-  start_time: 
+  id: 1
+  day_of_week: 1,3,5,7
+  time_setting_type: 3
+  start_time: 2011-11-17 03:19:00
   twitter_user_id: 1
-  user_id: 1
-
+  user_id: 3
+  created_at: 2011-11-14 03:09:29
+  updated_at: 2011-11-18 03:07:42
+  time_period: 04:00,05:00,11:00
 two:
-  day_of_week: MyString
+  id: 4
+  day_of_week: 1,3,6,7
+  time_setting_type: 2
+  start_time: 2011-11-14 21:00:00
+  timeframe_id: 10
+  twitter_user_id: 2
+  user_id: 3
+  created_at: 2011-11-14 03:27:02
+  updated_at: 2011-11-14 07:23:30
+  time_period: 21:00,09:00
+three:
+  id: 5
+  day_of_week: 1,2,5
+  time_setting_type: 3
+  twitter_user_id: 3
+  user_id: 23
+  created_at: 2011-11-14 03:34:25
+  updated_at: 2011-11-14 03:37:37
+  time_period: 01:00,02:00
+four:
+  id: 6
+  day_of_week: 1,5,7
   time_setting_type: 1
-  post_per_day: 1
-  start_time: 
-  twitter_user_id: 1
-  user_id: 1
+  post_per_day: 4
+  twitter_user_id: 6
+  user_id: 3
+  created_at: 2011-11-22 10:17:08
+  updated_at: 2011-11-24 02:59:43
+  time_period: 02:29,13:20,23:25,9:11
+five:
+  id: 7
+  day_of_week: 3,6
+  time_setting_type: 3
+  timeframe_id: 10
+  twitter_user_id: 4
+  user_id: 3
+  created_at: 2011-11-23 03:00:50
+  updated_at: 2011-11-23 03:00:50
+  time_period: 11:00,18:16

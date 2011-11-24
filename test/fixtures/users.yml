@@ -1,0 +1,132 @@
+one:
+  id: 1
+  email: bill@stackpointerllc.com
+  encrypted_password: $2a$10$08ODYkhPQp/KiLx.oR8zt.YJ5XzLTfq2jlRXwEtK/0Zp.jgAFiNO6
+  sign_in_count: 0
+  created_at: 2011-10-17 09:37:45
+  updated_at: 2011-10-17 09:37:45
+  notify: false
+two:
+  id: 3
+  email: pietz_salsabila@yahoo.co.id
+  encrypted_password: $2a$10$UfGR.rPAHt1lO.LUGszsO.VjJkMdXR5VZ1RiWt9sMufyAgbALRBdi
+  sign_in_count: 62
+  current_sign_in_at: 2011-11-23 02:01:10
+  last_sign_in_at: 2011-11-22 09:43:24
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-18 01:43:09
+  updated_at: 2011-11-24 03:43:49
+  timezone_id: Tijuana
+  notify: false
+three:
+  id: 7
+  email: fitria.rahmaani@gmail.com
+  encrypted_password: $2a$10$uKQmWffDEhLDiLQNKsazOuudPmUrNSVqMfy9ssefLRIk.bv2xK9Bi
+  sign_in_count: 9
+  current_sign_in_at: 2011-10-20 07:22:27
+  last_sign_in_at: 2011-10-20 03:59:48
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-19 04:29:38
+  updated_at: 2011-10-20 07:22:27
+  notify: false
+four:
+  id: 8
+  email: ricky.firmansyah17@yahoo.com
+  encrypted_password: $2a$10$zbC30BaPKmH4A5qArFeOhu1TKim0K/VrRvpHyfFFNR.jHQ2V4Fi2O
+  sign_in_count: 3
+  current_sign_in_at: 2011-10-19 09:36:22
+  last_sign_in_at: 2011-10-19 09:35:56
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-19 04:36:08
+  updated_at: 2011-10-19 09:36:22
+  notify: false
+five:
+  id: 9
+  email: fitria@41studio.com
+  encrypted_password: $2a$10$q.ZQIzq3JEap3ASSfBsqkuyYROX.YXuTyaVT9m.J32CkI7JABSINy
+  sign_in_count: 4
+  current_sign_in_at: 2011-10-20 02:59:22
+  last_sign_in_at: 2011-10-19 07:21:05
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-19 04:38:46
+  updated_at: 2011-10-20 02:59:22
+  notify: false
+six:
+  id: 10
+  email: syafik@41studio.com
+  encrypted_password: $2a$10$2muENlyF3z/oquyZdvAqEObH2oqmb1UOOHr5XDM04pOwtIfd7Yt0K
+  sign_in_count: 1
+  current_sign_in_at: 2011-10-19 09:18:07
+  last_sign_in_at: 2011-10-19 09:18:07
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-19 09:18:07
+  updated_at: 2011-10-19 09:18:07
+  notify: false
+seven:
+  id: 20
+  email: menjadi@yahoo.co.id
+  encrypted_password: $2a$10$q2GyoAZxb3pTlgIWzRoZMeEHvhLTQtIdMyr.fIrR/dySUR01Qr5ge
+  sign_in_count: 7
+  current_sign_in_at: 2011-11-04 08:31:24
+  last_sign_in_at: 2011-11-03 02:07:19
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-21 10:41:40
+  updated_at: 2011-11-04 08:31:24
+  notify: false
+  referal_id: 3
+eight:
+  id: 21
+  email: alay@yahoo.com
+  encrypted_password: $2a$10$J8EjXPn1g6nTllAAOGj1/eAsQYJ.Ng8S1eq3TkJCVRwpNZBDjMtf.
+  sign_in_count: 1
+  current_sign_in_at: 2011-10-25 05:12:36
+  last_sign_in_at: 2011-10-25 05:12:36
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-25 05:12:36
+  updated_at: 2011-10-25 05:12:36
+  notify: false
+  referal_id: 3
+nine:
+  id: 22
+  email: mpit@yahoo.co.id
+  encrypted_password: $2a$10$l5Q.S0bWlPzOttJRNayH5.gE9oZm4utxh7yEZVJEghP80pRE.Leqa
+  sign_in_count: 2
+  current_sign_in_at: 2011-10-25 07:48:30
+  last_sign_in_at: 2011-10-25 07:47:57
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-10-25 07:47:57
+  updated_at: 2011-10-25 07:48:30
+  notify: false
+ten:
+  id: 23
+  email: fitria_ra@41studio.com
+  encrypted_password: $2a$10$.if2w9AHbpYJMqw7qM83kevNUITVRHFAFX4Ah.AU49h8nxEMvZB1a
+  sign_in_count: 7
+  current_sign_in_at: 2011-11-22 07:15:08
+  last_sign_in_at: 2011-11-18 04:01:15
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-11-03 06:24:50
+  updated_at: 2011-11-22 07:15:08
+  timezone_id: 0
+  notify: false
+eleven:
+  id: 24
+  email: lala@yahoo.co.id
+  encrypted_password: $2a$10$STp9lWdfP5fK4AhIJL0n8u9/Znbuky5jc2rYUXT4p7nImGBXIJqpa
+  sign_in_count: 1
+  current_sign_in_at: 2011-11-22 09:16:48
+  last_sign_in_at: 2011-11-22 09:16:48
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2011-11-22 09:16:48
+  updated_at: 2011-11-22 09:16:48
+  notify: false

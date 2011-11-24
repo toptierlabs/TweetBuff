@@ -1,0 +1,51 @@
+one:
+  plan_id: 1
+  timeframe_id: 10
+two:
+  plan_id: 1
+  timeframe_id: 9
+three:
+  plan_id: 1
+  timeframe_id: 8
+four:
+  plan_id: 1
+  timeframe_id: 7
+five:
+  plan_id: 2
+  timeframe_id: 4
+six:
+  plan_id: 3
+  timeframe_id: 3
+seven:
+  plan_id: 3
+  timeframe_id: 2
+eight:
+  plan_id: 3
+  timeframe_id: 1
+nine:
+  plan_id: 2
+  timeframe_id: 10
+ten:
+  plan_id: 2
+  timeframe_id: 9
+eleven:
+  plan_id: 2
+  timeframe_id: 8
+twelve:
+  plan_id: 2
+  timeframe_id: 7
+thirteen:
+  plan_id: 3
+  timeframe_id: 4
+fourteen:
+  plan_id: 3
+  timeframe_id: 7
+fiveteen:
+  plan_id: 3
+  timeframe_id: 8
+sixteen:
+  plan_id: 3
+  timeframe_id: 9
+seventeen:
+  plan_id: 3
+  timeframe_id: 10

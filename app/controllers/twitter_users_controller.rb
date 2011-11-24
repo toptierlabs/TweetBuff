@@ -252,7 +252,7 @@ class TwitterUsersController < ApplicationController
     #    @timezone = current_user.update_attribute("timezone", params[:account][:timezone])
     Time.zone = params[:account][:timezone]
     timezone = Time.zone.to_s.split(") ").last
-    @timezone = current_user.update_attribute("timezone_id", timezone)
+    @timezone = current_user.update_attribute("timezone", timezone)
     
     #    time_zone = (Time.zone.now).strftime("%z").split(//)
     #    cc = []

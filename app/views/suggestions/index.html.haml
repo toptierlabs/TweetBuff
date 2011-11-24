@@ -25,7 +25,9 @@
 
 %div{:id => "suggestions_box_dialog"}
   = form_tag get_category_path(:file_type), :remote => true do
-    = select_tag :file_type, options_for_select(@categories), {:include_blank => "–Select File Type–", :onchange => "selectFileType(this.value); $('#file_type_'+this.value).val(this.value);jQuery('.type').attr('id',this.value);jQuery('#get-submit').click();"}
+    = select_tag :file_type, options_for_select(@categories), {:include_blank => "–Select Category Type–", :onchange => "selectFileType(this.value); $('#file_type_'+this.value).val(this.value);jQuery('.type').attr('id',this.value);jQuery('#get-submit').click(); jQuery('#category-loader').show(); jQuery('#file_type').hide(); jQuery('#selected_suggestion').hide();"}
+    #category-loader{:style => "display: none; margin-top: -13px; margin-left: 55px;"}
+      =image_tag("a-loader.gif")
     = submit_tag "get", :id => "get-submit", :style => "display:none;"
   //= select_tag :file_type, options_for_select(@categories), {:include_blank => "–Select File Type–", :onchange => remote_function(:url => {:controller => 'suggestions', :action => 'setting_suggestion'})}
 %div{:id => "selected_suggestion"}

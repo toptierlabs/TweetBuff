@@ -1,0 +1,78 @@
+one:
+  id: 1
+  protected: false
+  user_id: 3
+  friends_count: 178
+  statuses_count: 286
+  followers_count: 92
+  utc_offset: -28800
+  twitter_id: 77910140
+  login: mppitmppot
+  access_token: 77910140-Q4sqCUY882lTA8kedzBS6COuxs4miiB4kc2EKzp1m
+  access_secret: 0jv2i4y542eEqRC9GVIspk68Qnt2ajwzcHetFsJ0M
+  name: Fitria Rahmaani
+  profile_image_url: http://a0.twimg.com/profile_images/1594090515/IMG0478A_normal.jpg
+  url: http://bidadariberkulithitam.blogspot.com
+  time_zone: Pacific Time (US & Canada)
+  permalink: mppitmppot
+  account_type: twitter
+two:
+  id: 2
+  user_id: 3
+  friends_count: 1762
+  statuses_count: 0
+  twitter_id: 1177732509
+  login: finaavisha
+  access_token: AAACeVbmQvcUBALdlbJDAFHzHyNryOaGAZBkVvlrMA22uIlFwwOIfAbZATMRvfjF98ZA9c5YoQ1SUDGRQzcxGLXLH9iIZCy8ZD
+  name: Rezalina Fina
+  profile_image_url: https://graph.facebook.com/1177732509/picture
+  url: 
+  time_zone: 7
+  permalink: finaavisha
+  account_type: facebook
+three:
+  id: 3
+  protected: false
+  user_id: 23
+  friends_count: 207
+  statuses_count: 2630
+  followers_count: 193
+  utc_offset: 25200
+  twitter_id: 269297827
+  login: rickfirmansyah
+  access_token: 269297827-PvircaCVvHCaRkmIxQAUwc5GjBCOVBCHLu0KYq1Y
+  access_secret: wLIqN7qZSbYvI7XcjVgbHqJBiJ9Do3RoIX3euh35Js
+  name: Ricky Firmansyah
+  profile_image_url: http://a0.twimg.com/profile_images/1628397306/cool_normal.jpg
+  url: http://facebook.com/rickevolute
+  time_zone: Jakarta
+  permalink: rickfirmansyah
+  account_type: twitter
+four:
+  id: 4
+  user_id: 3
+  friends_count: 2757
+  statuses_count: 25
+  twitter_id: 1243565171
+  login: rickevolute
+  access_token: AAACeVbmQvcUBAMqQyE2XkhwhwzRD55chArBX4SPOyCT03DYpxhtSJ6KT0dlRfVKcmfZA9JiBx1hGZAZC2mjO2d1urBGbPsZD
+  name: Ricky Firmansyah
+  profile_image_url: https://graph.facebook.com/1243565171/picture
+  url: 
+  time_zone: 7
+  permalink: rickevolute
+  account_type: facebook
+five:
+  id: 6
+  user_id: 3
+  friends_count: 1558
+  statuses_count: 25
+  twitter_id: 1534492509
+  login: mppit
+  access_token: AAACeVbmQvcUBAMarlupRRZB8WlR9INwb6LwiuPq1BwzCh86aK9Hkwro9ycMRCQHeyn1NAyzHCTUpSwKuAlfuX7YxBYtcZD
+  name: Fitria Rahmaani
+  profile_image_url: https://graph.facebook.com/1534492509/picture
+  url: 
+  time_zone: 7
+  permalink: mppit
+  account_type: facebook
