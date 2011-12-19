@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 
-gem 'sqlite3'
+gem "mysql"
 gem "activeadmin"
 gem "annotate"
 gem "cancan"
@@ -34,12 +34,6 @@ gem "fb_graph"
 
 #gem "grackle"
 gem 'crack'
-gem "pg"
-
-group(:development, :production) do
-  gem "mysql"
-#  gem "pg"
-end
 
 group(:test, :cucumber, :development) do
   gem "database_cleaner"
@@ -57,7 +51,6 @@ group(:test, :cucumber) do
   gem "rspec-expectations", :require => "rspec/expectations"
   gem "rspec-mocks", :require => "rspec/mocks"
   gem "rspec-rails"
-  gem "sqlite3-ruby", :require => "sqlite3"
   gem "webrat"
 end
 
