@@ -26,6 +26,8 @@ gem "jrails"
 gem "bitly"
 gem 'whenever', :require => false
 gem "acts_as_soft_delete_by_field"
+gem 'capistrano-ext'
+
 #gem "delayed_job",  :git => 'git://github.com/collectiveidea/delayed_job.git'
 #gem 'delayed_job_active_record', :git => 'https://github.com/collectiveidea/delayed_job_active_record.git'
 #gem "taps", "~> 0.3.23"
