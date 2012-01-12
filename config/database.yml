@@ -1,9 +1,9 @@
 defaults: &defaults
-  adapter: mysql
+  adapter: mysql2
   host: localhost
   reconnect: false
   username: root
-  password: 0p9o8i7u
+  password: 
   pool: 5
 
 development:

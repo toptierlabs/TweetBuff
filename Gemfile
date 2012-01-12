@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 
-gem "mysql"
+gem "mysql2"
 gem "activeadmin"
 gem "annotate"
 gem "cancan"
@@ -29,23 +29,8 @@ gem "acts_as_soft_delete_by_field"
 gem 'capistrano-ext'
 gem 'mail'
 gem 'exception_notification'
-
-#gem "delayed_job",  :git => 'git://github.com/collectiveidea/delayed_job.git'
-#gem 'delayed_job_active_record', :git => 'https://github.com/collectiveidea/delayed_job_active_record.git'
-#gem "taps", "~> 0.3.23"
 gem "fb_graph"
-#gem "omniauth", "0.3"
-
-#gem "grackle"
 gem 'crack'
-
-gem "pg"
-
-group(:development, :production) do
-  gem "mysql"
-  #  gem "pg"
-end
-
 
 group(:test, :cucumber, :development) do
   gem "database_cleaner"
