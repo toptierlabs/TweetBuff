@@ -118,6 +118,7 @@ class BufferPreferencesController < ApplicationController
       time = Time.utc(year, month, day, hour, min, nil, "+00:00")
       @buffer_preference.update_attributes({:run_at => time})
     end
+  end
     
   def max_tweet_buffer_for_user(user)
     accounts = TwitterUser.find_all_by_user_id(user.id).count
