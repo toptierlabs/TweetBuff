@@ -6,7 +6,7 @@ common: &common
   authorize_path: "/oauth/authenticate"
   api_timeout: 10
   remember_for: 14 # days
-  oauth_callback: "http://localhost:3000/twitter/"  
+  oauth_callback: "http://tweetbuff.com/twitter/"  
 development: 
   <<: *common
 test:
