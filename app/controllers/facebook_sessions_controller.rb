@@ -3,7 +3,7 @@ require 'uri'
 
 class FacebookSessionsController < ApplicationController
   def new
-    fb_auth = FbGraph::Auth.new(API_KEY, SECRET_KEY)
+    fb_auth = FbGraph::Auth.new(FACEBOOK_API[:key], FACEBOOK_API[:secret])
     fb_auth.client
 
     fb_auth.access_token
@@ -22,7 +22,7 @@ class FacebookSessionsController < ApplicationController
   end
   
   def oauth_callback
-    fb_auth = FbGraph::Auth.new(API_KEY, SECRET_KEY)
+    fb_auth = FbGraph::Auth.new(FACEBOOK_API[:key], FACEBOOK_API[:secret])
     
     client = fb_auth.client
     client.redirect_uri = "#{SERVER_URL}/facebook/callback"
