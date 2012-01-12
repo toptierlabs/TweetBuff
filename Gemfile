@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 
-gem "mysql2"
+gem "mysql"
 gem "activeadmin"
 gem "annotate"
 gem "cancan"

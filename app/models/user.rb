@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :referal_id
 
   with_options :dependent => :destroy do |u|
-    uhas_many :preferences
+    u.has_many :preferences
     u.has_many :twitter_users
     u.has_many :buffer_preferences
     u.has_many :tweets
