@@ -7,17 +7,18 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :referal_id
 
-  has_many    :preferences
-  has_many    :twitter_users
-  has_many    :buffer_preferences
-  has_many    :tweets
-  has_many    :subcriptions
-  has_many    :tweet_intervals
-  has_one    :bitly_api 
-  #  has_one     :timezone
-  has_many :team_members
+  with_options :dependent => :destroy do |u|
+    uhas_many :preferences
+    u.has_many :twitter_users
+    u.has_many :buffer_preferences
+    u.has_many :tweets
+    u.has_many :subcriptions
+    u.has_many :tweet_intervals
+    u.has_many :team_members
+    u.has_many :suggestions
   
-  has_many   :suggestions
+    u.has_one  :bitly_api 
+  end
   
   after_create :mark_as_free_subcription
 

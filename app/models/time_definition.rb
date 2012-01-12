@@ -4,7 +4,6 @@
 # ALL CHANGES ON WEEKLY MUST BE PERFORMED
 #
 class TimeDefinition < ActiveRecord::Base
-
   attr_accessor :start_at
 
   # Constants
@@ -20,8 +19,6 @@ class TimeDefinition < ActiveRecord::Base
     ["2 hours", 120]
   ]
 
-
-
   # Associations
   belongs_to :buffer_preference
 
@@ -32,7 +29,6 @@ class TimeDefinition < ActiveRecord::Base
 
   after_save    :update_brothers
   after_destroy :destroy_brothers
-
 
   def self.new_time(basis, definition)
     hour    = definition[:start_at].split(":").first
@@ -60,7 +56,6 @@ class TimeDefinition < ActiveRecord::Base
     end
   end
 
-
   def day
     DAYS_OF_WEEK.at(self.day_of_week)
   end
@@ -78,7 +73,6 @@ class TimeDefinition < ActiveRecord::Base
   def daily?
     self.buffer_preference.daily?
   end
-
 
 protected
 

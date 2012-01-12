@@ -45,7 +45,6 @@ class BufferPreference < ActiveRecord::Base
 
   # Class Methods
 
-
   # Instance Methods
 
   #
@@ -231,6 +230,29 @@ class BufferPreference < ActiveRecord::Base
   
   def update_permalink
     self.permalink = self.to_param
+  end
+  
+  def self.send_notification
+    users = User.where(notify: true)
+    
+    users.each do |user|
+      twitter_users = user.twitter_users
+      twitter_users.each do |twitter_user|
+        buffer_count = twitter_user.buffer_preferences.count("deleted_at IS NULL")
+        
+        if buffer_count < 1
+          log = "=========================\n"
+          log << "sending mail to @#{twitter_user.login} at #{Time.now}\n"
+          log << "=========================\n\n"
+          
+          file = File.open("mailer_log.txt","a+")
+          file.puts(log )
+          file.close
+          
+          Notifier.buffer_run_out(user, twitter_user).deliver
+        end
+      end
+    end
   end
 
 end

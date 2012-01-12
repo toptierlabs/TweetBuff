@@ -19,12 +19,14 @@ class TwitterUser < ActiveRecord::Base
 
   # Associations
   belongs_to :user
-  has_many   :buffer_preferences
   
-  has_many   :suggestions
-  #  has_one   :tweet_history
-  has_one :tweet_interval
-  has_one :time_setting
+  with_options :dependent => :destroy do |tu|
+    tu.has_many :buffer_preferences
+    tu.has_many :suggestions
+  
+    tu.has_one :tweet_interval
+    tu.has_one :time_setting
+  end
 
   # Attributes
   attr_protected :twitter_id, :remember_token, :remember_token_expires_at

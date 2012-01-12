@@ -1,5 +1,4 @@
 class Tweet < ActiveRecord::Base
-
   belongs_to :twitter_user
   belongs_to :buffer_preference
 

@@ -304,12 +304,6 @@ class TwitterUsersController < ApplicationController
     plans = Subcription.find_all_by_user_id(current_user.id)
     @plans = plans.last
     
-    # if @plans.plan.name.eql?("Free")
-    #   @total_buffer = myplan.num_of_tweet_in_buffer
-    # elsif @plans.plan.name.eql?("Pro")
-    #   @total_buffer = myplan.num_of_tweet_in_buffer
-    # end
-    
     @total_buffer = myplan.num_of_tweet_in_buffer
     @buffers = @twitter_user.buffer_preferences.oldest_order
     
@@ -490,8 +484,7 @@ class TwitterUsersController < ApplicationController
           end
         end
       end
-      redirect_to :back, :notice => "thankyou, your settings has been updated."
-      # redirect_to twitter_user_path(current_user.twitter_users.first.login), :notice => "thankyou, your settings has been updated."
+      redirect_to :back, :notice => "Thank you, your settings has been updated."
     else
       tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
       if tweet_interval.nil?
@@ -539,7 +532,6 @@ class TwitterUsersController < ApplicationController
   end
 
   private
-
   
   def dashboard_account
     if params[:twitter_name]
@@ -582,42 +574,23 @@ class TwitterUsersController < ApplicationController
   end
   
   def is_tweet_history_created?(twitter_id)
-    
   end
 
   def is_interval_updated?
     twitter_user = TwitterUser.find_by_login(params[:twitter_name])
+    
     unless twitter_user.nil?
       tweet_int = twitter_user.time_setting
       if tweet_int.nil?
         return "Please set up when #{twitter_user.login} tweets"
       end
     end
+    
     nil
   end
   
   def is_team_member?
-    current_user.referal_id.eql?(nil)
-    #    !self.referal_id.eql?(nil)
-  end
-
-  def self.send_notification
-    users = User.where(["notify = 't'"])
-    users.each do |user|
-      twitter_users = user.twitter_users
-      twitter_users.each do |twitter_user|
-        buffer_count = twitter_user.buffer_preferences.where(["deleted_at IS NULL"]).count
-        if buffer_count < 1
-          log = "=========================\n"
-          log << "sending mail to @#{twitter_user.login} at #{Time.now}\n"
-          log << "=========================\n\n"
-          file = File.open("mailer_log.txt","a+")
-          file.puts(log )
-          file.close
-          Notifier.buffer_run_out(user, twitter_user).deliver
-        end
-      end
-    end
+    current_user.referal_id.nil?
   end
   
 end
