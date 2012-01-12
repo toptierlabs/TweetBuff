@@ -1,11 +1,11 @@
 class TwitterSessionsController < ApplicationController
-
   skip_before_filter :count_twitter_user, :only => [:new]
 
   def new
     is_max_tweet_account?(current_user)
-    @accounts = TwitterUser.find_all_by_user_id(current_user.id).count
-    if @accounts.eql?(is_max_tweet_account?(current_user).plan.num_of_tweet_account)
+    @accounts = TwitterUser.count(user_id: current_user.id)
+    
+    if @accounts.eql?(@active_plans.plan.num_of_tweet_account)
       redirect_to :back, :notice => 'account is overload'
     else
       oauth_callback = request.protocol + request.host_with_port + '/twitter/callback'
@@ -33,7 +33,6 @@ class TwitterSessionsController < ApplicationController
     oauth_verifier = params["oauth_verifier"]
     @access_token = @request_token.get_access_token(:oauth_verifier => oauth_verifier)
     
-    
     # The request token has been invalidated
     # so we nullify it in the session.
     session[:request_token] = nil
@@ -43,6 +42,7 @@ class TwitterSessionsController < ApplicationController
     @twitter_user.user = current_user
     @twitter_user.account_type = "twitter"
     @twitter_user.save
+    
     redirect_to twitter_settings_path(:twitter_name => @twitter_user.login)
   rescue Net::HTTPServerException => e
     case e.message
@@ -62,6 +62,7 @@ class TwitterSessionsController < ApplicationController
 
   def count_twitter_user
     plan = current_user.subcriptions.where(:active => 't').first.plan
+    
     unless plan.nil?
       plan_count = plan.num_of_tweet_account
       twitter_user_count = current_user.twitter_users.count
@@ -72,7 +73,6 @@ class TwitterSessionsController < ApplicationController
   end
   
   def is_max_tweet_account?(user)
-    accounts = TwitterUser.find_all_by_user_id(current_user.id).count
     @active_plans = Subcription.active_subcription(current_user).first
   end
   

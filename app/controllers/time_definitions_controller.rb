@@ -1,38 +1,29 @@
 class TimeDefinitionsController < ApplicationController
-
   before_filter :get_buffer_preference
+  after_filter :respond_with_time_definitions, :except => [:create_time]
 
   respond_to :json, :js
 
   def index
-    respond_with(@time_definitions)
   end
 
   def show
-    respond_with(@time_definition)
   end
 
   def new
     @time_definition = TimeDefinition.new
-    respond_with(@time_definition)
   end
 
   def create
-
-    respond_with(@time_definition)
   end
 
   def edit
-    respond_with(@time_definition)
   end
 
   def update
-    respond_with(@time_definition)
   end
 
   def destroy
-
-    respond_with(@time_definition)
   end
 
   def create_time
@@ -52,7 +43,11 @@ protected
     get_twitter_user
     @buffer_preference = @twitter_user.buffer_preferences.find_by_permalink(params[:buffer_name])
   end
+  
+private
 
-
+  def respond_with_time_definitions
+    respond_with(@time_definitions)
+  end
 
 end

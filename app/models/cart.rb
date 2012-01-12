@@ -1,6 +1,5 @@
 class Cart < ActiveRecord::Base
-
-  has_many :line_items
+  has_many :line_items, :dependent => :destroy
 
   def paypal_url(return_url, notify_url)
     values = {

@@ -1,8 +1,6 @@
 class PlansController < InheritedResources::Base
-  #before_filter :authenticate_admin_user!, :except => [:index,:show]
   before_filter :myplan, :only => [:index,:show]
 
-  
   def myplan
     if user_signed_in?
       user = User.find(current_user.id)
@@ -14,6 +12,7 @@ class PlansController < InheritedResources::Base
 
   def get_plan_clicked_when_signup
     session[:plan_id] = params[:id]
+    
     if user_signed_in?
       @cart = current_cart
       redirect_to @cart.paypal_url(twitter_users_url, payment_notifications_url)

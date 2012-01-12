@@ -1,8 +1,10 @@
 class TweetsController < ApplicationController
-
   before_filter :authenticate_user!
   before_filter :twitter_account_required
   before_filter :get_buffer_preference
+  before_filter :find_tweet, :only => [:edit, :update, :destroy]
+  
+  after_filter :respond_with_appropriate_data, :only => [:edit, :update, :destroy]
   after_filter :layout_renderer
 
   respond_to :html, :json
@@ -31,36 +33,30 @@ class TweetsController < ApplicationController
   end
 
   def edit
-    @tweet = @buffer_preference.tweets.find_by_id(params[:id])
-    respond_with(@twitter_user, @buffer_preference, @tweet)
   end
 
   def update
-    @tweet = @buffer_preference.tweets.find_by_id(params[:id])
     @tweet.update_attributes(params[:tweet])
-    respond_with(@twitter_user, @buffer_preference, @tweet)
   end
 
   def destroy
-    @tweet = @buffer_preference.tweets.find_by_id(params[:id])
     @tweet.destroy
-    
-    respond_with(@twitter_user, @buffer_preference, @tweet)
   end
 
   def sort
     tweet_order = params[:tweet]
     status = "ok"
+    
     begin
-      tweet_order.each_with_index do |tweet_id, index|
-        @buffer_preference.tweets.find_by_id(tweet_id.to_i).update_attribute(:position, index)
+      tweet_order.each_with_index do |tweet_id, i|
+        @buffer_preference.tweets.find(tweet_id.to_i).update_attribute(:position, i)
       end
     rescue
       status = "error"
     end
+    
     render(:json => {:status => status})
   end
-
 
   protected
 
@@ -73,8 +69,14 @@ class TweetsController < ApplicationController
     @buffer_preference = @twitter_user.buffer_preferences.find_by_permalink(params[:buffer_name])
   end
 
-  def layout_renderer
+  private
 
+  def find_tweet
+    @tweet = @buffer_preference.tweets.find(params[:id])
+  end
+  
+  def respond_with_appropriate_data
+    respond_with(@twitter_user, @buffer_preference, @tweet)
   end
 
 end

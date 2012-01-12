@@ -1,21 +1,15 @@
 class DashboardController < ApplicationController
-  
   before_filter :authenticate_user!
-  
   before_filter :twitter_account_required, :except => :add_account
   
-#  before_filter :is_team_member, :except => :add_account
-
-  def show
-  end
+  def show; end
 
   def account
     @user = current_user
   end
 
   def paypall_callback
-    session[:plan_id] = nil
-    session[:cart_id] = nil
+    session[:plan_id], session[:cart_id] = nil, nil
     redirect_to twitter_users_path
   end
 
@@ -24,8 +18,6 @@ class DashboardController < ApplicationController
   end
 
   def update
-    #current_user.update_attributes(params[:user])
-    #redirect_to(request.referer)
     @user = current_user
 
     if @user.update_with_password(params[:user])
@@ -36,7 +28,6 @@ class DashboardController < ApplicationController
     end
   end
   
-  def add_account
-  end
+  def add_account; end
 
 end

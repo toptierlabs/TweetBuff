@@ -10,12 +10,14 @@ class Menu
     menu_files = Dir.glob(File.join(Rails.root,"**","menus","*.yml"))    
     Rails.logger.debug("[MENUS] Loading menu files: #{menu_files.inspect}")
     menu_hash = {}
+    
     menu_files.each do |file|
       # Get the menu items provided
       new_menu_hash = Menu.load_file(file)
       # Merge menu items into hash
       menu_hash = Menu.merge_menu_hash(menu_hash, new_menu_hash)
     end
+    
     menu_hash
   end
   
@@ -74,7 +76,6 @@ class Menu
       end
     end
   end
-
 
 protected 
   
