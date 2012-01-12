@@ -46,13 +46,10 @@ Tweetbuffer::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
-  config.action_mailer.smtp_settings = {
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :domain => 'gmail.com',
-    :user_name => 'dummy@41studio.com',
-    :password => 'ssstsecret',
-    :authentication => 'plain',
-    :enable_starttls_auto => true }
 end
+
+Weblog::Application.config.middleware.use ExceptionNotifier,
+  :email_prefix => "[ERROR] ",
+  :sender_address => %{"notifier" <notifier@tweetbuff.com>},
+  :exception_recipients => %w{hendra@41studio.com syafik@41studio.com fitria@41studio.com},
+  :ignore_crawlers => %w{Googlebot bingbot}
