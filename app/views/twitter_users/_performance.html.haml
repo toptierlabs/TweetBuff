@@ -10,7 +10,6 @@
           = show_buffer_published_date_title(buffer)
           - active_time = buffer.deleted_at.to_date
         //= "Today (#{Time.now.strftime('%b %d')})"
-    //#buffer_name_container{:id => buffer.id, :style => "text-align: left;", :class =>cycle("even","odd"), :onmouseover => "$('#actions_#{buffer.id}').css('visibility','visible');", :onmouseout => "$('#actions_#{buffer.id}').css('visibility','hidden')"}
     #buffer_name_container{:id => buffer.id, :style => "text-align: left;", :class =>cycle("even","odd")}
       = buffer.name
       %br
@@ -26,7 +25,6 @@
               = "--#{@comment_feed} people commented in this post."
           - elsif buffer.twitter_user.account_type.eql?("twitter")
             = "#{@retweet_count} people retweeted this tweet."
-      //%span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
       %span{:id => "actions_#{buffer.id}", :style => "float: right; margin-top: -15px;"}
         #tweet_now{:onclick => ""}
           = image_tag("/images/users-reached.png")

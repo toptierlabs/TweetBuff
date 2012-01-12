@@ -7,7 +7,6 @@ class TimeSetting < ActiveRecord::Base
   def update_run_at_when_saved_time_setting
     twitter_user = self.twitter_user
     BufferPreference.update_all("run_at = NULL", "twitter_user_id = #{twitter_user.id}")
-    # BufferPreference.update_all("twitter_user_id = #{twitter_user.id}")
     buffer = twitter_user.buffer_preferences.first
     unless buffer.nil?
       buffer.update_run_at_new

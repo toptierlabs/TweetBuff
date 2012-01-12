@@ -7,7 +7,6 @@
   }
   var new_form_count = 1
   function new_interval_custom(){
-    //alert(form_count);
     form_sub = new_form_count += 1
     $('#new_form_count').val(form_sub);
     $('#custom_tf_select').clone().appendTo('#custom_tf_wrapper')
@@ -30,7 +29,6 @@
     }
   }
 
-=# select_tag "days", options_for_select(Day.collect_days), :onchange => "selectRoleType(this.value);"
 = form_tag save_settings_path do
   = check_box_tag "days[]", "1", is_day_of_week_checked?(@twitter_user, "1"), :class => "checkbox_time_setting", :id => "check1"
   = check_box_tag "days[]", "2", is_day_of_week_checked?(@twitter_user, "2"), :class => "checkbox_time_setting", :id => "check2"

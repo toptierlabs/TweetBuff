@@ -1,5 +1,4 @@
 class PaymentNotification < ActiveRecord::Base
-  
   belongs_to :cart
   serialize :params
   after_create :mark_cart_as_purchased
@@ -11,5 +10,4 @@ class PaymentNotification < ActiveRecord::Base
       cart.update_attribute(:purchased_at, Time.now)
     end
   end
-
 end

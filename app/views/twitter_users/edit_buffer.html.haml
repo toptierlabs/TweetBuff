@@ -38,7 +38,6 @@
     #tweet_stuff
       .user_twitter_detail
         #profile_image
-          //%img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
           = profile_image(@twitter_user, "_normal", 64, 64)
         #buffer_count
           %img{:src => "/images/t_count.jpg"}
@@ -97,13 +96,9 @@
             %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
               = "Queued for #{buffer.run_at.strftime('%H:%M %p')}" unless buffer.run_at.nil?
             %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
-              //#tweet_now{:onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('buffer.name').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
               #tweet_now{:onclick => ""}
                 = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
-              //#edit_buffer{:onclick => "showDialog('Edit Buffer','#{edit_buffer_path(buffer.id)}'); return false;"}
               #edit_buffer{:onclick => ""}
-                //= link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
-                //= link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id)
                 = link_to image_tag("/images/edit.png"), :controller => "twitter_users", :action => "edit_buffer", :id => @buffer.id, :twitter_name => current_user.id
               #delete_buffer{:onclick => ""}
                 = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id)
