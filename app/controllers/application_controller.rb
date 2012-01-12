@@ -1,12 +1,5 @@
 class ApplicationController < ActionController::Base
-  
   protect_from_forgery
-  #  before_filter :mailer_set_url_options
-  before_filter :mailer_set_url_options
- 
-  def mailer_set_url_options
-    ActionMailer::Base.default_url_options[:host] = request.host_with_port
-  end
 
   def current_cart
     if session[:cart_id]
@@ -24,7 +17,6 @@ class ApplicationController < ActionController::Base
     end
     @current_cart
   end
-  
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(User)
@@ -65,7 +57,6 @@ class ApplicationController < ActionController::Base
   
   def is_team_member
     @team_member = User.where("referal_id is NOT NULL")
-    #    @team_member = User.where("referal_id is NOT NULL and referal_id = ?", current_user.id).first
   end
 
 end

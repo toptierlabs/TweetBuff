@@ -1,5 +1,4 @@
 Tweetbuffer::Application.routes.draw do
-  
   #API Url
   #api session
   match "api/check_sign_in_session" => "api/sessions#check_sign_in_session"
@@ -15,7 +14,6 @@ Tweetbuffer::Application.routes.draw do
   #  get "/update_buffer/:id" => "TwitterUsers#update_buffer", :as => :update_buffer
   match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
 
-  
   #  post "/save_time_setting" => "twitter_users#save_time_setting", :as => :save_time_setting
   post "/save_settings" => "twitter_users#save_settings", :as => :save_settings
 
@@ -28,7 +26,6 @@ Tweetbuffer::Application.routes.draw do
   resources :timeframes
   
   resources :suggestions
-  
 
   get "/goodies" => "goodies#index"
   get "suggestions/tweet_suggestion/:twitter_name" => "suggestions#tweet_suggestion"
@@ -138,8 +135,5 @@ Tweetbuffer::Application.routes.draw do
       end
     end
   end
-
-
-
 
 end

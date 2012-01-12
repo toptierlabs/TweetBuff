@@ -24,10 +24,6 @@ class MenuItem < Hashie::Dash
     uri =~ Regexp.new(@select)
   end
   
-  # def menu=(menu)
-  #   @menu = menu
-  # end
-  
   def authorized?(authorization)
     Rails.logger.debug("[MENU] authorization check -- User signed in? #{authorization} :: Menu item auth level: #{@auth}")
     

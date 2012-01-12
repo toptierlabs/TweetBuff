@@ -2,49 +2,34 @@ require 'net/http'
 require 'uri'
 
 class FacebookSessionsController < ApplicationController
-
-  #  def new
-  #    redirect_to :back
-  #  end
-  
-  #  def new
-  #    @user, session[:new_register] = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
-  #    if @user.persisted?
-  #      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
-  #      sign_in_and_redirect @user, :event => :authentication
-  #    else
-  #      session["devise.facebook_data"] = env["omniauth.auth"]
-  #      redirect_to new_user_registration_url
-  #    end
-  #  end
-
   def new
-    fb_auth = FbGraph::Auth.new("174091022679493", "1c016c320fc44d6014aecd50d7761880")
+    fb_auth = FbGraph::Auth.new(API_KEY, SECRET_KEY)
     fb_auth.client
 
     fb_auth.access_token
     fb_auth.user        
     
     client = fb_auth.client
-    client.redirect_uri = "http://localhost:3000/facebook/callback"
+    client.redirect_uri = "#{SERVER_URL}/facebook/callback"
 
     # redirect user to facebook
     redirect_to client.authorization_uri(
-      #      :scope => [:email, :read_stream, :offline_access]
       {:scope => [:publish_stream, :offline_access, :email, :user_interests, :friends_interests ]}
     )
+    
     access_token = client.access_token!
     me = FbGraph::User.me(access_token)
   end
   
   def oauth_callback
-    fb_auth = FbGraph::Auth.new("174091022679493", "1c016c320fc44d6014aecd50d7761880")
+    fb_auth = FbGraph::Auth.new(API_KEY, SECRET_KEY)
     
     client = fb_auth.client
-    client.redirect_uri = "http://localhost:3000/facebook/callback"
+    client.redirect_uri = "#{SERVER_URL}/facebook/callback"
     client.authorization_code = params[:code]
     access_token = client.access_token!
     user = FbGraph::User.me(access_token).fetch
+    
     @user = TwitterUser.new(
       :protected => "",
       :user_id => current_user.id,
@@ -52,9 +37,7 @@ class FacebookSessionsController < ApplicationController
       :statuses_count => user.statuses.count,
       :followers_count => "",
       :utc_offset => "",
-      #      :twitter_id => user.identifier, 
-      :login => user.username, 
-      #      :access_token => user.access_token.to_s, 
+      :login => user.username,
       :access_secret => "", 
       :remember_token=> "", 
       :name => user.name, 

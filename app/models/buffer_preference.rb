@@ -14,17 +14,20 @@
 # Daily Expert -- Same as expert, but each time_definition is customizable
 
 class BufferPreference < ActiveRecord::Base
-
   acts_as_soft_delete_by_field
+  
   # Constants
   TWEET_MODES = [:weekly_basic, :weekly_expert, :daily_basic, :daily_expert]
 
   # Associations
   belongs_to  :user
   belongs_to  :twitter_user
-  has_many    :time_definitions
-  has_many    :tweets
-
+  
+  with_options :dependent => :destroy do |bp|
+    bp.has_many :time_definitions
+    bp.has_many :tweets
+  end
+  
   # Validations
   validates_uniqueness_of :name, :scope => :twitter_user_id
   validates_presence_of :tweet_mode
@@ -48,7 +51,6 @@ class BufferPreference < ActiveRecord::Base
   #
   # BEGIN tweet_mode overrides
   # so we can use human-readable names for modes
-  
     
   def tweet_mode
     mode = read_attribute(:tweet_mode)
@@ -56,6 +58,7 @@ class BufferPreference < ActiveRecord::Base
       mode = 0
       self.tweet_mode = :weekly_basic
     end
+    
     TWEET_MODES.at(mode)
   end
 
@@ -67,39 +70,41 @@ class BufferPreference < ActiveRecord::Base
   end
 
   def self.post_tweet
-    #    buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now.in_time_zone])
-    #    buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now.in_time_zone(current_user.timezone)])
     buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now])
     
     buffers.each do |buffer|
-      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?",Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day]).count
+      tweeted = buffer.twitter_user.buffer_preferences.count(["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day])
       twitter_user = buffer.twitter_user
-      plan_count = twitter_user.user.subcriptions.where(["active = 't'"]).first.plan.num_of_tweet_per_day
+      plan_count = twitter_user.user.subcriptions.where(active: true).first.plan.num_of_tweet_per_day
       if tweeted < plan_count
         log = "=========================\n"
         log << "posting tweet to @#{twitter_user.login} at #{Time.now.in_time_zone}\n"
         log << "=========================\n\n"
+        
         file = File.open("buffer_log.txt","a+")
         file.puts(log )
         file.close
+        
         Twitter.configure do |config|
           config.consumer_key       = TWITTER_API[:key]
           config.consumer_secret    = TWITTER_API[:secret]
           config.oauth_token        = twitter_user.access_token
           config.oauth_token_secret = twitter_user.access_secret
         end
+        
         client = Twitter::Client.new
         client.update(buffer.name)
         buffer.update_attribute(:status, "success")
-        buffer.soft_delete #mark deleted_at
+        buffer.soft_delete #mark as deleted_at
       end
-      
     end
+    
     exec("echo all job clear.")
   end
 
   def self.update_added_time
-    buffers = BufferPreference.all(:conditions => ["status = ? AND deleted_at IS NULL","uninitialized"])
+    buffers = BufferPreference.where(["status = ? AND deleted_at IS NULL", "uninitialized"])
+    
     buffers.each do |buffer|
       buffer.added_time -= 1 if buffer.added_time > 0
       buffer.save
@@ -111,7 +116,6 @@ class BufferPreference < ActiveRecord::Base
   #
 
   def tweet_basis
-    # :weekly_basic => "weekly_basic" => ["weekly","basic"] => "weekly" => :weekly
     self.tweet_mode.to_s.split("_").first.to_sym
   end
 
@@ -119,7 +123,6 @@ class BufferPreference < ActiveRecord::Base
     raise "Invalid basis" if ![:weekly,:daily].include?(basis.to_sym)
     self.change_tweet_mode("#{basis.to_s}_#{self.tweet_mode.to_s.split("_").last}")
   end
-
 
   def weekly?
     [:weekly_basic, :weekly_expert].include?(self.tweet_mode)
@@ -130,7 +133,6 @@ class BufferPreference < ActiveRecord::Base
   end
 
   def time_list
-
   end
 
   def to_param
@@ -152,14 +154,25 @@ class BufferPreference < ActiveRecord::Base
     send_time = Time.now.utc
     start_time = send_time
     is_breaked = false
+    
     buffers.each do |buffer|
-      1.upto 365 do |day|
-        send_time = send_time+(day-1).days if is_breaked
+      if Time.now.year % 4 
+        number_of_days_in_a_year = 366
+      else
+        number_of_days_in_a_year = 365
+      end
+      
+      1.upto(number_of_days_in_a_year) do |day|
+        send_time = send_time + (day-1).days if is_breaked
         is_breaked = false
+        
         if selected_days.include?(send_time.strftime("%u"))
           time_periode.each do |time|
             selected_time = "#{send_time.strftime("%Y")}-#{send_time.strftime("%m")}-#{send_time.strftime("%d")} #{time.split(":").first}:#{time.split(":").last}:00"
-            if buffers.map(&:run_at).include?(selected_time.to_time) or start_time.strftime("%Y-%m-%d %H:%M:00") > selected_time.to_time.strftime("%Y-%m-%d %H:%M:00")
+            
+            stime = start_time.strftime("%Y-%m-%d %H:%M:00")
+            sltdtime = selected_time.to_time.strftime("%Y-%m-%d %H:%M:00")
+            if buffers.map(&:run_at).include?(selected_time.to_time) or stime > sltdtime
               is_breaked = true if time_periode.index(time).eql?(time_periode.length-1)
               next 
             else
@@ -171,6 +184,7 @@ class BufferPreference < ActiveRecord::Base
         else
           send_time = send_time + 1.days
         end
+        
         break if !buffer.run_at.eql?(nil)
       end
     end
@@ -208,15 +222,13 @@ class BufferPreference < ActiveRecord::Base
     end
   end
 
-
   def detect_tweet_mode_change
     if(self.tweet_mode_changed?)
       ActiveRecord::Base.connection.execute("DELETE FROM time_definitions WHERE buffer_preference_id=#{self.id}")
       create_time_definitions
     end
   end
-
-
+  
   def update_permalink
     self.permalink = self.to_param
   end
