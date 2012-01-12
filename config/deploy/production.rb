@@ -20,12 +20,12 @@ namespace :deploy do
     run "export RAILS_ENV=production"
     
     run "rm -rf #{current_path}/log"
-    run "rm -rf #{current_path}/public/images"
+    run "rm -rf #{current_path}/public/system"
     run "rm -rf #{current_path}/config/database.yml"
     
     run "ln -s #{directory_path}/#{stage}/shared/log #{current_path}/log"
     run "ln -s #{directory_path}/#{stage}/shared/config/database.yml #{current_path}/config/database.yml"
-    run "ln -s #{directory_path}/#{stage}/shared/images #{current_path}/public/images"
+    run "ln -s #{directory_path}/#{stage}/shared/system #{current_path}/public/system"
     
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
