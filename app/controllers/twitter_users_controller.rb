@@ -522,6 +522,7 @@ class TwitterUsersController < ApplicationController
         if errors.empty?
           page << "$('#loader-buffer').hide();"
           page << "notification()"
+        end
       end
     else
       twitter_uid = params[:tweet_id]
@@ -536,9 +537,6 @@ class TwitterUsersController < ApplicationController
       setting.save!
     end
   end
-  
-  
-  
 
   private
 
@@ -621,6 +619,5 @@ class TwitterUsersController < ApplicationController
       end
     end
   end
-  
   
 end

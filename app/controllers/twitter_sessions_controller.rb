@@ -3,7 +3,7 @@ class TwitterSessionsController < ApplicationController
 
   def new
     is_max_tweet_account?(current_user)
-    @accounts = TwitterUser.count(user_id: current_user.id)
+    @accounts = TwitterUser.count(:conditions => {user_id: current_user.id})
     
     if @accounts.eql?(@active_plans.plan.num_of_tweet_account)
       redirect_to :back, :notice => 'account is overload'
