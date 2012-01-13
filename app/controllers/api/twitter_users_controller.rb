@@ -18,12 +18,13 @@ class Api::TwitterUsersController < ApplicationController
       else
         user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
         unless user.blank?
-          Twitter.configure do |config|
-            config.consumer_key       = TWITTER_API[:key]
-            config.consumer_secret    = TWITTER_API[:secret]
-            config.oauth_token        = user.access_token
-            config.oauth_token_secret = user.access_secret
-          end
+          twitter_config(user)
+#          Twitter.configure do |config|
+#            config.consumer_key       = TWITTER_API[:key]
+#            config.consumer_secret    = TWITTER_API[:secret]
+#            config.oauth_token        = user.access_token
+#            config.oauth_token_secret = user.access_secret
+#          end
           client = Twitter::Client.new
           status = CGI.unescape(params[:tweet_message])
           url = status.match(/https?:\/\/[\S]+/)
@@ -141,7 +142,7 @@ class Api::TwitterUsersController < ApplicationController
       last_buffer = buffer_not_success.last
       last_buffer_run = last_buffer.run_at rescue Time.now
       last_buffer_added_time = last_buffer.added_time rescue 0
-      if last_buffer_run.strftime("%H:%M").eql?(minute_hours.last) || last_buffer_added_time > 0 # didieu yeuh nu salah!!!!!!
+      if last_buffer_run.strftime("%H:%M").eql?(minute_hours.last) || last_buffer_added_time > 0
         last_run = last_buffer_run.strftime("%H:%M").eql?(minute_hours.last)? last_buffer_added_time+1 : last_buffer_added_time
         run_at = Time.utc(year,month,day,dj_min_hour[0],dj_min_hour[1]) +last_run.day
         added_time = last_buffer_added_time + 1 if run_sat.eql?(minute_hours.first)

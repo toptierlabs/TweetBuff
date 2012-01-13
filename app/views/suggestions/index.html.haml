@@ -10,7 +10,6 @@
       dataType: "script",         
       data: {"buffer_preferences[name]" : tweet},
       success: function(){
-        //$(this).addClass("done");
       }
     });
   }
@@ -29,7 +28,6 @@
     #category-loader{:style => "display: none; margin-top: -13px; margin-left: 55px;"}
       =image_tag("a-loader.gif")
     = submit_tag "get", :id => "get-submit", :style => "display:none;"
-  //= select_tag :file_type, options_for_select(@categories), {:include_blank => "–Select File Type–", :onchange => remote_function(:url => {:controller => 'suggestions', :action => 'setting_suggestion'})}
 %div{:id => "selected_suggestion"}
     
 #loader-buffer

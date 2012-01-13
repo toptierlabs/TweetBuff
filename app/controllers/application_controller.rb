@@ -39,7 +39,20 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def twitter_config(user)
+    Twitter.configure do |config|
+      config.consumer_key       = TWITTER_API[:key]
+      config.consumer_secret    = TWITTER_API[:secret]
+      config.oauth_token        = user.access_token
+      config.oauth_token_secret = user.access_secret
+    end
+  end
+  
   protected
+  
+  def facebook_config(user)
+    @me = FbGraph::User.me(user.access_token)
+  end
   
   def twitter_account_required
     if user_signed_in?

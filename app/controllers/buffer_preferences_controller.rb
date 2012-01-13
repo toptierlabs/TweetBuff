@@ -17,10 +17,10 @@ class BufferPreferencesController < ApplicationController
         render(:json => { :twitter_user => {
               :login => @twitter_user.login,
               :name => @twitter_user.name},
-              :buffer_preference => {
-                :tweet_mode => @buffer_preference.tweet_mode,
-                :name => @buffer_preference.name,
-                :permalink => @buffer_preference.permalink}})
+            :buffer_preference => {
+              :tweet_mode => @buffer_preference.tweet_mode,
+              :name => @buffer_preference.name,
+              :permalink => @buffer_preference.permalink}})
       }
     end
   end
@@ -41,9 +41,12 @@ class BufferPreferencesController < ApplicationController
               page << "$('#loader-buffer').hide();"
               page << "error()"
             else
-              @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-              @buffer_preference = @buffer_preference.update_run_at_new.last
-              page.replace_html :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => @buffer_preference}
+              buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
+              buffer_preference = buffer_preference.update_run_at_new.last
+              ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
+              active_time = ordered_buffers.first.run_at.to_date rescue Date.today
+              
+              page.replace_html :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => buffer_preference, :ordered_buffers => ordered_buffers, :active_time => active_time}
               page << "$('#loader-buffer').hide();"
               page << "$('#tweet_text').val('')"
               page << "notification()"

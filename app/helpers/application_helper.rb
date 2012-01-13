@@ -54,26 +54,23 @@ module ApplicationHelper
     end
   end
 
-  def pack_buffer(m, flag)
-    #    strret = ""
-    #    strret << "<div style='border: 1px solid #000;' id='buffer_list_container_#{flag}'>" if flag != buffer.added_time
-    #    strret << "#{buffer.name} <br /><span style='color: #7BC2EE; font-style: italic; font-size: 13px;'>Queued for #{buffer.run_at.strftime('%H:%M %p')}</span> #{flag == buffer.added_time ? "</div>" : ''}"
-    #    strret.html_safe
-    data = ""
+  def pack_buffer(buffers, flag)
+    rv = ""
     old_flag = flag.added_time
-    m.each_with_index do |buffer,index|
+    buffers.each_with_index do |buffer, index|
       if old_flag == buffer.added_time
-        data = "<div style='padding-top: 7px;'>#{buffer.name} <br /> <span style='color: #7BC2EE; font-style: italic; font-size: 13px;'>Queued for #{buffer.run_at.strftime('%H:%M %p')}</span></div>"
+        rv = "<div style='padding-top: 7px;'>#{buffer.name} <br /> <span style='color: #7BC2EE; font-style: italic; font-size: 13px;'>Queued for #{buffer.run_at.strftime('%H:%M %p')}</span></div>"
       end
     end
-    return data.html_safe
+    
+    return rv.html_safe
   end
 
   def other_tf_interval(timeframe)
     ret = "currently your tweet will post automaticly every "
     ret << timeframe.join(",")
   end
- 
+  
   def show_buffer_date_title(buffer, active_time = Date.today)
     if buffer.run_at.to_date < active_time
       case (active_time - buffer.run_at.to_date).to_i

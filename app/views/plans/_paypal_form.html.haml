@@ -1,33 +1,8 @@
-<form id="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-
-		<p class="center">
-			<button id="paypal_button" class="button image" type="submit">
-				<span class="button-image round_checkmark"> <img src="/images/round_checkmark.png" /></span> <span>Setup Plan</span>
-			</button>
-		</p>
-
-
-				<input type="hidden" name="item_name" value="Buffer Pro Subscription" />
-		<input type="hidden" name="a3" value="10" />
-
-		<input type="hidden" name="business" value="annas_ramadhani@yahoo.co.id" />
-		<input type="hidden" name="cmd" value="_xclick-subscriptions" />
-		<input type="hidden" name="currency_code" value="USD" />
-		<input type="hidden" name="p3" value="1" />
-		<input type="hidden" name="t3" value="M" />
-		<input type="hidden" name="src" value="1" />
-		<input type="hidden" name="modify" value="1" />
-
-		<input type="hidden" name="custom" value="lamer.idiot@gmail.com" />
-		<input type="hidden" name="return" value="http://localhost:3000/" />
-		<input type="hidden" name="notify_url" value="http://bufferapp.com/paypal_ipn" />
-	</form>
-
 %form{:id => "paypal" :action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
   %input{:type => "submit", :value => "Signup now"}
   %input{:type => "hidden", :name => "item_name", :value => "buffer #{plan} subcription"}
   %input{:type => "hidden", :name => "a3", :value => price}
-  %input{:type => "hidden", :name => "business", :value => "annas_ramadhani@yahoo.co.id"}
+  %input{:type => "hidden", :name => "business", :value => "#{PAYPAL_USER}"}
   %input{:type => "hidden", :name => "cmd", :value => "_xclick-subscriptions"}
   %input{:type => "hidden", :name => "currency_code", :value => "USD"}
   %input{:type => "hidden", :name => "p3", :value => "1"}
@@ -35,7 +10,7 @@
   %input{:type => "hidden", :name => "src", :value => "1"}
   %input{:type => "hidden", :name => "modify", :value => "1"}
   %input{:type => "hidden", :name => "custom", :value => current_user.email}
-  %input{:type => "hidden", :name => "return", :value => "http://localhost:3000/"}
+  %input{:type => "hidden", :name => "return", :value => "#{SERVER_URL}"
   
   
   

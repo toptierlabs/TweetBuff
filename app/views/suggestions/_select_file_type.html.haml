@@ -1,5 +1,5 @@
-- @suggests.each do |suggestion|
+- @suggests.each do |suggest|
   %div{:id => "suggestions_box_dialog"}
     %div{:style=>"margin-bottom: 15px;"}
-      = suggestion.text
-      %a{:href=>"#" , :class => "bClose", :id => "button-suggest", :onclick=>"tweet_suggestions(\"#{suggestion.text}\")"} Schedule this post!
+      = suggest.text
+      %a{:href=>"#" , :class => "bClose", :id => "button-suggest", :onclick=>"tweet_suggestions(\"#{suggest.text}\")"} Schedule this post!
