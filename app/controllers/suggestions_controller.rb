@@ -28,14 +28,14 @@ class SuggestionsController < InheritedResources::Base
   
   def create
     if request.xhr?
-      attrs = {:text => params["suggestion"]["text"], :user_id => params["suggestion"]["user_id"], 
-        :twitter_user_id => params["suggestion"]["twitter_user_id"]}
+      new_category = params[:category]
+      suggest_category = params[:suggestion][:category_id]
       
       if suggest_category.eql?("")
-        @suggestion = Suggestion.create(attrs.merge(:category_id => params[:category]))
+        @suggestion = Suggestion.create(:text => params["suggestion"]["text"], :category_id => new_category, :user_id => params["suggestion"]["user_id"], :twitter_user_id => params["suggestion"]["twitter_user_id"])
       elsif !suggest_category.nil?
-        @category = Category.create(:name_of_category => params[:suggestion][:category_id])
-        @suggestion = Suggestion.create(attrs.merge(:category_id => @category.id))
+        @category = Category.create(:name_of_category => suggest_category)
+        @suggestion = Suggestion.create(:text => params["suggestion"]["text"], :category_id => @category.id, :user_id => params["suggestion"]["user_id"], :twitter_user_id => params["suggestion"]["twitter_user_id"])
       end
       
       errors = @suggestion.errors
@@ -43,7 +43,11 @@ class SuggestionsController < InheritedResources::Base
         if errors.empty?
           page << "$('#loader-category').hide();"
           page << "$('#tweet_text').val('')"
-          page << "notification()"
+          page << "$('#post_notice').removeClass('error');"
+          page << "$('#post_notice').addClass('success');"
+          page << "$('#post_notice').show();"
+          page << "$('#post_notice').html('Your sugestion has been saved.');"
+          page << "setTimeout('$(\"#post_notice\").fadeOut()',10000)"
         else
           page.redirect_to :back
         end
@@ -57,9 +61,12 @@ class SuggestionsController < InheritedResources::Base
     @buffer_preference = @buffer_preference.update_run_at_new.last
     errors = @buffer_preference.errors
 
+    @ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
+    @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
+    
     render :update do |page|
       if errors.empty?
-        page.replace_html "buffer_wrapper", :partial => "buffer_preferences/new_buffer", :locals => {:buffer => @buffer_preference}
+        page.replace_html "buffer_wrapper", :partial => "buffer_preferences/new_buffer", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
         page << "$('#loader-buffer').hide();"
         page << "$('#tweet_text').val('')"
         page << "notification()"

@@ -36,7 +36,6 @@
     .tweet_stuff
       .user_twitter_detail
         #profile_image
-          //%img{:src => @twitter_user.profile_image_url.gsub("_normal",""), :width => 64, :height => 64}
           = profile_image(@twitter_user, "_normal", 64, 64)
         .badge
           - if @twitter_user.account_type.eql?("facebook")
@@ -65,7 +64,6 @@
               - elsif account.account_type.eql?("twitter")
                 = image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
-              //= account.login
               = link_to account.login, twitter_user_path(account.login)
             %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
               - if user_signed_in?
@@ -81,7 +79,6 @@
                 = image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
               = @twitter_user.login
-              //= link_to account.login, twitter_user_path(account.login)
             %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
               - if user_signed_in?
                 - if @plans.plan.name.eql?("Free")
@@ -94,7 +91,6 @@
         .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
           = image_tag("add.png", width: 25, height: 25)
         %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
-          //= link_to "Add Account", twitter_authorize_account_path
           = link_to "Add Account", add_an_account_path
         
 

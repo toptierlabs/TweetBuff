@@ -28,3 +28,9 @@ timeframe = Timeframe.create!(
     {:name=>"12 hours",:value=>12,:unit=>"hours"}
   ]
 )
+
+category = Category.create(
+  [
+    {:name_of_category=>"Web Design"}
+  ]
+)

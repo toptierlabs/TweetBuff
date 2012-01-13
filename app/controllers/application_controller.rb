@@ -32,6 +32,27 @@ class ApplicationController < ActionController::Base
       return admin_dashboard_path
     end
   end
+  
+  def error_when_sign_up(resource)
+    if resource.email.blank?
+      flash[:notice] = t("devise.registrations.email_blank")
+    end
+  end
+  
+  def after_sign_up_path_for(resource)
+    if resource.is_a?(User)
+      flash[:notice] = t("dashboard.show.welcome", :name => resource.email)
+      # return dashboard_path
+      twitter_user = current_user.twitter_users.first
+      unless twitter_user.blank?
+        return twitter_user_path(current_user.twitter_users.first.login)
+      else
+        return add_account_path
+      end
+    elsif resource.is_a?(AdminUser)
+      return admin_dashboard_path
+    end
+  end
 
   def set_active_subscription
     if user_signed_in?

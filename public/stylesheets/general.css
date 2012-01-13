@@ -1,153 +1,175 @@
 /* line 1, app/stylesheets/general.scss */
 #notification {
-  border: 1px solid #cdcdcd;
-  background: #D8E9D3;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 5px;
-  margin: 10px 0 10px 0;
+    /*    border: 1px solid #cdcdcd;
+        background: #D8E9D3;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        padding: 5px;
+        margin: 10px 0 10px 0;*/
+
+    background: none repeat scroll 0 0 #D8E9D3;
+    border-bottom: 1px solid #D8E9D3;
+    font-size: 20px;
+    left: 0;
+    padding: 5px 0 5px 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+#notification_error {
+    background: none repeat scroll 0 0 #D8E9D3;
+    border-bottom: 1px solid #D8E9D3;
+    font-size: 20px;
+    left: 0;
+    padding: 5px 0 5px 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 /* line 10, app/stylesheets/general.scss */
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 /* line 14, app/stylesheets/general.scss */
 #general_dialog {
-  /* overflow: scroll; 
-  height: 350px;*/
-  font-size: 12px;
-  background: #ffffff;
-  padding: 10px !important;
-  display: none;
-  max-width: 720px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+    /* overflow: scroll; 
+    height: 350px;*/
+    font-size: 12px;
+    background: #ffffff;
+    padding: 10px !important;
+    display: none;
+    max-width: 720px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
 }
 
 /* line 30, app/stylesheets/general.scss */
 #dialog_header {
-  background: #cdcdcd;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 8px;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
+    background: #cdcdcd;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }
 
 /* line 39, app/stylesheets/general.scss */
 #image-header {
-  text-align: center;
+    text-align: center;
 }
 
 /* line 42, app/stylesheets/general.scss */
 #image-footer {
-  /*margin-top: 80px;*/
-  text-align: center;
+    /*margin-top: 80px;*/
+    text-align: center;
 }
 
 /* line 46, app/stylesheets/general.scss */
 #image-sign-in {
-  float: left;
-  margin-left: 29px;
-  margin-top: 70px;
-  position: absolute;
+    float: left;
+    margin-left: 29px;
+    margin-top: 70px;
+    position: absolute;
 }
 
 /* line 52, app/stylesheets/general.scss */
 .button-sign-in {
-  background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
-  cursor: pointer;
-  height: 29px;
-  width: 174px;
-  border: none;
+    background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 29px;
+    width: 174px;
+    border: none;
 }
 
 /* line 59, app/stylesheets/general.scss */
 .button-sign-up {
-  background: url("/images/sign-up.jpg") repeat scroll 0 0 transparent;
-  cursor: pointer;
-  height: 30px;
-  width: 174px;
-  border: none;
+    background: url("/images/sign-up.jpg") repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 30px;
+    width: 174px;
+    border: none;
 }
 
 /* line 66, app/stylesheets/general.scss */
 .button-forgotten {
-  background: url("/images/get-recovery-instructions.jpg") repeat scroll 0 0 transparent;
-  cursor: pointer;
-  height: 33px;
-  width: 177px;
+    background: url("/images/get-recovery-instructions.jpg") repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 33px;
+    width: 177px;
 }
 
 /* line 72, app/stylesheets/general.scss */
 .button-change-password {
-  background: url("/images/change-password.jpg") repeat scroll 0 0 transparent;
-  cursor: pointer;
-  height: 33px;
-  width: 177px;
+    background: url("/images/change-password.jpg") repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 33px;
+    width: 177px;
 }
 
 /* line 78, app/stylesheets/general.scss */
 .error_notification {
-  color: red;
+    color: red;
 }
 
 /* line 81, app/stylesheets/general.scss */
 .error {
-  color: red;
+    color: red;
 }
 
 /* line 85, app/stylesheets/general.scss */
 #slideshow {
-  position: relative;
-  margin: auto;
-  height: 400px;
+    position: relative;
+    margin: auto;
+    height: 400px;
 }
 
 /* line 91, app/stylesheets/general.scss */
 #slideshow DIV {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 8;
-  opacity: 0.0;
-  height: 400px;
-  background-color: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 8;
+    opacity: 0.0;
+    height: 400px;
+    background-color: #FFF;
 }
 
 /* line 101, app/stylesheets/general.scss */
 #slideshow DIV.active {
-  z-index: 10;
-  opacity: 1.0;
+    z-index: 10;
+    opacity: 1.0;
 }
 
 /* line 106, app/stylesheets/general.scss */
 #slideshow DIV.last-active {
-  z-index: 9;
+    z-index: 9;
 }
 
 /* line 110, app/stylesheets/general.scss */
 #slideshow DIV IMG {
-  height: 350px;
-  display: block;
-  border: 0;
-  margin-bottom: 10px;
+    height: 350px;
+    display: block;
+    border: 0;
+    margin-bottom: 10px;
 }
 
 /* line 117, app/stylesheets/general.scss */
 .checkbox_time_setting {
-  display: none;
+    display: none;
 }
 
 /* line 121, app/stylesheets/general.scss */
 a.active_checkbox_time_setting {
-  background: #AAAAAA;
-  padding: 3px;
+    background: #AAAAAA;
+    padding: 3px;
 }

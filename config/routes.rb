@@ -54,8 +54,9 @@ Tweetbuffer::Application.routes.draw do
     get '/admin/logout', :to => 'active_admin/devise/sessions#destroy'
   end
 
-  devise_for :users
-
+#  devise_for :users
+  devise_for :users, :controllers => {:registrations => "devise/registration", :sessions => "devise/session"}
+ 
   root :to => 'Home#index'  
 
   scope "dashboard" do
