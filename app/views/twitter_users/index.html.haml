@@ -117,8 +117,8 @@
         =image_tag("ajaxLoader.gif")
         %br
         Edit buffer
-      =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-        =f.text_area :name, :style => "width: 725px; height: 70px; background: -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(white)) no-repeat;background: -moz-linear-gradient(center top , #FAFAFA, #FFFFFF) repeat scroll 0 0 transparent; border-bottom: 11px solid rgb(36, 157, 236); -moz-border-radius: 11px 11px 11px 11px; -webkit-border-radius: 11px 11px 11px 11px;", :id => "tweet_text", :placeholder => "add tweet here ..."
+      = form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
+        = f.text_area :name, :style => "width: 725px; height: 70px; background: -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(white)) no-repeat;background: -moz-linear-gradient(center top , #FAFAFA, #FFFFFF) repeat scroll 0 0 transparent; border-bottom: 11px solid rgb(36, 157, 236); -moz-border-radius: 11px 11px 11px 11px; -webkit-border-radius: 11px 11px 11px 11px;", :id => "tweet_text", :placeholder => "add tweet here ..."
         %span{:id => "counter", :style => "position: absolute; color: rgb(36, 157, 236); font-weight: bold; font-size: 17px; margin-left: 318px; margin-top: -119px; border-radius: 10px 10px 10px 10px; background-color: rgb(214, 237, 240); border: 2px solid rgb(36, 157, 236);"}
         #button_container
           =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
@@ -150,7 +150,7 @@
             %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
               #tweet_now{:onclick => ""}
                 = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
-              #edit_buffer{:onclick => "$('#loader-edit-buffer').show();"}
+              #edit_buffer{:onclick => "$('#loader-edit-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
                 = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
               #delete_buffer{:onclick => ""}
                 = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id)

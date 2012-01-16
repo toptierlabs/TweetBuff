@@ -58,12 +58,13 @@
         .menu#nav
           = Menu.get("main").render(request.fullpath, {:state => user_signed_in?})
         = yield(:signup_float)
+
     #alert
       .container
         - flash.each do |name, msg|
-          #notification
+          %div{:id => "notification_#{name}"}
             %span{:style => "float: right;"}
-              %a{:href=>"#", :onclick => "$('#notification').fadeOut(); return false;"}
+              %a{:href=>"#", :onclick => "$('#notification_#{name}').fadeOut(); return false;"}
                 =image_tag("close.png",:width=>"18", :height => "18")
             = msg
         

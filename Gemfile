@@ -31,6 +31,7 @@ gem 'mail'
 gem 'exception_notification'
 gem "fb_graph"
 gem 'crack'
+gem 'whenever'
 
 group(:test, :cucumber, :development) do
   gem "database_cleaner"

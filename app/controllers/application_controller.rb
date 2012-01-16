@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   
   def error_when_sign_up(resource)
     if resource.email.blank?
-      flash[:notice] = t("devise.registrations.email_blank")
+      flash[:error] = t("devise.registrations.email_blank")
     end
   end
   

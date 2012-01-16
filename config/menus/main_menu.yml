@@ -15,6 +15,12 @@ main:
 #    path: /dashboard/settings/twitter
 #    select: ^\/dashboard/settings/twitter.*$
 #    auth: in
+  goodies:
+    path: /goodies
+    select: ^\/goodies.*$
+  plans:
+    path: /plans
+    select: ^\/plans.*$
   sign_in:
     path: /users/sign_in
     select: ^\/users\/sign_in$
@@ -28,9 +34,3 @@ main:
     select: ^\/users\/sign_out.*$
     auth: in
     method: delete
-  goodies:
-    path: /goodies
-    select: ^\/goodies.*$
-  plans:
-    path: /plans
-    select: ^\/plans.*$

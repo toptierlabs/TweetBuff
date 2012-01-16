@@ -108,12 +108,27 @@ class TwitterUsersController < ApplicationController
   end
   
   def update_buffer
-    @buffer = BufferPreference.find(params[:id])
-    @buffer.name = params[:buffer_preference][:name]
-    @buffer.save!
-    
-    respond_to do |format|
-      format.js {render :update_buffer}
+    if request.xhr?
+      @buffer = BufferPreference.find(params[:id])
+      @buffer.name = params[:buffer_preference][:name]
+      @buffer.save!
+      
+      @twitter_user = current_user.twitter_users.find(@buffer.twitter_user_id)
+      @buffer_preference = @twitter_user.buffer_preferences.new rescue nil
+      render :update do |page|
+        ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
+        active_time = ordered_buffers.first.run_at.to_date rescue Date.today
+        
+        page.replace_html :buffer_wrapper, :partial => "buffer_preferences/new_buffer", :locals => {:ordered_buffers => ordered_buffers, :active_time => active_time}
+        page.replace_html :tweet_buffer, :partial => "buffer_preferences/new_form_buffer", :locals => {:twitter_user => @twitter_user}
+        page << "$('#loader-buffer').hide();"
+        page << "$('#tweet_text').val('')"
+        page << "$('#post_notice').removeClass('error');"
+        page << "$('#post_notice').addClass('success');"
+        page << "$('#post_notice').show();"
+        page << "$('#post_notice').html('Your tweet has been updated.');"
+        page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
+      end
     end
   end
   
@@ -175,7 +190,7 @@ class TwitterUsersController < ApplicationController
             page << "$('#post_notice').html('Your tweet has been posted.');"
             page << "$('#loader').hide();"
             page << "$('#tweet_text').val('')"
-            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
+            page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
           end
         end
       elsif @twitter_user.account_type.eql?("twitter")

@@ -137,4 +137,10 @@ module ApplicationHelper
     [["PM", "pm"],["AM", "am"]]
   end
   
+  def show_flash
+    [:notice, :error].collect do |key|
+      content_tag(:div, content_tag(:p, flash[key]), :id => "flash", :class => "flash_#{key}") unless flash[key].blank?
+    end.join
+  end
+  
 end
