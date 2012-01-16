@@ -1,12 +1,5 @@
 /* line 1, app/stylesheets/general.scss */
 #notification_notice {
-    /*    border: 1px solid #cdcdcd;
-        background: #D8E9D3;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        padding: 5px;
-        margin: 10px 0 10px 0;*/
-
     background: none repeat scroll 0 0 #D8E9D3;
     border-bottom: 1px solid #D8E9D3;
     font-size: 20px;
