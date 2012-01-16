@@ -415,7 +415,7 @@ class TwitterUsersController < ApplicationController
             :time_period => time_period)
         elsif params[:time_setting_type].eql?("3")
           if params[:tfname][:hour][1].nil?
-            custom_time = Time.new(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""), nil, current_user.timezone)
+            custom_time = Time.new(year, month, day, params[:tfname][:hour].join(""), params[:tfname][:minute].join(""), nil, current_user.timezone)
             many_custom_time = []
             
             params[:new_form_count].to_i.times do |parameter|
@@ -435,7 +435,7 @@ class TwitterUsersController < ApplicationController
             
             sort_time_periode = many_custom_time.sort {|x, y| x <=> y}
             custom_time_saved = sort_time_periode.join(",")
-            
+
             TimeSetting.create(:timeframe_id => params[:timeframe_id], :user_id => current_user.id, 
               :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], 
               :day_of_week => day_of_week, :custom_time => custom_time, :time_period => custom_time_saved)

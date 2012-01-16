@@ -73,7 +73,7 @@ class BufferPreference < ActiveRecord::Base
     
     buffers.each do |buffer|
 #      tweeted = buffer.twitter_user.buffer_preferences.count(["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day])
-      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?",Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day]).count
+      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day]).count
       
       twitter_user = buffer.twitter_user
       plan_count = twitter_user.user.subcriptions.where(active: true).first.plan.num_of_tweet_per_day
