@@ -6,7 +6,7 @@
       <%= image_tag("/images/birds_64/12.png") %>
     </div>
 
-    <div class="inputs">
+    <div class="inputs" style="">
       <%= f.input :email, :required => true, :autofocus => true, :placeholder => "you@example.com" %>
       <div style="display: none;">
         <%= f.input :referal_id, :value => params[:referal_id] %>
@@ -14,9 +14,13 @@
       <%= f.input :password, :required => true %>
       <%= f.input :password_confirmation, :required => true %>
     </div>
-    <div class="actions">
+    <div class="actions" style="margin-top: 40px;">
       <%= f.button :submit, "", :class => "button-sign-up" %>
     </div>
     <div style="clear:both;"></div>
   </div>
 <% end %>
+
+<%= javascript_tag("jQuery(document).ready(function() {
+  jQuery('span.error').css('margin-left','-195px')
+  })") %>
