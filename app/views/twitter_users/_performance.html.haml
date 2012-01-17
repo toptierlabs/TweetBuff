@@ -23,5 +23,5 @@
           = image_tag("/images/users-reached.png")
         #reached_buffer
           = @reached
-        #delete_buffer{:onclick => "", :style => "display: none;"}
-          = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id)
+        #delete_buffer{:onclick => "$('#loader-delete-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
+          = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :remote => true

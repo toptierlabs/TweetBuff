@@ -191,16 +191,31 @@
 
 /* line 167, app/stylesheets/tweet.scss */
 #loader {
-  position: absolute;
+/*  position: absolute;
   text-align: center;
   top: 196px;
   width: 100%;
   right: -50px;
+  display: none;*/
+position: absolute;
+  right: 4px;
+  text-align: center;
+  top: -63px;
+  width: 100%;
   display: none;
 }
 
 /* line 175, app/stylesheets/tweet.scss */
 #loader-buffer {
+  position: absolute;
+  right: 4px;
+  text-align: center;
+  top: -63px;
+  width: 100%;
+  display: none;
+}
+
+#loader-delete-buffer {
   position: absolute;
   right: 4px;
   text-align: center;

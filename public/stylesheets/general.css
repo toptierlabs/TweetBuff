@@ -90,10 +90,12 @@ a {
 /* line 52, app/stylesheets/general.scss */
 .button-sign-in {
     background: url("/images/sign-in.jpg") repeat scroll 0 0 transparent;
+    border: medium none;
     cursor: pointer;
     height: 29px;
+    margin-right: 170px;
+    margin-top: 10px;
     width: 174px;
-    border: none;
 }
 
 /* line 59, app/stylesheets/general.scss */
@@ -178,3 +180,16 @@ a.active_checkbox_time_setting {
     background: #AAAAAA;
     padding: 3px;
 }
+
+.simple_form .error {
+    clear: left;
+    margin-left: -95px;
+    font-size: 12px;
+    color: #D00;
+    display: block;
+}
+
+.password{
+    padding: 0px !important;
+}
+

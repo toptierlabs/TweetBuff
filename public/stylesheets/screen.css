@@ -943,11 +943,15 @@ form .input {
 }
 /* line 5, app/stylesheets/_simple_form.scss */
 form .input:hover {
-    background: #ecf4fc;
+/*    background: #ecf4fc;
+    margin-left: 6px;
+    width: 551px;*/
 }
 /* line 9, app/stylesheets/_simple_form.scss */
 form .input.required:hover {
-    background: #fee;
+/*    background: #fee;
+    margin-left: 6px;
+    width: 551px;*/
 }
 /* line 13, app/stylesheets/_simple_form.scss */
 form .input label {

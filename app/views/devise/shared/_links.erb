@@ -7,7 +7,7 @@
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  <%= link_to "Forgotten your password?", new_password_path(resource_name), :style=>"color: rgb(49, 133, 195); margin-left: 5px;"%><br />
+  <%= link_to "Forgotten your password?", new_password_path(resource_name), :style=>"color: rgb(49, 133, 195); position: absolute; margin-top: -30px; margin-left: -65px;"%><br />
 <% end -%>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>

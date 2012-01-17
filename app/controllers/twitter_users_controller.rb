@@ -88,14 +88,22 @@ class TwitterUsersController < ApplicationController
     
     if request.xhr?
       twitter_id = current_user.twitter_users.first.id
-      @result_buffers = BufferPreference.where(twitter_user_id: twitter_id)
-      @twitter_user = twitter_id
+      @ordered_buffers = BufferPreference.where(twitter_user_id: twitter_id)
+      @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
+      
       render :update do |page|
-        page << "$('#buffer_wrapper').append(#{render :partial => "list_buffer" })"
+        page.replace_html "buffer_wrapper", :partial => "list_buffer", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
+        
+        page << "$('#loader-delete-buffer').hide();"
+        page << "$('#post_notice').removeClass('error');"
+        page << "$('#post_notice').addClass('success');"
+        page << "$('#post_notice').show();"
+        page << "$('#post_notice').html('Your buffer has been deleted from queue.');"
+        page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
       end
     end
     
-    redirect_to :back
+#    redirect_to :back, :notice => "Buffer has been deleted from queue."
   end
   
   def edit_buffer
@@ -145,7 +153,7 @@ class TwitterUsersController < ApplicationController
       user_status.deleted_at = Time.now
       user_status.status = "success"
       user_status.save!
-      redirect_to :back
+      redirect_to :back, :notice => "Buffer has been posted to your facebook."
     elsif user.account_type.eql?("twitter")
       twitter_config(user)
       
@@ -169,7 +177,7 @@ class TwitterUsersController < ApplicationController
       user_status.id_status = post_to_twitter.id
       user_status.save!
       
-      redirect_to :back
+      redirect_to :back, :notice => "Buffer has been tweeted to your twitter."
     end
   end
   
@@ -410,9 +418,10 @@ class TwitterUsersController < ApplicationController
           
           time_period = datetimes.join(",")
           
-          TimeSetting.create(:timeframe_id => nil, :start_time => start_time, :user_id => current_user.id, 
+          TimeSetting.create(:timeframe_id => params[:timeframe_id], :start_time => start_time, :user_id => current_user.id, 
             :twitter_user_id => twitter_uid, :time_setting_type => params[:time_setting_type], :day_of_week => day_of_week, 
             :time_period => time_period)
+        
         elsif params[:time_setting_type].eql?("3")
           if params[:tfname][:hour][1].nil?
             custom_time = Time.new(year, month, day, params[:tfname][:hour].join(""), params[:tfname][:minute].join(""), nil, current_user.timezone)
@@ -477,6 +486,7 @@ class TwitterUsersController < ApplicationController
           custom_time_saved = sort_time_periode.join(",")
           tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, 
               :time_period => custom_time_saved, :post_per_day => params[:day_time], :timeframe_id => nil, :start_time => nil})
+          
         elsif params[:time_setting_type].eql?("2")
           pm = ((params[:start_at][:hour]).to_i + 12).to_s
           am = params[:start_at][:hour]
@@ -495,7 +505,9 @@ class TwitterUsersController < ApplicationController
           end
           
           ax = x.join(",")
-          tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week, :start_time => start_time, :post_per_day => nil, :timeframe_id => params[:timeframe_id], :custom_time => nil, :time_period => ax})
+          tweet_interval.update_attributes({:time_setting_type => params[:time_setting_type], :day_of_week => update_day_of_week,
+              :start_time => start_time, :post_per_day => nil, :timeframe_id => params[:timeframe_id], :custom_time => nil,
+              :time_period => ax})
           
         elsif params[:time_setting_type].eql?("3")
           if params[:tfname][:hour][1].nil?
@@ -527,7 +539,7 @@ class TwitterUsersController < ApplicationController
         end
       end
       
-      redirect_to :back, :notice => "Thank you, your settings has been updated."
+      redirect_to :back, :notice => "Congratulation, your settings has been updated."
     else
       tweet_interval = TweetInterval.find_by_twitter_user_id(twitter_uid)
       

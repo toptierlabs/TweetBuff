@@ -54,11 +54,15 @@ Tweetbuffer::Application.routes.draw do
     get '/admin/logout', :to => 'active_admin/devise/sessions#destroy'
   end
 
-#  devise_for :users
+  #  devise_for :users
   devise_for :users, :controllers => {:registrations => "devise/registration", :sessions => "devise/session"}
  
   root :to => 'Home#index'  
 
+  match "settings/account" => "dashboard#account", :as => :account_settings, :via => :get
+  
+  #  account_settings GET    /dashboard/settings/account(.:format){:controller=>"dashboard", :action=>"account"}
+  
   scope "dashboard" do
     controller :dashboard do
       get   "" => :show, :as => :dashboard
@@ -66,6 +70,7 @@ Tweetbuffer::Application.routes.draw do
       post  "settings/account/update" => :update, :as => :account_settings
       get   "settings/twitter" => :twitter, :as => :twitter_settings
     end
+    #    get "/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
   end
   
   scope "facebook" do
@@ -89,6 +94,7 @@ Tweetbuffer::Application.routes.draw do
     
     get "/" => "TwitterUsers#index", :as => :twitter_users
     get "/twitt_account/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
+    #    get "/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
     
     get "/performance/:twitter_name" => "TwitterUsers#performance", :as => :twitter_user_performance
     get "/analytic/:twitter_name" => "TwitterUsers#analytic", :as => :twitter_user_analytic

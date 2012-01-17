@@ -65,6 +65,10 @@
                 = image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
               = link_to account.login, twitter_user_path(account.login)
+              //- if account.account_type.eql?("twitter")
+              //= link_to account.login, twitter_user_path(account.login)
+              //- else
+              //= link_to account.login, facebook_user_path(account.login)
             %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
               - if user_signed_in?
                 = "#{@count_each_buffer_account}"
@@ -113,6 +117,10 @@
         =image_tag("ajaxLoader.gif")
         %br
         Add tweet to buffer
+      #loader-delete-buffer
+        =image_tag("ajaxLoader.gif")
+        %br
+        Delete tweet from buffer
       #loader-edit-buffer
         =image_tag("ajaxLoader.gif")
         %br
@@ -152,8 +160,9 @@
                 = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
               #edit_buffer{:onclick => "$('#loader-edit-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
                 = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
-              #delete_buffer{:onclick => ""}
-                = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id)
+              #delete_buffer{:onclick => "$('#loader-delete-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
+                = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :remote => true
+
     #ads
       = image_tag("/images/advertise.jpg")
 

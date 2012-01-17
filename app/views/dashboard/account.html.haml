@@ -3,18 +3,19 @@
     %span{:id => "detail_head"}
       Change your password
     -form_for(@user, :as => @user, :url => user_password_path, :html => { :method => :put }) do |f|
+      = f.hidden_field :reset_password_token
       .field_content
         =f.label :current_password
         %br
-        =f.password_field :current_password, :class => "account_input"
+        =f.password_field :current_password, :class => "account_input", :required => true
       .field_content
         =f.label :password, "New password"
         %br
-        =f.password_field :password, :class => "account_input"
+        =f.password_field :password, :class => "account_input", :required => true
       .field_content
         =f.label :password_confirmation, "Confirm new password"
         %br
-        =f.password_field :password_confirmation, :class => "account_input"
+        =f.password_field :password_confirmation, :class => "account_input", :required => true
       .field_content
         =f.submit "Change my password", :id => "submit_button"
 
