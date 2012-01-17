@@ -32,9 +32,9 @@
 = form_tag save_settings_path do
   - 1.upto(7) do |i|
     = check_box_tag "days[]", "#{i}", is_day_of_week_checked?(@twitter_user, "#{i}"), :class => "checkbox_time_setting", :id => "check#{i}"
-
+  
   - %w{mon tue wed thu fri sat sun}.each_with_index do |day, i|
-    = link_to "#{day}", "#", :onclick => "checkedBox(#{i});", :id => "link#{i}", :class => "#{is_day_of_week_checked?(@twitter_user, "#{i}") ? "active_checkbox_time_setting" : "" }"
+    = link_to "#{day}", "#", :onclick => "checkedBox(#{i+1});", :id => "link#{i+1}", :class => "#{is_day_of_week_checked?(@twitter_user, "#{i+1}") ? "active_checkbox_time_setting" : "" }"
   %br
   %br
   = select_tag :time_setting_type, options_for_select([["Tweet Smart", '1'], ["Choose your tweeting time", '2'], ["Customize your tweeting time", '3']]), {:include_blank => "–Select Time Setting Type–", :onchange => "selectFileType(this.value); $('#file_type_'+this.value).val(this.value);"}
