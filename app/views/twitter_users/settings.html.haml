@@ -46,7 +46,6 @@
       = render :partial => "form_bitly"
 
     #display.display_bitly{:style => "display:none;"}
-      //= render :partial => "display_bitly"
 
     - if @bitly.nil?
       .form_bitly
@@ -55,13 +54,17 @@
       .display_bitly
         = render :partial => "display_bitly"
         
-
   #separator{:style => "margin-bottom: 30px !important;"}
 
   .timeframe
     #timeframe_box
       %div{:id => "choose_tweet"}
         = "Choose when #{@twitter_user.login} Tweets :"
+      %br
+      #notice_selected_day{:style => "background: none repeat scroll 0 0 #AAAAAA; padding: 5px; color: purple;"}
+        = "Selected"
+      #notice_not_selected_day{:style => "background: none repeat scroll 0 0 #FFFFFF;border: 1px solid black; padding: 5px; color: purple;"}
+        = "Not Selected"
       %br
       #default_timeframe_form_container
         =render :partial => "default_interval", :locals => {:twitter_user => @twitter_user}
@@ -88,9 +91,10 @@
       %div{:style => "font-weight: bold; color: #a9a9a9;"}
         %img{:src => "/images/birds_64/5.png", :height => "24", :width => "24"}
         someone@host.com
-      =form_tag "/invite_team_member" do
-        =text_field :member, :email, :style => "width: 160px;", :require => true
-        =submit_tag "invite"
+
+      = form_tag "/invite_team_member" do
+        = text_field :member, :email, :required => true, :style => "width: 160px;"
+        = submit_tag "invite"
     #manage_suggestions
       %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
         Manage Suggestions
