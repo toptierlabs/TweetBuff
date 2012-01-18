@@ -11,10 +11,8 @@ Tweetbuffer::Application.routes.draw do
   match 'twitter_users/edit_buffer/:id' => 'twitter_users#edit_buffer', :as => :edit_buffer, :via => :get
   match "twitter_users/:id/update_buffer" => "twitter_users#update_buffer", :as => :update_buffer
   match "twitter_users/add_an_account" => "twitter_users#add_an_account", :as => :add_an_account
-  #  get "/update_buffer/:id" => "TwitterUsers#update_buffer", :as => :update_buffer
   match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
 
-  #  post "/save_time_setting" => "twitter_users#save_time_setting", :as => :save_time_setting
   post "/save_settings" => "twitter_users#save_settings", :as => :save_settings
 
   resources :timezones
@@ -54,7 +52,6 @@ Tweetbuffer::Application.routes.draw do
     get '/admin/logout', :to => 'active_admin/devise/sessions#destroy'
   end
 
-  #  devise_for :users
   devise_for :users, :controllers => {:registrations => "devise/registration", :sessions => "devise/session"}
  
   root :to => 'Home#index'  
@@ -62,16 +59,14 @@ Tweetbuffer::Application.routes.draw do
   get "/settings/account" => "dashboard#account", :as => :account_settings
   post "/settings/account/update" => "dashboard#update", :as => :account_settings
   
-  #  account_settings GET    /dashboard/settings/account(.:format){:controller=>"dashboard", :action=>"account"}
-  
   scope "dashboard" do
+    get "/my_facebook/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
+    get "/my_twitter/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
+    
     controller :dashboard do
       get   "" => :show, :as => :dashboard
-      #      get   "settings/account" => :account, :as => :account_settings
-      #      post  "settings/account/update" => :update, :as => :account_settings
       get   "settings/twitter" => :twitter, :as => :twitter_settings
     end
-    #    get "/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
   end
   
   scope "facebook" do
@@ -81,17 +76,13 @@ Tweetbuffer::Application.routes.draw do
     end
     get "/settings" => "TwitterUsers#settings", :as => :facebook_settings
   end
-  
-  get "/my_facebook/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
-  get "my_twitter/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
-  
+   
   match "twitter/bitly_apis/delete/:id" => "bitly_apis#delete_bitly", :as => :delete_bitly, :via => :get
   
   scope "twitter" do
     resources :bitly_apis do
       collection do
         post "save_detail" => :create_or_update
-        #        delete  "delete" => :delete
       end
     end
     
@@ -101,8 +92,6 @@ Tweetbuffer::Application.routes.draw do
     end
     
     get "/" => "TwitterUsers#index", :as => :twitter_users
-    #    get "/twitt_account/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
-    
     
     get "/performance/:twitter_name" => "TwitterUsers#performance", :as => :twitter_user_performance
     get "/analytic/:twitter_name" => "TwitterUsers#analytic", :as => :twitter_user_analytic
@@ -116,8 +105,6 @@ Tweetbuffer::Application.routes.draw do
     get "/settings/default_interval" => "TwitterUsers#default_interval", :as => :default_ti
     post "/settings/update_timezone" => "TwitterUsers#update_timezone", :as => :update_timezone
     post "/settings/update_notify" => "TwitterUsers#update_notify", :as => :update_notify
-    #    post "/save_settings" => "TwitterUsers#save_settings"
-    
 
     scope ":twitter_name" do
       controller :buffer_preferences do
