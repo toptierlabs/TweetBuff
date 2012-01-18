@@ -24,7 +24,13 @@ class ApplicationController < ActionController::Base
       # return dashboard_path
       twitter_user = current_user.twitter_users.first
       unless twitter_user.blank?
-        return twitter_user_path(current_user.twitter_users.first.login)
+#        return twitter_user_path(current_user.twitter_users.first.login)
+        
+        if twitter_user.account_type.eql?("twitter")
+          return twitter_user_path(current_user.twitter_users.first.login)
+        else
+          return facebook_user_path(current_user.twitter_users.first.login)
+        end
       else
         return add_account_path
       end

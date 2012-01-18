@@ -1,4 +1,6 @@
 #buffer_wrapper
+  - ordered_buffers = @ordered_buffers
+  - active_time = @active_time
   - ordered_buffers.each_with_index do |buffer, i|
     - if active_time != buffer.run_at.to_date or i == 0
       %div{:style => "background: #79C1F3; margin: 5px 0 5px 0; "}
@@ -12,8 +14,8 @@
         = "Queued for #{buffer.run_at.strftime('%I:%M %p')}" unless buffer.run_at.nil?
       %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
         #tweet_now{:onclick => ""}
-          = image_tag("/images/twitter.png")
+          = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
         #edit_buffer{:onclick => "$('#loader-edit-buffer').show();"}
           = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
-        #delete_buffer{:onclick => "$('#loader-delete-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
-          = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :remote => true
+        #delete_buffer{:onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow');"}
+          = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :confirm => "Are you sure want to delete this buffer?"

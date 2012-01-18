@@ -13,7 +13,9 @@
 #loader-category{:style => "display:none;"}
   =image_tag("ajaxLoader.gif")
   %br
-  Add suggestion to list suggestion
+  .text-loader
+    Add suggestion to list suggestion
+
 .wrapper
   #settings_user_detail
     #profile_image
@@ -39,18 +41,21 @@
   #bitly_detail
     %span{:style => "font-size:12px; font-weight:bold; color:#7AC2F4;"}
       Add your bit.ly details
-    =form_tag save_detail_bitly_apis_path, :style => "margin-top: 19px;" do
-      %div{:style => "display: inline-block;"}
-        Username
-        %br
-        =text_field :bitly_api, :bitly_name, :value => @bitly.nil?? "" : @bitly.bitly_name
-      %div{:style => "display: inline-block;"}
-        API Key
-        %br
-        =text_field :bitly_api, :api_key, :value => @bitly.nil?? "" : @bitly.api_key
-        =hidden_field :bitly_api, :user_id, :value => current_user.id
-      %div{:style => "display: inline-block;"}
-        =submit_tag "save"
+
+    .form_bitly{:style => "display:none;"}
+      = render :partial => "form_bitly"
+
+    #display.display_bitly{:style => "display:none;"}
+      //= render :partial => "display_bitly"
+
+    - if @bitly.nil?
+      .form_bitly
+        = render :partial => "form_bitly"
+    - else
+      .display_bitly
+        = render :partial => "display_bitly"
+        
+
   #separator{:style => "margin-bottom: 30px !important;"}
 
   .timeframe
@@ -84,7 +89,7 @@
         %img{:src => "/images/birds_64/5.png", :height => "24", :width => "24"}
         someone@host.com
       =form_tag "/invite_team_member" do
-        =text_field :member, :email, :style => "width: 160px;"
+        =text_field :member, :email, :style => "width: 160px;", :require => true
         =submit_tag "invite"
     #manage_suggestions
       %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}

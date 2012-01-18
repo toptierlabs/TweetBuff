@@ -50,6 +50,6 @@ class FacebookSessionsController < ApplicationController
     @user.access_token = user.access_token.to_s
     @user.save
     
-    redirect_to twitter_settings_path(:twitter_name => @user.login)
+    redirect_to facebook_settings_path(:twitter_name => @user.login)
   end
 end

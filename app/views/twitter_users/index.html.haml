@@ -13,7 +13,10 @@
 #general_dialog
 -unless @is_updated_interval.nil?
   #interval_not_updated.error
-    = "#{@is_updated_interval}. #{link_to("Setup here", twitter_settings_path(:twitter_name => @twitter_user.login)) unless @twitter_user.nil?}".html_safe
+    - if @twitter_user.account_type.eql?("twitter")
+      = "#{@is_updated_interval}. #{link_to("Setup here", twitter_settings_path(:twitter_name => @twitter_user.login)) unless @twitter_user.nil?}".html_safe
+    - else
+      = "#{@is_updated_interval}. #{link_to("Setup here", facebook_settings_path(:twitter_name => @twitter_user.login)) unless @twitter_user.nil?}".html_safe
 
 -if @twitter_user.nil?
   You need to authorize us to use your Twitter account.
@@ -64,11 +67,11 @@
               - elsif account.account_type.eql?("twitter")
                 = image_tag("badge-twitter.png")
             %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
-              = link_to account.login, twitter_user_path(account.login)
-              //- if account.account_type.eql?("twitter")
               //= link_to account.login, twitter_user_path(account.login)
-              //- else
-              //= link_to account.login, facebook_user_path(account.login)
+              - if account.account_type.eql?("twitter")
+                = link_to account.login, twitter_user_path(account.login)
+              - else
+                = link_to account.login, facebook_user_path(account.login)
             %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
               - if user_signed_in?
                 = "#{@count_each_buffer_account}"
@@ -129,9 +132,12 @@
         = f.text_area :name, :style => "width: 725px; height: 70px; background: -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(white)) no-repeat;background: -moz-linear-gradient(center top , #FAFAFA, #FFFFFF) repeat scroll 0 0 transparent; border-bottom: 11px solid rgb(36, 157, 236); -moz-border-radius: 11px 11px 11px 11px; -webkit-border-radius: 11px 11px 11px 11px;", :id => "tweet_text", :placeholder => "add tweet here ..."
         %span{:id => "counter", :style => "position: absolute; color: rgb(36, 157, 236); font-weight: bold; font-size: 17px; margin-left: 318px; margin-top: -119px; border-radius: 10px 10px 10px 10px; background-color: rgb(214, 237, 240); border: 2px solid rgb(36, 157, 236);"}
         #button_container
-          =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
+          =submit_tag "", :class => "add_to_queue", :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
           %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
-          %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
+          - if @twitter_user.account_type.eql?("twitter")
+            %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
+          - else
+            %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{facebook_settings_path(:twitter_name => @twitter_user.login)}'"}
           %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/suggestions?twitter_name=#{@twitter_user.login}'); return false;"} View Suggestions
     #separator
       // buffer list and ads
@@ -143,26 +149,8 @@
       #loader-tab{:style => "position: absolute; padding: 0px 42px; margin-left: 305px; margin-top: 60px;display:none;"}
         = image_tag("a-loader.gif")
       %br
-      #buffer_wrapper
-        - @ordered_buffers.each_with_index do |buffer, i|
-          - if @active_time != buffer.run_at.to_date or i == 0
-            %div{:style => "background: #79C1F3; margin: 5px 0 5px 0; "}
-              %span{:style => "color: #fff; font-weight: bold;"}
-                = show_buffer_date_title(buffer)    
-                - active_time = buffer.run_at.to_date
-          #buffer_name_container{:id => buffer.id, :style => "text-align: left;", :class => cycle("even","odd"), :onmouseover => "$('#actions_#{buffer.id}').css('visibility','visible');", :onmouseout => "$('#actions_#{buffer.id}').css('visibility','hidden')"}
-            = buffer.name
-            %br
-            %span{:style => "color: #7BC2EE; font-style: italic; font-size: 13px;"}
-              = "Queued for #{buffer.run_at.strftime('%I:%M %p')}" unless buffer.run_at.nil?
-            %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
-              #tweet_now{:onclick => ""}
-                = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
-              #edit_buffer{:onclick => "$('#loader-edit-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
-                = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
-              #delete_buffer{:onclick => "$('#loader-delete-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
-                = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :remote => true
-
+      = render :partial => "queue", :locals => {:ordered_buffers => @ordered_buffers, :ordered_buffers => @ordered_buffers}
+      
     #ads
       = image_tag("/images/advertise.jpg")
 

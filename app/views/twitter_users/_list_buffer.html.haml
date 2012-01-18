@@ -15,4 +15,4 @@
       #edit_buffer{:onclick => "$('#loader-edit-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
         = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
       #delete_buffer{:onclick => "$('#loader-delete-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
-        = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :remote => true
+        = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :confirm => "Are you sure want to delete this buffer?"

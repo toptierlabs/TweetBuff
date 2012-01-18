@@ -87,7 +87,11 @@ class BufferPreferencesController < ApplicationController
 
   def get_twitter_user
     @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-    redirect_to(twitter_settings_path) and return if @twitter_user.blank?
+    if @twitter_user.account_type.eql?("twitter")
+      redirect_to(twitter_settings_path) and return if @twitter_user.blank?
+    else
+      redirect_to(facebook_settings_path) and return if @twitter_user.blank?
+    end
   end
 
   def update_run_at

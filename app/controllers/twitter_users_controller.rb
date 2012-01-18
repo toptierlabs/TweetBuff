@@ -36,13 +36,14 @@ class TwitterUsersController < ApplicationController
       end    
     elsif twitter_user.account_type.eql?("twitter")
       twitter_config(twitter_user)
-      
+
       client = Twitter::Client.new
       @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
       unless @buffers.count.zero?
         @buffers.each do |buffer|
           id_status = buffer.id_status.to_s
           feed = client.status(id_status)
+          
           unless feed.nil?
             @retweet_count = feed.retweet_count
           end
@@ -83,9 +84,10 @@ class TwitterUsersController < ApplicationController
   end
   
   def delete_buffer
-    @buffers = BufferPreference.find(params[:id])
-    @buffers.destroy
-    
+    buffer_to_delete = BufferPreference.find(params[:id])
+    buffer_to_delete.destroy
+    redirect_to :back, :notice => "Your buffer has been deleted from queue."
+      
     if request.xhr?
       twitter_id = current_user.twitter_users.first.id
       @ordered_buffers = BufferPreference.where(twitter_user_id: twitter_id)
@@ -93,7 +95,7 @@ class TwitterUsersController < ApplicationController
       
       render :update do |page|
         page.replace_html "buffer_wrapper", :partial => "list_buffer", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
-        
+
         page << "$('#loader-delete-buffer').hide();"
         page << "$('#post_notice').removeClass('error');"
         page << "$('#post_notice').addClass('success');"
@@ -102,8 +104,6 @@ class TwitterUsersController < ApplicationController
         page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
       end
     end
-    
-#    redirect_to :back, :notice => "Buffer has been deleted from queue."
   end
   
   def edit_buffer
@@ -167,12 +167,17 @@ class TwitterUsersController < ApplicationController
       unless url.nil?
         bitly_api = current_user.bitly_api
         unless bitly_api.nil?
-          bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
-          bitly_url = bitly.shorten(url.to_s).short_url
-          status = status.gsub(url.to_s, bitly_url)
+          user = bitly_api.bitly_name
+          apikey = bitly_api.api_key
+          version = "3"
+          bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
+                
+          buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
+          result = JSON.parse(buffer)
+          short_url = result['results'][url.to_s]['shortUrl']
+          status = status.gsub(url.to_s, short_url)
         end
       end
-      
       post_to_twitter = client.update(status)
       user_status.id_status = post_to_twitter.id
       user_status.save!
@@ -216,13 +221,19 @@ class TwitterUsersController < ApplicationController
             client = Twitter::Client.new
             status = params[:tweet]
             url = status.match(/https?:\/\/[\S]+/)
-            
+
             unless url.nil?
               bitly_api = current_user.bitly_api
               unless bitly_api.nil?
-                bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
-                bitly_url = bitly.shorten(url.to_s).short_url
-                status = status.gsub(url.to_s,bitly_url)
+                user = bitly_api.bitly_name
+                apikey = bitly_api.api_key
+                version = "3"
+                bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
+                
+                buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
+                result = JSON.parse(buffer)
+                short_url = result['results'][url.to_s]['shortUrl']
+                status = status.gsub(url.to_s, short_url)
               end
             end
             
@@ -265,9 +276,15 @@ class TwitterUsersController < ApplicationController
         unless url.nil?
           bitly_api = current_user.bitly_api
           unless bitly_api.nil?
-            bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
-            bitly_url = bitly.shorten(url.to_s).short_url
-            status = status.gsub(url.to_s,bitly_url)
+            user = bitly_api.bitly_name
+            apikey = bitly_api.api_key
+            version = "3"
+            bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
+                
+            buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
+            result = JSON.parse(buffer)
+            short_url = result['results'][url.to_s]['shortUrl']
+            status = status.gsub(url.to_s, short_url)
           end
         end
         
@@ -304,7 +321,7 @@ class TwitterUsersController < ApplicationController
 
   def settings
     @is_updated_interval = is_interval_updated?
-    @bitly = BitlyApi.find(current_user.id) rescue nil
+    @bitly = BitlyApi.find_by_user_id(current_user.id)
     
     user = User.find(current_user.id)
     @myplan = user.subcriptions.last.plan
@@ -341,7 +358,7 @@ class TwitterUsersController < ApplicationController
   def add_an_account
   end
   
-  def invite_team_member 
+  def invite_team_member
     @team_member = params[:member][:email]
     @referer = current_user.email
     Notifier.invite_team_member(@team_member, @referer, current_user).deliver

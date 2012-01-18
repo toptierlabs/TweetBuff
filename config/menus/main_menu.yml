@@ -8,8 +8,8 @@ main:
     select: ^\/twitter.*$
     auth: in
   account_settings:
-    path: /dashboard/settings/account
-    select: ^\/dashboard/settings/account.*$
+    path: /settings/account
+    select: ^\/settings/account.*$
     auth: in
 #  twitter_settings:
 #    path: /dashboard/settings/twitter

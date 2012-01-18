@@ -19,21 +19,21 @@ class Api::TwitterUsersController < ApplicationController
         user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
         unless user.blank?
           twitter_config(user)
-#          Twitter.configure do |config|
-#            config.consumer_key       = TWITTER_API[:key]
-#            config.consumer_secret    = TWITTER_API[:secret]
-#            config.oauth_token        = user.access_token
-#            config.oauth_token_secret = user.access_secret
-#          end
           client = Twitter::Client.new
           status = CGI.unescape(params[:tweet_message])
           url = status.match(/https?:\/\/[\S]+/)
           unless url.nil?
             bitly_api = current_user.bitly_api
             unless bitly_api.nil?
-              bitly = Bitly.new(bitly_api.bitly_name, bitly_api.api_key)
-              bitly_url = bitly.shorten(url.to_s).short_url
-              status = status.gsub(url.to_s,bitly_url)
+              user = bitly_api.bitly_name
+              apikey = bitly_api.api_key
+              version = "3"
+              bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
+                
+              buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
+              result = JSON.parse(buffer)
+              short_url = result['results'][url.to_s]['shortUrl']
+              status = status.gsub(url.to_s, short_url)
             end
           end
           begin

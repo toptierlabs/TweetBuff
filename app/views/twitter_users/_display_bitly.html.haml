@@ -1,0 +1,15 @@
+%div{:style => "display: inline-block;"}
+  %table
+    %tr
+      %th{:style=> "text-align: center; width: 150px;"} Username
+      %th{:style=> "text-align: center; width: 270px;"} API Key
+      %th
+      %th
+      %th
+    %tr
+      %td{:style=> "text-align: center;"}= @bitly.bitly_name
+      %td{:style=> "text-align: center;"}= @bitly.api_key
+      %td{:style=> "width: 40px; text-align: center; font-size: 13px;"}
+        = link_to 'Edit', '#', :onclick => "$('.form_bitly').show(); $('.display_bitly').hide();"
+      %td{:style=> "width: 40px; text-align: center; font-size: 13px;"}
+        = link_to 'Delete', delete_bitly_path(@bitly.user_id), confirm: "Are you sure want to delete your bitly?"

@@ -59,15 +59,16 @@ Tweetbuffer::Application.routes.draw do
  
   root :to => 'Home#index'  
 
-  match "settings/account" => "dashboard#account", :as => :account_settings, :via => :get
+  get "/settings/account" => "dashboard#account", :as => :account_settings
+  post "/settings/account/update" => "dashboard#update", :as => :account_settings
   
   #  account_settings GET    /dashboard/settings/account(.:format){:controller=>"dashboard", :action=>"account"}
   
   scope "dashboard" do
     controller :dashboard do
       get   "" => :show, :as => :dashboard
-      get   "settings/account" => :account, :as => :account_settings
-      post  "settings/account/update" => :update, :as => :account_settings
+      #      get   "settings/account" => :account, :as => :account_settings
+      #      post  "settings/account/update" => :update, :as => :account_settings
       get   "settings/twitter" => :twitter, :as => :twitter_settings
     end
     #    get "/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
@@ -78,12 +79,19 @@ Tweetbuffer::Application.routes.draw do
       get   "authorize" => :new, :as => :facebook_authorize_account
       get   "callback" => :oauth_callback, :as => :facebook_callback
     end
+    get "/settings" => "TwitterUsers#settings", :as => :facebook_settings
   end
+  
+  get "/my_facebook/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
+  get "my_twitter/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
+  
+  match "twitter/bitly_apis/delete/:id" => "bitly_apis#delete_bitly", :as => :delete_bitly, :via => :get
   
   scope "twitter" do
     resources :bitly_apis do
       collection do
         post "save_detail" => :create_or_update
+        #        delete  "delete" => :delete
       end
     end
     
@@ -93,8 +101,8 @@ Tweetbuffer::Application.routes.draw do
     end
     
     get "/" => "TwitterUsers#index", :as => :twitter_users
-    get "/twitt_account/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
-    #    get "/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
+    #    get "/twitt_account/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
+    
     
     get "/performance/:twitter_name" => "TwitterUsers#performance", :as => :twitter_user_performance
     get "/analytic/:twitter_name" => "TwitterUsers#analytic", :as => :twitter_user_analytic
