@@ -60,8 +60,8 @@ Tweetbuffer::Application.routes.draw do
   post "/settings/account/update" => "dashboard#update", :as => :account_settings
   
   scope "dashboard" do
-    get "/my_facebook/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
-    get "/my_twitter/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
+    get "/facebook/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
+    get "/twitter/:twitter_name" => "TwitterUsers#index", :as => :twitter_user
     
     controller :dashboard do
       get   "" => :show, :as => :dashboard
