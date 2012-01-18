@@ -71,8 +71,6 @@ class TwitterUsersController < ApplicationController
   def analytic
     user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
     facebook_config(user)
-    #    me = FbGraph::User.me(user.access_token)
-    
     if request.xhr?
       render :update do |page|
         page.replace_html "buffer_wrapper", :partial => "analytic", :locals => {:twitter_user => @twitter_user}
@@ -145,8 +143,7 @@ class TwitterUsersController < ApplicationController
 
     if user.account_type.eql?("facebook")
       facebook_config(user)
-      #      me = FbGraph::User.me(user.access_token)
-
+      
       user_status = BufferPreference.find(params[:id])
       feed = @me.feed!(:message => user_status.name)
       user_status.id_status = feed.identifier.split("_")[1]
@@ -361,9 +358,15 @@ class TwitterUsersController < ApplicationController
   def invite_team_member
     @team_member = params[:member][:email]
     @referer = current_user.email
-    Notifier.invite_team_member(@team_member, @referer, current_user).deliver
+    email_regex = /^.*@.*(.com|.org|.net)$/
     
-    redirect_to :back
+    if params[:member][:email] === email_regex
+      redirect_to :back
+      flash[:error] = "Please enter a valid email address."
+    else
+      Notifier.invite_team_member(@team_member, @referer, current_user).deliver
+      redirect_to :back, :notice => "Your invitation has been send to team member."
+    end
   end
 
   def other_time_interval

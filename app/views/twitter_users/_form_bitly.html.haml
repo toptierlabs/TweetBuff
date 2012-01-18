@@ -1,12 +1,12 @@
-=form_tag save_detail_bitly_apis_path, :remote => true, :style => "margin-top: 19px;" do
+= form_tag save_detail_bitly_apis_path, :remote => true, :style => "margin-top: 19px;" do
   %div{:style => "display: inline-block;"}
     Username
     %br
-    =text_field :bitly_api, :bitly_name, :value => @bitly.nil?? "" : @bitly.bitly_name
+    = text_field :bitly_api, :bitly_name, :value => @bitly.nil?? "" : @bitly.bitly_name, :required => true
   %div{:style => "display: inline-block;"}
     API Key
     %br
-    =text_field :bitly_api, :api_key, :value => @bitly.nil?? "" : @bitly.api_key
-    =hidden_field :bitly_api, :user_id, :value => current_user.id
+    = text_field :bitly_api, :api_key, :value => @bitly.nil?? "" : @bitly.api_key, :required => true
+    = hidden_field :bitly_api, :user_id, :value => current_user.id
   %div{:onclick => "$('#loader-category').show(); $('.text-loader').html('Adding your bitly details.');", :style => "display: inline-block;"}
     =submit_tag "save"
