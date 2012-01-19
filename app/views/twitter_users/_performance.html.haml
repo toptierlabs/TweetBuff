@@ -17,7 +17,7 @@
             - unless @comment_feed.nil?
               = "--#{@comment_feed} people commented in this post."
           - elsif buffer.twitter_user.account_type.eql?("twitter")
-            = "#{@retweet_count} people retweeted this tweet."
+            = "#{buffer.retweeted_count(@twitter_user)} people retweeted this tweet."
       %span{:id => "actions_#{buffer.id}", :style => "float: right; margin-top: -15px;"}
         #tweet_now{:onclick => ""}
           = image_tag("/images/users-reached.png")

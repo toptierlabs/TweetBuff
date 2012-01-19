@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
       # return dashboard_path
       twitter_user = current_user.twitter_users.first
       unless twitter_user.blank?
-#        return twitter_user_path(current_user.twitter_users.first.login)
+        #        return twitter_user_path(current_user.twitter_users.first.login)
         
         if twitter_user.account_type.eql?("twitter")
           return twitter_user_path(current_user.twitter_users.first.login)
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
   
   def error_when_sign_up(resource)
-    if resource.email.blank?
+    unless resource.errors.nil?
       flash[:error] = t("devise.registrations.email_blank")
     end
   end

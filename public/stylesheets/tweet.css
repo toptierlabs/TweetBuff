@@ -30,6 +30,30 @@
     width: 187px;
 }
 
+.user_detail {
+    border: 2px solid #276EA2;
+    border-radius: 10px 10px 10px 10px;
+    display: inline-block;
+    height: 50px;
+    margin-bottom: 5px;
+    min-width: 180px;
+}
+
+.user_detail .avatar_image {
+    border-radius: 3px 3px 3px 3px;
+    float: left;
+    height: 32px;
+    margin-right: 10px;
+    margin-top: 9px;
+    width: 32px;
+}
+
+.user_detail h2 {
+    margin-right: 35px; 
+    margin-top: 14px; 
+    font-weight: bold;
+}
+
 /* line 28, app/stylesheets/tweet.scss */
 .user_detail .badge {
     margin-top: 30px;
@@ -215,6 +239,15 @@
     display: none;
 }
 
+#loader-update-buffer {
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: -63px;
+    width: 100%;
+    display: none;
+}
+
 #loader-delete-buffer {
     position: absolute;
     right: 4px;
@@ -332,7 +365,7 @@
 #manage_suggestions {
     display: inline-block;
     margin-left: 315px;
-    margin-top: -85px;
+    margin-top: -129px;
     vertical-align: top;
     width: 300px;
 }
@@ -530,4 +563,42 @@
 #suggestions_box_dialog {
     padding: 10px;
     border-bottom: 1px solid #DDDDDD;
+}
+
+#tweet_text {
+    background: -moz-linear-gradient(center top , #FAFAFA, #FFFFFF) repeat scroll 0 0 transparent;
+    border-bottom: 11px solid #249DEC;
+    border-radius: 11px 11px 11px 11px;
+    height: 70px;
+    width: 725px;
+}
+
+.sign {
+    border: 1px solid;
+    -moz-border-radius: 7px 7px 7px 7px;
+    margin-left: 50px;
+    padding: 10px;
+    width: 130px;
+}
+
+#notice_selected_day {
+    background: none repeat scroll 0pt 0pt #AAAAAA; 
+    color: purple; 
+    padding-top: 24px; 
+    width: 25px;
+}
+
+#notice_not_selected_day {
+    background: none repeat scroll 0pt 0pt #FFFFFF; 
+    color: purple; 
+    padding-top: 24px; 
+    width: 25px; 
+    border: 1px solid black;
+}
+
+.text_notice {
+    position: absolute; 
+    margin-top: -20px; 
+    margin-left: 37px; 
+    color: purple;
 }

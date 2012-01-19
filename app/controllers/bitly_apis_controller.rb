@@ -8,6 +8,7 @@ class BitlyApisController < InheritedResources::Base
         page << "$('#loader-category').hide();"
         page << "$('.display_bitly').show();"
         page << "$('.form_bitly').hide();"
+        page.replace_html "display", :partial => "twitter_users/display_bitly", :locals => {:bitly => @bitly}
         page << "$('#post_notice').removeClass('error');"
         page << "$('#post_notice').addClass('success');"
         page << "$('#post_notice').show();"
@@ -21,6 +22,7 @@ class BitlyApisController < InheritedResources::Base
           page << "$('.display_bitly').show();"
           
           page.replace_html "display", :partial => "twitter_users/display_bitly", :locals => {:bitly => @bitly}
+          page.replace_html "form", :partial => "twitter_users/form_bitly", :locals => {:bitly => @bitly}
           
           page << "$('#post_notice').removeClass('error');"
           page << "$('#post_notice').addClass('success');"

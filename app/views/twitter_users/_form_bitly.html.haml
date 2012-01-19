@@ -9,4 +9,7 @@
     = text_field :bitly_api, :api_key, :value => @bitly.nil?? "" : @bitly.api_key, :required => true
     = hidden_field :bitly_api, :user_id, :value => current_user.id
   %div{:onclick => "$('#loader-category').show(); $('.text-loader').html('Adding your bitly details.');", :style => "display: inline-block;"}
-    =submit_tag "save"
+    = submit_tag "save"
+  - unless @bitly.nil?
+    %div{:style => "position: absolute; margin-left: 600px; font-weight: bold; margin-top: -23px;", :onclick => "$('.form_bitly').hide(); $('.display_bitly').show();"}
+      = link_to_function "x"

@@ -15,5 +15,6 @@
       <%= f.button :submit, "", :class => "button-sign-in" %>
     </div>
   <% end %>
-  <%= render :partial => "devise/shared/links" %>
+  <%#= render :partial => "devise/shared/links" %>
+  <%= link_to "Forgotten your password?", new_password_path(resource_name), :style=>"color: #3185C3; position: absolute; margin-left: -65px; margin-top: 15px;"%><br />
 </div>

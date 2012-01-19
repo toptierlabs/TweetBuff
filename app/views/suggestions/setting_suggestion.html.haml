@@ -27,7 +27,7 @@
     = form_for @suggestion, :url => "/twitter/#{current_user.twitter_users.find_by_permalink(params[:twitter_name]).login}/suggestions", :remote => true do |f|
       = f.hidden_field :user_id, :value => current_user.id
       = f.hidden_field :twitter_user_id, :value => current_user.twitter_users.find_by_permalink(params[:twitter_name]).id
-      = f.text_field :text, :placeholder => "Your Suggestion"
+      = f.text_field :text, :placeholder => "Your Suggestion", :size=> "18"
       %br
       = select_tag "category", options_for_select(@categories), :onchange => "selectRoleType(this.value);"
       #high0{:style => "display:none;"}

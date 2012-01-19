@@ -2,7 +2,7 @@
   .account-detail
     %span{:id => "detail_head"}
       Change your password
-    -form_for(@user, :as => @user, :url => user_password_path, :html => { :method => :put }) do |f|
+    - form_for(@user, :as => @user, :url => user_password_path, :html => { :method => :put }, :remote => true) do |f|
       = f.hidden_field :reset_password_token
       .field_content
         =f.label :current_password

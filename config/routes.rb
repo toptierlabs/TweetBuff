@@ -52,7 +52,7 @@ Tweetbuffer::Application.routes.draw do
     get '/admin/logout', :to => 'active_admin/devise/sessions#destroy'
   end
 
-  devise_for :users, :controllers => {:registrations => "devise/registration", :sessions => "devise/session"}
+  devise_for :users, :controllers => {:registrations => "devise/registration", :sessions => "devise/session", :passwords => "devise/password"}
  
   root :to => 'Home#index'  
 
@@ -69,12 +69,15 @@ Tweetbuffer::Application.routes.draw do
     end
   end
   
+  get "/settings/twitter/:twitter_name" => "TwitterUsers#settings", :as => :twitter_settings
+  get "/settings/facebook/:twitter_name" => "TwitterUsers#settings", :as => :facebook_settings
+  
   scope "facebook" do
     controller :facebook_sessions do
       get   "authorize" => :new, :as => :facebook_authorize_account
       get   "callback" => :oauth_callback, :as => :facebook_callback
     end
-    get "/settings" => "TwitterUsers#settings", :as => :facebook_settings
+#    get "/settings" => "TwitterUsers#settings", :as => :facebook_settings
   end
    
   match "twitter/bitly_apis/delete/:id" => "bitly_apis#delete_bitly", :as => :delete_bitly, :via => :get
@@ -100,7 +103,9 @@ Tweetbuffer::Application.routes.draw do
     get "/tweet_from_buffer/:id" => "TwitterUsers#tweet_from_buffer", :as => :tweet_from_buffer
     
     get "/twitter_account_list" => "TwitterUsers#twitter_account_list"
-    get "/settings" => "TwitterUsers#settings", :as => :twitter_settings
+    
+#    get "/settings" => "TwitterUsers#settings", :as => :twitter_settings
+    
     get "/settings/other_time_interval" => "TwitterUsers#other_time_interval", :as => :other_ti
     get "/settings/default_interval" => "TwitterUsers#default_interval", :as => :default_ti
     post "/settings/update_timezone" => "TwitterUsers#update_timezone", :as => :update_timezone

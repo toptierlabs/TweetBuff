@@ -50,6 +50,22 @@ class BufferPreference < ActiveRecord::Base
   #
   # BEGIN tweet_mode overrides
   # so we can use human-readable names for modes
+  
+  def retweeted_count(twitter_user)
+    Twitter.configure do |config|
+      config.consumer_key       = TWITTER_API[:key]
+      config.consumer_secret    = TWITTER_API[:secret]
+      config.oauth_token        = twitter_user.access_token
+      config.oauth_token_secret = twitter_user.access_secret
+    end
+
+    client = Twitter::Client.new
+    id_status = self.id_status.to_s
+    feed = client.status(id_status)
+    unless feed.nil?
+      feed.retweet_count
+    end
+  end
     
   def tweet_mode
     mode = read_attribute(:tweet_mode)
@@ -72,7 +88,7 @@ class BufferPreference < ActiveRecord::Base
     buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now])
     
     buffers.each do |buffer|
-#      tweeted = buffer.twitter_user.buffer_preferences.count(["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day])
+      #      tweeted = buffer.twitter_user.buffer_preferences.count(["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day])
       tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day]).count
       
       twitter_user = buffer.twitter_user

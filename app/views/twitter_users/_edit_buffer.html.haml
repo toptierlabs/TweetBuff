@@ -3,15 +3,16 @@
     =image_tag("ajaxLoader.gif")
     %br
     Posting your tweet
-  #loader-buffer
+  #loader-update-buffer
     =image_tag("ajaxLoader.gif")
     %br
-    Add tweet to buffer
+    Updating tweet to buffer
   = form_for @buffer, :remote => true, :url => update_buffer_path(@buffer.id) do |f|
     = f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
     #button_container
-      =submit_tag "Update Buffer", :class => "update_buffer", :onclick => "$('#loader-buffer').show();"
-      %input{:type => "button",:class => "post_now", :onclick => ""}
-      %input{:type => "button",:class => "queue_settings", :onclick => ""}
-      %div{:id => "box-tweet-suggest", :onclick => ""}
-        = link_to "Tweet Now", tweet_to_twitter_path, :style => "color: white;"
+      = submit_tag "Update Buffer", :class => "update_buffer", :onclick => "$('#loader-update-buffer').show();"
+      %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
+      - if @twitter_user.account_type.eql?("twitter")
+        %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(@twitter_user.login)}'"}
+      - else
+        %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{facebook_settings_path(@twitter_user.login)}'"}

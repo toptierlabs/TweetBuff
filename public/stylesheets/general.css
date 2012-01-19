@@ -13,7 +13,7 @@
 
 #notification_error {
     background: none repeat scroll 0 0 #F6CBCA;
-    border-bottom: 1px solid #D8E9D3;
+    border-bottom: 1px solid #F6CBCA;
     font-size: 20px;
     left: 0;
     padding: 5px 0 5px 10px;
@@ -25,7 +25,7 @@
 
 #notification_alert {
     background: none repeat scroll 0 0 #F6CBCA;
-    border-bottom: 1px solid #D8E9D3;
+    border-bottom: 1px solid #F6CBCA;
     font-size: 20px;
     left: 0;
     padding: 5px 0 5px 10px;
@@ -121,6 +121,7 @@ a {
     cursor: pointer;
     height: 33px;
     width: 177px;
+    margin-top: 21px;
 }
 
 /* line 78, app/stylesheets/general.scss */

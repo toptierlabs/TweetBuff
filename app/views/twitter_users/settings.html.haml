@@ -42,17 +42,17 @@
     %span{:style => "font-size:12px; font-weight:bold; color:#7AC2F4;"}
       Add your bit.ly details
 
-    .form_bitly{:style => "display:none;"}
+    #form.form_bitly{:style => "display:none;"}
       = render :partial => "form_bitly"
 
-    #display.display_bitly{:style => "display:none;"}
+    #display.display_bitly{:style => ""}
 
-    - if @bitly.nil?
-      .form_bitly
-        = render :partial => "form_bitly"
-    - else
-      .display_bitly
-        = render :partial => "display_bitly"
+      - if @bitly.nil?
+        .form_bitly
+          = render :partial => "form_bitly"
+      - else
+        .display_bitly
+          = render :partial => "display_bitly"
         
   #separator{:style => "margin-bottom: 30px !important;"}
 
@@ -61,10 +61,15 @@
       %div{:id => "choose_tweet"}
         = "Choose when #{@twitter_user.login} Tweets :"
       %br
-      #notice_selected_day{:style => "background: none repeat scroll 0 0 #AAAAAA; padding: 5px; color: purple;"}
-        = "Selected"
-      #notice_not_selected_day{:style => "background: none repeat scroll 0 0 #FFFFFF;border: 1px solid black; padding: 5px; color: purple;"}
-        = "Not Selected"
+      .sign
+        #notice_selected_day
+        .text_notice
+          = "Selected"
+        %br
+        #notice_not_selected_day
+        .text_notice
+          = "Not Selected"
+      
       %br
       #default_timeframe_form_container
         =render :partial => "default_interval", :locals => {:twitter_user => @twitter_user}
@@ -77,11 +82,30 @@
       - unless ti.nil?
         - tf = ti.timeframe
         - if ti.time_setting_type.eql?(1)
-          currently your tweet will post automaticly post #{ti.post_per_day} post per day and #{ti.time_period.split(",")[1]}
+          currently your tweet will post automatically #{ti.post_per_day} post per day in
+          - last = ti.time_period.split(",").last
+          - ti.time_period.split(",").each do |t|
+            - unless t.eql?(last) 
+              = t + ", "
+            - else
+              = t
         - elsif ti.time_setting_type.eql?(2)
-          currently your tweet will post automaticly post every #{ti.timeframe.value} #{ti.timeframe.unit} per day in #{ti.time_period.split(",")[0]}, #{ti.time_period.split(",")[1]}, #{ti.time_period.split(",")[2]}, #{ti.time_period.split(",")[3]}, #{ti.time_period.split(",")[4]}, #{ti.time_period.split(",")[5]}, #{ti.time_period.split(",")[6]}
+          currently your tweet will post automatically post every #{ti.timeframe.value} #{ti.timeframe.unit} per day in
+          - last = ti.time_period.split(",").last
+          - ti.time_period.split(",").each do |t|
+            - unless t.eql?(last) 
+              = t + ", "
+            - else
+              = t
         - elsif ti.time_setting_type.eql?(3)
-          currently your tweet will post automaticly in #{ti.time_period.split(",")[0]}, #{ti.time_period.split(",")[1]}, #{ti.time_period.split(",")[2]}, #{ti.time_period.split(",")[3]}, #{ti.time_period.split(",")[4]}, #{ti.time_period.split(",")[5]}, #{ti.time_period.split(",")[6]}
+          currently your tweet will post automatically in 
+          - last = ti.time_period.split(",").last
+          - ti.time_period.split(",").each do |t|
+            - unless t.eql?(last) 
+              = t + ", "
+            - else
+              = t
+
     #manage_team_box
       %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
         Manage team members

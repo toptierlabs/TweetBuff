@@ -65,7 +65,7 @@
         #loader-buffer
           =image_tag("ajaxLoader.gif")
           %br
-          Add tweet to buffer
+          Adding tweet to buffer
         =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
           =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
           #button_container

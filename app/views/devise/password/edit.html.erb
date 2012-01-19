@@ -3,9 +3,9 @@
   <div id="image-sign-in" style="float: left; margin-left: 29px; position: absolute; margin-top: 28px;">
     <%= image_tag("/images/birds_64/6.png") %>
   </div>
-  <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put}) do |f| %>
     <%= f.error_notification %>
-
+  
     <%= f.input :reset_password_token, :as => :hidden %>
     <%= f.full_error :reset_password_token %>
     <div class="inputs">

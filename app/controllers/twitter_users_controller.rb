@@ -19,9 +19,9 @@ class TwitterUsersController < ApplicationController
   
   def performance
     twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-    
+    @twitter_name = twitter_user
     if twitter_user.account_type.eql?("facebook")
-      facebook_config(twitter_user)
+      @me = FbGraph::User.me(twitter_user.access_token)
 
       @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
       unless @buffers.count.zero?
@@ -35,20 +35,7 @@ class TwitterUsersController < ApplicationController
         end
       end    
     elsif twitter_user.account_type.eql?("twitter")
-      twitter_config(twitter_user)
-
-      client = Twitter::Client.new
       @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
-      unless @buffers.count.zero?
-        @buffers.each do |buffer|
-          id_status = buffer.id_status.to_s
-          feed = client.status(id_status)
-          
-          unless feed.nil?
-            @retweet_count = feed.retweet_count
-          end
-        end
-      end
     end
         
     if twitter_user.account_type.eql?("facebook")
@@ -84,30 +71,13 @@ class TwitterUsersController < ApplicationController
   def delete_buffer
     buffer_to_delete = BufferPreference.find(params[:id])
     buffer_to_delete.destroy
-    redirect_to :back, :notice => "Your buffer has been deleted from queue."
-      
-    if request.xhr?
-      twitter_id = current_user.twitter_users.first.id
-      @ordered_buffers = BufferPreference.where(twitter_user_id: twitter_id)
-      @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
-      
-      render :update do |page|
-        page.replace_html "buffer_wrapper", :partial => "list_buffer", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
-
-        page << "$('#loader-delete-buffer').hide();"
-        page << "$('#post_notice').removeClass('error');"
-        page << "$('#post_notice').addClass('success');"
-        page << "$('#post_notice').show();"
-        page << "$('#post_notice').html('Your buffer has been deleted from queue.');"
-        page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
-      end
-    end
+    redirect_to :back, :notice => "Your buffer has successfully deleted from queue."
   end
   
   def edit_buffer
-    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
     @buffer = BufferPreference.find(params[:id])
-    
+    @twitter_user = @buffer.twitter_user
+        
     respond_to do |format|
       format.js {render :edit_buffer}
     end
@@ -125,14 +95,14 @@ class TwitterUsersController < ApplicationController
         ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
         active_time = ordered_buffers.first.run_at.to_date rescue Date.today
         
-        page.replace_html :buffer_wrapper, :partial => "buffer_preferences/new_buffer", :locals => {:ordered_buffers => ordered_buffers, :active_time => active_time}
-        page.replace_html :tweet_buffer, :partial => "buffer_preferences/new_form_buffer", :locals => {:twitter_user => @twitter_user}
-        page << "$('#loader-buffer').hide();"
+        page.replace_html 'buffer_wrapper', :partial => "buffer_preferences/new_buffer", :locals => {:ordered_buffers => ordered_buffers, :active_time => active_time}
+        page.replace_html 'tweet_buffer', :partial => "buffer_preferences/new_form_buffer", :locals => {:twitter_user => @twitter_user}
+        page << "$('#loader-update-buffer').hide();"
         page << "$('#tweet_text').val('')"
         page << "$('#post_notice').removeClass('error');"
         page << "$('#post_notice').addClass('success');"
         page << "$('#post_notice').show();"
-        page << "$('#post_notice').html('Your tweet has been updated.');"
+        page << "$('#post_notice').html('Your tweet has successfully updated.');"
         page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
       end
     end
@@ -179,7 +149,7 @@ class TwitterUsersController < ApplicationController
       user_status.id_status = post_to_twitter.id
       user_status.save!
       
-      redirect_to :back, :notice => "Buffer has been tweeted to your twitter."
+      redirect_to :back, :notice => "Buffer has successfully tweeted to your twitter."
     end
   end
   
@@ -197,7 +167,7 @@ class TwitterUsersController < ApplicationController
             page << "$('#post_notice').removeClass('error');"
             page << "$('#post_notice').addClass('success');"
             page << "$('#post_notice').show();"
-            page << "$('#post_notice').html('Your tweet has been posted.');"
+            page << "$('#post_notice').html('Your tweet has successfully posted to your facebook.');"
             page << "$('#loader').hide();"
             page << "$('#tweet_text').val('')"
             page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
@@ -238,7 +208,7 @@ class TwitterUsersController < ApplicationController
             page << "$('#post_notice').removeClass('error');"
             page << "$('#post_notice').addClass('success');"
             page << "$('#post_notice').show();"
-            page << "$('#post_notice').html('Your tweet has been posted.');"
+            page << "$('#post_notice').html('Your tweet has successfully tweeted to your twitter.');"
             page << "$('#loader').hide();"
             page << "$('#tweet_text').val('')"
             page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
