@@ -310,9 +310,14 @@
 
 /* line 218, app/stylesheets/tweet.scss */
 #settings_user_detail {
-    vertical-align: top;
-    margin-top: 17px;
+    /*    vertical-align: top;
+        margin-top: 17px;
+        display: inline-block;
+        width: 250px;*/
     display: inline-block;
+    float: left;
+    margin-top: 17px;
+    vertical-align: top;
     width: 250px;
 }
 
@@ -601,4 +606,9 @@
     margin-top: -20px; 
     margin-left: 37px; 
     color: purple;
+}
+
+.display_bitly {
+    display: block;
+    margin-top: 17px;
 }
