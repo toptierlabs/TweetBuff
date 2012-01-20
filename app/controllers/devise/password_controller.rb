@@ -41,7 +41,8 @@ class Devise::PasswordController < Devise::PasswordsController
           page.redirect_to :back
         end
       else
-        respond_with resource
+        respond_with resource, :error => "Some errors were found, please take a look:"
+        flash[:error] = "Some errors were found, please take a look:"
       end
     end
   end
