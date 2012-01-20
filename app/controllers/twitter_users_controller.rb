@@ -156,6 +156,7 @@ class TwitterUsersController < ApplicationController
   def tweet_to_twitter
     if request.xhr?
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+      
       if @twitter_user.account_type.eql?("facebook")
         render :update do |page|
           unless params[:tweet].empty?
@@ -171,6 +172,13 @@ class TwitterUsersController < ApplicationController
             page << "$('#loader').hide();"
             page << "$('#tweet_text').val('')"
             page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
+          else
+            page << "$('#post_notice').removeClass('success');"
+            page << "$('#post_notice').addClass('error');"
+            page << "$('#post_notice').show();"
+            page << "$('#post_notice').html('Please fill the form.');"
+            page << "$('#loader').hide();"
+            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
           end
         end
       elsif @twitter_user.account_type.eql?("twitter")

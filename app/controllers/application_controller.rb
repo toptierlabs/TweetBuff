@@ -21,11 +21,9 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if resource.is_a?(User)
       flash[:notice] = t("dashboard.show.welcome", :name => resource.email)
-      # return dashboard_path
+      
       twitter_user = current_user.twitter_users.first
       unless twitter_user.blank?
-        #        return twitter_user_path(current_user.twitter_users.first.login)
-        
         if twitter_user.account_type.eql?("twitter")
           return twitter_user_path(current_user.twitter_users.first.login)
         else
@@ -48,7 +46,7 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(resource)
     if resource.is_a?(User)
       flash[:notice] = t("dashboard.show.welcome", :name => resource.email)
-      # return dashboard_path
+      
       twitter_user = current_user.twitter_users.first
       unless twitter_user.blank?
         return twitter_user_path(current_user.twitter_users.first.login)
