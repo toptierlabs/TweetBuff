@@ -70,13 +70,21 @@ a {
 
 /* line 39, app/stylesheets/general.scss */
 #image-header {
-    text-align: center;
+    background-color: #7AC2F4;
+    height: 21px;
+    margin-bottom: 4px;
+    width: 100%;
 }
 
 /* line 42, app/stylesheets/general.scss */
 #image-footer {
-    /*margin-top: 80px;*/
-    text-align: center;
+    background-color: #7AC2F4;
+    color: #FFFFFF;
+    font-size: 13px;
+    height: 30px;
+    padding-left: 61px;
+    text-align: left;
+    width: auto;
 }
 
 /* line 46, app/stylesheets/general.scss */

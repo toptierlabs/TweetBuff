@@ -52,7 +52,7 @@
     });
 
   #image-header
-    = image_tag("/images/header-full.jpg")
+
   %body{:onResize => "window.location.reload()"}
     #header
       .container
@@ -75,7 +75,7 @@
       .container
         = yield
     #image-footer
-      = image_tag("/images/footer-full.jpg")
+      = "© all rights reserved TweetBuff 2011 - Powered by Webeffects"
     = javascript_include_tag :defaults
     = javascript_include_tag "bpopup.js"
     = javascript_include_tag "button.js"
