@@ -27,7 +27,7 @@
         =custom_check_box(@user)
       Remind me to add Tweets where i've run out in my buffer
       %br
-      %div{:style => "text-align: center; height: 119px;"}
+      %div{:style => "height: 125px;"}
         %img{:src => "/images/tweet_bird.jpg"}
       .field_content
         =submit_tag "Save notifications", :id => "submit_button"
@@ -39,7 +39,7 @@
       .field_content
         = timezone_select("account[timezone]", @user.timezone)
       %br
-      %div{:style => "text-align: center; height: 99px;"}
+      %div{:style => "height: 108px;"}
         %img{:src => "/images/timezone_bird.jpg"}
       .field_content
         =submit_tag "Update timezone", :id => "submit_button"
