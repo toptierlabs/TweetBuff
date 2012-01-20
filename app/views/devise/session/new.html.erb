@@ -9,12 +9,14 @@
       <%= f.input :password, :required => true, :size=>"25" %>
     </div>
     <div class="remember">
-      <%= f.input :remember_me, :label => "Keep me signed in.", :as => :boolean if devise_mapping.rememberable? %>
+      <div class="input boolean optional" style="display: inline-block; position: relative; height: 25px; width: 267px;">
+        <%= f.input :remember_me, :label => "Keep me signed in.", :as => :boolean if devise_mapping.rememberable? %>
+      </div>
     </div>
-    <div class="actions">
-      <%= f.button :submit, "", :class => "button-sign-in" %>
-    </div>
-  <% end %>
-  <%#= render :partial => "devise/shared/links" %>
-  <%= link_to "Forgotten your password?", new_password_path(resource_name), :style=>"color: #3185C3; position: absolute; margin-left: -65px; margin-top: 15px;"%><br />
-</div>
+    <div style="clear:both;">
+      <div class="actions" style="margin-bottom: 10px;">
+        <%= f.button :submit, "", :class => "button-sign-in" %>
+      </div>
+    <% end %>
+    <%= link_to "Forgotten your password?", new_password_path(resource_name), :style => "color: #3185C3;"%><br />
+  </div>

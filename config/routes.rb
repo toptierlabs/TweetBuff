@@ -6,7 +6,7 @@ Tweetbuffer::Application.routes.draw do
   match "api/twitter_account_list" => "api/twitter_users#twitter_account_list"
   match "api/post_to_twitter" => "api/twitter_users#post_to_twitter"
   match "api/send_to_buff" => "api/twitter_users#send_to_buff"
-  match "add_account" => "dashboard#add_account", :as => :add_account
+  #  match "add_account" => "dashboard#add_account", :as => :add_account
   match 'twitter_users/delete_buffer/:id' => 'twitter_users#delete_buffer', :as => :delete_buffer, :via => :get
   match 'twitter_users/edit_buffer/:id' => 'twitter_users#edit_buffer', :as => :edit_buffer, :via => :get
   match "twitter_users/:id/update_buffer" => "twitter_users#update_buffer", :as => :update_buffer
@@ -77,12 +77,15 @@ Tweetbuffer::Application.routes.draw do
       get   "authorize" => :new, :as => :facebook_authorize_account
       get   "callback" => :oauth_callback, :as => :facebook_callback
     end
-#    get "/settings" => "TwitterUsers#settings", :as => :facebook_settings
+    #    get "/settings" => "TwitterUsers#settings", :as => :facebook_settings
   end
    
   match "twitter/bitly_apis/delete/:id" => "bitly_apis#delete_bitly", :as => :delete_bitly, :via => :get
   
   scope "twitter" do
+    #    match "add_account" => "dashboard#add_account", :as => :add_account
+    get "/new" => "dashboard#add_account", :as => :add_account
+    
     resources :bitly_apis do
       collection do
         post "save_detail" => :create_or_update
@@ -104,7 +107,7 @@ Tweetbuffer::Application.routes.draw do
     
     get "/twitter_account_list" => "TwitterUsers#twitter_account_list"
     
-#    get "/settings" => "TwitterUsers#settings", :as => :twitter_settings
+    #    get "/settings" => "TwitterUsers#settings", :as => :twitter_settings
     
     get "/settings/other_time_interval" => "TwitterUsers#other_time_interval", :as => :other_ti
     get "/settings/default_interval" => "TwitterUsers#default_interval", :as => :default_ti

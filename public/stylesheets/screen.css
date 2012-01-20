@@ -164,7 +164,7 @@ table.tweets tbody tr > td {
 body {
     font-family: TexGy;
     font-size: 12px;
-/*    width: auto;*/
+    /*    width: auto;*/
     /*  border-top: 20px solid #79c1f3;*/
 }
 /* line 28, app/stylesheets/_grid.scss */
@@ -943,15 +943,15 @@ form .input {
 }
 /* line 5, app/stylesheets/_simple_form.scss */
 form .input:hover {
-/*    background: #ecf4fc;
-    margin-left: 6px;
-    width: 551px;*/
+    /*    background: #ecf4fc;
+        margin-left: 6px;
+        width: 551px;*/
 }
 /* line 9, app/stylesheets/_simple_form.scss */
 form .input.required:hover {
-/*    background: #fee;
-    margin-left: 6px;
-    width: 551px;*/
+    /*    background: #fee;
+        margin-left: 6px;
+        width: 551px;*/
 }
 /* line 13, app/stylesheets/_simple_form.scss */
 form .input label {
@@ -968,7 +968,7 @@ form .input label {
 }
 form .remember label{
     margin-left:0px;
-    width:65%;
+    width:auto;
 }
 form .remember .hint{
     background-color: white;
@@ -977,13 +977,11 @@ form .remember .hint{
 }
 form .remember input{
     color: #3185C3;
-    display: inline-block;
     float: left;
-    margin-left: 156px;
     text-align: left;
     vertical-align: top;
-    width: 10%;
-    float: left;
+    width: auto;
+    display: inline-block;
 }
 /* line 18, app/stylesheets/_simple_form.scss */
 form .input label abbr[title='required'] {
