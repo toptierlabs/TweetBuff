@@ -6,11 +6,10 @@ Tweetbuffer::Application.routes.draw do
   match "api/twitter_account_list" => "api/twitter_users#twitter_account_list"
   match "api/post_to_twitter" => "api/twitter_users#post_to_twitter"
   match "api/send_to_buff" => "api/twitter_users#send_to_buff"
-  #  match "add_account" => "dashboard#add_account", :as => :add_account
   match 'twitter_users/delete_buffer/:id' => 'twitter_users#delete_buffer', :as => :delete_buffer, :via => :get
   match 'twitter_users/edit_buffer/:id' => 'twitter_users#edit_buffer', :as => :edit_buffer, :via => :get
   match "twitter_users/:id/update_buffer" => "twitter_users#update_buffer", :as => :update_buffer
-  match "twitter_users/add_an_account" => "twitter_users#add_an_account", :as => :add_an_account
+  match "/settings/account/new" => "twitter_users#add_an_account", :as => :add_an_account
   match "invite_team_member" => 'TwitterUsers#invite_team_member', :via => :post, :as => :invite_team_member
 
   post "/save_settings" => "twitter_users#save_settings", :as => :save_settings
@@ -38,11 +37,9 @@ Tweetbuffer::Application.routes.draw do
 
   match "paypall_callback" => "dashboard#paypall_callback", :as => :paypall_callback
 
-  resources :plans do
-    member do
-      get "get_plan_clicked_when_signup"
-    end
-  end
+  resources :plans
+  get "/plans/:id/signup" => "plans#get_plan_clicked_when_signup", :as => :get_plan_clicked_when_signup_plan
+  
 
   ActiveAdmin.routes(self)
 

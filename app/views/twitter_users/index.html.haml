@@ -99,8 +99,7 @@
         .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
           = image_tag("add.png", width: 25, height: 25)
         %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
-          = link_to "Add Account", add_an_account_path
-        
+          = link_to "Add Account", add_an_account_path        
 
         #user_login{:style=> "display: none;"}
           = @twitter_user.login
