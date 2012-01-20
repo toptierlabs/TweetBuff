@@ -110,8 +110,10 @@
 
 /* line 75, app/stylesheets/tweet.scss */
 #button_container {
-    margin-top: 10px;
-    width: 700px;
+    /*    margin-top: 10px;
+        width: 700px;*/
+    margin-top: -72px;
+    width: 700px
 }
 
 /* line 80, app/stylesheets/tweet.scss */
