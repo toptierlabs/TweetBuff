@@ -84,7 +84,7 @@ app/stylesheets/ie.scss:1
 /home/cybergarage/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
 /home/cybergarage/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
 */
-/*body:before {
+body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: blueprint.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/cybergarage/fitria/project/new_project/tbuff/app/stylesheets\A         on line 1 of app/stylesheets/ie.scss\A \A 1: @import \"blueprint\";\A 2: \A 3: // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:\A 4: // @include blueprint-ie\A 5: \A 6: //Recommended Blueprint configuration with scoping and semantic layout:"; }*/
+  content: "Syntax error: File to import not found or unreadable: blueprint.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/cybergarage/fitria/project/new_project/tbuff/app/stylesheets\A         on line 1 of app/stylesheets/ie.scss\A \A 1: @import \"blueprint\";\A 2: \A 3: // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:\A 4: // @include blueprint-ie\A 5: \A 6: //Recommended Blueprint configuration with scoping and semantic layout:"; }
