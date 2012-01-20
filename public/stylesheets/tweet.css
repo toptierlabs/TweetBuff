@@ -179,9 +179,13 @@
 
 /* line 134, app/stylesheets/tweet.scss */
 #ads {
+    /*    margin-left: 20px;
+        vertical-align: top;
+        width: 151px;*/
     margin-left: 20px;
     vertical-align: top;
     width: 151px;
+    float: left;
 }
 
 /* line 140, app/stylesheets/tweet.scss */
