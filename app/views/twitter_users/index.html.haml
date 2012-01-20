@@ -136,8 +136,8 @@
         - unless @is_updated_interval.nil?
           = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :disabled => true
         - else
-          = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ..."
-
+          = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :style => "float: left; display: inline-block;"
+          %div{:style => "clear:both;"}
         #button_container
           - unless @is_updated_interval.nil?
             = submit_tag "", :class => "add_to_queue", :disabled => true, :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
