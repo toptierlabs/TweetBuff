@@ -132,11 +132,12 @@
         Edit buffer
     .tweet_form_buffer
       = form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
+        %span{:id => "counter", :style => "background-color: rgb(214, 237, 240); border: 2px solid rgb(36, 157, 236); color: rgb(36, 157, 236); float: right; margin-top: -31px; margin-right: 10px; font-size: 17px; border-radius: 10px 10px 10px 10px; padding: 2px;"}
         - unless @is_updated_interval.nil?
           = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :disabled => true
         - else
           = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ..."
-        %span{:id => "counter", :style => "position: absolute; color: rgb(36, 157, 236); font-weight: bold; font-size: 17px; margin-left: 318px; margin-top: -119px; border-radius: 10px 10px 10px 10px; background-color: rgb(214, 237, 240); border: 2px solid rgb(36, 157, 236);"}
+
         #button_container
           - unless @is_updated_interval.nil?
             = submit_tag "", :class => "add_to_queue", :disabled => true, :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"

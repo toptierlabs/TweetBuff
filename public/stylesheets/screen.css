@@ -945,7 +945,8 @@ ul.link-nav.left {
 
 /* line 2, app/stylesheets/_simple_form.scss */
 form .input {
-    padding: 7px 10px 5px;
+    /*    padding: 7px 10px 5px;*/
+    padding: 7px 0px 5px;
 }
 /* line 5, app/stylesheets/_simple_form.scss */
 form .input:hover {
