@@ -314,7 +314,7 @@
         margin-top: 17px;
         display: inline-block;
         width: 250px;*/
-    display: inline-block;
+    display: block;
     float: left;
     margin-top: 17px;
     vertical-align: top;
@@ -323,9 +323,14 @@
 
 /* line 225, app/stylesheets/tweet.scss */
 #bitly_detail {
+    /*    vertical-align: top;
+        display: inline-block;
+        margin-left: 30px;*/
+    display: block;
+    margin-left: 10px;
+    position: relative;
     vertical-align: top;
-    display: inline-block;
-    margin-left: 30px;
+    width: 1000px;
 }
 
 /* line 231, app/stylesheets/tweet.scss */

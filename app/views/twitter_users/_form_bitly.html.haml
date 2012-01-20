@@ -11,5 +11,5 @@
   %div{:onclick => "$('#loader-category').show(); $('.text-loader').html('Adding your bitly details.');", :style => "display: inline-block;"}
     = submit_tag "save"
   - unless @bitly.nil?
-    %div{:style => "position: absolute; margin-left: 600px; font-weight: bold; margin-top: -23px;", :onclick => "$('.form_bitly').hide(); $('.display_bitly').show();"}
+    %div{:style => "display: inline-block; font-weight: bold; position: relative;", :onclick => "$('.form_bitly').hide(); $('.display_bitly').show();"}
       = link_to_function "cancel"

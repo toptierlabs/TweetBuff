@@ -790,11 +790,17 @@ body .append-bottom {
 }*/
 /* line 41, app/stylesheets/_layout.scss */
 body div.container {
+    /*    margin: 0 auto;
+        overflow: hidden;
+        padding: 20px 0;
+        text-align: center;
+        width: 1000px;*/
     margin: 0 auto;
-    overflow: hidden;
+    overflow: visible;
     padding: 20px 0;
     text-align: center;
     width: 1000px;
+
 }
 body div.container #box-sign-in{
     background: url("/images/box-sign-in.jpg") no-repeat scroll 0 0 transparent;
