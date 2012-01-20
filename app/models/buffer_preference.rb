@@ -102,15 +102,21 @@ class BufferPreference < ActiveRecord::Base
         file.puts(log )
         file.close
         
-        Twitter.configure do |config|
-          config.consumer_key       = TWITTER_API[:key]
-          config.consumer_secret    = TWITTER_API[:secret]
-          config.oauth_token        = twitter_user.access_token
-          config.oauth_token_secret = twitter_user.access_secret
+        if twitter_user.account_type.eql?("twitter")
+          Twitter.configure do |config|
+            config.consumer_key       = TWITTER_API[:key]
+            config.consumer_secret    = TWITTER_API[:secret]
+            config.oauth_token        = twitter_user.access_token
+            config.oauth_token_secret = twitter_user.access_secret
+          end
+        
+          client = Twitter::Client.new
+          client.update(buffer.name)
+        else
+          me = FbGraph::User.me(twitter_user.access_token)
+          me.feed!(:message => buffer.name)
         end
         
-        client = Twitter::Client.new
-        client.update(buffer.name)
         buffer.update_attribute(:status, "success")
         buffer.soft_delete #mark as deleted_at
       end
