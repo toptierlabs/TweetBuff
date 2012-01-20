@@ -66,6 +66,26 @@ class BufferPreference < ActiveRecord::Base
       feed.retweet_count
     end
   end
+  
+  def like_feed(twitter_user)
+    me = FbGraph::User.me(twitter_user.access_token)
+    
+    id_status = self.id_status.to_s
+    feed = me.statuses.select{|s| s.identifier.eql?(id_status)}.first
+    unless feed.nil?
+      feed.likes.count
+    end
+  end
+  
+  def comment_feed(twitter_user)
+    me = FbGraph::User.me(twitter_user.access_token)
+    
+    id_status = self.id_status.to_s
+    feed = me.statuses.select{|s| s.identifier.eql?(id_status)}.first
+    unless feed.nil?
+      feed.comments.count
+    end
+  end
     
   def tweet_mode
     mode = read_attribute(:tweet_mode)
@@ -85,15 +105,20 @@ class BufferPreference < ActiveRecord::Base
   end
 
   def self.post_tweet
-    buffers = BufferPreference.all(:conditions => ["run_at < ? AND deleted_at IS NULL", Time.now])
-    
+    buffers = BufferPreference.where("deleted_at IS NULL")
+    time_to_check = Time.now.utc
     buffers.each do |buffer|
-      #      tweeted = buffer.twitter_user.buffer_preferences.count(["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day])
-      tweeted = buffer.twitter_user.buffer_preferences.all(:conditions => ["deleted_at BETWEEN ? AND ?", Time.now.in_time_zone.beginning_of_day, Time.now.in_time_zone.end_of_day]).count
-      
+         
       twitter_user = buffer.twitter_user
-      plan_count = twitter_user.user.subcriptions.where(active: true).first.plan.num_of_tweet_per_day
-      if tweeted < plan_count
+           
+      user_timezone = buffer.user.timezone
+      buffer_run_at = buffer.run_at.utc 
+      Time.zone = user_timezone || 'UTC'
+      
+      buffer_run_at_compare =  Time.utc(buffer_run_at.year, buffer_run_at.month, buffer_run_at.day, buffer_run_at.hour, buffer_run_at.min, buffer_run_at.sec)
+      time_now_check = time_to_check.in_time_zone
+      time_now_compare = Time.utc(time_now_check.year, time_now_check.month, time_now_check.day, time_now_check.hour, time_now_check.min, time_now_check.sec)
+      if (buffer_run_at_compare - time_now_compare) <= 60
         log = "=========================\n"
         log << "posting tweet to @#{twitter_user.login} at #{Time.now.in_time_zone}\n"
         log << "=========================\n\n"
@@ -111,18 +136,20 @@ class BufferPreference < ActiveRecord::Base
           end
         
           client = Twitter::Client.new
-          client.update(buffer.name)
+          post = client.update(buffer.name)
+          id_status =  post.id
         else
           me = FbGraph::User.me(twitter_user.access_token)
-          me.feed!(:message => buffer.name)
+          feed = me.feed!(:message => buffer.name)
+          id_status = feed.identifier.split("_")[1]
         end
         
-        buffer.update_attribute(:status, "success")
+        buffer.update_attributes(:status => "success", :id_status => id_status)
         buffer.soft_delete #mark as deleted_at
       end
     end
     
-    exec("echo all job clear.")
+    #    exec("echo all job clear.")
   end
 
   def self.update_added_time

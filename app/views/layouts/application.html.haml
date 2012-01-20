@@ -8,10 +8,6 @@
     
     = javascript_include_tag "jquery.min.js"    
     = javascript_include_tag "jquery-1.2.6.min.js"  
-    
-    %script{:language => "javascript"}
-      function reDo(){ window.location.reload() }
-      window.onResize = reDo;
 
     = javascript_include_tag "jquery-1.6.min.js"
     = javascript_include_tag "jquery.simplyCountable.js"
@@ -53,7 +49,7 @@
 
   #image-header
 
-  %body{:onResize => "window.location.reload()"}
+  %body
     #header
       .container
         %h1= t("application.header")

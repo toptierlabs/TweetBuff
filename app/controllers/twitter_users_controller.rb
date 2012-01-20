@@ -20,23 +20,8 @@ class TwitterUsersController < ApplicationController
   def performance
     twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
     @twitter_name = twitter_user
-    if twitter_user.account_type.eql?("facebook")
-      @me = FbGraph::User.me(twitter_user.access_token)
-
-      @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
-      unless @buffers.count.zero?
-        @buffers.each do |buffer|
-          id_status = buffer.id_status.to_s
-          feed = @me.statuses.select{|s| s.identifier.eql?(id_status)}.first
-          unless feed.nil?
-            @like_feed = feed.likes.count
-            @comment_feed = feed.comments.count
-          end
-        end
-      end    
-    elsif twitter_user.account_type.eql?("twitter")
-      @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
-    end
+    
+    @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", twitter_user.id, "success")
         
     if twitter_user.account_type.eql?("facebook")
       @reached = twitter_user.friends_count
@@ -157,13 +142,19 @@ class TwitterUsersController < ApplicationController
     if request.xhr?
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
       
+      tweet = params[:tweet]
+      
       if @twitter_user.account_type.eql?("facebook")
         render :update do |page|
-          unless params[:tweet].empty?
+          unless tweet.empty?
             user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
             
             me = FbGraph::User.me(user.access_token)
-            me.feed!(:message => params[:tweet])
+            post_to_facebook = me.feed!(:message => tweet)
+            id_status = post_to_facebook.identifier.split("_")[1]
+
+            save_buffer = @twitter_user.buffer_preferences.new(:user_id => current_user.id, :twitter_user_id => @twitter_user.id, :name => tweet, :timezone => "UTC", :permalink => tweet, :status => "success", :deleted_at => Time.now, :id_status => id_status)
+            save_buffer.save!
             
             page << "$('#post_notice').removeClass('error');"
             page << "$('#post_notice').addClass('success');"
@@ -183,7 +174,7 @@ class TwitterUsersController < ApplicationController
         end
       elsif @twitter_user.account_type.eql?("twitter")
         render :update do |page|
-          unless params[:tweet].empty?
+          unless tweet.empty?
             user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
 
             Twitter.configure do |config|
@@ -194,7 +185,7 @@ class TwitterUsersController < ApplicationController
             end
             
             client = Twitter::Client.new
-            status = params[:tweet]
+            status = tweet
             url = status.match(/https?:\/\/[\S]+/)
 
             unless url.nil?
@@ -212,7 +203,12 @@ class TwitterUsersController < ApplicationController
               end
             end
             
-            client.update(status)
+            post_to_twitter = client.update(status)
+            id_status = post_to_twitter.id
+
+            save_buffer = @twitter_user.buffer_preferences.new(:user_id => current_user.id, :twitter_user_id => @twitter_user.id, :name => tweet, :timezone => "UTC", :permalink => tweet, :status => "success", :deleted_at => Time.now, :id_status => id_status)
+            save_buffer.save!
+            
             page << "$('#post_notice').removeClass('error');"
             page << "$('#post_notice').addClass('success');"
             page << "$('#post_notice').show();"
@@ -229,42 +225,6 @@ class TwitterUsersController < ApplicationController
             page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
           end
         end
-      else
-        user = BufferPreference.find(params[:id]).twitter_user
-        
-        Twitter.configure do |config|
-          config.consumer_key       = TWITTER_API[:key]
-          config.consumer_secret    = TWITTER_API[:secret]
-          config.oauth_token        = user.access_token
-          config.oauth_token_secret = user.access_secret
-        end
-        
-        client = Twitter::Client.new
-        user_status = BufferPreference.find(params[:id])
-        status = user_status.permalink
-        status = params[:tweet]
-        user_status.deleted_at = Time.now
-        user_status.status = "success"
-        user_status.save!
-    
-        url = status.match(/https?:\/\/[\S]+/)
-        unless url.nil?
-          bitly_api = current_user.bitly_api
-          unless bitly_api.nil?
-            user = bitly_api.bitly_name
-            apikey = bitly_api.api_key
-            version = "3"
-            bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
-                
-            buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
-            result = JSON.parse(buffer)
-            short_url = result['results'][url.to_s]['shortUrl']
-            status = status.gsub(url.to_s, short_url)
-          end
-        end
-        
-        client.update(status)
-        redirect_to :back
       end
     end
   end
@@ -422,7 +382,7 @@ class TwitterUsersController < ApplicationController
         
         elsif params[:time_setting_type].eql?("3")
           if params[:tfname][:hour][1].nil?
-            custom_time = Time.new(year, month, day, params[:tfname][:hour].join(""), params[:tfname][:minute].join(""), nil, current_user.timezone)
+            custom_time = Time.new(year, month, day, params[:tfname][:hour].join(""), params[:tfname][:minute].join(""))
             many_custom_time = []
             
             params[:new_form_count].to_i.times do |parameter|

@@ -1,5 +1,6 @@
 = form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-  = f.text_area :name, :style => "width: 725px; height: 70px; background: -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(white)) no-repeat;background: -moz-linear-gradient(center top , #FAFAFA, #FFFFFF) repeat scroll 0 0 transparent; border-bottom: 11px solid rgb(36, 157, 236); -moz-border-radius: 11px 11px 11px 11px; -webkit-border-radius: 11px 11px 11px 11px;", :id => "tweet_text", :placeholder => "add tweet here ..."
+  = f.text_area :name, :style => "float: left; display: inline-block;", :id => "tweet_text", :placeholder => "add tweet here ..."
+  %div{:style => "clear:both;"}
   #button_container
     =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
     %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
