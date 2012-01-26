@@ -35,6 +35,7 @@ class BufferPreferencesController < ApplicationController
       unless @twitter_user.time_setting.blank?
         @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
         @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized").count
+
         unless @buffers.eql?(max_tweet_buffer_for_user(current_user))
           render :update do |page|
             if params[:buffer_preference][:name].blank?
@@ -45,8 +46,16 @@ class BufferPreferencesController < ApplicationController
               buffer_preference = buffer_preference.update_run_at_new.last
               ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
               active_time = ordered_buffers.first.run_at.to_date rescue Date.today
-              
+
+              buffers = @twitter_user.buffer_preferences.oldest_order
+
+              if buffers.nil?
+                @count_buffer = 0
+              else
+                @count_buffer = buffers.count
+              end
               page.replace_html :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => buffer_preference, :ordered_buffers => ordered_buffers, :active_time => active_time}
+              page.replace_html :buffer_count_text_blue_set, :partial => "buffer_count", :locals => {:count_buffer => @count_buffer}
               page << "$('#loader-buffer').hide();"
               page << "$('#tweet_text').val('')"
               page << "notification()"

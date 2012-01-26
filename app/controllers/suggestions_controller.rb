@@ -66,7 +66,15 @@ class SuggestionsController < InheritedResources::Base
     
     render :update do |page|
       if errors.empty?
+        buffers = @twitter_user.buffer_preferences.oldest_order
+
+        if buffers.nil?
+          @count_buffer = 0
+        else
+          @count_buffer = buffers.count
+        end
         page.replace_html "buffer_wrapper", :partial => "buffer_preferences/new_buffer", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
+        page.replace_html :buffer_count_text_blue_set, :partial => "buffer_preferences/buffer_count", :locals => {:count_buffer => @count_buffer}
         page << "$('#loader-buffer').hide();"
         page << "$('#tweet_text').val('')"
         page << "notification()"

@@ -279,8 +279,8 @@ class TwitterUsersController < ApplicationController
     @sent_buffers_count = BufferPreference.where("twitter_user_id = #{@twitter_id} AND deleted_at IS NOT NULL").count
     
     @plans = Subcription.where(user_id: current_user.id).last
-    
     @total_buffer = myplan.num_of_tweet_in_buffer
+    
     @buffers = @twitter_user.buffer_preferences.oldest_order
     
     if @buffers.nil?

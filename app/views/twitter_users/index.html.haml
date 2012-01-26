@@ -49,9 +49,7 @@
             = image_tag("badge-twitter.png")
         #buffer_count_blue
         - if user_signed_in?
-          - if @plans.plan.name.eql?("Free")
-            %span{:id => "buffer_count_text_blue_set"} #{@count_buffer}
-          - elsif @plans.plan.name.eql?("Pro")
+          - if @plans.plan.name.eql?("Free") || @plans.plan.name.eql?("Pro")
             %span{:id => "buffer_count_text_blue_set"} #{@count_buffer}
           - elsif @plans.plan.name.eql?("Premium")
             %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} Unlimited tweets per day
