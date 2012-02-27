@@ -1,6 +1,6 @@
 set :rails_env, "production"
 set :user, "root"
-set :password, "jQg4bY1f23"
+set :password, "hTV4hY1e54"
 set :runner, "nobody"
 
 set :deploy_to, "#{directory_path}/#{stage}"

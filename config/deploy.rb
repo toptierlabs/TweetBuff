@@ -10,7 +10,7 @@ require "bundler/capistrano"
 # REQUIRED VARIABLES
 # =============================================================================
 set :application, "tbuff"
-set :repository,  "git@github.com:syafik41studio/tbuff.git"
+set :repository,  "git@github.com:toptierlabs/TweetBuff.git"
 
 set :directory_path, "/opt/rails_apps/#{application}"
 
