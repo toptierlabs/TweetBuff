@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111103041004) do
+ActiveRecord::Schema.define(:version => 20120120072427) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -53,13 +53,15 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.datetime "updated_at"
   end
 
+  add_index "bitly_apis", ["user_id"], :name => "index_bitly_apis_on_user_id"
+
   create_table "buffer_preferences", :force => true do |t|
     t.integer  "user_id"
     t.integer  "twitter_user_id"
     t.integer  "tweet_mode",       :limit => 1
     t.datetime "today"
     t.integer  "tweets_remaining"
-    t.string   "name",             :limit => 64
+    t.string   "name",             :limit => 140
     t.string   "timezone"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -67,16 +69,26 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.datetime "run_at"
     t.string   "status"
     t.datetime "deleted_at"
-    t.integer  "added_time",                     :default => 0
+    t.integer  "added_time",                      :default => 0
+    t.string   "id_status"
   end
 
   add_index "buffer_preferences", ["twitter_user_id"], :name => "index_buffer_preferences_on_twitter_user_id"
+  add_index "buffer_preferences", ["user_id"], :name => "index_buffer_preferences_on_user_id"
 
   create_table "carts", :force => true do |t|
     t.datetime "purchased_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
+
+  create_table "categories", :force => true do |t|
+    t.string   "name_of_category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "days", :force => true do |t|
@@ -107,6 +119,8 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.datetime "updated_at"
   end
 
+  add_index "line_items", ["plan_id", "cart_id"], :name => "index_line_items_on_plan_id_and_cart_id"
+
   create_table "payment_notifications", :force => true do |t|
     t.text     "params"
     t.integer  "cart_id"
@@ -115,6 +129,8 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "payment_notifications", ["cart_id", "transaction_id"], :name => "index_payment_notifications_on_cart_id_and_transaction_id"
 
   create_table "plans", :force => true do |t|
     t.string   "name"
@@ -133,6 +149,8 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.integer "timeframe_id"
   end
 
+  add_index "plans_timeframes", ["plan_id", "timeframe_id"], :name => "index_plans_timeframes_on_plan_id_and_timeframe_id"
+
   create_table "preferences", :force => true do |t|
     t.integer  "user_id"
     t.string   "key"
@@ -140,6 +158,18 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "preferences", ["user_id"], :name => "index_preferences_on_user_id"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "subcriptions", :force => true do |t|
     t.integer  "user_id"
@@ -153,11 +183,18 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.integer  "tweet_per_day"
   end
 
+  add_index "subcriptions", ["user_id", "plan_id", "cart_id"], :name => "index_subcriptions_on_user_id_and_plan_id_and_cart_id"
+
   create_table "suggestions", :force => true do |t|
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.integer  "twitter_user_id"
   end
+
+  add_index "suggestions", ["category_id", "user_id", "twitter_user_id"], :name => "index_suggestions_on_category_id_and_user_id_and_twitter_user_id"
 
   create_table "time_definitions", :force => true do |t|
     t.boolean  "interval",                          :default => true
@@ -191,6 +228,9 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.string   "time_period"
   end
 
+  add_index "time_settings", ["timeframe_id", "user_id"], :name => "index_time_settings_on_timeframe_id_and_user_id"
+  add_index "time_settings", ["twitter_user_id"], :name => "index_time_settings_on_twitter_user_id"
+
   create_table "timeframes", :force => true do |t|
     t.string   "name"
     t.integer  "value"
@@ -214,6 +254,8 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.integer  "buffer_id"
   end
 
+  add_index "tweet_histories", ["user_id", "buffer_id"], :name => "index_tweet_histories_on_user_id_and_buffer_id"
+
   create_table "tweet_intervals", :force => true do |t|
     t.integer  "user_id"
     t.integer  "twitter_user_id"
@@ -222,6 +264,9 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.datetime "updated_at"
     t.string   "other_interval"
   end
+
+  add_index "tweet_intervals", ["twitter_user_id"], :name => "index_tweet_intervals_on_twitter_user_id"
+  add_index "tweet_intervals", ["user_id", "timeframe_id"], :name => "index_tweet_intervals_on_user_id_and_timeframe_id"
 
   create_table "tweets", :force => true do |t|
     t.integer  "twitter_user_id"
@@ -233,6 +278,8 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tweets", ["twitter_user_id", "buffer_preference_id"], :name => "index_tweets_on_twitter_user_id_and_buffer_preference_id"
 
   create_table "twitter_users", :force => true do |t|
     t.boolean "protected"
@@ -254,6 +301,8 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.string  "account_type"
   end
 
+  add_index "twitter_users", ["user_id", "twitter_id"], :name => "index_twitter_users_on_user_id_and_twitter_id"
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
@@ -267,12 +316,13 @@ ActiveRecord::Schema.define(:version => 20111103041004) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "timezone_id"
+    t.string   "timezone"
     t.boolean  "notify",                                :default => false
     t.integer  "referal_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["referal_id"], :name => "index_users_on_referal_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
