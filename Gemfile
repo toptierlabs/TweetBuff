@@ -33,6 +33,12 @@ gem "fb_graph"
 gem 'crack'
 gem 'whenever'
 
+group :development do
+   gem 'ruby-debug-base19'
+   gem 'ruby-debug-ide'
+end
+
+
 group(:test, :cucumber, :development) do
   gem "database_cleaner"
   gem "factory_girl"
@@ -52,6 +58,3 @@ group(:test, :cucumber) do
   gem "webrat"
 end
 
-group(:development) do
-  gem "ruby-debug19", :require => "ruby-debug"
-end

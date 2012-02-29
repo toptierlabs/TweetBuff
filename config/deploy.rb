@@ -1,7 +1,7 @@
 abort "needs capistrano 2" unless respond_to?(:namespace)
 
-set :stages, %w(production)
-set :default_stage, "production"
+set :stages, %w(test production)
+set :default_stage, "test"
 
 require 'capistrano/ext/multistage'
 require "bundler/capistrano"
