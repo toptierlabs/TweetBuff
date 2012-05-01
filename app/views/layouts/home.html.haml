@@ -3,88 +3,105 @@
 
   %head
     %title
-      Home
-    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=iso-8859-1"}
+      = yield(:title) || "Untitled"
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
+    
+    = javascript_include_tag "jquery.min.js"    
+    = javascript_include_tag "jquery-1.2.6.min.js"  
+
+    = javascript_include_tag "jquery-1.6.min.js"
+    = javascript_include_tag "jquery.simplyCountable.js"
+    = javascript_include_tag "button.js"
+
     = stylesheet_link_tag :jquery
-    = stylesheet_link_tag 'home.css'
+    
+    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'print.css', :media => 'print'
+    = stylesheet_link_tag 'general.css'
+    = stylesheet_link_tag 'style.css'
+    = yield(:account_css)
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
 
 
-    = csrf_meta_tag
-    /= yield(:head)
 
   %body
-    #Table_01
-      #Tweetbuff-home2-01
-        =image_tag("/images/home/Tweetbuff-home2_01.jpg", :width => "1024", :height => "21")
-      #Tweetbuff-home2-02
-        =image_tag("/images/home/Tweetbuff-home2_02.jpg", :width => "226", :height => "151")
-      #Tweetbuff-home2-03
-        =image_tag("/images/home/Tweetbuff-home2_03.jpg", :width => "566", :height => "65")
-      #Tweetbuff-home2-04
-        =image_tag("/images/home/Tweetbuff-home2_04.jpg", :width => "47", :height => "97")
-      #Tweetbuff-home2-05
-        =image_tag("/images/home/Tweetbuff-home2_05.jpg", :width => "89", :height => "97")
-      #Tweetbuff-home2-06
-        =image_tag("/images/home/Tweetbuff-home2_06.jpg", :width => "31", :height => "151")
-      #Tweetbuff-home2-07
-        =image_tag("/images/home/Tweetbuff-home2_07.jpg", :width => "65", :height => "481")
-      #Tweetbuff-home2-08
-        =image_tag("/images/home/Tweetbuff-home2_08.jpg", :width => "566", :height => "240")
-      #Tweetbuff-home2-09
-        =image_tag("/images/home/Tweetbuff-home2_09.jpg", :width => "7", :height => "54")
-      #Tweetbuff-home2-10
-        =image_tag("/images/home/Tweetbuff-home2_10.jpg", :width => "34", :height => "36")
-      #Tweetbuff-home2-11
-        =link_to image_tag("/images/home/Tweetbuff-home2_11.jpg", :width => "95", :height => "36", :style => "border: 0;"), new_user_registration_path
-      #Tweetbuff-home2-12
-        =image_tag("/images/home/Tweetbuff-home2_12.jpg", :width => "34", :height => "18")
-      #Tweetbuff-home2-13
-        =image_tag("/images/home/Tweetbuff-home2_13.jpg", :width => "95", :height => "18")
-      #Tweetbuff-home2-14
-        =image_tag("/images/home/Tweetbuff-home2_14.jpg", :width => "217", :height => "72")
-      #Tweetbuff-home2-15
-        =image_tag("/images/home/Tweetbuff-home2_15.jpg", :width => "9", :height => "291")
-      #Tweetbuff-home2-16
-        =image_tag("/images/home/Tweetbuff-home2_16.jpg", :width => "167", :height => "72")
-      #Tweetbuff-home2-17
-        =image_tag("/images/home/Tweetbuff-home2_17.jpg", :width => "178", :height => "46")
-      #Tweetbuff-home2-18
-        =image_tag("/images/home/Tweetbuff-home2_18.jpg", :width => "39", :height => "46")
-      #Tweetbuff-home2-19
-        =image_tag("/images/home/Tweetbuff-home2_19.jpg", :width => "7", :height => "46")
-      #Tweetbuff-home2-20
-        =image_tag("/images/home/Tweetbuff-home2_20.jpg", :width => "40", :height => "46")
-      #Tweetbuff-home2-21
-        =image_tag("/images/home/Tweetbuff-home2_21.jpg", :width => "120", :height => "46")
-      #Tweetbuff-home2-22
-        =image_tag("/images/home/Tweetbuff-home2_22.jpg", :width => "217", :height => "173")
-      #Tweetbuff-home2-23
-        =image_tag("/images/home/Tweetbuff-home2_23.jpg", :width => "167", :height => "212")
-      #Tweetbuff-home2-24
-        =image_tag("/images/home/Tweetbuff-home2_24.jpg", :width => "28", :height => "62")
-      #Tweetbuff-home2-25
-        =image_tag("/images/home/Tweetbuff-home2_25.jpg", :width => "258", :height => "62")
-      #Tweetbuff-home2-26
-        =image_tag("/images/home/Tweetbuff-home2_26.jpg", :width => "280", :height => "100")
-      #Tweetbuff-home2-27
-        =image_tag("/images/home/Tweetbuff-home2_27.jpg", :width => "286", :height => "38")
-      #Tweetbuff-home2-28
-        =image_tag("/images/home/Tweetbuff-home2_28.jpg", :width => "566", :height => "37")
-      #Tweetbuff-home2-29
-        =image_tag("/images/home/Tweetbuff-home2_29.jpg", :width => "269", :height => "39")
-      #Tweetbuff-home2-30
-        =image_tag("/images/home/Tweetbuff-home2_30.jpg", :width => "374", :height => "39")
-      #Tweetbuff-home2-31
-        =image_tag("/images/home/Tweetbuff-home2_31.jpg", :width => "109", :height => "39")
-      #Tweetbuff-home2-32
-        =image_tag("/images/home/Tweetbuff-home2_32.jpg", :width => "40", :height => "39")
-      #Tweetbuff-home2-33
-        =image_tag("/images/home/Tweetbuff-home2_33.jpg", :width => "374", :height => "247")
-      #Tweetbuff-home2-34
-        =image_tag("/images/home/Tweetbuff-home2_34.jpg", :width => "362", :height => "247")
-      #Tweetbuff-home2-35
-        =image_tag("/images/home/Tweetbuff-home2_35.jpg", :width => "288", :height => "247")
-      #Tweetbuff-home2-36
-        =image_tag("/images/home/Tweetbuff-home2_36.jpg", :width => "1024", :height => "19")
+    #main
+      %header.homeHeader
+        %nav
+          #logo
+            = link_to image_tag("/images/logo.png"), root_path
+          .menu
+            .menuRoundPart
+            .menuCenter
+              .linksWrapper
+                - if(!user_signed_in?)
+                  = link_to "Home", root_path, :class => "menuHome"
+                  = link_to "Goodies", goodies_path, :id => "googiesMenuItem"
+                  = link_to "Plans & Pricing", plans_path 
+                  = link_to "Sign in", new_user_session_path, :class => "menuCenterLinkLeft"
+                  = link_to "Sign up", new_user_registration_path, :class => "menuCenterLinkLeft"
+                  %a.menuCenterLinkLeft{:href => "#"} Contact
+                - else
+                  %a{:href => "#"} My Tweets
+                  %a.menuCenterLinkLeft{:href => "#"} Account
+                  %a.menuCenterLinkLeft{:href => "#"} Goodies
+                  %a.menuCenterLinkLeft{:href => "#"} Plans & Pricing
+                  %a.menuCenterLinkLeft{:href => "#"} Sign Out
+                
+            #menuArrow
+        #headerContent
+          #logo2
+            = image_tag "logo2.png"
+          #tryItNowContainer
+            %span.tryItNowTitle Be a Standout on
+            %span.tryItNowTitleBold twitter
+            %p.tryItNowNormalFont Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui, tincidunt at vulputate at, tristique eget tellus. Duis id odio varius odio vestibulum ultrices ac ut ipsum. Proin tempus iaculis dolor, et fermentum sem viverra et. Suspendisse.
+            #tryItNowButton
+              %input.watermark{:value => "your twitter account........"}/
+              %a{:href => "#"} Try it now
+            #viewDemo
+              %a{:href => "#"} View online Demo
+      #alert
+        .container
+          - flash.each do |name, msg|
+            %div{:id => "notification_#{name}"}
+              %span{:style => "float: right; margin-right: 15px;"}
+                %a{:href=>"#", :onclick => "$('#notification_#{name}').fadeOut(); return false;"}
+                  =image_tag("close.png",:width=>"18", :height => "18")
+              = msg
+              
+      = yield
+      
+
+      %footer
+        #footerContent
+          #links
+            %p Links
+            %a{:href => "#"} Home
+            %a{:href => "#"} Goodies
+            %a{:href => "#"} Plans & Pricing
+            %a{:href => ""} Sign In
+            %a{:href => "#"} Sign Up
+          #friendsImage
+            = image_tag("/images/friendsImage.png")
+          #newsletter
+            %p.tryItNowNormalFont @Tweet buff   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui, tincidunt at vulputate at, tristique eget tellus. Duis id odio varius odio vestibulum ultrices ac ut ipsum. Proin tempus iaculis dolor................
+            #emailUsField
+              %input.watermark{:value => "email us"}
+            #newsletterButton
+              %a Subscribe our Newsletter
+        #copyright
+          %p © all rights reserved TweetBuff 2012
+        #socialLinks
+          #facebookLink
+            %a{:href => "#"}
+          #twitterLink
+            %a{:href => "#"}
+        
+
+    = javascript_include_tag "bpopup.js"
+    = javascript_include_tag "button.js"
+    = javascript_include_tag "notification.js"
+    = javascript_include_tag "error.js"
+

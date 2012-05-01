@@ -1,47 +1,37 @@
--content_for :home_css do
-  = stylesheet_link_tag 'home.css'
-  %style{:type => "text/css"}
-    :plain
-      .container{
-        overflow:visible !important;
-      }
-
-#sliders
-  = image_tag "image_slide.jpg"
-%br
-%br
--content_for :signup_float do
-  .float_signup
-    %img{:src => "/images/signup_float.jpg"}
-
-#tryit_form
-  = form_tag "/users/sign_up", :method => :get do
-    = text_field :tryit, :tweet, :id => "tryit_input", :placeholder => "your tweeter account", :style => "font-style: italic; font-weight: bold;"
-    = submit_tag "Try it out!", :class => "tryit_button"
-
-#home_container
-  .statistics
-    #detail_head
-      Statistics
-    %br
-    - 6.times do
-      lorem ipsum dolor set imet
-    %div{:style => "text-align: center; padding: 20px 0 0 20px;"}
-      =link_to "View more details", "#", :id => "home_button_link"
-
-  .analytic
-    #detail_head
-      Analitics and Reports
-    %br
-    - 6.times do
-      lorem ipsum dolor set imet
-    %div{:style => "text-align: center; padding: 20px 0 0 20px;"}
-      =link_to "View more details", "#", :id => "home_button_link"
-
-
-  .testimoni
-    #detail_head
-      What are people saying
-    %br
-    - 6.times do
-      lorem ipsum dolor set imet
+#middle.homeMiddle
+  #infoSectionContainer
+    #statistics.infoSection
+      .infoSectionTitle
+        %a#statisticsLink{:href => "#"} Statistics
+      %p.tryItNowNormalFont Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui, tincidunt at vulputate at, tristique eget tellus. Duis id odio varius odio vestibulum ultrices ac ut ipsum. Proin tempus iaculis dolor, et fermentum sem viverra et. Suspendisse hendrerit enim nec nulla cursus pellentesque et et erat. Aliquam erat volutpat.
+      #viewMore
+        %a{:href => "#"} View more
+    #analitics.infoSection
+      .infoSectionTitle
+        %a#analiticsLink{:href => "#"} Analitics and Reports
+      %p.tryItNowNormalFont Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui, tincidunt at vulputate at, tristique eget tellus. Duis id odio varius odio vestibulum ultrices ac ut ipsum. Proin tempus iaculis dolor, et fermentum sem viverra et. Suspendisse hendrerit enim nec nulla cursus pellentesque et et erat. Aliquam erat volutpat.
+      #viewMore
+        %a{:href => "#"} View more
+    #peopleSaying.infoSection
+      .infoSectionTitle
+        %a#peopleSayingLink{:href => "#"} What are people saying
+      .peopleSayingsData
+        %img{:src => "images/photoPeople1.png"}/
+        %p.tryItNowNormalFont Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui......
+        %a{:href => "# "} Read more
+      .peopleSayingsData
+        %img{:src => "images/photoPeople2.png"}/
+        %p.tryItNowNormalFont Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui......
+        %a{:href => "# "} Read more
+        
+#sponsors.homeSponsors
+  %div
+    %img#sponsorsLeft.sponsorsImage{:src => "images/sponsor1.png"}/
+    %img.sponsorsCenter.sponsorsImage{:src => "images/sponsor2.png"}/
+    %img.sponsorsCenter.sponsorsImage{:src => "images/sponsor3.png"}/
+    %img.sponsorsCenter.sponsorsImage{:src => "images/sponsor4.png"}/
+    %img#sponsorsRight.sponsorsImage{:src => "images/sponsor5.png"}/
+      
+:javascript
+  //$("#menuArrow").removeClass();
+  $(".menuHome").addClass("active");

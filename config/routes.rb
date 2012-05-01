@@ -24,7 +24,7 @@ Tweetbuffer::Application.routes.draw do
   
   resources :suggestions
 
-  get "/goodies" => "goodies#index"
+  get "/goodies" => "goodies#index", :as => :goodies
   get "suggestions/tweet_suggestion/:twitter_name" => "suggestions#tweet_suggestion"
   
   match "setting_suggestion" => "Suggestions#setting_suggestion", :as => :setting_suggestion, :via => :get
@@ -56,6 +56,7 @@ Tweetbuffer::Application.routes.draw do
   get "/settings/account" => "dashboard#account", :as => :account_settings
   post "/settings/account/update" => "dashboard#update", :as => :account_settings
   
+  match "/twitter/" => "twitterUsers#index", :as => :twitter_user2
   scope "dashboard" do
     get "/facebook/:twitter_name" => "TwitterUsers#index", :as => :facebook_user
     get "/twitter/:twitter_name" => "TwitterUsers#index", :as => :twitter_user

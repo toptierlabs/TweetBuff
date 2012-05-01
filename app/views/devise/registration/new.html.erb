@@ -1,24 +1,67 @@
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <div id="box-sign-in">
-    <h2 style="position: absolute; font-size: 36px; font-weight: bold; margin-left: 18px; color: rgb(122, 194, 244);">Sign-up</h2>
-    <div id="image-sign-in">
-      <%= image_tag("/images/birds_64/12.png") %>
-    </div>
+<div id="middle" class="signUpMiddle">
+				 
+	<div id="signInContainer">
+		
+		<div id="signInTitleContainer">
+			<p id="signInTitle">Sign up your tweetbuff.com account</p>
+			<p id="signInSubTitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		</div>
+		<div class="separator"></div>
+		<%= simple_form_for resource, :as => resource_name,:html => {:class => "signInForm"}, :url => registration_path(resource_name) do |f| %>
 
-    <div class="inputs" style="">
-      <%= f.input :email, :required => true, :autofocus => true, :placeholder => "you@example.com" %>
-      <div style="display: none;">
-        <%= f.input :referal_id, :value => params[:referal_id] %>
-      </div>
-      <%= f.input :password, :required => true %>
-      <%= f.input :password_confirmation, :required => true %>
-    </div>
-    <div class="actions" style="margin-top: 40px;">
-      <%= f.button :submit, "", :class => "button-sign-up" %>
-    </div>
-    <div style="clear:both;"></div>
-  </div>
-<% end %>
+			<table class="textFieldContainer">
+				<tr>
+					<td>
+						<span class="textFieldSpan">Email</span>
+					</td>
+					<td>
+						<div class="textField">
+							<%= f.input :email, :required => true, :autofocus => true, :placeholder => "you@example.com", :input_html => { :class => 'transparentInput' }, :label => false %>
+						</div>
+						  <div style="display: none;">
+					        <%= f.input :referal_id, :value => params[:referal_id] %>
+					      </div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="textFieldSpan">Password</span>
+					</td>
+					<td>
+						<div id="passwordTextField" class="textField">
+							<%= f.input :password, :required => true, :size=>"25",:input_html => { :class => 'transparentInput' }, :label => false %>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="textFieldSpan">Password confirmation</span>
+					</td>
+					<td>
+						<div id="passwordTextField" class="textField">
+							<%= f.input :password_confirmation, :required => true, :size=>"25",:input_html => { :class => 'transparentInput' }, :label => false %>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			<div id="signInButtonContainer">
+				<%= f.button :submit, "", :class => "signUpButton" %>
+			</div>
+			
+		<% end %>
+		<div id="tweetBird" class="tweetBirdSignUp"></div>
+	</div>
+	
+</div>
+
+<script>
+	$("#menyArrow").removeClass();
+	$("#menuArrow").addClass("menuArrowSignUp");
+</script>
+
+
+
 
 <%= javascript_tag("jQuery(document).ready(function() {
   if (jQuery('span.error').text() == 'is too short (minimum is 6 characters)')

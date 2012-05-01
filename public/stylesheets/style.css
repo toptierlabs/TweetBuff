@@ -1,0 +1,2133 @@
+
+.myriadProNormal{
+	font-family: Myriad Pro;
+	font-weight: normal;
+}
+
+.rockwellRegular{
+	font-family: Rockwell;
+	font-weight: normal;
+}
+
+.transparentInput{
+	background-color: transparent;
+	border-style: none;
+	width: 100%;
+	height: 100%;
+}
+
+body{
+	padding: 0;
+	margin: 0;
+	border-width: 0px;
+	background: url(../images/backFooter.png);
+}
+
+#main{
+
+}
+
+#alert{
+	background: white;
+}
+
+#logo{
+
+	width: 172px;
+	height: 70px;
+	float:left;
+	padding-left: 25%;
+}
+
+.linksWrapper{
+	width: 700px;
+}
+
+.menuCenter{
+	background: url(../images/menuCenter.png);
+    height: 70px;
+
+}
+
+.menuCenter a{
+	margin-top: 19px;
+	margin-left: 10px;
+	float: left;
+	text-decoration: none;
+	color: rgb(112,112,112);
+	font-family: Rockwell;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.menuCenterLinkLeft{
+	margin-left: 35px !important;
+}
+
+#menuArrow{
+/*	background: url(../images/menuArrow.png) no-repeat;
+	width: 30px;
+	height: 18px; */
+    /*position: relative;*/
+    /*top: -19px;*/
+}
+
+.menuHome{
+	
+}
+
+.menuArrowHome{
+
+  left: 50px;
+
+}
+
+.menuArrowMyTweets{
+
+  left: 70px;
+
+}
+
+.menuArrowGoodies{
+    left: 227px;
+}
+
+.menuArrowPlans{
+    left: 309px;
+}
+
+.menuArrowSignIn{
+
+    left: 353px;
+
+}
+
+#googiesMenuItem{
+	margin-left: 0;
+    margin-right: 20px;
+}
+
+.active{
+	margin-top: 15px !important;
+}
+
+.active::after {
+	position: relative;
+	content: url(../images/menuArrow.png);
+	top: 36px;
+	left: -50%;
+}
+
+.menu{
+	height: 70px;
+	margin-left: 45%;
+}
+
+.menuRoundPart{
+	background: url(../images/menuRoundBorder.png) no-repeat;
+    display: inline;
+    float: left;
+    height: 69px;
+    width: 39px;
+}
+
+nav{
+	height: 70px;
+}
+
+nav p{
+	margin: 0;
+}
+
+.homeHeader{
+	padding-top: 34px;
+	background: url(../images/backHead.png);	
+	height: 455px;
+}
+
+.mainheader{
+	padding-top: 34px;
+	background: url(../images/backHead.png);	
+	height: 100px;
+}
+
+
+#headerContent{
+    margin: 0 auto;
+    padding-top: 50px;
+    width: 1155px;
+}
+
+#logo2{
+    float: left;
+    width: 602px;
+}
+
+#logo2 img{
+	width: 602px;
+	height: 335px;
+}
+
+#tryItNowContainer{
+    float: right;
+    margin-right: 90px;
+    width: 423px;
+}
+
+.tryItNowTitle{
+	font-family: Rockwell;
+	font-size: 30px;
+	font-weight: normal;
+	color: rgb(56,103,170);
+}
+
+.tryItNowTitleBold{
+	font-family: Rockwell;
+	font-size: 50px;
+	font-weight: bold;
+	color: rgb(56,103,170);
+}
+
+.tryItNowNormalFont{
+	font-family: Rockwell;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+#tryItNowButton{
+	background: url(../images/tryItNowButton.png) no-repeat;
+	width: 370px;
+	height: 54px;
+}
+
+#tryItNowButton input{
+	margin-top: 7px;
+	margin-left: 10px;
+	height: 30px;
+	width: 240px;
+	background-color: transparent;
+	border-style: none;
+	font-family: Rockwell;
+	font-size: 15px;
+	color: rgb(157,156,155);
+	display: inline;
+}
+
+#tryItNowButton a{
+	color: white;
+	margin-top: 15px;
+	margin-right: 15px;
+	float: right;
+	text-decoration: none;
+	font-family: Myriad Pro;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+#viewDemo{
+	background: url(../images/viewDemoButton.png) no-repeat;
+	width: 192px;
+	height: 43px;
+	margin-top: 15px;
+}
+
+#viewDemo a{
+	
+	color: white;
+	margin-top: 12px;
+	margin-left: 15px;
+	text-decoration: none;
+	font-family: Myriad Pro;
+	font-size: 15px;
+	font-weight: normal;
+	float: left;
+}
+
+.homeMiddle{
+	background: white;
+	height: 370px;
+}
+
+.mainmiddle{
+	background: white;
+	height: 400px;
+}
+
+#infoSectionContainer{
+	margin: 0 auto;
+    padding-top: 20px;
+    width: 1155px;
+}
+
+.infoSectionTitle{
+	background: url(../images/backHead.png);	
+	height: 40px;
+	width: 290px;
+}
+
+.infoSectionTitle a{
+	font-family: Rockwell;
+	font-size: 24px;
+	font-weight: normal;
+	color: rgb(56,103,170);
+	text-decoration: none;
+	margin-top: 5px;  
+	float: left;
+}
+
+#statisticsLink{
+	margin-left: 100px;
+
+}
+
+#analiticsLink{
+	margin-left: 25px;
+
+}
+
+#peopleSayingLink{
+	margin-left: 15px;
+}
+
+#statistics{
+	width: 290px;
+	float: left;
+	margin-left: 100px;
+}
+
+
+#analitics{
+	width: 290px;
+	float: left;
+	margin-left: 45px;
+}
+
+#viewMore{
+	background: url(../images/viewMoreButton.png) no-repeat;
+	width: 117px;
+	height: 38px;
+	margin: 0 auto;
+}
+
+#viewMore a{
+	color: white;
+	margin-top: 10px;
+	margin-left: 23px;
+	text-decoration: none;
+	font-family: Myriad Pro;
+	font-size: 15px;
+	font-weight: normal;
+	float: left;
+}
+
+#peopleSaying{
+	width: 290px;
+	float: right;
+
+	margin-right: 100px;
+}
+
+.peopleSayingsData{
+	
+	float: left;
+}
+
+.peopleSayingsData img{
+	float: left;
+	margin-top: 25px;
+}
+.peopleSayingsData p{
+	float: right;
+	width: 160px;
+	margin-top: 25px;
+}
+.peopleSayingsData a{
+	float: right;
+}
+
+
+.homeSponsors{
+	background: rgb(231,231,231);
+	height: 160px;
+}
+
+.mainSponsors{
+	background: rgb(231,231,231);
+	height: 30px;
+}
+
+
+#sponsors div{
+	margin: 0 auto;
+    padding-top: 30px;
+    width: 1155px;
+}
+
+#sponsorsLeft{
+	margin-left: 100px;
+}
+
+.sponsorsCenter{
+	margin-left: 12px;
+}
+
+#sponsorsRight{
+	margin-left: 12px;
+	margin-right: 100px;
+}
+
+.sponsorsImage{
+	float: left;
+}
+
+footer{
+	background: url(../images/backFooter.png);
+	height: 300px;
+	position: relative;
+}
+
+#footerContent{
+	
+	margin: 0 auto;
+    padding-top: 10px;
+    width: 1500px;
+}
+	
+	
+#links{
+	margin-left: 270px;
+	width: 100px;
+	float: left;
+}
+
+#links p{
+	color: white;
+	text-decoration: none;
+	font-family: Rockwell;
+	font-size: 20px;
+	font-weight: normal;
+}
+	
+#links a{
+	display: block;
+	margin-top: 25px;
+	color: rgb(140,139,139);
+	text-decoration: none;
+	font-family: Rockwell;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+#friendsImage{
+	float: left;
+	margin-left: 120px;
+}
+
+#newsletter{
+	float: left;
+	margin-left: 40px;
+	width: 600px;
+}
+
+#newsletter p{
+	width: 400px;
+}
+
+#emailUsField{
+	background: url(../images/emailUsField.png) no-repeat;
+	width: 251px;
+	height: 31px;
+	float: left;
+}
+
+#emailUsField input{
+	background-color: transparent;
+	border-style: none;
+	width: 100%;
+	height: 100%;
+	
+}
+
+#newsletterButton{
+	background: url(../images/newsletterButton.png) no-repeat;
+	width: 251px;
+	height: 31px;
+	margin-left: 10px;
+	float: left;
+}
+
+#newsletterButton a{
+	font-family: Myriad Pro;
+	font-size: 15px;
+	font-weight: normal;
+	color: white;
+	text-decoration: none;
+	margin-left: 15px;
+	margin-top: 5px;
+	float: left;
+}
+
+#copyright{
+	bottom: 10px;
+    left: 465px;
+    position: absolute;
+}
+
+#copyright p{
+	margin: 0;
+	color: rgb(121,121,121);
+}
+
+#socialLinks{
+	bottom: 10px;
+    right: 430px;	
+	position: absolute;
+	width: 80px;
+	height: 34px;
+}
+
+#facebookLink{
+	background: url(../images/facebookLinkImage.png) no-repeat;
+	width: 35px;
+	height: 34px;
+	float: left;
+}
+
+#twitterLink{
+	background: url(../images/twitterLinkImage.png) no-repeat;
+	width: 35px;
+	height: 34px;
+	float: left;
+	margin-left: 5px;
+}
+
+
+/*Sign In HTML*/
+
+#signInContainer{ 
+   margin: 0 auto;
+   padding-top: 10px;
+   width: 900px;
+}
+
+#signInTitleContainer{
+
+}
+
+#signInTitle{
+	font-family: Rockwell;
+	font-size: 35px;
+	font-weight: normal;
+	color: rgb(60,106,173);
+	margin-left: 165px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#signInSubTitle{
+	font-family: Rockwell;
+	font-size: 15px;
+	font-weight: normal;
+	color: rgb(125,125,125);
+	margin-left: 260px;
+	margin-top: 5px;
+}
+
+.separator{
+	background: url(../images/separator.png) no-repeat;
+	width: 988px;
+	height: 30px;
+}
+
+.textField{
+	background: url(../images/backField.png) no-repeat;
+	width: 387px;
+	height: 38px;
+	float: left;
+	margin-left: 20px;
+}
+
+.textFieldContainer{
+
+    font-family: Rockwell;
+	font-size: 15px;
+	font-weight: normal;
+	color: rgb(125,125,125);
+	padding-top: 25px;
+	float: left;
+
+}
+
+#passwordTextField{
+ margin-top: 10px;
+	
+}
+
+.textFieldSpan{
+	float: left;
+	margin-top: 7px;
+}
+
+.signInForm{
+	
+	margin: 0 auto;
+    width: 500px;
+}
+
+.signUpButton{
+	background: url(../images/signInButton.png) no-repeat;
+	width: 142px;
+	height: 44px;
+	float: left;
+	margin-top: 20px;
+	border: medium none;
+	margin-left: 90px;
+}
+
+.signInButton{
+	background: url(../images/signInButton.png) no-repeat;
+	width: 142px;
+	height: 44px;
+	float: left;
+	margin-top: 20px;
+	border: medium none;
+	margin-left: 90px;
+}
+
+#signInButton a{
+	color: white;
+	 font-family: Rockwell;
+	font-size: 20px;
+	font-weight: normal;
+	margin-top: 8px;
+	margin-left: 38px;
+	float: left;
+	text-decoration: none;
+}
+
+#checkRemember{
+	width: 15px;
+	height: 15px;
+	float: left;
+}
+
+#rememberMe{
+	float: left;
+	height: 20px;
+	width: 200px;
+	margin-top: 30px;
+	margin-left: 20px;
+}
+
+#rememberMe p{
+	float: left;
+	margin-top: 0;
+	margin-left: 15px;
+	font-size: 14px;
+	color: rgb(100,100,100);
+}
+
+#signInButtonContainer{
+	float: left;
+	
+	width: 500px;
+}
+
+/*End Sign In HTML*/
+
+/*Sign UP HTML*/
+	
+.signUpMiddle{
+	background: white;
+	height: 500px;
+}
+
+#emailTextField{
+	margin-left: 53px;
+}
+
+#tweetBird{
+	background: url(../images/tweetBird.png) no-repeat;
+	width: 98px;
+	height: 129px;
+	position: relative;
+
+}
+
+.tweetBirdSignIn{
+	left: 700px;
+	top: 90px;
+}
+
+.tweetBirdSignUp{
+	left: 700px;
+	top: 200px;
+}
+
+
+#antiSpamTextField{
+	background: url(../images/antiSpamBackField.png) no-repeat;
+	width: 300px;
+}
+
+.menuArrowSignUp{
+
+  left: 430px;
+
+}
+
+
+/*End Sign UP HTML*/
+
+
+/*Config HTML*/
+
+#configContainer{ 
+   margin: 0 auto;
+   padding-top: 10px;
+   width: 1000px;
+}
+
+#leftPanel{
+	width: 215px;
+	float: left;
+	margin-top:10px;
+}
+
+.tweetAccountTab{
+	background: url(../images/tweetAccountTabBack.png) no-repeat;
+	height: 47px;
+    left: 934px;
+    position: absolute;
+    top: 154px;
+    width: 124px;
+}
+
+.tweetAccountTab a{
+	color: rgb(110,110,110);
+	font-size: 18px;
+	text-decoration: none;
+	margin-left: 20px;
+	margin-top: 12px;
+	float: left;
+}
+
+.tweetAccountTabSelected{
+	background: url(../images/tweetAccountTabBackSel.png) no-repeat;
+	height: 47px;
+    left: 800px;
+    position: absolute;
+    top: 154px;
+    width: 124px;
+}
+
+.tweetAccountTabSelected a{
+	color: rgb(32,138,174);
+	font-size: 18px;
+	text-decoration: none;
+	margin-left: 20px;
+	margin-top: 12px;
+	float: left;
+}
+
+#leftPanelPhoto{
+	width: 211px;
+	height: 198px;
+}
+
+.configMiddle{
+	background: white;
+	height: 1000px;
+}
+
+.plansMiddle{
+	background: white;
+	height: 2040px;
+}
+
+#inBuffer{
+	background-color: rgb(244,244,244);
+	height: 24px;
+	width: 210px;
+	margin-top: 12px;
+}
+
+#sentFromBuffer{
+	background-color: rgb(244,244,244);
+	height: 24px;
+	width: 210px;
+	margin-top: 12px;
+}
+
+.litleBirdImage{
+	margin-left: 6px;
+	margin-top: 6px;
+	float: left;
+}
+
+.leftPanelTitleSections{
+	color: rgb(36,68,113);
+	font-size: 16px;
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+.leftPanelBitField{
+	background: url(../images/leftPanelField.png) no-repeat;
+	width: 209px;
+	height: 31px;
+	margin-top: 10px;
+}
+
+.leftPanelBlueButton{
+	background: url(../images/leftPanelBlueButton.png) no-repeat;
+	width: 69px;
+	height: 29px;
+	margin-top: 10px;
+	color: white;
+	border: medium none;
+}
+
+.leftPanelBlueButton a{
+	color: white;
+	font-size: 14px;
+	float: left;
+	margin-left: 20px;
+	margin-top: 7px;
+	text-decoration: none;
+}
+
+.leftPanelNumBuffer{
+	float: right;
+	margin-top: 5px;
+	margin-right: 2px;
+}
+
+#membersGreyText{
+	color: rgb(100,100,100);
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+#membersMail{
+	display: block;
+	width: 200px;	
+	height: 20px;
+}
+
+#membersMail a{
+	color: rgb(60,106,173);
+	font-size: 14px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	float: left;
+}
+
+#membersMail img{
+
+	float: left;
+}
+
+#membersField{
+	background: url(../images/membersField.png) no-repeat;
+	width: 137px;
+	height: 31px;
+	margin-top: 0;
+	display: inline;
+	float: left;
+	margin-left: 0;
+}
+
+#leftPanelInviteButton{
+	margin-left: 5px;
+    margin-top: 4px;
+}
+
+#inBuffer span{
+	color: rgb(125,125,125);
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+#sentFromBuffer span{
+	color: rgb(125,125,125);
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+#confMainContainer{
+	border-left: 1px solid;
+	border-left-color: rgb(230,230,230);
+	width: 730px;
+	height: 840px;
+	float: left;	
+	margin-left: 20px;
+ 	padding-left: 20px;
+}
+
+#confMainTitleContainer p{
+	font-size: 18px;
+	color: rgb(67,95,133);
+}
+
+.roundCornerRec{
+
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgb(230,230,230);
+}
+
+#selectDatesInfo{
+	width: 300px;
+	height: 50px;
+}
+
+#selectDatesInfo span{
+	float: left;
+	margin-left: 10px;
+	font-size: 14px;
+	color: rgb(142,142,142);
+}
+
+#selectDatesInfoFirstRec{
+	margin-left: 0;
+}
+
+.selectedroundCornerRec{
+	background-color: rgb(110,110,110);
+}
+
+.selectedroundCornerRec span{
+	color: white;
+}
+
+.noSelectedroundCornerRec{
+	background-color: white;
+}
+
+.confLittleRec{
+	width: 30px;
+	height: 20px;
+	float: left;
+	margin-left: 20px;
+}
+
+.confNormalRec{
+	width: 93px;
+	height: 33px;
+	float: left;
+	margin-left: 5px;
+}
+
+.confBigRec{
+	width: 200px;
+	height: 36px;
+	float: left;
+	margin-left: 5px;
+}
+
+#selectDatesFirstDate{
+	margin-left: 0;
+}
+
+.selectDateLink{
+	text-decoration: none;
+	color: rgb(190,190,190);
+	float: left;
+	margin-left: 23px;
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.selectTimeLink{
+	text-decoration: none;
+	color: rgb(87,87,87);
+	float: left;
+	margin-left: 23px;
+	margin-top: 10px;
+	font-size: 13px;
+}
+
+#selectDatesWednesday a{
+	margin-left: 15px;
+}
+#selectDatesThursday a{
+	margin-left: 20px;
+	
+}
+
+
+#selectTimeContainer{
+	margin-top: 10px;
+	float: left;
+	width: 700px;
+}
+
+#selectTimeFirstButton{
+	width: 110px;
+	margin-left: 0;
+}
+
+#selectTimeSecondButton a{
+	margin-left: 25px;
+}
+
+#selectTimeThirdButton a{
+	margin-left: 20px;
+}
+
+
+.selectedroundCornerTimerRec{
+	background-color: rgb(165,231,255);
+	border-color: rgb(109,201,254);
+}
+
+.noselectedroundCornerTimerRec{
+	background-color: rgb(238,238,238);
+	border-color: rgb(213,213,213);
+}
+
+#settingsSuggestionsContainer{
+	width: 800px;
+	height: 600px;
+	float: left;	
+ 	margin-top: 20px;
+}
+
+#suggestionsListContainer{
+	display: none;
+}
+
+#settingsSuggestionsButton{
+	/*background: url(../images/settingSuggestionsButtonBack.png) no-repeat;*/
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #AADD1E, #A2CD46);
+	/* Safari 5.1, Chrome 10+ */
+   background: -webkit-linear-gradient(top, #AADD1E, #A2CD46);
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgb(109,148,22);
+	width: 223px;
+	height: 44px;
+}
+
+#settingsSuggestionsButton a{
+	color: white;
+	font-size: 20px;
+	text-decoration: none;
+	float: left;
+	margin-top: 8px;
+	margin-left: 22px;
+}
+
+.suggestionRow{
+	width: 700px;
+	height: 50px;
+	border-radius: 5px;
+	background-color: rgb(249,249,249);
+	border: 1px solid;
+	border-color: rgb(224,224,224);
+	margin-top: 8px;
+}
+
+.suggestionFirstColumn{
+	float: left;
+	margin-left: 20px;
+	margin-top: 15px;
+}
+
+.suggestionSecondColumn{
+	float: left;
+	margin-left: 80px;
+	margin-top: 15px;
+}
+
+.suggestionButtonsColumn{
+	float: left;
+	margin-left: 80px;
+	margin-top: 10px;
+}
+
+.suggestionColumnText{
+	color: rgb(109,109,109);
+	font-size: 13px;
+}
+
+.suggestionButtonsLink{
+	text-decoration: none;
+	color: white;
+	font-size: 14px;
+	float:left;
+	margin-top: 7px;
+	margin-left: 12px;
+}
+
+#publishButton{
+	background: url(../images/publishButton.png) no-repeat;
+	width: 68px;
+	height: 29px;
+	float: left;
+}
+#unpublishButton{
+	background: url(../images/unpublishButton.png) no-repeat;
+	width: 84px;
+	height: 29px;
+	float:left;
+	margin-left: 20px;
+}
+#unpublishButton a{
+	
+}
+#deleteButton{
+	background: url(../images/deleteButton.png) no-repeat;
+	width: 84px;
+	height: 29px;
+	float:left;
+	margin-left: 20px;
+}
+#deleteButton a{
+	margin-left: 20px;
+}
+/*End Config HTML*/
+
+/*Buffer HTML*/
+
+.bufferMiddle{
+	background: white;
+	height: 1120px;
+}
+
+#bufferContainer{
+   margin: 0 auto;
+   padding-top: 10px;
+   width: 1000px;
+}
+
+#bufferTitleContainer{
+	width: 300px;
+	height: 50px;
+	margin: 0 auto;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+#bufferTitle{
+	
+	font-size: 35px;
+	color: rgb(60,106,173);
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#bufferSubTitle{
+	font-size: 15px;
+	color: rgb(125,125,125);
+	margin-top: 5px;
+}
+
+#bufferLeftPanelButtonsContainer{
+	margin-top: 15px;
+}
+
+#bufferAddAccountButton{
+	background: url(../images/addAccountBackButton.png) no-repeat;
+	width: 209px;
+	height: 46px;
+	float:left;
+}
+
+
+
+#bufferSwichAccountButton{
+	background: url(../images/switchAccountBackButton.png) no-repeat;
+	width: 209px;
+	height: 47px;
+	float:left;
+	margin-top: 10px;
+}
+
+.bufferLeftPanelButtonLink{
+	color: white;
+	text-decoration: none;
+	float: left;
+	margin-left: 45px;
+	margin-top: 10px;
+}
+
+#addTweetContainer{
+	height: 180px;
+	border-bottom: 1px solid #E6E6E6;
+}
+
+#addTweetTextAreaContainer{
+	width: 690px;
+	height: 80px;
+	background: rgb(249,249,249);
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgb(224,224,224);
+}
+#addTweetTextAreaContainer textarea{
+	resize: none;
+	margin-left: 10px;
+	margin-top: 10px;
+	color: rgb(149,149,149);
+}
+
+#bufferAccionsButtonsContainer{
+	margin-top: 8px;
+}
+
+.bufferAddQueueButton{
+	background: url(../images/addToQueueBackButton.png) no-repeat;
+	width: 170px;
+	height: 44px;
+	float: left;
+	border: medium none;
+	color: white;
+	text-decoration: none;
+	float: left;
+	font-size: 17px;
+}
+
+
+.bufferPostNowButton{
+	background: url(../images/postNowBackButton.png) no-repeat;
+	width: 170px;
+	height: 44px;
+	float: left;
+	margin-left: 5px;
+	color: white;
+	text-decoration: none;
+	float: left;
+	border: medium none;
+	font-size: 17px;
+}
+
+#bufferPostNowButton a{
+	color: white;
+	text-decoration: none;
+	float: left;
+	margin-left: 50px;
+	margin-top: 10px;
+}
+
+.bufferQueueSettingsButton{
+	background: url(../images/queueSettingsBackButton.png) no-repeat;
+	width: 170px;
+	height: 44px;
+	float: left;
+	margin-left: 5px;
+	border: medium none;
+}
+
+#bufferQueueSettingsButton a{
+	color: white;
+	text-decoration: none;
+	float: left;
+	margin-left: 30px;
+	margin-top: 10px;
+}
+
+#bufferViewSuggestionsButton{
+	background: url(../images/viewSuggestionsBackButton.png) no-repeat;
+	width: 170px;
+	height: 44px;
+	float: left;
+	margin-left: 5px;
+}
+
+#bufferViewSuggestionsButton a{
+	color: white;
+	text-decoration: none;
+	float: left;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+#goProContainer{
+	width: 270px;
+	height: 35px;
+	margin-left: 425px;
+}
+#goProContainer img{
+	float: left;
+}
+
+#goProContainer a{
+	float: left;
+	margin-left: 10px;
+	margin-top: 5px;
+	text-decoration: none;
+	color: red;
+}
+#goProCounter{
+	float: left;
+	border: 1px solid;
+	border-radius: 5px;
+	height: 30px;
+	width: 40px;
+	margin-left: 10px;
+	border-color: rgb(218,218,218);
+}
+
+#goProCounter span{
+	margin-top: 7px;
+	margin-left: 7px;
+	float: left;
+	color: rgb(125,125,125);
+}
+
+#bufferMainContainer{
+	border-left: 1px solid;
+	border-left-color: rgb(230,230,230);
+	width: 695px;
+	height: 975px;
+	float: left;	
+	margin-left: 20px;
+ 	padding-left: 20px;
+ 	margin-top: 10px;
+}
+
+#bufferTweetsContainer{
+	margin-top: 15px;
+}
+
+#bufferTweetsHeader{
+	background: rgb(233,233,233);
+	height: 44px;
+	width: 100%;
+	border: 1px solid;
+	border-color: rgb(153,153,153);
+	border-radius: 5px;
+	padding-left: 10px;
+	margin-top: 10px;
+}
+
+#bufferTweetsRow{
+	background: rgb(249,249,249);
+	height: 150px;
+	width: 100%;
+	border: 1px solid;
+	border-color: rgb(224,224,224);
+	border-radius: 5px;
+	margin-top: 10px;
+	padding-left: 10px;	
+}
+
+#bufferTweetsFooter{
+	background: rgb(233,233,233);
+	height: 44px;
+	width: 100%;
+	border: 1px solid;
+	border-color: rgb(153,153,153);
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+.bufferTweetText{
+	font-size: 12px;
+	font-style: italic;
+}
+
+.bufferTweetUser{
+	color: rgb(113,154,212);
+}
+
+.bufferTweetActionsButtonsContainer{
+	float: left;
+    margin-top: 10px;
+    width: 400px;
+}
+
+
+.bufferTweetEditActionButton{
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #B4B4B4, #9B9B9B);
+	/* Safari 5.1, Chrome 10+ */
+   background: -webkit-linear-gradient(top, #B4B4B4, #9B9B9B);
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgb(154,154,154);
+	width: 42px;
+	float:left;
+	height: 24px;
+}
+
+.bufferTweetArchiveActionButton{
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #B4B4B4, #9B9B9B);
+	/* Safari 5.1, Chrome 10+ */
+   background: -webkit-linear-gradient(top, #B4B4B4, #9B9B9B);
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgb(154,154,154);
+	width: 54px;
+	height: 24px;
+	float:left;
+	margin-left: 5px;
+}
+
+.bufferTweetActionButtonLink{
+	color: white;
+	font-size: 13px;
+	float: left;
+	margin-left: 9px;
+	margin-top: 5px;
+}
+
+.bufferTweetDate{
+	color: rgb(96,154,229);
+}
+
+.tweetBufferBirdImage{
+	margin-top:8px;
+	float: left;
+}
+
+
+.bufferTweetsListArrow{
+	float: right;
+	margin-right: 10px;
+	margin-top: 8px;
+}
+
+.bufferTweetsListDate{
+	color: rgb(48,82,144);
+	font-size: 17px;
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.bufferOptionButton{
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #DCDCDC, #ACACAC);
+	/* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #DCDCDC, #ACACAC);
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgb(170,170,170);
+	width: 82px;
+	height: 18px;
+	float: left;
+	margin-left: 8px;
+	text-align: center;
+}
+
+.bufferOptionButton a{
+	font-size: 13px;
+	color: rgb(14,14,14);
+	margin-top: 5px;
+	text-decoration: none;
+}
+
+.bufferOptionButtonSelected{
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #656565, #474747);
+	/* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #656565, #474747);
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgb(69,69,69);
+	width: 82px;
+	height: 18px;
+	float: left;
+	margin-left: 8px;
+	text-align: center;
+}
+
+.bufferOptionButtonSelected a{
+	color: white;
+	font-size: 13px;
+	text-decoration: none;
+}
+
+#bufferTweetsOptionsButtonsContainer{
+	width: 280px;
+	margin: 0 auto;
+	height: 30px;
+}
+
+
+/*End buffer HTML*/
+
+
+/*Plans HTML*/
+
+#plansTabsContainer{
+	width: 520px;
+	margin: 0 auto;
+	height: 61px;
+	position: relative;
+    top: 18px;
+}
+
+#plansTab1{
+	width: 231px;
+	height: 61px;
+	float: left;
+
+}
+
+.plansTab_image_green{
+	background: url(../images/plansTab1BackImage.png) no-repeat;
+}
+
+.plansTab_image_blue{
+	background: url(../images/plansTab2BackImage.png) no-repeat;
+}
+
+#plansTab1 a{
+	color: white;
+	text-decoration: none;
+	font-size: 24px;
+	float: left;
+	margin-top: 15px;
+	margin-left: 70px;
+}
+
+#plansTab2{
+	width: 231px;
+	height: 61px;
+	float: left;
+	margin-left: 15px;
+}
+
+#plansTab2 a{
+	color: white;
+	text-decoration: none;
+	font-size: 24px;
+	float: left;
+	margin-top: 15px;
+	margin-left: 30px;
+}
+
+/*End Plans HTML*/
+
+/*add Twitter account container*/
+
+.addTwitterAccountmiddle{
+	background: white;
+	height: 380px;
+}
+
+
+#addTwitterAccountContainer{ 
+   margin: 0 auto;
+   padding-top: 10px;
+   width: 900px;
+}
+
+.pageTitle{
+	font-family: Rockwell;
+	font-size: 35px;
+	font-weight: normal;
+	color: rgb(60,106,173);
+	margin-left: 165px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.pageSubTitle{
+	font-family: Rockwell;
+	font-size: 15px;
+	font-weight: normal;
+	color: rgb(125,125,125);
+	margin-left: 320px;
+	margin-top: 5px;
+}
+
+#addTwitterAccountButtonContainer{
+	height: 135px;
+    position: relative;
+    width: 900px;
+}
+
+#addTwitterAccountButton{
+	background: url("../images/addTwitterAccountBackButton.png") no-repeat scroll 0 0 transparent;
+    height: 48px;
+    position: absolute;
+    right: 255px;
+    top: 49px;
+    width: 289px;
+}
+
+#addTwitterAccountButton a{
+	color: white;
+	font-size: 20px;
+	font-weight: normal;
+	margin-top: 10px;
+	margin-left: 70px;
+	float: left;
+	text-decoration: none;
+}
+
+#addTwitterAccountLittleBird{
+	bottom: -48px;
+    left: 180px;
+    position: relative;
+}
+
+#addTwitterAccountBottomText{
+	color: rgb(125,125,125);
+	margin-left: 230px;
+	font-size: 13px;
+}
+
+#addTwitterAccountBottomSeparator{
+	margin-top: 25px;
+}
+
+
+/*End add Twitter account container*/
+
+/*tweet CSS*/
+
+#loader {
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: -63px;
+    width: 100%;
+    display: none;
+}
+
+
+#loader-buffer {
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: -63px;
+    width: 100%;
+    display: none;
+}
+
+#loader-update-buffer {
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: -63px;
+    width: 100%;
+    display: none;
+}
+
+#loader-delete-buffer {
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: -63px;
+    width: 100%;
+    display: none;
+}
+
+
+#loader-edit-buffer {
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: -63px;
+    width: 100%;
+    display: none;
+}
+
+#buffer_wrapper{
+	height: 735px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 20px;
+    width: 680px;
+}
+
+/*End tweet CSS*/
+
+.tweetSmartSettingsContainer{
+	float: left;
+    height: 40px;
+    width: 200px;
+}
+
+.chooseTweetSettingsContainer{
+	float: left;
+    height: 40px;
+    width: 230px;
+}
+
+.customTweetTimeSettingsContainer{
+	float: left;
+    width: 200px;
+}
+
+.tweetSettingsContainer{
+	float: left;
+    height: 140px;
+    width: 250px;
+    margin-top: 10px;
+}
+
+.save_setting_button{
+	margin-top: 10px;
+	background: url("../images/save_settings.png") no-repeat scroll 0 0 transparent;
+	height: 40px;
+	width: 117px;
+	border: medium none;
+}
+
+.new_interval_button{
+	margin-top: 10px;
+	background: url("../images/new_interval.png") no-repeat scroll 0 0 transparent;
+	height: 40px;
+	width: 117px;
+	border: medium none;
+}
+
+/* Goodies*/
+
+.mainGoodiesContainer{
+	background: none repeat scroll 0 0 white;
+    height: 580px;
+}
+
+
+#goodiesContainer {
+	height: 300px;
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#mobile_container{
+	width: 100%;
+	height: 274px;
+	margin-top: 38px;
+}
+
+
+.goodieContainer {
+	width: 237px;
+	height: 248px;
+	display: inline-block;
+	
+	margin-right: 12px;
+	font-family: Rockwell;
+}
+
+.goodieTitleContainer{
+	
+	height: 47px;
+	width:237px;
+	background: url(../images/goodiesTitleBG.png) repeat-x;
+	float: left;
+	
+}
+
+.goodieTitle{
+	width: 100%;
+	text-align: center;
+	margin-top: 14px;
+	color: #3c6aad;
+	font-size: 18px;
+}
+
+
+.goodieContainer_left{
+	float: left;
+	background: url(../images/goodiesTopLeft.png) no-repeat;
+	width:2px;
+	height: 191px;
+}
+.goodieContainer_body{
+	float:left;
+	background: url(../images/goodiesTopBody.png) repeat-x;
+	width: 233px;
+	height: 191px;
+}
+
+.goodieContainer_right{
+	float: left;
+	background: url(../images/goodiesTopRight.png) no-repeat;
+	width:2px;
+	height: 191px;
+}
+
+.goodiesContainerBottomBody{
+	height: 10px;
+	width: 237px;
+	background: url(../images/goodiesBottom.png) no-repeat;
+}
+
+.goodieElement {
+	margin-left: 8px;
+	margin-top: 24px;
+}
+
+.goodiesInstallButton{
+	background: url(../images/goodiesInstallButton.png) no-repeat;
+	width:  110px;
+	height: 36px;
+	margin: 0 auto;
+	margin-top: 13px;
+	border: medium none;
+	display: block;
+}
+
+.goodieMobileTitleContainer{
+	height: 47px;
+	width:237px;
+	background: url(../images/goodiesTitleBG.png) repeat-x;
+	font-family: Rockwell;
+	margin: 0 auto;
+	
+}
+
+.goodieMobileTitle{
+	width: 100%;
+	text-align: center;
+	position: relative;
+	top: 14px;
+	color: #3c6aad;
+	font-size: 18px;
+}
+
+.mobileAppsContainer
+{
+	height: 227px;
+	width: 100%;
+	background-color: #e7e7e7;
+	text-align: center;
+	
+}
+
+.mobileAppContainer {
+	width: 180px;
+	height: 163px;
+	background-color: #fcfcfc;
+	border: 1px solid white;
+	position: relative;
+	top: 30px;
+}
+
+.mobileAppImage
+{
+	position:relative;
+	top: 16px;
+}
+
+.mobileAppTitle{
+	font-family: Myriad Pro;
+	font-size: 18px;
+	color: #184079;
+	position:relative;
+	top: 20px;
+}
+
+.mobileAppWrapper{
+	width: 400px;
+	margin: 0 auto;
+}
+
+.floatLeft{
+	float: left;
+}
+
+.floatRight{
+	float: right;
+}
+/* End Goodies*/
+
+
+/* Plans */
+#plansContainer {
+	height: 660px;
+	margin-top: 13px;
+}
+
+
+.planContainer {
+	width: 320px;
+	height: 525px;
+	display: inline-block;
+	margin-right: 5px;
+	font-family: Rockwell;
+}
+
+.plansContainer_left{
+	float: left;
+	background: url(../images/plansTopLeft.png) no-repeat;
+	width:5px;
+	height: 206px;
+}
+.plansContainer_body{
+	float:left;
+	background: url(../images/plansTopBody.png) repeat-x;
+	width: 310px;
+	height: 206px;
+}
+
+.plansContainer_right{
+	float:left;
+	background: url(../images/plansTopRight.png) no-repeat;
+	width:5px;
+	height: 206px;
+}
+
+.plansContainerBottomBody {
+	display:block;
+	background: url(../images/plansBottomBody.png) repeat-y;
+	width: 320px;
+	height: 351px;
+	padding-top: 10px;
+	position: relative;
+}
+
+.plansContainerBottomBottom {
+	display:block;
+	background: url(../images/plansBottomBottom.png) no-repeat;
+	width: 320px;
+	height: 13px;
+}
+
+.plansSignUpButton{
+	display:block;
+	background: url(../images/signUpNowGrey.png) no-repeat;
+	margin: 0 auto;	
+	width: 102px;
+	height: 35px;
+	border: medium none;
+	margin-top: 7px;
+}
+
+.planTitle{
+	width: 100%;
+	text-align:center;
+
+	font-size: 34px;
+	margin-top:31px;
+	color: #3b6aad;
+}
+
+.priceColorOne{
+	color: #b66565;
+}
+
+.priceColorTwo{
+	color: #85a346;
+}
+
+.planPrice{
+	width: 100%;
+	text-align:center;
+	font-size: 48px;
+	height:57px;
+	
+}
+
+.planDescription{
+	font-size: 19px;
+	text-align: center;
+	color: #3b6aad;
+}
+
+.planFeatures{
+	font-size: 15px;
+	text-align:left;
+	color: #000000;
+}
+
+.planFeatures p{
+	margin-left: 42px;
+	margin-top: 10px;
+	line-height: 22px
+}
+
+.tweetBirdPlan{
+	background: url(../images/tweetBirdSmall.png) no-repeat;
+	width: 36px;
+	height: 51px;
+	position: absolute;
+	right: 15px;
+	bottom: 3px;
+}
+
+.planVideo
+{
+	height: 580px;
+	background: url(../images/plansVideoBg.png) no-repeat;
+	width: 990px;
+	margin: 0 auto;
+	margin-top: 10px;
+	font-family: Rockwell;
+	padding-top: 38px;
+}
+
+#planVideoTitle{
+	width:100%;
+	text-align: center;
+	font-size: 35px; 
+	color: #3b6aad;
+
+}
+
+#planVideoContainer
+{
+	width: 605px;
+	margin: 0 auto;
+	background: url(../images/plansVideo.png) no-repeat;
+	height: 350px;
+	margin-top: 24px;
+}
+
+.plansSignUpButtonBlue{
+	display:block;
+	background: url(../images/signUpNowBlue.png) no-repeat;
+	margin: 0 auto;	
+	width: 102px;
+	height: 35px;
+	border: medium none;
+	margin-top: 31px;
+}
+
+.readyMsg
+{
+	font-family: Myriad Pro;
+	font-weight: normal;
+	font-size: 16px;
+	color: #646464;
+	width: 100%;
+	text-align: center;
+	margin-top: 21px;	
+}
+
+.planReasons
+{
+	height: 600px;
+	background: url(../images/plansVideoBg.png) no-repeat;
+	width: 990px;
+	margin: 0 auto;
+	font-family: Rockwell;
+	padding-top: 38px;
+}
+
+
+#planReasonsTitle{
+	width:100%;
+	text-align: center;
+	font-size: 35px;
+	color: #3b6aad;
+
+}
+
+.planReason {
+	height: 167px;
+	margin: 0 auto;
+	width: 990px;
+}
+
+.planReasonBirdDiv{
+	width: 149px;
+	height: 155px;
+	border: 1px solid #eaeaea;
+	float: left;
+
+}
+
+.planReasonBirdDivWrapper{
+	background: url(../images/tweetBird.png) no-repeat;
+	width:  98px;
+	height: 128px;
+	margin: 0 auto;
+	margin-top: 13px;
+}
+
+.planReasonTitle {
+	font-size: 17px;
+	color: #143767;
+	font-family: Myriad Pro;
+	margin-left: 170px;
+	margin-top: 10px;
+}
+
+.planReasonDesc{
+	width: 715px;
+	height: 120px;
+	margin-left: 170px;
+	margin-top: 14px;
+	font-family: Myriad Pro;
+	font-size: 13px;
+	padding-right: 60px;
+	color: #5c5c5c;
+	border: 1px solid #eaeaea;
+}
+
+.planReasonDescWrapper{
+	margin-left: 21px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	margin-right: 12px;
+}
+
+/*End Plans HTML*/
+
+/*Add Face and Twitt Account*/
+
+.mainMiddleAddFaceTwitt{
+	background: none repeat scroll 0 0 white;
+    height: 340px;
+}
+
+
+#addAccountsTabsContainer {
+    height: 41px;
+    margin: 0 auto;
+    position: relative;
+    top: 18px;
+    width: 480px;
+}
+
+#add_face_account_tab{
+	background: url(../images/add_face_account_back_button.png) no-repeat;
+	width: 187px;
+	height: 41px;
+	float: left;
+}
+
+#add_face_account_tab a{
+	color: white;
+    float: left;
+    font-size: 23px;
+    margin-left: 43px;
+    margin-top: 8px;
+    text-decoration: none;
+}
+
+#add_twitt_account_tab{
+	background: url(../images/add_twitt_account_back_button.png) no-repeat;
+	width: 187px;
+	height: 41px;
+	float: left;
+	margin-left: 10px;
+}
+
+#add_twitt_account_tab a{
+	color: white;
+    float: left;
+    font-size: 23px;
+    margin-left: 55px;
+    margin-top: 8px;
+    text-decoration: none;
+}
+
+#addFaceTwittAccountLittleBird{
+	float: left;
+    margin-left: 120px;
+    margin-top: 10px;
+}
+
+#add_face_twitt_last_p{
+	color: rgb(168,168,168);
+	margin-left: 90px;
+    margin-top: 33px;
+}
+
+/*End Add Face and Twitt Account*/

@@ -1,127 +1,226 @@
-#general_dialog
--content_for :tweet_css do
-  =stylesheet_link_tag "tweet.css"
+#middle.configMiddle
+  #configContainer
+    #configTabsContainer
+      .tweetAccountTabSelected
+        %a.myriadProNormal{:href => "#"} #{@twitter_user.login}
+      /.tweetAccountTab
+      /%a.myriadProNormal{:href => "#"} Webeffect1
+    .separator
+    #leftPanel
+      #leftPanelPhoto
+        = profile_image(@twitter_user, "_normal", 211, 198)
+      #inBuffer
+        %img.litleBirdImage{:src => "images/blueBird.png"}/
+        %span.rockwellRegular In Buffer
+        %span.leftPanelNumBuffer (#{@count_buffer})
+      #sentFromBuffer
+        %img.litleBirdImage{:src => "images/greenBird.png"}/
+        %span.rockwellRegular Sent from Buffer
+        %span.leftPanelNumBuffer (#{@sent_buffers_count})
+      #bitLyDetails
+        = form_tag save_detail_bitly_apis_path, :remote => true, :style => "margin-top: 19px;" do
+          %p.rockwellRegular.leftPanelTitleSections Add your bit.ly details
+          .leftPanelBitField
+            /%input.transparentInput{:value => "User Name"}/
+            = text_field :bitly_api, :bitly_name, :value => @bitly.nil?? "" : @bitly.bitly_name, :required => true, :class => "transparentInput", :placeholder => "User Name"
+          .leftPanelBitField
+            /%input.transparentInput{:value => "API Key"}/
+            = text_field :bitly_api, :api_key, :value => @bitly.nil?? "" : @bitly.api_key, :required => true, :class => "transparentInput", :placeholder => "API Key"
+            = hidden_field :bitly_api, :user_id, :value => current_user.id
+          %div{:onclick => "$('#loader-category').show(); $('.text-loader').html('Adding your bitly details.');", :style => "display: inline-block;"}
+            %div
+              = submit_tag "save", :class => "myriadProNormal leftPanelBlueButton"
+              /%a.myriadProNormal{:href => "#"} Save
+      #teamMembers
+        %p.rockwellRegular.leftPanelTitleSections Manage team members
+        %p#membersGreyText.rockwellRegular Settings | invite a team member
+        #membersMail
+          %img{:src => "images/membersLittleBird.png"}/
+          %a.rockwellRegular{:href => "#"} someone@host.com
+        %div
+          = form_tag "/invite_team_member" do
+            = text_field :member, :email, :required => true, :id => "membersField", :class => "transparentInput"
+            /#leftPanelInviteButton.leftPanelBlueButton
+            /%a.myriadProNormal{:href => "#"} Invite
+            = submit_tag "invite", :id => "leftPanelInviteButton", :class => "leftPanelBlueButton"
+    #confMainContainer
+      #confMainTitleContainer
+        = form_tag save_settings_path do
+          %p.rockwellRegular Choose when #{@twitter_user.login} Tweets :
+          #selectDatesInfo
+            #selectDatesInfoFirstRec.selectedroundCornerRec.roundCornerRec.confLittleRec
+            %span.rockwellRegular Selected
+            .noSelectedroundCornerRec.roundCornerRec.confLittleRec
+            %span.rockwellRegular No selected
+          #selectDatesContainer
+            #selectDatesFirstDate.noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(1);"}
+              %span.selectDateLink Monday
+            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(2);"}
+              %span.selectDateLink Tuesday
+            #selectDatesWednesday.noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(3);"}
+              %span.selectDateLink Wednesday
+            #selectDatesThursday.noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(4);"}
+              %span.selectDateLink Thursday
+            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(5);"}
+              %span.selectDateLink Friday
+            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(6);"}
+              %span.selectDateLink Saturday
+            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(7);"}
+              %span.selectDateLink Sunday
+            = check_box_tag "days[]", "1", is_day_of_week_checked?(@twitter_user, "1"), :class => "checkbox_time_setting", :id => "check1"
+            = check_box_tag "days[]", "2", is_day_of_week_checked?(@twitter_user, "2"), :class => "checkbox_time_setting", :id => "check2"
+            = check_box_tag "days[]", "3", is_day_of_week_checked?(@twitter_user, "3"), :class => "checkbox_time_setting", :id => "check3"
+            = check_box_tag "days[]", "4", is_day_of_week_checked?(@twitter_user, "4"), :class => "checkbox_time_setting", :id => "check4"
+            = check_box_tag "days[]", "5", is_day_of_week_checked?(@twitter_user, "5"), :class => "checkbox_time_setting", :id => "check5"
+            = check_box_tag "days[]", "6", is_day_of_week_checked?(@twitter_user, "6"), :class => "checkbox_time_setting", :id => "check6"
+            = check_box_tag "days[]", "7", is_day_of_week_checked?(@twitter_user, "7"), :class => "checkbox_time_setting", :id => "check7"
+            #selectTimeContainer
+            %p.rockwellRegular Select Time Settings :
+            #selectTimeButtonsContainer
+              #selectTimeFirstButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+                %span.selectTimeLink.myriadProNormal Tweet Smart
+              #selectTimeSecondButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+                %span.selectTimeLink.myriadProNormal Choose Your Tweeting Time
+              #selectTimeThirdButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+                %span.selectTimeLink.myriadProNormal Customise Your Tweeting Time
+          .tweetSettingsContainer
+            %div{:id => "1", :style => "display:none;", :class => "tweetSmartSettingsContainer"}
+              =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
+              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+              - if @myplan.name.eql?("Free")
+                = "1"
+                = radio_button_tag 'day_time', '1'
+                = "2"
+                = radio_button_tag 'day_time', '2'
+                = "4"
+                = radio_button_tag 'day_time', '4'
+                = "6"
+                = radio_button_tag 'day_time', '6'
+              - elsif @myplan.name.eql?("Pro")
+                = "1"
+                = radio_button_tag 'day_time', '1'
+                = "2"
+                = radio_button_tag 'day_time', '2'
+                = "4"
+                = radio_button_tag 'day_time', '4'
+                = "6"
+                = radio_button_tag 'day_time', '6'
+              - elsif @myplan.name.eql?("Premium")
+                = "1"
+                = radio_button_tag 'day_time', '1'
+                = "2"
+                = radio_button_tag 'day_time', '2'
+                = "4"
+                = radio_button_tag 'day_time', '4'
+                = "6"
+                = radio_button_tag 'day_time', '6'
+            
+            %div{:id => "2", :style => "display:none;", :class => "chooseTweetSettingsContainer"}
+              =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
+              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+              =select_tag "timeframe_id", options_for_select(@options)
+              %br
+              = "start at"
+              =select_tag "start_at[hour]", options_for_select(choose_hours_custom)
+              =select_tag "start_at[minute]", options_for_select(choose_minutes_custom)
+              =select_tag "start_at[meridian]", options_for_select(choose_meridians_custom)
+              =hidden_field :timeframe, :timeframe_id, :value => "99"
+              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+            
+            %div{:id => "3", :style => "display:none;",:class => "customTweetTimeSettingsContainer"}
+              #custom_tf_wrapper
+                #custom_tf_select
+                  =hour_select("tfname[hour][]")
+                  =minute_select("tfname[minute][]")
+                  =meridian("tfname[meridian][]")
+                  %span{:style => "color: #a50000; font-weight: bold; cursor: pointer;", :onclick => "$('#new_form_count').val(new_form_count-=1); $(this).parents('#custom_tf_select').remove();"} X
+              =hidden_field :timeframe, :timeframe_id, :value => "99"
+              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+              =hidden_field_tag :new_form_count, "1"
+              %input{:type => "button", :value => "", :onclick => "new_interval_custom();", :class => "new_interval_button"}
+          
+            = submit_tag "", :class => "save_setting_button"
+        #settingsSuggestionsContainer
+          %p.rockwellRegular Manage Suggestions :
+          #settingsSuggestionsButton
+            %a.rockwellRegular{:href => "#"} Setting Suggestions
+          #suggestionsListContainer
+            %p.rockwellRegular Business Suggestions :
+            .suggestionRow
+              .suggestionFirstColumn.suggestionColumnText
+                %span.myriadProNormal Lorem ipsum dolor sit amet, conse
+              .suggestionSecondColumn.suggestionColumnText
+                %span.myriadProNormal Business
+              .suggestionButtonsColumn
+                #publishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Publish
+                #unpublishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Unpublish
+                #deleteButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Delete
+            .suggestionRow
+              .suggestionFirstColumn.suggestionColumnText
+                %span.myriadProNormal Lorem ipsum dolor sit amet, conse
+              .suggestionSecondColumn.suggestionColumnText
+                %span.myriadProNormal Business
+              .suggestionButtonsColumn
+                #publishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Publish
+                #unpublishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Unpublish
+                #deleteButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Delete
+            .suggestionRow
+              .suggestionFirstColumn.suggestionColumnText
+                %span.myriadProNormal Lorem ipsum dolor sit amet, conse
+              .suggestionSecondColumn.suggestionColumnText
+                %span.myriadProNormal Business
+              .suggestionButtonsColumn
+                #publishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Publish
+                #unpublishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Unpublish
+                #deleteButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Delete
+            .suggestionRow
+              .suggestionFirstColumn.suggestionColumnText
+                %span.myriadProNormal Lorem ipsum dolor sit amet, conse
+              .suggestionSecondColumn.suggestionColumnText
+                %span.myriadProNormal Business
+              .suggestionButtonsColumn
+                #publishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Publish
+                #unpublishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Unpublish
+                #deleteButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Delete
+            .suggestionRow
+              .suggestionFirstColumn.suggestionColumnText
+                %span.myriadProNormal Lorem ipsum dolor sit amet, conse
+              .suggestionSecondColumn.suggestionColumnText
+                %span.myriadProNormal Business
+              .suggestionButtonsColumn
+                #publishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Publish
+                #unpublishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Unpublish
+                #deleteButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Delete
+            .suggestionRow
+              .suggestionFirstColumn.suggestionColumnText
+                %span.myriadProNormal Lorem ipsum dolor sit amet, conse
+              .suggestionSecondColumn.suggestionColumnText
+                %span.myriadProNormal Business
+              .suggestionButtonsColumn
+                #publishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Publish
+                #unpublishButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Unpublish
+                #deleteButton
+                  %a.myriadProNormal.suggestionButtonsLink{:href => "#"} Delete
+                  
 
--if @is_updated_interval
-  #interval_not_updated.error
-    = @is_updated_interval
-    %span{:style => "float: right;"}
-      %a{:href => "#", :onclick => "$('#interval_not_updated').fadeOut('slow')"}
-        %img{:src => "/images/close.png"}
-
-#post_notice
-#loader-category{:style => "display:none;"}
-  =image_tag("ajaxLoader.gif")
-  %br
-  .text-loader
-    Add suggestion to list suggestion
-
-.wrapper
-  #settings_user_detail
-    #profile_image
-      = profile_image(@twitter_user, "_normal", 64, 64)
-    #buffer_count_blue
-      - if user_signed_in?
-        - unless @plans.nil?
-          - if @plans.plan.name.eql?("Free")
-            %span{:id => "buffer_count_text_blue"} #{@count_buffer}
-          - elsif @plans.plan.name.eql?("Pro")
-            %span{:id => "buffer_count_text_blue"} #{@count_buffer}
-          - elsif @plans.plan.name.eql?("Premium")
-            %span{:id => "buffer_count_text_blue"} #{@count_buffer}
-        - else
-          %span{:id => "buffer_count_text"} 0
-      %br
-      %div{:style=>"margin-top:2px;"} In Buffer
-
-    #buffer_count_green
-      %span{:id => "buffer_count_text_green"} #{@sent_buffers_count}
-      %br
-      %div{:style=>"width: 100px; margin-top: 2px;"} Sent from buffer
-  #bitly_detail
-    %span{:style => "font-size:12px; font-weight:bold; color:#7AC2F4;"}
-      Add your bit.ly details
-
-    #form.form_bitly{:style => "display:none;"}
-      = render :partial => "form_bitly"
-
-    #display.display_bitly
-
-      - if @bitly.nil?
-        .form_bitly
-          = render :partial => "form_bitly"
-      - else
-        .display_bitly
-          = render :partial => "display_bitly"
-        
-  #separator{:style => "margin-top: 10px; margin-bottom: 30px ! important;"}
-
-  .timeframe
-    #timeframe_box
-      %div{:id => "choose_tweet"}
-        = "Choose when #{@twitter_user.login} Tweets :"
-      %br
-      .sign
-        #notice_selected_day
-        .text_notice
-          = "Selected"
-        %br
-        #notice_not_selected_day
-        .text_notice
-          = "Not Selected"
-      
-      %br
-      #default_timeframe_form_container
-        =render :partial => "default_interval", :locals => {:twitter_user => @twitter_user}
-      #custom_timeframe_form_container{:style => "display: none;"}
-        =render :partial => "other_time_interval", :locals => {:twitter_user => @twitter_user}
-        %br
-        %input{:value => "Default",:type => "button", :onclick => "$('#custom_timeframe_form_container').hide(); $('#default_timeframe_form_container').show();"}
-      %br
-      - ti = @twitter_user.time_setting
-      - unless ti.nil?
-        - tf = ti.timeframe
-        - if ti.time_setting_type.eql?(1)
-          currently your tweet will post automatically #{ti.post_per_day} post per day in
-          - last = ti.time_period.split(",").last
-          - ti.time_period.split(",").each do |t|
-            - unless t.eql?(last) 
-              = t + ", "
-            - else
-              = t
-        - elsif ti.time_setting_type.eql?(2)
-          currently your tweet will post automatically post every #{ti.timeframe.value} #{ti.timeframe.unit} per day in
-          - last = ti.time_period.split(",").last
-          - ti.time_period.split(",").each do |t|
-            - unless t.eql?(last) 
-              = t + ", "
-            - else
-              = t
-        - elsif ti.time_setting_type.eql?(3)
-          currently your tweet will post automatically in 
-          - last = ti.time_period.split(",").last
-          - ti.time_period.split(",").each do |t|
-            - unless t.eql?(last) 
-              = t + ", "
-            - else
-              = t
-
-    #manage_team_box
-      %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
-        Manage team members
-      %br
-      %span{:style => "font-size: 11px; color: #a9a9a9;"}
-        settings | invite a team member
-      %div{:style => "font-weight: bold; color: #a9a9a9;"}
-        %img{:src => "/images/birds_64/5.png", :height => "24", :width => "24"}
-        someone@host.com
-
-      = form_tag "/invite_team_member" do
-        = text_field :member, :email, :required => true, :style => "width: 160px;"
-        = submit_tag "invite"
-    #manage_suggestions
-      %span{:style => "font-size: 13px; font-weight: bold; color: #7AC2F4;"}
-        Manage Suggestions
-        %br
-      %div{:style => "margin-right: 72px; margin-top: 10px;"}
-        %div{:id => "box-tweet-suggest", :onclick => "showDialog('Create Suggestions', '/setting_suggestion?twitter_name=#{@twitter_user.login}'); return false;"} Setting Suggestions
+:javascript
+  
+  $("#menuArrow").removeClass();
+  $("#menuArrow").addClass("menuArrowMyTweets");

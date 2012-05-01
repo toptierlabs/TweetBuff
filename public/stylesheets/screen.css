@@ -13,9 +13,7 @@ code, del, dfn, em, img,
 dl, dt, dd, ol, ul, li, fieldset,
 form, label, legend,
 caption, tbody, tfoot, thead, tr {
-    margin: 0;
-    padding: 0;
-    border: 0;
+
     font-weight: inherit;
     font-style: inherit;
     font-size: 100%;
@@ -160,13 +158,7 @@ table.tweets tbody tr > td {
     src: url("/fonts/nuornata.ttf");
 }
 
-/* line 25, app/stylesheets/_layout.scss */
-body {
-    font-family: TexGy;
-    font-size: 12px;
-    /*    width: auto;*/
-    /*  border-top: 20px solid #79c1f3;*/
-}
+
 /* line 28, app/stylesheets/_grid.scss */
 body .container {
     width: 1024px;
@@ -946,7 +938,8 @@ ul.link-nav.left {
 /* line 2, app/stylesheets/_simple_form.scss */
 form .input {
     /*    padding: 7px 10px 5px;*/
-    padding: 7px 0px 5px;
+   /* padding: 7px 0px 5px;*/
+  height: 100%;
 }
 /* line 5, app/stylesheets/_simple_form.scss */
 form .input:hover {

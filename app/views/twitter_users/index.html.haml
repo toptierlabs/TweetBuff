@@ -1,6 +1,3 @@
--content_for :tweet_css do
-  =stylesheet_link_tag "tweet.css"
-
 :javascript
   function showmsg(){
     alert('delete');
@@ -9,167 +6,82 @@
     $.get('/twitter_users/delete_buffer/' + id);
   }
 
-#post_notice
-#general_dialog
--unless @is_updated_interval.nil?
-  #interval_not_updated.error
-    - if @twitter_user.account_type.eql?("twitter")
-      //= "#{@is_updated_interval}. #{link_to("Setup here", twitter_settings_path(:twitter_name => @twitter_user.login)) unless @twitter_user.nil?}".html_safe
-      = "#{@is_updated_interval}. #{link_to("Setup here", twitter_settings_path(@twitter_user.login)) unless @twitter_user.nil?}".html_safe
-    - else
-      //= "#{@is_updated_interval}. #{link_to("Setup here", facebook_settings_path(:twitter_name => @twitter_user.login)) unless @twitter_user.nil?}".html_safe
-      = "#{@is_updated_interval}. #{link_to("Setup here", facebook_settings_path(@twitter_user.login)) unless @twitter_user.nil?}".html_safe
-
--if @twitter_user.nil?
-  You need to authorize us to use your Twitter account.
-  %a{:href => twitter_authorize_account_path}
-    authorize now
--else
-  .wrapper{:id => "tweet_stuff"}
-    #go_pro
-      %div{:style => "display: inline-block;"}
-      = image_tag("bluebox.jpg", :style => "width: 32px; height: 32px;")
-      %div{:style => "display: inline-block; text-align: left;"}
-        %span{:style => "color: #F6C312; font-size: 15px; font-weight: bold;"}
-          Go
-        %span{:style => "color: #3D6CB4; font-size: 15px; font-weight: bold;"}
-          Pro!
-        %br
-        %i
-          =link_to "View advantage", plans_path, :class => "adv_link"
-
-    .tweet_stuff
-      .user_twitter_detail
-        #profile_image
-          = profile_image(@twitter_user, "_normal", 64, 64)
-        .badge
-          - if @twitter_user.account_type.eql?("facebook")
-            = image_tag("badge-facebook.png")
-          - elsif @twitter_user.account_type.eql?("twitter")
-            = image_tag("badge-twitter.png")
-        #buffer_count_blue
+#middle.bufferMiddle
+  #bufferContainer
+    #bufferTitleContainer
+      %p#bufferTitle.rockwellRegular tweetbuff.com
+      %p#bufferSubTitle.rockwellRegular Welcome back #{@twitter_user.login}
+    .separator
+    #leftPanel
+      #leftPanelPhoto
+        = profile_image(@twitter_user, "_normal", 211, 198)
+      #inBuffer
+        = image_tag("blueBird.png", :class => "litleBirdImage")
+        %span.rockwellRegular In Tweet
         - if user_signed_in?
           - if @plans.plan.name.eql?("Free") || @plans.plan.name.eql?("Pro")
-            %span{:id => "buffer_count_text_blue_set"} #{@count_buffer}
+            %span.leftPanelNumBuffer (#{@count_buffer})
           - elsif @plans.plan.name.eql?("Premium")
-            %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} Unlimited tweets per day
-        #user_login
-          =@twitter_user.login
-
-      - @twitter_account_list.each do |account|
-        - unless account.login.eql?(params[:twitter_name])
-          .user_detail
-            .avatar_image
-              = profile_image(account, "_normal", 35, 31)
-            .badge
-              - if account.account_type.eql?("facebook")
-                = image_tag("badge-facebook.png")
-              - elsif account.account_type.eql?("twitter")
-                = image_tag("badge-twitter.png")
-            %h2
-              - if account.account_type.eql?("twitter")
-                = link_to account.login, twitter_user_path(account.login)
-              - else
-                = link_to account.login, facebook_user_path(account.login)
-            %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
-              - if user_signed_in?
-                = "#{@count_each_buffer_account}"
-        - else
-          .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: none; min-width: 180px; background-color: rgb(214, 237, 240);"}
-            .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
-              = profile_image(@twitter_user, "_normal", 35, 31)
-            .badge
-              - if account.account_type.eql?("facebook")
-                = image_tag("badge-facebook.png")
-              - elsif account.account_type.eql?("twitter")
-                = image_tag("badge-twitter.png")
-            %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
-              = @twitter_user.login
-            %span{:class => "count", :style => "display: none; color: rgb(22, 147, 165); position: absolute; margin-left: 34px; background: none repeat scroll 0pt 0pt rgb(222, 222, 222); font-weight: bold; font-size: 15px; margin-top: -21px;"}
-              - if user_signed_in?
-                - if @plans.plan.name.eql?("Free")
-                  = "#{@count_buffer}"
-                - elsif @plans.plan.name.eql?("Pro")
-                  = "#{@count_buffer}"
-                - elsif @plans.plan.name.eql?("Premium")
-                  = "~"
-      .user_detail{:style => "border: 2px solid rgb(39, 110, 162); height: 50px; display: inline-block; min-width: 180px; background-color: rgb(214, 237, 240); border-radius: 10px 10px 10px 10px;"}
-        .avatar_image{:style=> "border-radius: 3px 3px 3px 3px; float: left; height: 32px; margin-right: 10px; width: 32px; margin-top: 9px;"}
-          = image_tag("add.png", width: 25, height: 25)
-        %h2{:style => "margin-right: 35px; margin-top: 14px; font-weight: bold;"}
-          = link_to "Add Account", add_an_account_path        
-
-        #user_login{:style=> "display: none;"}
-          = @twitter_user.login
-      #mini_panel
-        %ul{:style => "list-style: none;"}
-          %li{:style => "font-size: 14px; font-weight: bold;"}
-            %a{:href => twitter_authorize_account_path, :style => "color: #3468BB; display: none;"}
-              %img{:src => "/images/add_blue.png", :width => 24, :height => 24} Add Account
-          %li{:style => "font-size: 14px; font-weight: bold; "}
-            %a{:href => "#", :style => "display:none; color:#3468BB", :onclick => "showDialog('Switch account','#{twitter_account_list_path}'); return false;"}
-              %img{:src => "/images/refresh_24.png", :width => 24, :height => 24} Switch Account
-
-    .tweeet_loader{:style => "position: relative; width: 725px; margin-left: 150px;"}
-      #loader
-        =image_tag("ajaxLoader.gif")
-        %br
-        Posting your tweet
-      #loader-buffer
-        =image_tag("ajaxLoader.gif")
-        %br
-        Adding tweet to buffer
-      #loader-delete-buffer
-        =image_tag("ajaxLoader.gif")
-        %br
-        Delete tweet from buffer
-      #loader-edit-buffer
-        =image_tag("ajaxLoader.gif")
-        %br
-        Edit buffer
-    .tweet_form_buffer
-      = form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-        %span{:id => "counter", :style => "background-color: rgb(214, 237, 240); border: 2px solid rgb(36, 157, 236); color: rgb(36, 157, 236); float: right; margin-top: -31px; margin-right: 10px; font-size: 17px; border-radius: 10px 10px 10px 10px; padding: 2px;"}
-        - unless @is_updated_interval.nil?
-          = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :disabled => true
-        - else
-          = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :style => "float: left; display: inline-block;"
-          %div{:style => "clear:both;"}
-        #button_container
-          - unless @is_updated_interval.nil?
-            = submit_tag "", :class => "add_to_queue", :disabled => true, :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
-            %input{:type => "button",:class => "post_now", :disabled => true, :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
-          - else
-            = submit_tag "", :class => "add_to_queue", :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
-            %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}          
-
-          - if @twitter_user.account_type.eql?("twitter")
-            %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(@twitter_user.login)}'"}
-          - else
-            %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{facebook_settings_path(@twitter_user.login)}'"}
-          
-          - unless @is_updated_interval.nil?
-            %div{:id => "box-tweet-suggest"} View Suggestions
-          - else
-            %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/suggestions?twitter_name=#{@twitter_user.login}'); return false;"} View Suggestions
-    #separator
-      // buffer list and ads
-    #buffer_list
-      %span{:style => "font-size: 15px; font-weight: bold; display: block; text-align: center;"}
-        = link_to "Queue", "", :class => "qpa all", :id => "queue", :remote => true, :onclick => "$('#loader-tab').show();$('#buffer_wrapper').hide();"
-        = link_to "Performance", twitter_user_performance_path, :class => "qpa", :id => "performance", :remote => true, :onclick => "$('#loader-tab').show();$('#buffer_wrapper').hide();"
-        = link_to "Analytics", twitter_user_analytic_path, :class => "qpa", :id => "analytic", :remote => true, :onclick => "$('#loader-tab').show();$('#buffer_wrapper').hide();"
-      #loader-tab{:style => "position: absolute; padding: 0px 42px; margin-left: 305px; margin-top: 60px;display:none;"}
-        = image_tag("a-loader.gif")
-      %br
+            %span.leftPanelNumBuffer (Unlimited)
+      #bufferLeftPanelButtonsContainer
+        #bufferAddAccountButton
+          %a.rockwellRegular.bufferLeftPanelButtonLink{:href => "#"} Add Account
+          = link_to "Add Account", add_an_account_path,  :class => "rockwellRegular bufferLeftPanelButtonLink"
+        #bufferSwichAccountButton
+          %a.rockwellRegular.bufferLeftPanelButtonLink{:href => "#"} Switch Account
+    #bufferMainContainer
+      #addTweetContainer
+        #goProContainer
+          = image_tag("goProImage.png")
+          %a.rockwellRegular{:href => "#"} View advantage
+          #goProCounter
+            %span{:id => "counter"}
+        = form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
+          #addTweetTextAreaContainer
+            = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :class => "transparentInput"
+          #bufferAccionsButtonsContainer
+            #bufferAddQueueButton
+              = submit_tag "", :class => "rockwellRegular bufferAddQueueButton", :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
+            #bufferPostNowButton
+              %input{:value => "", :type => "button",:class => "rockwellRegular bufferPostNowButton", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
+            #bufferQueueSettingsButton
+              %input{:type => "button",:class => "queue_settings",:class => "rockwellRegular bufferQueueSettingsButton", :onclick => "window.location='#{twitter_settings_path(@twitter_user.login)}'"}   
+            #bufferViewSuggestionsButton
+              %a.rockwellRegular{:href => "#"} 
+      #bufferTweetsContainer
+        #bufferTweetsOptionsButtonsContainer
+          .bufferOptionButtonSelected
+            %a.myriadProNormal{:href => "#"} Queue
+          .bufferOptionButton
+            %a.myriadProNormal{:href => "#"} Performance
+          .bufferOptionButton
+            %a.myriadProNormal{:href => "#"} Analytics
+      .tweeet_loader{:style => "position: relative; width: 725px; margin-left: 150px;"}
+        #loader
+          =image_tag("ajaxLoader.gif")
+          %br
+          Posting your tweet
+        #loader-buffer
+          =image_tag("ajaxLoader.gif")
+          %br
+          Adding tweet to buffer
+        #loader-delete-buffer
+          =image_tag("ajaxLoader.gif")
+          %br
+          Delete tweet from buffer
+        #loader-edit-buffer
+          =image_tag("ajaxLoader.gif")
+          %br
+          Edit buffer
       #buffer_wrapper
-        = render :partial => "queue", :locals => {:ordered_buffers => @ordered_buffers, :ordered_buffers => @ordered_buffers}
-      
-    #ads
-      = image_tag("/images/advertise.jpg")
+        = render :partial => "queueNew", :locals => {:ordered_buffers => @ordered_buffers, :ordered_buffers => @ordered_buffers}
+        
 
 :javascript
   $('#tweet_text').simplyCountable({
     counter: '#counter',
     maxCount: 140,
   });
+
+  $("#menuArrow").removeClass();
+  $("#menuArrow").addClass("menuArrowMyTweets");

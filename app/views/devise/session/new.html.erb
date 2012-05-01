@@ -1,22 +1,55 @@
-<div id="box-sign-in">
-  <h2 style="position: absolute; font-size: 36px; font-weight: bold; margin-left: 18px; color: rgb(122, 194, 244);">Sign-in</h2>
-  <div id="image-sign-in">
-    <%= image_tag("/images/birds_64/6.png") %>
-  </div>
-  <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <div class="inputs">
-      <%= f.input :email, :required => true, :autofocus => true, :placeholder => "you@example.com" %>
-      <%= f.input :password, :required => true, :size=>"25" %>
-    </div>
-    <div class="remember">
-      <div class="input boolean optional" style="display: inline-block; position: relative; height: 25px; width: 267px;">
-        <%= f.input :remember_me, :label => "Keep me signed in.", :as => :boolean if devise_mapping.rememberable? %>
-      </div>
-    </div>
-    <div style="clear:both;">
-      <div class="actions" style="margin-bottom: 10px;">
-        <%= f.button :submit, "", :class => "button-sign-in" %>
-      </div>
-    <% end %>
-    <%= link_to "Forgotten your password?", new_password_path(resource_name), :style => "color: #3185C3;"%><br />
-  </div>
+
+<div id="middle" class="mainmiddle">
+				 
+	<div id="signInContainer">
+		
+		<div id="signInTitleContainer">
+			<p id="signInTitle">Sign In your tweetbuff.com account</p>
+			<p id="signInSubTitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		</div>
+		<div class="separator"></div>
+		<%= simple_form_for resource, :as => resource_name,:html => {:class => "signInForm"}, :url => session_path(resource_name) do |f| %>
+
+			<table class="textFieldContainer">
+				<tr>
+					<td>
+						<span class="textFieldSpan">Email</span>
+					</td>
+					<td>
+						<div class="textField">
+							<%= f.input :email, :required => true, :autofocus => true, :placeholder => "you@example.com", :input_html => { :class => 'transparentInput' }, :label => false %>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="textFieldSpan">Password</span>
+					</td>
+					<td>
+						<div id="passwordTextField" class="textField">
+							<%= f.input :password, :required => true, :size=>"25",:input_html => { :class => 'transparentInput' }, :label => false %>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			<div id="signInButtonContainer">
+				<%= f.button :submit, "", :class => "signInButton" %>
+				<div id="rememberMe">
+						<div id="checkRemember">
+							<%= f.input :remember_me, :label => false,:as => :boolean if devise_mapping.rememberable?%>
+						</div>
+						<p class="myriadProNormal">Remember Me</p>
+				</div>
+			</div>
+			
+		<% end %>
+		<div id="tweetBird" class="tweetBirdSignIn"></div>
+	</div>
+	
+</div>
+
+<script>
+	$("#menuArrow").removeClass();
+	$("#menuArrow").addClass("menuArrowSignIn");
+</script>

@@ -1,12 +1,19 @@
-#box-sign-in
-  %h2{:style => "font-weight: bold; position: relative; color: rgb(43, 157, 230); margin-left: -4px; font-size: 26px;"}
-    Add your Twitter or Facebook account
-  %a{:style => "position: relative; top: 25px;"}
-    = link_to image_tag("connect-to-fb.png", width: 100, height: 100), facebook_authorize_account_path
-    = link_to image_tag("connect-to-twitter.png", width: 100, height: 100), twitter_authorize_account_path
-  %h3{:style => "padding-right: 130px; color: rgb(158, 158, 158); font-size: 12px; position: relative; padding-left: 130px; margin-left: 18px; margin-top: 33px;"}
-    = "Within a few seconds you'll be topping up your Buffer to enjoy the hassie-free way of sharing consistently."
-  %div{:style => "float: left; position: absolute; margin-left: 30px; margin-top: -143px;"}
-    = image_tag("/images/birds_64/6.png")
-    .inputs
-    .actions
+#middle.mainMiddleAddFaceTwitt
+  #signInContainer
+    #signInTitleContainer
+      %p#signInTitle
+        Add your Twitter or Facebook account
+      %p#signInSubTitle
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    .separator
+    #configContainer
+      =image_tag "littleBird.png", :id => "addFaceTwittAccountLittleBird"
+      #addAccountsTabsContainer
+        #add_face_account_tab
+          = link_to "Facebook", facebook_authorize_account_path, :class => "rockwellRegular"
+        #add_twitt_account_tab
+          = link_to "Twitter", twitter_authorize_account_path, :class => "rockwellRegular"
+      .separator
+      #add_face_twitt_last_p
+        %p.rockwellRegular Within a few seconds you'll be topping up your Buffer to enjoy the hassle-free way of sharing consistently.
+#sponsors.mainSponsors

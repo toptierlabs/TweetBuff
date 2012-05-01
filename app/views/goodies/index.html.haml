@@ -1,48 +1,53 @@
--content_for :goodies_css do
-  =stylesheet_link_tag "goodies.css"
+:javascript  
+  //$("#menuArrow").removeClass();
+  $("#googiesMenuItem").addClass("active");  
 
-.wrapper
-  #browser_container
-    =image_tag("Chrome.png")
-    %br
-    Google chrome
-    %br
-    %span{:style => "font-size: 12px; color: #94CDF1;"}
-      + install
-  #browser_container
-    =image_tag("Safari.png")
-    %br
-    Apple safari
-    %br
-    %span{:style => "font-size: 12px; color: #94CDF1;"}
-      + install
-  #browser_container
-    =image_tag("Firefox.png")
-    %br
-    Mozilla Firefox
-    %br
-    %span{:style => "font-size: 12px; color: #94CDF1;"}
-      + install
-  #browser_container
-    =image_tag("bookmarklet.png")
-    %br
-    Bookmarklet
-  #separator
-
-  #in_dev
-    %p{:align => "center"}
-      In Development
-    %div{:style => "text-align: right; margin: 30px 0 30px 0;"}
-      #icon_container
-        =image_tag("tweetbuff_icon_black.jpg")
-        Iphone App
-      #icon_container
-        =image_tag("tweetbuff_icon_black.jpg")
-        Ipad App
-      #icon_container
-        =image_tag("tweetbuff_icon_white.jpg")
-        Iphone App
-      #icon_container
-        =image_tag("tweetbuff_icon_white.jpg")
-        Ipad App
-    
+#middle.mainGoodiesContainer
+  #goodiesContainer
+    .goodieContainer
+      .goodieTitleContainer
+        .goodieTitle Google Chrome
+      .goodieContainer_left
+      .goodieContainer_body
+        .goodieElement
+          %img{:src => "images/goodiesChromeLogo.png"}/ 
+      .goodieContainer_right
+      %div{:style => "clear: both"}
+      .goodiesContainerBottomBody     
+      %input.goodiesInstallButton{:type => "button"}
+    .goodieContainer
+      .goodieTitleContainer
+        .goodieTitle Apple Safari
+      .goodieContainer_left
+      .goodieContainer_body
+        .goodieElement
+          %img{:src => "images/goodiesSafariLogo.png"}/
+      .goodieContainer_right
+      %div{:style => "clear: both"}     
+      .goodiesContainerBottomBody     
+      %input.goodiesInstallButton{:type => "button"}
+    .goodieContainer
+      .goodieTitleContainer
+        .goodieTitle Mozilla Firefox
+      .goodieContainer_left
+      .goodieContainer_body
+        .goodieElement
+          %img{:src => "images/goodiesFirefoxLogo.png"}/
+      .goodieContainer_right
+      %div{:style => "clear: both"}     
+      .goodiesContainerBottomBody     
+      %input.goodiesInstallButton{:type => "button"}
+  #mobile_container
+    .goodieMobileTitleContainer
+      .goodieMobileTitle In development
+    .mobileAppsContainer
+      .mobileAppWrapper
+        .mobileAppContainer.floatLeft
+          .mobileAppImage
+            %img{:src => "images/goodiesIphoneBlack.png"}/
+          .mobileAppTitle IPhone
+        .mobileAppContainer.floatRight
+          .mobileAppImage
+            %img{:src => "images/goodiesIphoneWhite.png"}/
+          .mobileAppTitle IPad
+          

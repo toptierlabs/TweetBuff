@@ -54,7 +54,7 @@ class BufferPreferencesController < ApplicationController
               else
                 @count_buffer = buffers.count
               end
-              page.replace_html :buffer_wrapper, :partial => "new_buffer", :locals => {:buffer => buffer_preference, :ordered_buffers => ordered_buffers, :active_time => active_time}
+              page.replace_html :buffer_wrapper, :partial => "new_bufferNew", :locals => {:buffer => buffer_preference, :ordered_buffers => ordered_buffers, :active_time => active_time}
               page.replace_html :buffer_count_text_blue_set, :partial => "buffer_count", :locals => {:count_buffer => @count_buffer}
               page << "$('#loader-buffer').hide();"
               page << "$('#tweet_text').val('')"

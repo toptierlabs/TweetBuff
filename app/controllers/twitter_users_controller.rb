@@ -9,7 +9,7 @@ class TwitterUsersController < ApplicationController
     
     if request.xhr?
       render :update do |page|
-        page.replace_html "buffer_wrapper", :partial => "queue", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
+        page.replace_html "buffer_wrapper", :partial => "queueNew", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
         page << "jQuery('#loader-tab').hide();jQuery('#buffer_wrapper').show();"
         page << "jQuery('#queue').addClass('qpa');jQuery('#performance').removeClass('performance');jQuery('#analytic').removeClass('analytic');"
         page << "jQuery('#queue').addClass('queue');"
