@@ -3,7 +3,6 @@ defaults: &defaults
   host: localhost
   reconnect: false
   username: root
-  password: 
   pool: 5
 
 development:

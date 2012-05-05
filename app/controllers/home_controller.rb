@@ -10,5 +10,8 @@ class HomeController < ApplicationController
       redirect_to(dashboard_path) and return false
     end
   end
-
+  
+  def contact
+    
+  end
 end

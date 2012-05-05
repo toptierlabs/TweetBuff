@@ -14,7 +14,8 @@
     = javascript_include_tag "jquery-1.6.min.js"
     = javascript_include_tag "jquery.simplyCountable.js"
     = javascript_include_tag "button.js"
-
+   
+    = javascript_include_tag "application"
     = stylesheet_link_tag :jquery
     
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
@@ -32,7 +33,7 @@
       %header.mainheader
         %nav
           #logo
-            = link_to image_tag("/images/logo.png"), root_path
+            = link_to image_tag("/assets/logo.png"), root_path
           .menu
             .menuRoundPart
             .menuCenter
@@ -43,7 +44,7 @@
                   = link_to "Plans & Pricing", plans_path 
                   = link_to "Sign in", new_user_session_path, :class => "menuCenterLinkLeft"
                   = link_to "Sign up", new_user_registration_path, :class => "menuCenterLinkLeft"
-                  %a.menuCenterLinkLeft{:href => "#"} Contact
+                  = link_to "Contact", contact_path, :class => "menuCenterLinkLeft"
                 - else                  
                   = link_to "My Tweets", twitter_user2_path 
                   %a.menuCenterLinkLeft{:href => "#"} Account
@@ -74,7 +75,7 @@
             %a{:href => "#"} Sign In
             %a{:href => "#"} Sign Up
           #friendsImage
-            = image_tag("/images/friendsImage.png")
+            = image_tag("/assets/friendsImage.png")
           #newsletter
             %p.tryItNowNormalFont @Tweet buff   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui, tincidunt at vulputate at, tristique eget tellus. Duis id odio varius odio vestibulum ultrices ac ut ipsum. Proin tempus iaculis dolor................
             #emailUsField

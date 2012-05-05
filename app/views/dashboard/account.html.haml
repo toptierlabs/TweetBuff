@@ -28,7 +28,7 @@
       Remind me to add Tweets where i've run out in my buffer
       %br
       %div{:style => "text-align: center; height: 119px;"}
-        %img{:src => "/images/tweet_bird.jpg"}
+        %img{:src => "/assets/tweet_bird.jpg"}
       .field_content
         =submit_tag "Save notifications", :id => "submit_button"
 
@@ -40,16 +40,16 @@
         = timezone_select("account[timezone]", @user.timezone)
       %br
       %div{:style => "text-align: center; height: 99px;"}
-        %img{:src => "/images/timezone_bird.jpg"}
+        %img{:src => "/assets/timezone_bird.jpg"}
       .field_content
         =submit_tag "Update timezone", :id => "submit_button"
 
   %div{:style => "clear: both; padding-top: 35px;", :id => "separator"}
-    %img{:src => "/images/separator.jpg"}
+    %img{:src => "/assets/separator.jpg"}
 
   .go_pro
     %div{:style => "float: left;"}
-      %img{:src => "/images/bluebox.jpg"}
+      %img{:src => "/assets/bluebox.jpg"}
     .go_pro_head
       %a{:href => plans_path, :style => "text-decoration: none;"}
         %span{:style => "color: #F6C312;"}

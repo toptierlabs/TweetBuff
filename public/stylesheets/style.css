@@ -328,7 +328,7 @@ nav p{
 }
 
 .peopleSayingsData{
-	
+	width: 285px;
 	float: left;
 }
 
@@ -2131,3 +2131,7 @@ footer{
 }
 
 /*End Add Face and Twitt Account*/
+
+.hidden {
+	display:none;
+}

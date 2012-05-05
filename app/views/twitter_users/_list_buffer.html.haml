@@ -11,8 +11,8 @@
       = "Queued for #{buffer.run_at.strftime('%I:%M %p')}" unless buffer.run_at.nil?
     %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
       #tweet_now{:onclick => ""}
-        = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
+        = link_to image_tag("/assets/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
       #edit_buffer{:onclick => "$('#loader-edit-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
-        = link_to image_tag("/images/edit.png"), edit_buffer_path(buffer.id), :remote => true
+        = link_to image_tag("/assets/edit.png"), edit_buffer_path(buffer.id), :remote => true
       #delete_buffer{:onclick => "$('#loader-delete-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
-        = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :confirm => "Are you sure want to delete this buffer?"
+        = link_to image_tag("/assets/close-icon.png"), delete_buffer_path(buffer.id), :confirm => "Are you sure want to delete this buffer?"

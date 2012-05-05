@@ -10,11 +10,11 @@
       #leftPanelPhoto
         = profile_image(@twitter_user, "_normal", 211, 198)
       #inBuffer
-        %img.litleBirdImage{:src => "images/blueBird.png"}/
+        %img.litleBirdImage{:src => "/assets/blueBird.png"}/
         %span.rockwellRegular In Buffer
         %span.leftPanelNumBuffer (#{@count_buffer})
       #sentFromBuffer
-        %img.litleBirdImage{:src => "images/greenBird.png"}/
+        %img.litleBirdImage{:src => "/assets/greenBird.png"}/
         %span.rockwellRegular Sent from Buffer
         %span.leftPanelNumBuffer (#{@sent_buffers_count})
       #bitLyDetails
@@ -35,7 +35,7 @@
         %p.rockwellRegular.leftPanelTitleSections Manage team members
         %p#membersGreyText.rockwellRegular Settings | invite a team member
         #membersMail
-          %img{:src => "images/membersLittleBird.png"}/
+          %img{:src => "/assets/membersLittleBird.png"}/
           %a.rockwellRegular{:href => "#"} someone@host.com
         %div
           = form_tag "/invite_team_member" do

@@ -4,6 +4,7 @@ Tweetbuffer::Application.routes.draw do
   match "api/check_sign_in_session" => "api/sessions#check_sign_in_session"
   #api tweet
   match "api/twitter_account_list" => "api/twitter_users#twitter_account_list"
+
   match "api/post_to_twitter" => "api/twitter_users#post_to_twitter"
   match "api/send_to_buff" => "api/twitter_users#send_to_buff"
   match 'twitter_users/delete_buffer/:id' => 'twitter_users#delete_buffer', :as => :delete_buffer, :via => :get
@@ -23,6 +24,8 @@ Tweetbuffer::Application.routes.draw do
   resources :timeframes
   
   resources :suggestions
+  
+  match "contact" => "contact#index", :as=> "contact"
 
   get "/goodies" => "goodies#index", :as => :goodies
   get "suggestions/tweet_suggestion/:twitter_name" => "suggestions#tweet_suggestion"

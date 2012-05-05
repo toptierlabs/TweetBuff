@@ -1,14 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.2.2'
 
 gem "mysql"
 gem "activeadmin"
+gem "meta_search",    '>= 1.1.0.pre'
 gem "annotate"
 gem "cancan"
 gem "carmen"
 gem "compass"
-gem "devise", "1.5.2"
+gem "devise"
 gem "ezcrypto"
 gem "haml-rails"
 gem "hashie"
@@ -18,11 +19,10 @@ gem "oauth"
 gem "resque"
 gem "resque-scheduler"
 gem "responders"
-gem "sass"
+
 gem "simple_form"
 gem 'activemerchant', :require => 'active_merchant'
 gem "twitter"
-gem "jrails"
 gem "bitly"
 gem 'whenever', :require => false
 gem "acts_as_soft_delete_by_field"
@@ -32,6 +32,13 @@ gem 'exception_notification'
 gem "fb_graph"
 gem 'crack'
 gem 'whenever'
+gem 'sprockets'
+
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+end
 
 group :development do
    gem 'ruby-debug-base19'
