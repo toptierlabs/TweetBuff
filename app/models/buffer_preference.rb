@@ -61,10 +61,15 @@ class BufferPreference < ActiveRecord::Base
 
     client = Twitter::Client.new
     id_status = self.id_status.to_s
-    feed = client.status(id_status)
-    unless feed.nil?
-      feed.retweet_count
+    begin
+      feed = client.status(id_status)
+      unless feed.nil?
+        feed.retweet_count
+      end
+    rescue
+      return 0
     end
+    
   end
   
   def like_feed(twitter_user)

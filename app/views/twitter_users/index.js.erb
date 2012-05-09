@@ -1,0 +1,5 @@
+$('#buffer_wrapper').html("<%= escape_javascript render(:partial => "queue", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}) %>");
+jQuery('#loader').hide();
+jQuery('#buffer_wrapper').show();
+jQuery('#queue').addClass('qpa');jQuery('#performance').removeClass('performance');jQuery('#analytic').removeClass('analytic');
+jQuery('#queue').addClass('queue');

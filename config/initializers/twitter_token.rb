@@ -1,1 +1,2 @@
-TWITTER_API = {:key => "lKbJ5Wtlk010AbcaM6VA", :secret => "KXBLw1vtuF6GtOjiaT27XUpWQoLA1bXoVo3usfE"}
+#TWITTER_API = {:key => "lKbJ5Wtlk010AbcaM6VA", :secret => "KXBLw1vtuF6GtOjiaT27XUpWQoLA1bXoVo3usfE"}
+TWITTER_API = {:key => "AGDfSYfNVyV2j325VM1CQw", :secret => "ADynuwZa8ijj41QM58HR2Pue2n1VDtmC6JqmzCyQ0"}

@@ -9,6 +9,7 @@ module ApplicationHelper
     time.strftime("%I:%M %p")
   end
 
+=begin
   def hour_select(field_name, selected = nil)
     select_tag(field_name,options_for_select([
           ["1", "01"],["2", "02"],["3", "03"],["4 ", "04"],["5 ", "05"],["6 ", "06"],
@@ -24,15 +25,24 @@ module ApplicationHelper
           ["41", "41"],["42", "42"],["43", "43"],["44", "44"],["45", "45"],["46", "46"],["47", "47"],["48", "48"],["49", "49"],["50", "50"],
           ["51", "51"],["52", "52"],["53", "53"],["54", "54"],["55", "55"],["56", "56"],["57", "57"],["58", "58"],["59", "59"],["60", "60"]],{:selected => selected}))
   end
+=end
 
   def meridian(field_name, selected = nil)
     select_tag(field_name, options_for_select([["AM","am"],["PM","pm"]]))
   end
 
-  def timezone_select(field_name, selected = nil)
-    select_tag(field_name,time_zone_options_for_select(selected))
+  def timezone_select(field_name, selected = nil, attributes)
+    select_tag(field_name,time_zone_options_for_select(selected), attributes)
+  end
+  
+  def timeframe_select(field_name, option_list, attributes)
+        select_tag(field_name, options_for_select(option_list), attributes)
   end
 
+  def time_select(field_name, option_list, attributes)
+        select_tag(field_name, options_for_select(option_list), attributes)
+  end
+  
   def custom_check_box(user)
     if user.notify
       return check_box("account","notify", :checked => "checked")
@@ -128,7 +138,7 @@ module ApplicationHelper
   def choose_minutes_custom
     minutes = []
     0.upto 59  do |i|
-      minutes << [i, i] 
+      minutes << ["%02d" % i, i] 
     end
     minutes
   end

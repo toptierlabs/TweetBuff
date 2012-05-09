@@ -1,4 +1,4 @@
-.tweet_form_buffer#tweet_buffer
+#updateTweetContainer
   #loader
     =image_tag("ajaxLoader.gif")
     %br
@@ -8,12 +8,17 @@
     %br
     Updating tweet to buffer
   = form_for @buffer, :remote => true, :url => update_buffer_path(@buffer.id) do |f|
-    = f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text", :style => "float: left; display: inline-block;"
+    #addTweetTextAreaContainer
+      = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :class => "transparentInput"
     %div{:style => "clear:both;"}
-    #button_container
-      = submit_tag "Update Buffer", :class => "update_buffer", :onclick => "$('#loader-update-buffer').show();"
-      %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
+    #bufferAccionsButtonsContainer
+      #bufferUpdateBufferButton
+        = submit_tag "", :class => "rockwellRegular bufferUpdateBufferButton", :onclick => "$('#loader-update-buffer').show();"
+      #bufferPostNowButton
+        %input{:value => "", :type => "button",:class => "rockwellRegular bufferPostNowButton", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
       - if @twitter_user.account_type.eql?("twitter")
-        %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(@twitter_user.login)}'"}
+        #bufferQueueSettingsButton
+          %input{:type => "button",:class => "queue_settings",:class => "rockwellRegular bufferQueueSettingsButton", :onclick => "window.location='#{twitter_settings_path(@twitter_user.login)}'"} 
       - else
-        %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{facebook_settings_path(@twitter_user.login)}'"}
+        #bufferQueueSettingsButton
+          %input{:type => "button",:class => "queue_settings",:class => "rockwellRegular bufferQueueSettingsButton", :onclick => "window.location='#{facebook_settings_path(@twitter_user.login)}'"} 

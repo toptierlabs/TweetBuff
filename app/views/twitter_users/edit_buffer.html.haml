@@ -1,14 +1,3 @@
--content_for :tweet_css do
-  =stylesheet_link_tag "tweet.css"
-
-:javascript
-  function showmsg(){
-    alert('hapus');
-  }
-  function delete_buff(id){
-    $.get('/twitter_users/delete_buffer/' + id);
-  }
-
 #post_notice
 #general_dialog
 -unless @is_updated_interval.nil?
@@ -23,7 +12,7 @@
   .wrapper
     #go_pro
       %div{:style => "display: inline-block;"}
-      =image_tag("bluebox.jpg", :style => "width: 32px; height: 32px;")
+      =image_tag("/assets/bluebox.jpg", :style => "width: 32px; height: 32px;")
       %div{:style => "display: inline-block; text-align: left;"}
         %span{:style => "color: #F6C312; font-size: 15px; font-weight: bold;"}
           Go
@@ -38,7 +27,7 @@
         #profile_image
           = profile_image(@twitter_user, "_normal", 64, 64)
         #buffer_count
-          %img{:src => "/images/t_count.jpg"}
+          %img{:src => "/assets/t_count.jpg"}
         - if user_signed_in?
           - if @plans.plan.name.eql?("Free")
             %span{:style => "color: rgb(49, 133, 195); font-weight: bold; position: absolute; font-size: 32px; margin-top: 6px; margin-left: -57px;"} #{@count_buffer}
@@ -53,10 +42,10 @@
           %ul{:style => "list-style: none;"}
             %li{:style => "font-size: 14px; font-weight: bold;"}
               %a{:href => twitter_authorize_account_path, :style => "color: #3468BB"}
-                %img{:src => "/images/add_blue.png", :width => 24, :height => 24} Add Account
+                %img{:src => "/assets/add_blue.png", :width => 24, :height => 24} Add Account
             %li{:style => "font-size: 14px; font-weight: bold;"}
               %a{:href => "#", :style => "color:#3468BB", :onclick => "showDialog('Switch account','#{twitter_account_list_path}'); return false;"}
-                %img{:src => "/images/refresh_24.png", :width => 24, :height => 24} Switch Account
+                %img{:src => "/assets/refresh_24.png", :width => 24, :height => 24} Switch Account
       .tweet_form_buffer
         #loader
           =image_tag("ajaxLoader.gif")
@@ -67,15 +56,20 @@
           %br
           Adding tweet to buffer
         =form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-          =f.text_area :name, :style => "width: 725px; height: 70px;", :id => "tweet_text"
+          #addTweetTextAreaContainer
+            = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :class => "transparentInput"
           #button_container
             =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
+            #bufferPostNowButton
+              %input{:value => "", :type => "button",:class => "rockwellRegular bufferPostNowButton", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
+            #bufferQueueSettingsButton
+              %input{:type => "button",:class => "queue_settings",:class => "rockwellRegular bufferQueueSettingsButton", :onclick => :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"} 
             %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
             %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
     #separator
       // buffer list and ads
     #ads
-      = image_tag("/images/advertise.jpg")
+      = image_tag("/assets/advertise.jpg")
     #buffer_list
       %span{:style => "font-size: 15px; font-weight: bold; display: block; text-align: center;"}
         Queue | Performance | Analitics
@@ -86,7 +80,7 @@
           - if old_buffer != buffer.added_time
             %div{:style => "background: #79C1F3; margin: 5px 0 5px 0;"}
               %span{:style => "float: left; margin-top: -10px;"}
-                %img{:src => "/images/birds_64/5.png", :width => 34, :height => 34}
+                %img{:src => "/assets/birds_64/5.png", :width => 34, :height => 34}
               = time_in_word(buffer.added_time, buffer.run_at)
           #buffer_name_container{:class =>cycle("even","odd"), :onmouseover => "$('#actions_#{buffer.id}').css('visibility','visible');", :onmouseout => "$('#actions_#{buffer.id}').css('visibility','hidden')"}
             = buffer.name
@@ -95,11 +89,11 @@
               = "Queued for #{buffer.run_at.strftime('%H:%M %p')}" unless buffer.run_at.nil?
             %span{:id => "actions_#{buffer.id}", :style => "float: right; visibility: hidden; margin-top: -15px;"}
               #tweet_now{:onclick => ""}
-                = link_to image_tag("/images/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
+                = link_to image_tag("/assets/twitter.png"), tweet_from_buffer_path(buffer.id), :params => "twitter_name"
               #edit_buffer{:onclick => ""}
-                = link_to image_tag("/images/edit.png"), :controller => "twitter_users", :action => "edit_buffer", :id => @buffer.id, :twitter_name => current_user.id
+                = link_to image_tag("/assets/edit.png"), :controller => "twitter_users", :action => "edit_buffer", :id => @buffer.id, :twitter_name => current_user.id
               #delete_buffer{:onclick => "$('#loader-delete-buffer').show(); jQuery('html, body').animate({scrollTop:0}, 'slow');"}
-                = link_to image_tag("/images/close-icon.png"), delete_buffer_path(buffer.id), :remote => true
+                = link_to image_tag("/assets/close-icon.png"), delete_buffer_path(buffer.id), :remote => true
           - old_buffer = buffer.added_time
       
       

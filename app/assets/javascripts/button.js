@@ -11,9 +11,9 @@ function showDialog(title,link_to){
   var popupObj = jQuery("#general_dialog");
   popupObj.bPopup({
     onOpen: function(){
-      popupObj.html("<br /><p style='text-align: center;'><img src='/images/ajaxLoader.gif' /></p>");
+      popupObj.html("<br /><p style='text-align: center;'><img src='/assets/ajaxLoader.gif' /></p>");
       jQuery.get(link_to,function(data){
-        popupObj.html("<div id='dialog_header'>"+title+"<img src='/images/black-close-button.gif' style='float: right; cursor: pointer; margin-top: -5px;' class='bClose' /></div><br />"+data);
+        popupObj.html("<div id='dialog_header'>"+title+"<img src='/assets/black-close-button.gif' style='float: right; cursor: pointer; margin-top: -5px;' class='bClose' /></div><br />"+data);
         divWidth = popupObj.outerWidth();
         var totalHeight = popupObj.outerHeight();
         setPosition(divWidth);

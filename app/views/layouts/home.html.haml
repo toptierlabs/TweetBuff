@@ -41,7 +41,7 @@
                   = link_to "Plans & Pricing", plans_path 
                   = link_to "Sign in", new_user_session_path, :class => "menuCenterLinkLeft"
                   = link_to "Sign up", new_user_registration_path, :class => "menuCenterLinkLeft"
-                  %a.menuCenterLinkLeft{:href => "#"} Contact
+                  = link_to "Contact", contact_path 
                 - else
                   %a{:href => "#"} My Tweets
                   %a.menuCenterLinkLeft{:href => "#"} Account

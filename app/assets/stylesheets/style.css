@@ -1,4 +1,4 @@
-
+/* General */
 .myriadProNormal{
 	font-family: Myriad Pro;
 	font-weight: normal;
@@ -12,8 +12,14 @@
 .transparentInput{
 	background-color: transparent;
 	border-style: none;
-	width: 100%;
-	height: 100%;
+	width: 90%;
+	height: 60%;
+	padding-left: 10px;
+	position: absolute;
+	left: 0px;
+	top: 7px;
+	font-family: Rockwell;
+	font-size: 14px;
 }
 
 body{
@@ -72,6 +78,9 @@ body{
     /*top: -19px;*/
 }
 
+.container{
+	text-align: center;
+}
 .menuHome{
 	
 }
@@ -167,6 +176,17 @@ nav p{
 	width: 602px;
 	height: 335px;
 }
+
+/* Must be inside a wrapper*/
+.combo{
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	-webkit-appearance: none;
+	border-style: none;
+	text-indent: 10px;
+}
+
 
 #tryItNowContainer{
     float: right;
@@ -501,6 +521,10 @@ footer{
 	margin-left: 5px;
 }
 
+#configTabsContainer{
+	height: 46px;
+	text-align: center;
+}
 
 /*Sign In HTML*/
 
@@ -544,6 +568,7 @@ footer{
 	width: 387px;
 	height: 38px;
 	float: left;
+	position: relative;
 	margin-left: 20px;
 }
 
@@ -555,8 +580,31 @@ footer{
 	color: rgb(125,125,125);
 	padding-top: 25px;
 	float: left;
+	margin-bottom: 15px;
 
 }
+
+.smallTextField{
+	background: url(/assets/smallBackField.png) no-repeat;
+	width: 282px;
+	height: 37px;
+	position: relative;
+}
+
+.comboField{
+	background: url(/assets/comboField.png) no-repeat;
+	width: 282px;
+	height: 37px;
+	position: relative;
+}
+
+.smallComboField{
+	background: url(/assets/smallComboField.png) no-repeat;
+	width: 55px;
+	height: 32px;
+	position: relative;
+}
+
 
 #passwordTextField{
  margin-top: 10px;
@@ -697,11 +745,21 @@ footer{
 .tweetAccountTab{
 	background: url(/assets/tweetAccountTabBack.png) no-repeat;
 	height: 47px;
-    left: 934px;
-    position: absolute;
-    top: 154px;
     width: 124px;
+    position: relative;
+    top: 17px;
+    display: inline-block;
 }
+
+.tweetAccountTabSelected{
+	background: url(/assets/tweetAccountTabBackSel.png) no-repeat;
+	height: 47px;
+    position: relative;
+    top: 17px;
+    width: 124px;
+    display: inline-block;
+}
+
 
 .tweetAccountTab a{
 	color: rgb(110,110,110);
@@ -712,14 +770,6 @@ footer{
 	float: left;
 }
 
-.tweetAccountTabSelected{
-	background: url(/assets/tweetAccountTabBackSel.png) no-repeat;
-	height: 47px;
-    left: 800px;
-    position: absolute;
-    top: 154px;
-    width: 124px;
-}
 
 .tweetAccountTabSelected a{
 	color: rgb(32,138,174);
@@ -778,6 +828,7 @@ footer{
 	width: 209px;
 	height: 31px;
 	margin-top: 10px;
+	position: relative;
 }
 
 .leftPanelBlueButton{
@@ -879,8 +930,7 @@ footer{
 }
 
 #selectDatesInfo{
-	width: 300px;
-	height: 50px;
+	height: 27px;
 }
 
 #selectDatesInfo span{
@@ -931,22 +981,29 @@ footer{
 	margin-left: 0;
 }
 
+#selectDatesContainer{
+	height: 50px;
+	margin-top: 20px;
+}
+
 .selectDateLink{
 	text-decoration: none;
 	color: rgb(190,190,190);
-	float: left;
-	margin-left: 23px;
+	width: 93px;
+	text-align: center;
 	margin-top: 10px;
 	font-size: 14px;
+	display: inline-block;
 }
 
 .selectTimeLink{
 	text-decoration: none;
 	color: rgb(87,87,87);
-	float: left;
-	margin-left: 23px;
-	margin-top: 10px;
+	display: inline-block;
+	margin-top: 12px;
 	font-size: 13px;
+	width: 100%;
+	text-align: center;
 }
 
 #selectDatesWednesday a{
@@ -959,8 +1016,8 @@ footer{
 
 
 #selectTimeContainer{
-	margin-top: 10px;
-	float: left;
+	margin-top: 20px;
+	display: block;
 	width: 700px;
 }
 
@@ -990,8 +1047,7 @@ footer{
 
 #settingsSuggestionsContainer{
 	width: 800px;
-	height: 600px;
-	float: left;	
+	height: 600px;	
  	margin-top: 20px;
 }
 
@@ -1160,6 +1216,11 @@ footer{
 	border-bottom: 1px solid #E6E6E6;
 }
 
+#updateTweetContainer{
+	height: 145px;
+	border-bottom: 1px solid #E6E6E6;
+}
+
 #addTweetTextAreaContainer{
 	width: 690px;
 	height: 80px;
@@ -1167,6 +1228,7 @@ footer{
 	border-radius: 5px;
 	border: 1px solid;
 	border-color: rgb(224,224,224);
+	position: relative;
 }
 #addTweetTextAreaContainer textarea{
 	resize: none;
@@ -1189,7 +1251,22 @@ footer{
 	text-decoration: none;
 	float: left;
 	font-size: 17px;
+	cursor: pointer;
 }
+
+.bufferUpdateBufferButton{
+	background: url(/assets/updateBufferButton.png) no-repeat;
+	width: 170px;
+	height: 44px;
+	float: left;
+	border: medium none;
+	color: white;
+	text-decoration: none;
+	float: left;
+	font-size: 17px;
+	cursor: pointer;
+}
+
 
 
 .bufferPostNowButton{
@@ -1203,6 +1280,7 @@ footer{
 	float: left;
 	border: medium none;
 	font-size: 17px;
+	cursor: pointer;
 }
 
 #bufferPostNowButton a{
@@ -1213,6 +1291,16 @@ footer{
 	margin-top: 10px;
 }
 
+.bufferQueueSuggestionsButton{
+	background: url(/assets/viewSuggestionsBackButton.png) no-repeat;
+	width: 170px;
+	height: 44px;
+	float: left;
+	margin-left: 5px;
+	border: medium none;
+	cursor: pointer;
+}
+
 .bufferQueueSettingsButton{
 	background: url(/assets/queueSettingsBackButton.png) no-repeat;
 	width: 170px;
@@ -1220,6 +1308,7 @@ footer{
 	float: left;
 	margin-left: 5px;
 	border: medium none;
+	cursor: pointer;
 }
 
 #bufferQueueSettingsButton a{
@@ -1231,11 +1320,11 @@ footer{
 }
 
 #bufferViewSuggestionsButton{
-	background: url(/assets/viewSuggestionsBackButton.png) no-repeat;
 	width: 170px;
 	height: 44px;
 	float: left;
 	margin-left: 5px;
+	cursor: pointer;
 }
 
 #bufferViewSuggestionsButton a{
@@ -1244,6 +1333,7 @@ footer{
 	float: left;
 	margin-left: 20px;
 	margin-top: 10px;
+	cursor: pointer;
 }
 
 #goProContainer{
@@ -1373,7 +1463,8 @@ footer{
 	color: white;
 	font-size: 13px;
 	float: left;
-	margin-left: 9px;
+	width: 100%;
+	text-align: center;
 	margin-top: 5px;
 }
 
@@ -1445,7 +1536,7 @@ footer{
 }
 
 #bufferTweetsOptionsButtonsContainer{
-	width: 280px;
+	width: 193px;
 	margin: 0 auto;
 	height: 30px;
 }
@@ -1642,28 +1733,29 @@ footer{
 
 /*End tweet CSS*/
 
+#selectTimeButtonsContainer{
+	height: 40px;
+}
+
 .tweetSmartSettingsContainer{
-	float: left;
-    height: 40px;
+    height: 27px;
     width: 200px;
+    margin-top: 10px;
+}
+
+.tweetSmartSettingsContainer input{
+	margin-right: 8px;
 }
 
 .chooseTweetSettingsContainer{
-	float: left;
-    height: 40px;
+    height: 110px;
     width: 230px;
 }
 
-.customTweetTimeSettingsContainer{
-	float: left;
-    width: 200px;
-}
 
 .tweetSettingsContainer{
-	float: left;
-    height: 140px;
     width: 250px;
-    margin-top: 10px;
+    margin-top: 16px;
 }
 
 .save_setting_button{
@@ -1680,6 +1772,34 @@ footer{
 	height: 40px;
 	width: 117px;
 	border: medium none;
+}
+
+.timeframeWrapper{
+	margin-top: 10px;
+	height: 37px;
+}
+
+.timeWrapper{
+	margin-top: 10px;
+	height: 32px;
+	float: left; 
+	margin-right: 15px;
+}
+
+.timeCombo
+{
+	font-family: Arial;
+	font-size: 12px;
+	color: #666666;
+}
+
+.crossWrapper {
+	float: left;
+	width: 19px;
+	height: 32px;
+	margin-top:10px;
+	background: url("/assets/deleteCross.png");
+	cursor:pointer;
 }
 
 /* Goodies*/
@@ -2143,3 +2263,314 @@ footer{
 .hidden {
 	display:none;
 }
+
+
+
+/*Contact*/
+
+#contactViewContainer {
+	width: 988px;
+	margin: 0 auto;
+	margin-bottom: 50px;
+	font-family: Myriad Pro;
+	padding-top: 20px;
+}
+
+
+#contactTitleContainer{
+	height: 50px;
+	margin: 0 auto;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+#contactTitle{
+	
+	font-size: 35px;
+	color: rgb(60,106,173);
+	margin-left: 25px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#contactSubTitle{
+	font-size: 15px;
+	color: rgb(125,125,125);
+	margin-top: 5px;
+}
+
+
+
+/*End contact*/
+
+
+/* Accounts*/
+
+.accountMiddle{ 
+	background: white;
+	height: 430px;
+}
+
+
+#accountViewContainer {
+	width: 988px;
+	margin: 0 auto;
+	padding-top: 30px;
+	margin-bottom: 15px;
+	font-family: Myriad Pro;
+}
+
+#accountTitleContainer{
+	height: 50px;
+	margin: 0 auto;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+#accountTitle{
+	
+	font-size: 35px;
+	color: rgb(60,106,173);
+	margin-left: 25px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#accountSubTitle{
+	font-size: 15px;
+	color: rgb(125,125,125);
+	margin-top: 5px;
+}
+
+
+.accountTable {
+	height: 271px;
+	width: 990px;
+}
+
+.accountTableCol{
+	float:left;
+	width: 295px;
+	margin: 0 16px;
+	height: 271px;
+	position: relative;
+}
+
+.verticalLine{
+	float:left;
+	width: 1px;
+	margin: 0;
+	height: 271px;
+	background: url(/assets/verticalLine.png) no-repeat;
+}
+
+.accountColTitle {
+	font-size: 17px;
+	color: #143767;
+	font-family: Myriad Pro;
+	margin-top: 18px;
+	margin-bottom: 14px;
+}
+
+.watermark{
+	color: #7d7d7d;
+	font-family: Rockwell;
+	font-size: 14px;
+	position: absolute;
+	left: 16px;
+	top: 9px;
+}
+
+.accountTableCol .textFieldContainer{
+	padding: 0;
+}
+
+.changeMyPwdButton{
+	width: 235px;
+	height: 49px;
+	background: url(/assets/changePwdButton.png) no-repeat;
+	position:absolute;
+	bottom: 5px;
+	cursor: pointer;
+	border: none;
+}
+
+.notificationsMsg {
+	font-family: Myriad Pro;
+	font-weight: normal;
+	font-size: 13px;
+	color: #646464;	
+}
+
+.tweetItBird{
+	width:101px;
+	height: 82px;
+	background: url(/assets/tweetItBird.png) no-repeat;
+	margin: 0 auto;
+	margin-top: 8px;
+}
+
+.saveNotificationsButton{
+	width: 232px;
+	height: 49px;
+	background: url(/assets/saveNotifButton.png) no-repeat;
+	position:absolute;
+	bottom: 5px;
+	left: 20px;
+	border: none;
+	cursor: pointer;
+}
+
+.comboText{
+	color: black;
+	font-family: Rockwell;
+	font-size: 13px;
+	position: absolute;
+	left: 16px;
+	top: 9px;
+}
+
+.comboArrow{
+	width:15px;
+	height: 16px;
+	background: url(/assets/comboArrow.png) no-repeat;
+	position: absolute;
+	top: 11px;
+	right: 11px;
+	display: none;
+}
+
+
+.earthBird{
+	width:74px;
+	height: 65px;
+	background: url(/assets/earthBird.png) no-repeat;
+	margin: 0 auto;
+	margin-top: 8px;
+}
+
+.updateTimezoneButton{
+	width: 233px;
+	height: 49px;
+	background: url(/assets/updateTimezoneButton.png) no-repeat;
+	position:absolute;
+	bottom: 5px;
+	left: 20px;
+	cursor: pointer;
+	border: none;
+}
+
+.timezoneCombo{
+	border-style: none;
+	background-color: transparent;
+	height: 37px;
+	-webkit-appearance: none;
+	left: 5px;
+	top: 0px;
+}
+
+/* End accounts*/
+
+/* Contacts */
+
+.contactMiddle{ 
+	background: white;
+	height: 580px;
+}
+
+.contactFormContainer{
+	width: 988px;
+	height: 410px;
+}
+
+.contactTableColInfo{
+	float:left;
+	width: 637px;
+	margin: 0 16px;
+	height: 410px;
+	position: relative;
+}
+
+.contactTableColGoodies{
+	float:left;
+	width: 280px;
+	margin: 0 16px;
+	height: 410px;
+	position: relative;
+}
+
+.longVerticalLine{
+	float:left;
+	width: 1px;
+	margin: 0;
+	height: 410px;
+	background: url(/assets/longVerticalLine.png) no-repeat;
+}
+
+.tableContact {
+	margin-top: 15px;
+}
+
+.tableContact span{
+
+    font-family: Rockwell;
+	font-size: 15px;
+	font-weight: normal;
+	color: rgb(125,125,125);
+	margin-bottom: 5px;
+
+}
+
+.tableContact .firstCol{
+	width: 191px;
+}
+.tableContact .rowseparator{
+	height: 15px;
+}
+
+.transparentTextAreaInput{
+	background-color: transparent;
+	border-style: none;
+	height: 120px;
+	width: 370px;
+	font-family: Rockwell;
+	font-size: 14px;
+	resize: none;
+}
+
+
+.textAreaField{
+	background: url(/assets/backTextboxBig.png) no-repeat;
+	width: 388px;
+	height: 136px;
+	margin-left: 20px;
+	padding: 10px;
+
+}
+
+
+
+#contactViewContainer .goodieTitle{
+	color: #868686;
+}
+
+#contactViewContainer .goodieTitleContainer {
+    margin-top: 15px;
+}
+
+.contactBird{
+	background: url(/assets/tweetBird.png) no-repeat;
+	width: 	98px;
+	height: 129px;
+	margin-top: 15px;
+}
+
+.sendButton{
+	width: 142px;
+	height: 44px;
+	background: url(/assets/sendButton.png) no-repeat;
+	bottom: 5px;
+	left: 20px;
+	margin-left :20px;
+}
+/* End contacts*/

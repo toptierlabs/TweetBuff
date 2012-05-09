@@ -1,0 +1,8 @@
+
+$('#buffer_wrapper').replaceWith("<%= escape_javascript render(:partial => "queue", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}) %>");
+jQuery('#buffer_wrapper').show();
+
+$("#bufferTweetsOptionsButtonsContainer>div").removeClass('bufferOptionButtonSelected');
+$("#bufferTweetsOptionsButtonsContainer>div").addClass('bufferOptionButton');
+$("#queueButton").addClass('bufferOptionButtonSelected');
+$('#loader-buffer').hide();

@@ -3,7 +3,20 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
+    
+    
+  alias :devise_valid_password? :valid_password?
 
+  def valid_password?(password)
+    begin
+      super(password)
+    rescue BCrypt::Errors::InvalidHash
+      return false unless Digest::SHA1.hexdigest(password) == encrypted_password
+      logger.info "User #{email} is using the old password hashing method, updating attribute."
+      self.password = password
+      true
+    end
+  end
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :referal_id
 

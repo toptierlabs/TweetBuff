@@ -27,6 +27,8 @@ Tweetbuffer::Application.routes.draw do
   
   match "contact" => "contact#index", :as=> "contact"
 
+
+
   get "/goodies" => "goodies#index", :as => :goodies
   get "suggestions/tweet_suggestion/:twitter_name" => "suggestions#tweet_suggestion"
   
@@ -57,7 +59,7 @@ Tweetbuffer::Application.routes.draw do
   root :to => 'Home#index'  
 
   get "/settings/account" => "dashboard#account", :as => :account_settings
-  post "/settings/account/update" => "dashboard#update", :as => :account_settings
+  put "/settings/account/update" => "dashboard#update", :as => :account_password_update
   
   match "/twitter/" => "twitterUsers#index", :as => :twitter_user2
   scope "dashboard" do
@@ -100,8 +102,8 @@ Tweetbuffer::Application.routes.draw do
     
     get "/" => "TwitterUsers#index", :as => :twitter_users
     
+    get "/queue/:twitter_name" => "TwitterUsers#queue", :as => :twitter_user_queue
     get "/performance/:twitter_name" => "TwitterUsers#performance", :as => :twitter_user_performance
-    get "/analytic/:twitter_name" => "TwitterUsers#analytic", :as => :twitter_user_analytic
     
     get "/tweet_to_twitter" => "TwitterUsers#tweet_to_twitter", :as => :tweet_to_twitter
     get "/tweet_from_buffer/:id" => "TwitterUsers#tweet_from_buffer", :as => :tweet_from_buffer

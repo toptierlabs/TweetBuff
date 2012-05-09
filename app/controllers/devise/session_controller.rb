@@ -1,5 +1,5 @@
 class Devise::SessionController < Devise::SessionsController
-  prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
+ prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
   #  prepend_before_filter :allow_params_authentication!, :only => :create
 
   # GET /resource/sign_in
@@ -14,6 +14,7 @@ class Devise::SessionController < Devise::SessionsController
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
+    puts resource.to_json
     respond_with resource, :location => after_sign_in_path_for(resource)
   end
 
@@ -44,4 +45,5 @@ class Devise::SessionController < Devise::SessionsController
     methods << :password if resource.respond_to?(:password)
     { :methods => methods, :only => [:password] }
   end
+
 end

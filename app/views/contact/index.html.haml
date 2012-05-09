@@ -1,1 +1,52 @@
-#middle.homeMiddle
+#middle.contactMiddle
+  #contactViewContainer
+    #contactTitleContainer
+      %p#contactTitle.rockwellRegular Contact to your tweetbuff.com
+      %p#contactSubTitle.rockwellRegular Lorem ipsum dolor sitt amet, consecteur adipiscing elit.
+    .separator
+    .contactFormContainer
+      .contactTableColInfo
+        %table.tableContact
+          %tr
+            %td.firstCol
+              %span.textFieldSpan Your Name (required)
+            %td.secondCol
+              .textField
+                %input.transparentInput/
+          %tr.rowseparator/
+          %tr
+            %td.firstCol
+              %span.textFieldSpan Your Email (required)
+            %td.secondCol
+              .textField
+                %input.transparentInput/
+          %tr.rowseparator/
+          %tr
+            %td.firstCol
+              %span.textFieldSpan Subject
+            %td.secondCol
+              .textField
+                %input.transparentInput/
+          %tr.rowseparator/
+          %tr
+            %td.firstCol
+              %span.textFieldSpan Your Message
+            %td.secondCol
+              .textAreaField
+                %textarea.transparentTextAreaInput{:cols => "50", :rows => "5"}
+          %tr.rowseparator/
+          %tr
+            %td.firstCol
+            %td.secondCol
+              .sendButton
+      .longVerticalLine
+      .contactTableColGoodies
+        .goodieTitleContainer
+          .goodieTitle Google Chrome
+        .goodieTitleContainer
+          .goodieTitle Apple Safari
+        .goodieTitleContainer
+          .goodieTitle Mozilla Firefox
+        %div{:style => "clear:both"}
+        .contactBird
+    %div{:style => "clear: both;"}

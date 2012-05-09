@@ -1,13 +1,6 @@
-:javascript
-  function showmsg(){
-    alert('delete');
-  }
-  function delete_buff(id){
-    $.get('/twitter_users/delete_buffer/' + id);
-  }
-
 #middle.bufferMiddle
   #bufferContainer
+    #post_notice
     #bufferTitleContainer
       %p#bufferTitle.rockwellRegular tweetbuff.com
       %p#bufferSubTitle.rockwellRegular Welcome back #{@twitter_user.login}
@@ -25,38 +18,18 @@
             %span.leftPanelNumBuffer (Unlimited)
       #bufferLeftPanelButtonsContainer
         #bufferAddAccountButton
-          %a.rockwellRegular.bufferLeftPanelButtonLink{:href => "#"} Add Account
           = link_to "Add Account", add_an_account_path,  :class => "rockwellRegular bufferLeftPanelButtonLink"
         #bufferSwichAccountButton
           %a.rockwellRegular.bufferLeftPanelButtonLink{:href => "#"} Switch Account
     #bufferMainContainer
-      #addTweetContainer
-        #goProContainer
-          = image_tag("goProImage.png")
-          %a.rockwellRegular{:href => "#"} View advantage
-          #goProCounter
-            %span{:id => "counter"}
-        = form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-          #addTweetTextAreaContainer
-            = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :class => "transparentInput"
-          #bufferAccionsButtonsContainer
-            #bufferAddQueueButton
-              = submit_tag "", :class => "rockwellRegular bufferAddQueueButton", :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
-            #bufferPostNowButton
-              %input{:value => "", :type => "button",:class => "rockwellRegular bufferPostNowButton", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
-            #bufferQueueSettingsButton
-              %input{:type => "button",:class => "queue_settings",:class => "rockwellRegular bufferQueueSettingsButton", :onclick => "window.location='#{twitter_settings_path(@twitter_user.login)}'"}   
-            #bufferViewSuggestionsButton
-              %a.rockwellRegular{:href => "#"} 
+      = render :partial => "form_buffer", :locals => {:twitter_user => @twitter_user}
       #bufferTweetsContainer
         #bufferTweetsOptionsButtonsContainer
-          .bufferOptionButtonSelected
-            %a.myriadProNormal{:href => "#"} Queue
-          .bufferOptionButton
-            %a.myriadProNormal{:href => "#"} Performance
-          .bufferOptionButton
-            %a.myriadProNormal{:href => "#"} Analytics
-      .tweeet_loader{:style => "position: relative; width: 725px; margin-left: 150px;"}
+          #queueButton.bufferOptionButtonSelected
+            = link_to "Queue", twitter_user_queue_path(@twitter_user.login), :class => "myriadProNormal", :remote=> true, :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
+          #performanceButton.bufferOptionButton
+            = link_to "Performance", twitter_user_performance_path(@twitter_user.login), :class => "myriadProNormal", :remote=> true, :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
+      .tweeet_loader{:style => "position: relative; width: 725px;"}
         #loader
           =image_tag("ajaxLoader.gif")
           %br
@@ -73,15 +46,11 @@
           =image_tag("ajaxLoader.gif")
           %br
           Edit buffer
-      #buffer_wrapper
-        = render :partial => "queueNew", :locals => {:ordered_buffers => @ordered_buffers, :ordered_buffers => @ordered_buffers}
+      = render :partial => "queue", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
         
 
 :javascript
-  $('#tweet_text').simplyCountable({
-    counter: '#counter',
-    maxCount: 140,
-  });
+  
 
   $("#menuArrow").removeClass();
   $("#menuArrow").addClass("menuArrowMyTweets");

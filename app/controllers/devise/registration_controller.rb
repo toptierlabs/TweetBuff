@@ -1,5 +1,5 @@
 class Devise::RegistrationController < Devise::RegistrationsController
- 
+
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy]
 
@@ -112,4 +112,5 @@ class Devise::RegistrationController < Devise::RegistrationsController
     send(:"authenticate_#{resource_name}!", :force => true)
     self.resource = send(:"current_#{resource_name}")
   end
+
 end

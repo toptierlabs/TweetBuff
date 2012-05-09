@@ -1,8 +1,0 @@
-= form_for @buffer_preference, :url => "/twitter/#{@twitter_user.login}/buffers", :remote => true do |f|
-  = f.text_area :name, :style => "float: left; display: inline-block;", :id => "tweet_text", :placeholder => "add tweet here ..."
-  %div{:style => "clear:both;"}
-  #button_container
-    =submit_tag "", :class => "add_to_queue", :onclick => "$('#loader-buffer').show();"
-    %input{:type => "button",:class => "post_now", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
-    %input{:type => "button",:class => "queue_settings", :onclick => "window.location='#{twitter_settings_path(:twitter_name => @twitter_user.login)}'"}
-    %div{:id => "box-tweet-suggest", :onclick => "showDialog('Post Suggestions', '/suggestions?twitter_name=#{@twitter_user.login}'); return false;"} View Suggestions

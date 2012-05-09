@@ -1,5 +1,3 @@
-- ordered_buffers = @ordered_buffers
-- active_time = @active_time
 - ordered_buffers.each_with_index do |buffer, i|
   - if active_time != buffer.run_at.to_date or i == 0
     #bufferTweetsHeader
@@ -20,6 +18,6 @@
         .bufferTweetEditActionButton
           = link_to "Tweet", tweet_from_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal"
         .bufferTweetArchiveActionButton
-          = link_to "Edit", edit_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal"
+          = link_to "Edit", edit_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal", :remote=> true
         .bufferTweetArchiveActionButton
           = link_to "Delete", delete_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal"

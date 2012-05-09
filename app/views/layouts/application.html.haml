@@ -6,12 +6,8 @@
       = yield(:title) || "Untitled"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
     
-    /= csrf_meta_tag
+    = csrf_meta_tag
     
-    = javascript_include_tag "jquery.min.js"    
-    = javascript_include_tag "jquery-1.2.6.min.js"  
-
-    = javascript_include_tag "jquery-1.6.min.js"
     = javascript_include_tag "jquery.simplyCountable.js"
     = javascript_include_tag "button.js"
    
@@ -47,7 +43,7 @@
                   = link_to "Contact", contact_path, :class => "menuCenterLinkLeft"
                 - else                  
                   = link_to "My Tweets", twitter_user2_path 
-                  %a.menuCenterLinkLeft{:href => "#"} Account
+                  = link_to "Account", account_settings_path 
                   = link_to "Goodies", goodies_path 
                   = link_to "Plans & Pricing", plans_path 
                   = link_to "Sign out", destroy_user_session_path, :method => :delete,  :class => "menuCenterLinkLeft" 
@@ -59,7 +55,7 @@
             %div{:id => "notification_#{name}"}
               %span{:style => "float: right; margin-right: 15px;"}
                 %a{:href=>"#", :onclick => "$('#notification_#{name}').fadeOut(); return false;"}
-                  =image_tag("close.png",:width=>"18", :height => "18")
+                  =image_tag("/assets/close.png",:width=>"18", :height => "18")
               = msg
               
       = yield
@@ -91,8 +87,4 @@
             %a{:href => "#"}
         
     = javascript_include_tag :defaults
-    = javascript_include_tag "bpopup.js"
-    = javascript_include_tag "button.js"
-    = javascript_include_tag "notification.js"
-    = javascript_include_tag "error.js"
-    = javascript_include_tag "settings.js"
+

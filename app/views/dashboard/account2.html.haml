@@ -1,0 +1,85 @@
+%div{:style => "width: 685px; margin: 0 auto;"}
+  .account-detail
+    %span{:id => "detail_head"}
+      Change your password
+    - form_for(@user, :as => @user, :url => user_password_path, :html => { :method => :put }, :remote => true) do |f|
+      = f.hidden_field :reset_password_token
+      .field_content
+        =f.label :current_password
+        %br
+        =f.password_field :current_password, :class => "account_input", :required => true
+      .field_content
+        =f.label :password, "New password"
+        %br
+        =f.password_field :password, :class => "account_input", :required => true
+      .field_content
+        =f.label :password_confirmation, "Confirm new password"
+        %br
+        =f.password_field :password_confirmation, :class => "account_input", :required => true
+      .field_content
+        =f.submit "Change my password", :id => "submit_button"
+
+  .notifications
+    %span{:id => "detail_head"}
+      Notifications
+    =form_tag update_notify_path do
+      %div{:style => "float: left;"}
+        =custom_check_box(@user)
+      Remind me to add Tweets where i've run out in my buffer
+      %br
+      %div{:style => "text-align: center; height: 119px;"}
+        %img{:src => "/assets/tweet_bird.jpg"}
+      .field_content
+        =submit_tag "Save notifications", :id => "submit_button"
+
+  .timezone
+    %span{:id => "detail_head"}
+      Select your timezone
+    =form_tag update_timezone_path do
+      .field_content
+        = timezone_select("account[timezone]", @user.timezone)
+      %br
+      %div{:style => "text-align: center; height: 99px;"}
+        %img{:src => "/assets/timezone_bird.jpg"}
+      .field_content
+        =submit_tag "Update timezone", :id => "submit_button"
+
+  %div{:style => "clear: both; padding-top: 35px;", :id => "separator"}
+    %img{:src => "/assets/separator.jpg"}
+
+  .go_pro
+    %div{:style => "float: left;"}
+      %img{:src => "/assets/bluebox.jpg"}
+    .go_pro_head
+      %a{:href => plans_path, :style => "text-decoration: none;"}
+        %span{:style => "color: #F6C312;"}
+          Go
+        %span{:style => "color: #3D6CB4;"}
+          pro!
+        %span{:style => "color: #25A3F0;"}
+          Be awesome
+    %div{:style => "float: left; padding-left: 20px;"}
+      lorem ipsum dolor sit amet
+      %br
+      lorem ipsum dolor sit amet
+      %br
+      lorem ipsum dolor sit amet
+      %br
+    .advantages
+      %div{:style => "float: right;"}
+        Advantage 1
+        %br
+        Advantage 2
+        %br
+        Advantage 3
+        %br
+      %div{:style => "float: right; margin-right: 30px;"}
+        Advantage 1
+        %br
+        Advantage 2
+        %br
+        Advantage 3
+        %br
+
+-content_for :account_css do
+  = stylesheet_link_tag 'account.css'

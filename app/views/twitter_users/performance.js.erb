@@ -1,0 +1,8 @@
+
+$('#buffer_wrapper').replaceWith("<%= escape_javascript render(:partial => "performance", :locals => {:twitter_user => @twitter_user, :buffer_success => @buffer_success}) %>");
+jQuery('#buffer_wrapper').show();
+
+$("#bufferTweetsOptionsButtonsContainer>div").removeClass('bufferOptionButtonSelected');
+$("#bufferTweetsOptionsButtonsContainer>div").addClass('bufferOptionButton');
+$("#performanceButton").addClass('bufferOptionButtonSelected');
+$('#loader-buffer').hide();

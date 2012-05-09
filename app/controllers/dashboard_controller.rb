@@ -28,6 +28,7 @@ class DashboardController < ApplicationController
     end
   end
   
-  def add_account; end
+  def add_account
+  end
 
 end

@@ -56,9 +56,19 @@ function checkedBox(val){
     }
 }
 
-var new_form_count = 1
-function new_interval_custom(){
-    form_sub = new_form_count += 1
-    $('#new_form_count').val(form_sub);
+
+function newTimeInterval(){
+
+    $('#new_form_count').val(parseInt($('#new_form_count').val())+1);
 	$('#custom_tf_select').clone().appendTo('#custom_tf_wrapper')
 }
+
+function removeInterval(nodetoremove){
+	if ($('#new_form_count').val() > 1)
+	{
+		$('#new_form_count').val(parseInt($('#new_form_count').val()) - 1); 
+    	nodetoremove.remove();
+	}
+    
+}
+

@@ -6,7 +6,7 @@
         = show_buffer_date_title(buffer)
       - active_time = buffer.run_at.to_date
       %a{:href => "#"}
-        %img.bufferTweetsListArrow{:src => "assets/bufferDownArrow.png"}/
+        %img.bufferTweetsListArrow{:src => "/assets/bufferDownArrow.png"}/
   #bufferTweetsListContainer
     #bufferTweetsRow
       %p.bufferTweetText.rockwellRegular
@@ -16,8 +16,8 @@
         = "Queued for #{buffer.run_at.strftime('%I:%M %p')}" unless buffer.run_at.nil?
       .bufferTweetActionsButtonsContainer
         .bufferTweetEditActionButton
-          = link_to "Edit", tweet_from_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal"
+          = link_to "Tweet", tweet_from_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal"
         .bufferTweetArchiveActionButton
-          %a.myriadProNormal.bufferTweetActionButtonLink Archive
+          = link_to "Edit", edit_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal", :remote=>true
         .bufferTweetArchiveActionButton
-          %a.myriadProNormal.bufferTweetActionButtonLink Archive
+          = link_to "Delete", delete_buffer_path(buffer.id), :params => "twitter_name", :class => "bufferTweetActionButtonLink myriadProNormal"

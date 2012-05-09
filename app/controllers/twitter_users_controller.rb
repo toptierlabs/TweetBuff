@@ -6,7 +6,7 @@ class TwitterUsersController < ApplicationController
   def index
     @ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
     @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
-    
+=begin    
     if request.xhr?
       render :update do |page|
         page.replace_html "buffer_wrapper", :partial => "queueNew", :locals => {:ordered_buffers => @ordered_buffers, :active_time => @active_time}
@@ -15,6 +15,14 @@ class TwitterUsersController < ApplicationController
         page << "jQuery('#queue').addClass('queue');"
       end
     end
+=end
+  end
+  
+  
+  def queue
+    @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+    @ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
+    @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
   end
   
   def performance
@@ -30,36 +38,18 @@ class TwitterUsersController < ApplicationController
     end
     
     @buffer_success = BufferPreference.where("twitter_user_id = ? AND status = ? ", twitter_user.id, "success").order("deleted_at ASC")
-    if request.xhr?
-      render :update do |page|
-        page.replace_html "buffer_wrapper", :partial => "performance", :locals => {:twitter_user => @twitter_user}
-        page << "jQuery('#loader-tab').hide();jQuery('#buffer_wrapper').show();"
-        page << "jQuery('#performance').addClass('qpa');jQuery('#queue').removeClass('all');jQuery('#analytic').removeClass('analytic');jQuery('#queue').removeClass('queue');"
-        page << "jQuery('#performance').addClass('performance');"
-      end
-    end
   end
   
-  def analytic
-    user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-    facebook_config(user)
-    if request.xhr?
-      render :update do |page|
-        page.replace_html "buffer_wrapper", :partial => "analytic", :locals => {:twitter_user => @twitter_user}
-        page << "jQuery('#loader-tab').hide();jQuery('#buffer_wrapper').show();"
-        page << "jQuery('#analytic').addClass('qpa');jQuery('#queue').removeClass('all');jQuery('#performance').removeClass('performance');jQuery('#queue').removeClass('queue')"
-        page << "jQuery('#analytic').addClass('analytic');"
-      end
-    end
-  end
-  
+
   def delete_buffer
     buffer_to_delete = BufferPreference.find(params[:id])
     buffer_to_delete.destroy
-    redirect_to :back, :notice => "Your buffer has successfully deleted from queue."
+    flash['post_notice'] = "Your buffer has successfully deleted from queue."
+    redirect_to :back
   end
   
   def edit_buffer
+    puts request.xhr?
     @buffer = BufferPreference.find(params[:id])
     @twitter_user = @buffer.twitter_user
         
@@ -76,6 +66,7 @@ class TwitterUsersController < ApplicationController
       
       @twitter_user = current_user.twitter_users.find(@buffer.twitter_user_id)
       @buffer_preference = @twitter_user.buffer_preferences.new rescue nil
+=begin
       render :update do |page|
         ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
         active_time = ordered_buffers.first.run_at.to_date rescue Date.today
@@ -90,6 +81,7 @@ class TwitterUsersController < ApplicationController
         page << "$('#post_notice').html('Your tweet has successfully updated.');"
         page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
       end
+=end
     end
   end
   
@@ -139,91 +131,70 @@ class TwitterUsersController < ApplicationController
   end
   
   def tweet_to_twitter
+
     if request.xhr?
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
       
       tweet = params[:tweet]
-      
+      @success = true;
+      @message = '';
       if @twitter_user.account_type.eql?("facebook")
-        render :update do |page|
-          unless tweet.empty?
-            user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-            
-            me = FbGraph::User.me(user.access_token)
-            post_to_facebook = me.feed!(:message => tweet)
-            id_status = post_to_facebook.identifier.split("_")[1]
+        unless tweet.empty?
+          user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+          
+          me = FbGraph::User.me(user.access_token)
+          post_to_facebook = me.feed!(:message => tweet)
+          id_status = post_to_facebook.identifier.split("_")[1]
 
-            save_buffer = @twitter_user.buffer_preferences.new(:user_id => current_user.id, :twitter_user_id => @twitter_user.id, :name => tweet, :timezone => "UTC", :permalink => tweet, :status => "success", :deleted_at => Time.now, :id_status => id_status)
-            save_buffer.save!
-            
-            page << "$('#post_notice').removeClass('error');"
-            page << "$('#post_notice').addClass('success');"
-            page << "$('#post_notice').show();"
-            page << "$('#post_notice').html('Your tweet has successfully posted to your facebook.');"
-            page << "$('#loader').hide();"
-            page << "$('#tweet_text').val('')"
-            page << "setTimeout('$(\"#post_notice\").fadeOut(200)',5000)"
-          else
-            page << "$('#post_notice').removeClass('success');"
-            page << "$('#post_notice').addClass('error');"
-            page << "$('#post_notice').show();"
-            page << "$('#post_notice').html('Please fill the form.');"
-            page << "$('#loader').hide();"
-            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
-          end
+          save_buffer = @twitter_user.buffer_preferences.new(:user_id => current_user.id, :twitter_user_id => @twitter_user.id, :name => tweet, :timezone => "UTC", :permalink => tweet, :status => "success", :deleted_at => Time.now, :id_status => id_status)
+          save_buffer.save!
+          
+          @message = 'Your tweet has successfully posted to your facebook.'
+        else
+          @success = false;
+          @message = 'Please fill the form.'
         end
       elsif @twitter_user.account_type.eql?("twitter")
-        render :update do |page|
-          unless tweet.empty?
-            user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+        unless tweet.empty?
+          user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
 
-            Twitter.configure do |config|
-              config.consumer_key       = TWITTER_API[:key]
-              config.consumer_secret    = TWITTER_API[:secret]
-              config.oauth_token        = user.access_token
-              config.oauth_token_secret = user.access_secret
-            end
-            
-            client = Twitter::Client.new
-            status = tweet
-            url = status.match(/https?:\/\/[\S]+/)
-
-            unless url.nil?
-              bitly_api = current_user.bitly_api
-              unless bitly_api.nil?
-                user = bitly_api.bitly_name
-                apikey = bitly_api.api_key
-                version = "3"
-                bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
-                
-                buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
-                result = JSON.parse(buffer)
-                short_url = result['results'][url.to_s]['shortUrl']
-                status = status.gsub(url.to_s, short_url)
-              end
-            end
-            
-            post_to_twitter = client.update(status)
-            id_status = post_to_twitter.id
-
-            save_buffer = @twitter_user.buffer_preferences.new(:user_id => current_user.id, :twitter_user_id => @twitter_user.id, :name => tweet, :timezone => "UTC", :permalink => tweet, :status => "success", :deleted_at => Time.now, :id_status => id_status)
-            save_buffer.save!
-            
-            page << "$('#post_notice').removeClass('error');"
-            page << "$('#post_notice').addClass('success');"
-            page << "$('#post_notice').show();"
-            page << "$('#post_notice').html('Your tweet has successfully tweeted to your twitter.');"
-            page << "$('#loader').hide();"
-            page << "$('#tweet_text').val('')"
-            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
-          else
-            page << "$('#post_notice').removeClass('success');"
-            page << "$('#post_notice').addClass('error');"
-            page << "$('#post_notice').show();"
-            page << "$('#post_notice').html('Please fill the form.');"
-            page << "$('#loader').hide();"
-            page << "setTimeout('$(\"#post_notice\").fadeOut()',3000)"
+          Twitter.configure do |config|
+            config.consumer_key       = TWITTER_API[:key]
+            config.consumer_secret    = TWITTER_API[:secret]
+            config.oauth_token        = user.access_token
+            config.oauth_token_secret = user.access_secret
           end
+          
+          client = Twitter::Client.new
+          status = tweet
+          url = status.match(/https?:\/\/[\S]+/)
+
+          unless url.nil?
+            bitly_api = current_user.bitly_api
+            unless bitly_api.nil?
+              user = bitly_api.bitly_name
+              apikey = bitly_api.api_key
+              version = "3"
+              bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
+              
+              buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
+              result = JSON.parse(buffer)
+              short_url = result['results'][url.to_s]['shortUrl']
+              status = status.gsub(url.to_s, short_url)
+            end
+          end
+          
+          post_to_twitter = client.update(status)
+          id_status = post_to_twitter.id
+
+          save_buffer = @twitter_user.buffer_preferences.new(:user_id => current_user.id, :twitter_user_id => @twitter_user.id, :name => tweet, :timezone => "UTC", :permalink => tweet, :status => "success", :deleted_at => Time.now, :id_status => id_status)
+          save_buffer.save!
+          
+          @message = 'Your tweet has successfully tweeted to your twitter.'
+
+        else
+          @success = false;
+          @message = 'Please fill the form.'
         end
       end
     end
@@ -243,9 +214,10 @@ class TwitterUsersController < ApplicationController
   end
 
   def update_notify
-    @timezone = current_user.update_attribute("notify", params[:account][:notify])
+    puts current_user.to_json  
+    @timezone = current_user.update_attribute("notify", params[:notify])
 
-    notice = if params[:account][:notify].eql?("1")
+    notice = if params[:notify].eql?("1")
       {:notice => "we will send you an email whenever your buffer is run out."}
     else
       {:notice => "You will not recieve notification email when your buffer is run out"}

@@ -74,70 +74,65 @@
             = check_box_tag "days[]", "5", is_day_of_week_checked?(@twitter_user, "5"), :class => "checkbox_time_setting", :id => "check5"
             = check_box_tag "days[]", "6", is_day_of_week_checked?(@twitter_user, "6"), :class => "checkbox_time_setting", :id => "check6"
             = check_box_tag "days[]", "7", is_day_of_week_checked?(@twitter_user, "7"), :class => "checkbox_time_setting", :id => "check7"
-            #selectTimeContainer
+          #selectTimeContainer
             %p.rockwellRegular Select Time Settings :
-            #selectTimeButtonsContainer
-              #selectTimeFirstButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
-                %span.selectTimeLink.myriadProNormal Tweet Smart
-              #selectTimeSecondButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
-                %span.selectTimeLink.myriadProNormal Choose Your Tweeting Time
-              #selectTimeThirdButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
-                %span.selectTimeLink.myriadProNormal Customise Your Tweeting Time
+          #selectTimeButtonsContainer
+            #selectTimeFirstButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+              %span.selectTimeLink.myriadProNormal Tweet Smart
+            #selectTimeSecondButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+              %span.selectTimeLink.myriadProNormal Choose Your Tweeting Time
+            #selectTimeThirdButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+              %span.selectTimeLink.myriadProNormal Customise Your Tweeting Time
           .tweetSettingsContainer
             %div{:id => "1", :style => "display:none;", :class => "tweetSmartSettingsContainer"}
               =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
               =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
-              - if @myplan.name.eql?("Free")
-                = "1"
-                = radio_button_tag 'day_time', '1'
-                = "2"
-                = radio_button_tag 'day_time', '2'
-                = "4"
-                = radio_button_tag 'day_time', '4'
-                = "6"
-                = radio_button_tag 'day_time', '6'
-              - elsif @myplan.name.eql?("Pro")
-                = "1"
-                = radio_button_tag 'day_time', '1'
-                = "2"
-                = radio_button_tag 'day_time', '2'
-                = "4"
-                = radio_button_tag 'day_time', '4'
-                = "6"
-                = radio_button_tag 'day_time', '6'
-              - elsif @myplan.name.eql?("Premium")
-                = "1"
-                = radio_button_tag 'day_time', '1'
-                = "2"
-                = radio_button_tag 'day_time', '2'
-                = "4"
-                = radio_button_tag 'day_time', '4'
-                = "6"
-                = radio_button_tag 'day_time', '6'
-            
+              = "1"
+              = radio_button_tag 'day_time', '1'
+              = "2"
+              = radio_button_tag 'day_time', '2'
+              = "3"
+              = radio_button_tag 'day_time', '3'
+              = "4"
+              = radio_button_tag 'day_time', '4'
+              = "6"
+              = radio_button_tag 'day_time', '6'              
             %div{:id => "2", :style => "display:none;", :class => "chooseTweetSettingsContainer"}
               =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
               =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
-              =select_tag "timeframe_id", options_for_select(@options)
+              .timeframeWrapper
+                .comboField
+                  = timeframe_select "timeframe_id", options_for_select(@options), :class=>"combo timeCombo"
               %br
-              = "start at"
-              =select_tag "start_at[hour]", options_for_select(choose_hours_custom)
-              =select_tag "start_at[minute]", options_for_select(choose_minutes_custom)
-              =select_tag "start_at[meridian]", options_for_select(choose_meridians_custom)
+              .timeWrapper
+                .smallComboField
+                  = time_select "start_at[hour]", choose_hours_custom, :class=>"combo timeCombo"
+              .timeWrapper
+                .smallComboField
+                  = time_select "start_at[minute]", choose_minutes_custom, :class=>"combo timeCombo"
+              .timeWrapper
+                .smallComboField
+                  = time_select "start_at[meridian]", choose_meridians_custom, :class=>"combo timeCombo"
               =hidden_field :timeframe, :timeframe_id, :value => "99"
               =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
             
             %div{:id => "3", :style => "display:none;",:class => "customTweetTimeSettingsContainer"}
               #custom_tf_wrapper
                 #custom_tf_select
-                  =hour_select("tfname[hour][]")
-                  =minute_select("tfname[minute][]")
-                  =meridian("tfname[meridian][]")
-                  %span{:style => "color: #a50000; font-weight: bold; cursor: pointer;", :onclick => "$('#new_form_count').val(new_form_count-=1); $(this).parents('#custom_tf_select').remove();"} X
+                  .timeWrapper
+                    .smallComboField
+                      = time_select "tfname[hour][]", choose_hours_custom, :class=>"combo timeCombo"
+                  .timeWrapper
+                    .smallComboField
+                      = time_select "tfname[minute][]", choose_minutes_custom, :class=>"combo timeCombo"
+                  .timeWrapper
+                    .smallComboField
+                      = time_select "tfname[meridian][]", choose_meridians_custom, :class=>"combo timeCombo"
+                  .crossWrapper{ :onclick => "removeInterval($(this).parents('#custom_tf_select'));"}
               =hidden_field :timeframe, :timeframe_id, :value => "99"
               =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
               =hidden_field_tag :new_form_count, "1"
-              %input{:type => "button", :value => "", :onclick => "new_interval_custom();", :class => "new_interval_button"}
+              %input{:type => "button", :value => "", :onclick => "newTimeInterval();", :class => "new_interval_button"}
           
             = submit_tag "", :class => "save_setting_button"
         #settingsSuggestionsContainer
