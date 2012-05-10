@@ -758,28 +758,23 @@ footer{
     top: 17px;
     width: 124px;
     display: inline-block;
+
 }
 
 
-.tweetAccountTab a{
-	color: rgb(110,110,110);
+.tweetAccount a{
 	font-size: 18px;
+	color: rgb(110,110,110);
 	text-decoration: none;
-	margin-left: 20px;
 	margin-top: 12px;
-	float: left;
+	text-align:center;
+	display: inline-block;
+	width: 100%;
 }
-
 
 .tweetAccountTabSelected a{
 	color: rgb(32,138,174);
-	font-size: 18px;
-	text-decoration: none;
-	margin-left: 20px;
-	margin-top: 12px;
-	float: left;
 }
-
 #leftPanelPhoto{
 	width: 211px;
 	height: 198px;
@@ -1763,7 +1758,8 @@ footer{
 	background: url("/assets/save_settings.png") no-repeat scroll 0 0 transparent;
 	height: 40px;
 	width: 117px;
-	border: medium none;
+	border: none;
+	cursor: pointer;
 }
 
 .new_interval_button{
@@ -1772,6 +1768,7 @@ footer{
 	height: 40px;
 	width: 117px;
 	border: medium none;
+	cursor: pointer;
 }
 
 .timeframeWrapper{

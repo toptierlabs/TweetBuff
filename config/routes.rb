@@ -61,6 +61,7 @@ Tweetbuffer::Application.routes.draw do
   get "/settings/account" => "dashboard#account", :as => :account_settings
   put "/settings/account/update" => "dashboard#update", :as => :account_password_update
   
+  match "/twitter/:twitter_name" => "twitterUsers#index", :as => :twitter_user
   match "/twitter/" => "twitterUsers#index", :as => :twitter_user2
   scope "dashboard" do
     get "/facebook/:twitter_name" => "TwitterUsers#index", :as => :facebook_user

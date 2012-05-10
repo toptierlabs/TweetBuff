@@ -35,12 +35,13 @@ module ApplicationHelper
     select_tag(field_name,time_zone_options_for_select(selected), attributes)
   end
   
-  def timeframe_select(field_name, option_list, attributes)
-        select_tag(field_name, options_for_select(option_list), attributes)
+  def timeframe_select(field_name, option_list, selected=nil, attributes)
+
+    select_tag(field_name, options_for_select(option_list, selected), attributes)
   end
 
-  def time_select(field_name, option_list, attributes)
-        select_tag(field_name, options_for_select(option_list), attributes)
+  def time_select(field_name, option_list,  selected=nil, attributes)
+        select_tag(field_name, options_for_select(option_list, selected), attributes)
   end
   
   def custom_check_box(user)

@@ -1,8 +1,9 @@
 #middle.configMiddle
   #configContainer
     #configTabsContainer
-      .tweetAccountTabSelected
-        %a.myriadProNormal{:href => "#"} #{@twitter_user.login}
+      - @twitter_user_list.each do |twitter_user|
+        .tweetAccount{:class=> twitter_user.login == @twitter_user.login ? 'tweetAccountTabSelected': 'tweetAccountTab'}
+          = link_to "#{twitter_user.login}", twitter_settings_path(twitter_user.login)
       /.tweetAccountTab
       /%a.myriadProNormal{:href => "#"} Webeffect1
     .separator
@@ -53,19 +54,19 @@
             .noSelectedroundCornerRec.roundCornerRec.confLittleRec
             %span.rockwellRegular No selected
           #selectDatesContainer
-            #selectDatesFirstDate.noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(1);"}
+            #selectDatesFirstDate.roundCornerRec.confNormalRec{:onclick => "checkedBox(1);", :class=> is_day_of_week_checked?(@twitter_user, "1") ? 'selectedroundCornerRec': 'noSelectedroundCornerRec'}
               %span.selectDateLink Monday
-            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(2);"}
+            #selectDatesTuesday.roundCornerRec.confNormalRec{:onclick => "checkedBox(2);", :class=> is_day_of_week_checked?(@twitter_user, "2") ? 'selectedroundCornerRec': 'noSelectedroundCornerRec'}
               %span.selectDateLink Tuesday
-            #selectDatesWednesday.noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(3);"}
+            #selectDatesWednesday.roundCornerRec.confNormalRec{:onclick => "checkedBox(3);", :class=> is_day_of_week_checked?(@twitter_user, "3") ? 'selectedroundCornerRec': 'noSelectedroundCornerRec'}
               %span.selectDateLink Wednesday
-            #selectDatesThursday.noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(4);"}
+            #selectDatesThursday.roundCornerRec.confNormalRec{:onclick => "checkedBox(4);", :class=> is_day_of_week_checked?(@twitter_user, "4") ? 'selectedroundCornerRec': 'noSelectedroundCornerRec'}
               %span.selectDateLink Thursday
-            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(5);"}
+            #selectDatesFriday.roundCornerRec.confNormalRec{:onclick => "checkedBox(5);", :class=> is_day_of_week_checked?(@twitter_user, "5") ? 'selectedroundCornerRec': 'noSelectedroundCornerRec'}
               %span.selectDateLink Friday
-            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(6);"}
+            #selectDatesSaturday.roundCornerRec.confNormalRec{:onclick => "checkedBox(6);", :class=> is_day_of_week_checked?(@twitter_user, "6") ? 'selectedroundCornerRec': 'noSelectedroundCornerRec'}
               %span.selectDateLink Saturday
-            .noSelectedroundCornerRec.roundCornerRec.confNormalRec{:onclick => "checkedBox(7);"}
+            #selectDatesSunday.roundCornerRec.confNormalRec{:onclick => "checkedBox(7);", :class=> is_day_of_week_checked?(@twitter_user, "7") ? 'selectedroundCornerRec': 'noSelectedroundCornerRec'}
               %span.selectDateLink Sunday
             = check_box_tag "days[]", "1", is_day_of_week_checked?(@twitter_user, "1"), :class => "checkbox_time_setting", :id => "check1"
             = check_box_tag "days[]", "2", is_day_of_week_checked?(@twitter_user, "2"), :class => "checkbox_time_setting", :id => "check2"
@@ -76,64 +77,61 @@
             = check_box_tag "days[]", "7", is_day_of_week_checked?(@twitter_user, "7"), :class => "checkbox_time_setting", :id => "check7"
           #selectTimeContainer
             %p.rockwellRegular Select Time Settings :
-          #selectTimeButtonsContainer
-            #selectTimeFirstButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+          #selectTimeButtonsContainer 
+            #selectTimeFirstButton.roundCornerRec.confBigRec{:class=> (@time_setting_type == 1 ? 'selectedroundCornerTimerRec' : 'noselectedroundCornerTimerRec') }
               %span.selectTimeLink.myriadProNormal Tweet Smart
-            #selectTimeSecondButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
+            #selectTimeSecondButton.roundCornerRec.confBigRec{:class=> (@time_setting_type == 2 ? 'selectedroundCornerTimerRec' : 'noselectedroundCornerTimerRec') }
               %span.selectTimeLink.myriadProNormal Choose Your Tweeting Time
-            #selectTimeThirdButton.noselectedroundCornerTimerRec.roundCornerRec.confBigRec
-              %span.selectTimeLink.myriadProNormal Customise Your Tweeting Time
+            #selectTimeThirdButton.roundCornerRec.confBigRec{:class=> (@time_setting_type == 3 ? 'selectedroundCornerTimerRec' : 'noselectedroundCornerTimerRec') }
+              %span.selectTimeLink.myriadProNormal Customize Your Tweeting Time
           .tweetSettingsContainer
-            %div{:id => "1", :style => "display:none;", :class => "tweetSmartSettingsContainer"}
-              =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
-              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+
+            %div{:id => "1", :style => (@time_setting_type == 1 ? 'display:block' : 'display:none'), :class => "tweetSmartSettingsContainer"}
               = "1"
-              = radio_button_tag 'day_time', '1'
+              = radio_button_tag 'day_time', '1', (@time_setting_type == 1 && !@time_setting.nil? && @time_setting.post_per_day == 1)
               = "2"
-              = radio_button_tag 'day_time', '2'
+              = radio_button_tag 'day_time', '2', (@time_setting_type == 1 && !@time_setting.nil? && @time_setting.post_per_day == 2)
               = "3"
-              = radio_button_tag 'day_time', '3'
+              = radio_button_tag 'day_time', '3', (@time_setting_type == 1 && !@time_setting.nil? && @time_setting.post_per_day == 3)
               = "4"
-              = radio_button_tag 'day_time', '4'
+              = radio_button_tag 'day_time', '4', (@time_setting_type == 1 && !@time_setting.nil? && @time_setting.post_per_day == 4)
               = "6"
-              = radio_button_tag 'day_time', '6'              
-            %div{:id => "2", :style => "display:none;", :class => "chooseTweetSettingsContainer"}
+              = radio_button_tag 'day_time', '6', (@time_setting_type == 1 && !@time_setting.nil? && @time_setting.post_per_day == 6)          
+            %div{:id => "2", :style => (@time_setting_type == 2 ? 'display:block' : 'display:none'), :class => "chooseTweetSettingsContainer"}
               =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
-              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
               .timeframeWrapper
                 .comboField
-                  = timeframe_select "timeframe_id", options_for_select(@options), :class=>"combo timeCombo"
+                  = timeframe_select "timeframe_id", @options,  (@time_setting_type == 2 ? @time_setting.timeframe_id.to_s: nil) ,:class=>"combo timeCombo"
               %br
               .timeWrapper
                 .smallComboField
-                  = time_select "start_at[hour]", choose_hours_custom, :class=>"combo timeCombo"
+                  = time_select "start_at[hour]", choose_hours_custom, @start_time_hour, :class=>"combo timeCombo"
               .timeWrapper
                 .smallComboField
-                  = time_select "start_at[minute]", choose_minutes_custom, :class=>"combo timeCombo"
+                  = time_select "start_at[minute]", choose_minutes_custom, @start_time_minute, :class=>"combo timeCombo"
               .timeWrapper
                 .smallComboField
-                  = time_select "start_at[meridian]", choose_meridians_custom, :class=>"combo timeCombo"
-              =hidden_field :timeframe, :timeframe_id, :value => "99"
-              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
-            
-            %div{:id => "3", :style => "display:none;",:class => "customTweetTimeSettingsContainer"}
+                  = time_select "start_at[meridian]", choose_meridians_custom, @start_time_ampm, :class=>"combo timeCombo"
+            %div{:id => "3", :style => (@time_setting_type == 3 ? 'display:block' : 'display:none'),:class => "customTweetTimeSettingsContainer"}
               #custom_tf_wrapper
-                #custom_tf_select
-                  .timeWrapper
-                    .smallComboField
-                      = time_select "tfname[hour][]", choose_hours_custom, :class=>"combo timeCombo"
-                  .timeWrapper
-                    .smallComboField
-                      = time_select "tfname[minute][]", choose_minutes_custom, :class=>"combo timeCombo"
-                  .timeWrapper
-                    .smallComboField
-                      = time_select "tfname[meridian][]", choose_meridians_custom, :class=>"combo timeCombo"
-                  .crossWrapper{ :onclick => "removeInterval($(this).parents('#custom_tf_select'));"}
+                - @time_custom_list.each do |time_custom|
+                  .custom_tf_select
+                    .timeWrapper
+                      .smallComboField
+                        = time_select "tfname[hour][]", choose_hours_custom, time_custom[:hour] ,:class=>"combo timeCombo"
+                    .timeWrapper
+                      .smallComboField
+                        = time_select "tfname[minute][]", choose_minutes_custom, time_custom[:minute] ,:class=>"combo timeCombo"
+                    .timeWrapper
+                      .smallComboField
+                        = time_select "tfname[meridian][]", choose_meridians_custom, time_custom[:meridian] ,:class=>"combo timeCombo"
+                    .crossWrapper{ :onclick => "removeInterval($(this).parents('.custom_tf_select'));"}
               =hidden_field :timeframe, :timeframe_id, :value => "99"
-              =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
-              =hidden_field_tag :new_form_count, "1"
+              =hidden_field_tag :new_form_count, @new_form_count
               %input{:type => "button", :value => "", :onclick => "newTimeInterval();", :class => "new_interval_button"}
-          
+            =hidden_field :timeframe, :user_id, :value => @twitter_user.user.id
+            =hidden_field :timeframe, :twitter_user_id, :value => @twitter_user.id
+            = hidden_field :timeframe, :time_setting_type, :value => @time_setting_type
             = submit_tag "", :class => "save_setting_button"
         #settingsSuggestionsContainer
           %p.rockwellRegular Manage Suggestions :

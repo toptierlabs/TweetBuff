@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :load_twitter_user
 before_filter :cors_preflight_check
 after_filter :cors_set_access_control_headers
 
@@ -95,6 +96,14 @@ end
       config.consumer_secret    = TWITTER_API[:secret]
       config.oauth_token        = user.access_token
       config.oauth_token_secret = user.access_secret
+    end
+  end
+  
+  def load_twitter_user
+    if (params[:twitter_name].nil?)
+      @twitter_user = TwitterUser.where(user_id: current_user.id).first
+    else
+      @twitter_user = TwitterUser.where(login: params[:twitter_name]).first
     end
   end
   

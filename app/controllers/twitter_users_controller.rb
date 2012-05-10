@@ -6,6 +6,11 @@ class TwitterUsersController < ApplicationController
   def index
     @ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
     @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
+    
+    
+    
+    
+
 =begin    
     if request.xhr?
       render :update do |page|
@@ -234,7 +239,7 @@ class TwitterUsersController < ApplicationController
     @myplan = user.subcriptions.last.plan
     
     @options = []
-    @twitter_user = TwitterUser.where(login: params[:twitter_name]).first
+    @twitter_user_list = TwitterUser.where(user_id: current_user.id)
     
     user = User.find(current_user.id)
     myplan = user.subcriptions.last.plan
@@ -248,6 +253,51 @@ class TwitterUsersController < ApplicationController
     @twitter_user = current_user.twitter_users.where(permalink: params[:twitter_name]).first
     @twitter_id = @twitter_user.id
     
+    @start_time_hour = 1
+    @start_time_minute = 0
+    @start_time_ampm = 'am'
+    @time_custom_list = [{:hour=>1, :minute=>0, :meridian=>'pm'}]
+    @time_setting = TimeSetting.find_by_twitter_user_id(@twitter_user.id)
+    @time_setting_type = 1
+    
+    if !@time_setting.nil? 
+      
+      @time_setting_type = @time_setting.time_setting_type
+      
+      if @time_setting_type == 2
+        if !@time_setting.start_time.nil?
+          @start_time = @time_setting.start_time
+          
+          strTime = @start_time.strftime("%p|%M|%I")
+          dataTime = strTime.split('|')
+          @start_time_ampm = dataTime[0].downcase
+          @start_time_minute = dataTime[1].to_i
+          @start_time_hour = dataTime[2].to_i
+        end      
+      end
+    
+      if (@time_setting_type==3)
+        @time_custom_list = []
+        periodstring = @time_setting.time_period
+        arrperiod = periodstring.split(',')
+        arrperiod.each do |period|
+          hourminuteString = period.split(':')
+          hour = hourminuteString[0].to_i  
+          minute = hourminuteString[1].to_i 
+
+          time_at_hour = Time.new(Time.now.year,Time.now.month,Time.now.day,hour,minute,nil,nil)
+          strTime = time_at_hour.strftime("%p|%M|%I")
+          dataTime = strTime.split('|')
+          
+          @time_custom_list << {:hour => dataTime[2].to_i, :minute => dataTime[1].to_i, :meridian => dataTime[0].downcase}       
+        end
+        
+
+        
+      end
+   end
+
+    @new_form_count = @time_custom_list.length
     @sent_buffers_count = BufferPreference.where("twitter_user_id = #{@twitter_id} AND deleted_at IS NOT NULL").count
     
     @plans = Subcription.where(user_id: current_user.id).last
@@ -291,7 +341,200 @@ class TwitterUsersController < ApplicationController
     render :layout => false
   end
 
+
+
   def save_settings
+    twitter_uid = params[:timeframe][:twitter_user_id]
+    tf = params[:tfname]
+    other_time = ""
+    
+    params[:new_form_count].to_i.times do |i|
+      other_time << "#{tf[:hour][i]}:#{tf[:minute][i]}|"
+    end
+    
+    tweet_interval = TimeSetting.find_by_twitter_user_id(twitter_uid)
+    year = Time.now.strftime('%Y')
+    month = Time.now.strftime('%m')
+    day = Time.now.strftime('%d')    
+
+    if tweet_interval.nil?
+      day_of_week = ""
+      if !params[:days].nil?
+        day_of_week = params[:days].join(",")
+      end
+      post_per_day = params[:day_time]
+      
+      if params[:timeframe][:time_setting_type].eql?("1")
+      #Tweet Smart
+        time_setting = 1
+        time_period = []
+        
+        #day_time is the selected number of times per day in Tweet smart
+        params[:day_time].to_i.times do
+          rand_hour = rand(24)
+          random_hour =  rand_hour < 9 ? "0#{rand_hour}":"#{rand_hour}"
+          rand_minute = rand(60)
+          random_minute =  rand_minute < 9 ? "0#{rand_minute}":"#{rand_minute}"
+          time_period << "#{random_hour}:#{random_minute}"
+          # Saves a random hour.
+        end
+        
+        #Sort the time period
+        sort_time_period = time_period.sort {|x, y| x <=> y}
+        custom_time_saved = sort_time_period.join(",")
+        TimeSetting.create(:timeframe_id => nil, :user_id => current_user.id, :twitter_user_id => twitter_uid, 
+          :time_period => custom_time_saved, :time_setting_type => params[:timeframe][:time_setting_type], :post_per_day => post_per_day, 
+          :day_of_week => day_of_week)
+        
+      elsif params[:timeframe][:time_setting_type].eql?("2")
+        #Choose your tweeting time
+        pm = ((params[:start_at][:hour]).to_i + 12).to_s
+        am = params[:start_at][:hour]
+        minute = params[:start_at][:minute]
+        timeframe = Timeframe.find(params[:timeframe_id])
+        
+        if params[:start_at][:meridian].eql?("pm")
+          start_time = Time.utc(year,month,day,pm,minute)
+        elsif params[:start_at][:meridian].eql?("am")
+          start_time = Time.utc(year,month,day,am,minute)
+        end
+        
+        datetimes = []
+        0.upto ((24/timeframe.value)-1) do |i|
+          datetimes << (start_time + (i*timeframe.value).hours).strftime('%H:%M')
+        end
+        
+        time_period = datetimes.join(",")
+        
+        TimeSetting.create(:timeframe_id => params[:timeframe_id], :start_time => start_time, :user_id => current_user.id, 
+          :twitter_user_id => twitter_uid, :time_setting_type => params[:timeframe][:time_setting_type], :day_of_week => day_of_week, 
+          :time_period => time_period)
+      elsif params[:timeframe][:time_setting_type].eql?("3")
+          if params[:tfname][:hour][1].nil?
+            custom_time = Time.new(year, month, day, params[:tfname][:hour].join(""), params[:tfname][:minute].join(""))
+            many_custom_time = []
+            
+            params[:new_form_count].to_i.times do |parameter|
+              if params[:tfname][:meridian][parameter].eql?("pm")
+                if params[:tfname][:hour][parameter].eql?("12")
+                  pm = (params[:tfname][:hour][parameter].to_i - 12).to_s
+                  many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"
+                else
+                  pm = (params[:tfname][:hour][parameter].to_i + 12).to_s
+                  many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"                  
+                end
+              elsif params[:tfname][:meridian][parameter].eql?("am")
+                am = (params[:tfname][:hour][parameter]).to_s
+                many_custom_time << "#{am}:#{params[:tfname][:minute][parameter]}"
+              end
+            end
+            
+            sort_time_periode = many_custom_time.sort {|x, y| x <=> y}
+            custom_time_saved = sort_time_periode.join(",")
+
+            TimeSetting.create(:timeframe_id => params[:timeframe_id], :user_id => current_user.id, 
+              :twitter_user_id => twitter_uid, :time_setting_type => params[:timeframe][:time_setting_type], 
+              :day_of_week => day_of_week, :custom_time => custom_time, :time_period => custom_time_saved)
+          else
+            custom_times = []
+            
+            params[:new_form_count].to_i.times do |i|
+              if params[:tfname][:meridian][i].eql?("pm")
+                pm = (params[:tfname][:hour][i].to_i + 12).to_s
+                custom_times << "#{pm}:#{params[:tfname][:minute][i]}"
+              elsif params[:tfname][:meridian][i].eql?("am")
+                am = (params[:tfname][:hour][i]).to_s
+                custom_times << "#{am}:#{params[:tfname][:minute][i]}"
+              end
+            end
+            
+            sorted_time_periode = custom_times.sort{|x, y| x <=> y}
+            custom_time_saved = sorted_time_periode.join(",")
+            TimeSetting.create(:timeframe_id => params[:timeframe_id], :user_id => current_user.id, :twitter_user_id => twitter_uid, 
+              :time_setting_type => params[:timeframe][:time_setting_type], :day_of_week => day_of_week, :custom_time => custom_time, 
+              :time_period => custom_time_saved)
+          end
+      end
+      redirect_to :back, :notice => "Congratulation, your settings has been updated."
+
+    else
+
+        update_day_of_week = params[:days].join(",")
+  
+        if params[:timeframe][:time_setting_type].eql?("1")
+          time_periode = []
+          
+          params[:day_time].to_i.times do
+            rand_hour = rand(24)
+            random_hour =  rand_hour < 9 ? "0#{rand_hour}":"#{rand_hour}"
+            rand_minute = rand(60)
+            random_minute =  rand_minute < 9 ? "0#{rand_minute}":"#{rand_minute}"
+            time_periode << "#{random_hour}:#{random_minute}"
+          end
+          
+          sort_time_periode = time_periode.sort {|x, y| x <=> y}
+          custom_time_saved = sort_time_periode.join(",")
+          tweet_interval.update_attributes({:time_setting_type => params[:timeframe][:time_setting_type], :day_of_week => update_day_of_week, 
+              :time_period => custom_time_saved, :post_per_day => params[:day_time], :timeframe_id => nil, :start_time => nil})          
+        elsif params[:timeframe][:time_setting_type].eql?("2")
+          pm = ((params[:start_at][:hour]).to_i + 12).to_s
+          am = params[:start_at][:hour]
+          minute = params[:start_at][:minute]
+          timeframe = Timeframe.find(params[:timeframe_id])
+          
+          if params[:start_at][:meridian].eql?("pm")
+            start_time = Time.utc(year,month,day,pm,minute)
+          elsif params[:start_at][:meridian].eql?("am")
+            start_time = Time.utc(year,month,day,am,minute)
+          end
+          
+          x = []
+          0.upto ((24/timeframe.value)-1) do |i|
+            x << (start_time + (i*timeframe.value).hours).strftime('%H:%M')
+          end
+          
+          ax = x.join(",")
+          tweet_interval.update_attributes({:time_setting_type => params[:timeframe][:time_setting_type], :day_of_week => update_day_of_week,
+              :start_time => start_time, :post_per_day => nil, :timeframe_id => params[:timeframe_id], :custom_time => nil,
+              :time_period => ax})
+        elsif params[:timeframe][:time_setting_type].eql?("3")
+
+          if params[:tfname][:hour][1].nil?
+            custom_time = Time.utc(year,month,day,params[:tfname][:hour].join(""),params[:tfname][:minute].join(""),nil, "+00:00")
+            tweet_interval.update_attributes({:time_setting_type => params[:timeframe][:time_setting_type], :day_of_week => update_day_of_week, :timeframe_id => nil, :custom_time => custom_time, :post_per_day => nil})
+          else
+            many_custom_time = []
+            
+            params[:new_form_count].to_i.times do |parameter|
+              if params[:tfname][:meridian][parameter].eql?("pm")
+                if params[:tfname][:hour][parameter].eql?("12")
+                  pm = (params[:tfname][:hour][parameter].to_i - 12).to_s
+                  many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"
+                else
+                  pm = (params[:tfname][:hour][parameter].to_i + 12).to_s
+                  many_custom_time << "#{pm}:#{params[:tfname][:minute][parameter]}"                  
+                end
+              elsif params[:tfname][:meridian][parameter].eql?("am")
+                am = (params[:tfname][:hour][parameter]).to_s
+                many_custom_time << "#{am}:#{params[:tfname][:minute][parameter]}"
+              end
+            end
+            
+            sort_time_periode = many_custom_time.sort {|x, y| x <=> y}
+            custom_time_saved = sort_time_periode.join(",")
+
+            tweet_interval.update_attributes({:time_setting_type => params[:timeframe][:time_setting_type], :day_of_week => update_day_of_week, :timeframe_id => nil, :time_period => custom_time_saved, :custom_time => nil, :post_per_day => nil})
+          end
+      end
+     
+      redirect_to :back, :notice => "Congratulation, your settings has been updated."
+
+    end
+
+  end
+  
+
+  def save_settings2
     twitter_uid = params[:timeframe][:twitter_user_id]
     tf = params[:tfname]
     

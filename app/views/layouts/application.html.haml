@@ -42,7 +42,7 @@
                   = link_to "Sign up", new_user_registration_path, :class => "menuCenterLinkLeft"
                   = link_to "Contact", contact_path, :class => "menuCenterLinkLeft"
                 - else                  
-                  = link_to "My Tweets", twitter_user2_path 
+                  = link_to "My Tweets", twitter_user_path(@twitter_user) 
                   = link_to "Account", account_settings_path 
                   = link_to "Goodies", goodies_path 
                   = link_to "Plans & Pricing", plans_path 

@@ -7,6 +7,7 @@ $(document).ready(function(){
 		$("#selectTimeThirdButton").addClass("noselectedroundCornerTimerRec");
 		$(this).removeClass("noselectedroundCornerTimerRec");
 		$(this).addClass("selectedroundCornerTimerRec");
+		$('[name="timeframe[time_setting_type]"]').val("1");
 		
 	})
 	$("#selectTimeSecondButton").click(function(){
@@ -17,6 +18,7 @@ $(document).ready(function(){
 		$("#selectTimeThirdButton").addClass("noselectedroundCornerTimerRec");
 		$(this).removeClass("noselectedroundCornerTimerRec");
 		$(this).addClass("selectedroundCornerTimerRec");
+		$('[name="timeframe[time_setting_type]"]').val("2");
 	})
 	$("#selectTimeThirdButton").click(function(){
 		$("#1").hide();
@@ -26,6 +28,7 @@ $(document).ready(function(){
 		$("#selectTimeSecondButton").addClass("noselectedroundCornerTimerRec");
 		$(this).removeClass("noselectedroundCornerTimerRec");
 		$(this).addClass("selectedroundCornerTimerRec");
+		$('[name="timeframe[time_setting_type]"]').val("3");
 	})
 	
 	$(".confNormalRec").click(function(){
@@ -60,7 +63,12 @@ function checkedBox(val){
 function newTimeInterval(){
 
     $('#new_form_count').val(parseInt($('#new_form_count').val())+1);
-	$('#custom_tf_select').clone().appendTo('#custom_tf_wrapper')
+	newnode = $('.custom_tf_select').first().clone();
+	$("#tfname_hour_",newnode).val("1");
+	$("#tfname_minute_",newnode).val("0");
+	$("#tfname_meridian_",newnode).val("pm");
+	newnode.appendTo('#custom_tf_wrapper');
+	
 }
 
 function removeInterval(nodetoremove){
