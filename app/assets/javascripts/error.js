@@ -6,7 +6,7 @@ function error(text){
 	
 	//$(".container").html('');
 	
-	notice_box = $("<div></div>").attr('class','notification_post_notice');
+	notice_box = $("<div></div>").attr('class','notification_error');
 	$(".container").append(notice_box);
 	
     notice_box.removeClass('success');

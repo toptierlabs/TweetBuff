@@ -2,9 +2,9 @@ function notification(text) {
 	if (text==null) {
 		text = 'Your tweet has successfully queued';
 	}
-	
+		
 	//$(".container").html('');
-	notice_box = $("<div></div>").attr('class','notification_post_notice');
+	notice_box = $("<div></div>").attr('class','notification_notice');
 	$(".container").append(notice_box);
 
     notice_box.removeClass('error');

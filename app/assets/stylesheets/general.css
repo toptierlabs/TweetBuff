@@ -5,6 +5,42 @@
   -webkit-border-radius: 4px;
   padding: 5px;
   margin: 10px 0 10px 0; }
+  
+.notification_notice {
+    background: none repeat scroll 0 0 #D8E9D3;
+    border-bottom: 1px solid #D8E9D3;
+    font-size: 20px;
+    left: 0;
+    padding: 5px 0 5px 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.notification_error {
+    background: none repeat scroll 0 0 #F6CBCA;
+    border-bottom: 1px solid #F6CBCA;
+    font-size: 20px;
+    left: 0;
+    padding: 5px 0 5px 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+#notification_alert {
+    background: none repeat scroll 0 0 #F6CBCA;
+    border-bottom: 1px solid #F6CBCA;
+    font-size: 20px;
+    left: 0;
+    padding: 5px 0 5px 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100; 
+}
 
 a {
   text-decoration: none; }
