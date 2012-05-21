@@ -90,6 +90,7 @@ $.extend(BufferEditor.prototype, {
   _parseExpertise: function(mode){
     return mode.split("_")[1];
   },
+  /
   _selectable: function(){
     var that = this;
     $("#buffer-selector ul.selectable").selectable({

@@ -8,8 +8,9 @@
     #addTweetTextAreaContainer
       = f.text_area :name, :id => "tweet_text", :placeholder => "add tweet here ...", :class => "transparentInput"
     #bufferAccionsButtonsContainer
+      = hidden_field :twitter_accounts, :name
       #bufferAddQueueButton
-        = submit_tag "", :class => "rockwellRegular bufferAddQueueButton", :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show();"
+        = submit_tag "", :class => "rockwellRegular bufferAddQueueButton", :onclick => "jQuery('html, body').animate({scrollTop:0}, 'slow'); $('#loader-buffer').show(); refreshSelectedTwitterAccounts();"
       #bufferPostNowButton
         %input{:value => "", :type => "button",:class => "rockwellRegular bufferPostNowButton", :onclick => "$.get('#{tweet_to_twitter_path}',{tweet:$('#tweet_text').val(),twitter_name:'#{@twitter_user.login}'}); $('#loader').show();"}
       #bufferQueueSettingsButton

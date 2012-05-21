@@ -1,5 +1,6 @@
 #buffer_wrapper
   - ordered_buffers.each_with_index do |buffer, i|
+    - puts 'BUFFER:' + buffer.to_json
     - if active_time != buffer.run_at.to_date or i == 0
       #bufferTweetsHeader
         = image_tag("tweetBufferBirdImage.png", :class => "tweetBufferBirdImage")

@@ -21,6 +21,14 @@
           = link_to "Add Account", add_an_account_path,  :class => "rockwellRegular bufferLeftPanelButtonLink"
         #bufferSwichAccountButton
           %a.rockwellRegular.bufferLeftPanelButtonLink{:href => "#"} Switch Account
+        #otherAccounts
+          %p.rockwellGrey Also post on the following accounts:
+          #accountsWrapper
+            - @twitter_users.each do |other_twitter|
+              - if other_twitter.id != @twitter_user.id
+                = check_box_tag 'twitter_user_' + other_twitter.id.to_s, other_twitter.login
+                %span.myriadGrey #{other_twitter.login}
+            
     #bufferMainContainer
       = render :partial => "form_buffer", :locals => {:twitter_user => @twitter_user}
       #bufferTweetsContainer

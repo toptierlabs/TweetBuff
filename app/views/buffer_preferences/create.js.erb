@@ -1,21 +1,30 @@
+
 <% if !@error %>
       $('#buffer_wrapper').html("<%= escape_javascript render(:partial => "/twitter_users/queue", :locals => {:buffer => @buffer_preference, :ordered_buffers => @ordered_buffers, :active_time => @active_time}) %>");
 	  $('#buffer_count_text_blue_set').html("<%= escape_javascript render(:partial => "buffer_count", :locals => {:count_buffer => @count_buffer}) %>");
       $('#loader-buffer').hide();
       $('#tweet_text').val('');
-      successqueue_notification();
-<% else %>
-	$('#loader-buffer').hide();
-	<% if @time_settings_blank_error %>
-		timesettings_error();
-	<% else %>
-		<% if @max_tweets_error%>
-			maxtweets_error();
-		<% else %>
-			<%if @empty_name_error%>
-				<% emptytweet_error() %>
-			<%end%>
-		<%end%>
-	<% end %>
-	
+      
 <% end %>
+$('#loader-buffer').hide();
+
+<% @messages.each{|message|%>
+	<% if (message[:twitter_name] == @twitter_user.login) and !message[:error]%>
+		successqueue_notification("<%= message[:twitter_name]%>");
+	<%else%>
+		<% if message[:error] %>
+			<% if message[:twitter_name].empty? and message[:error_type]=='empty_name_error'%>
+				emptytweet_error("<%= message[:twitter_name]%>") ;
+			<% else %>
+				<% if message[:error_type] == 'time_settings_blank_error' %>
+					timesettings_error("<%= message[:twitter_name]%>");
+				<% end %>
+				<% if message[:error_type] == 'max_tweets_error' %>
+					maxtweets_error("<%= message[:twitter_name]%>");
+				<% end %>
+			
+			<% end %>
+		<% end %>
+	<% end %>	
+<% } %>
+

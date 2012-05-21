@@ -6,7 +6,7 @@ class TwitterUsersController < ApplicationController
   def index
     @ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
     @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
-    
+    @twitter_users = current_user.twitter_users
     
     
     
@@ -206,6 +206,7 @@ class TwitterUsersController < ApplicationController
   end
   
   def twitter_account_list
+    puts "***********Twitter_account_list"
     @twitter_users = current_user.twitter_users
     render :layout => false
   end
@@ -763,6 +764,7 @@ class TwitterUsersController < ApplicationController
   private
   
   def dashboard_account
+    puts "***********dashboard"
     if params[:twitter_name]
       @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
       @buffer_preference = @twitter_user.buffer_preferences.new rescue nil

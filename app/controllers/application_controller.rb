@@ -100,10 +100,12 @@ end
   end
   
   def load_twitter_user
-    if (params[:twitter_name].nil?)
-      @twitter_user = TwitterUser.where(user_id: current_user.id).first
-    else
-      @twitter_user = TwitterUser.where(login: params[:twitter_name]).first
+    if !current_user.nil?
+      if (params[:twitter_name].nil?)
+        @twitter_user = TwitterUser.where(user_id: current_user.id).first
+      else
+        @twitter_user = TwitterUser.where(login: params[:twitter_name]).first
+      end
     end
   end
   

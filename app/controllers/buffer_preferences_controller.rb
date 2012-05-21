@@ -31,42 +31,65 @@ class BufferPreferencesController < ApplicationController
   end
   
   def create
+   
     if request.xhr?
       @error = false
-      @max_tweets_error = false
-      @time_settings_blank_error = false
-      @empty_name_error = false 
-      @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
-      @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", @twitter_user.id, "uninitialized").count
+
+      # messages will hold an array of {:twitter_name =>  , :error=> false/true, :error_type => }
+      @messages = []
+      
       @max_tweets = max_tweet_buffer_for_user(current_user)
+      @allaccounts = params[:twitter_accounts][:name].split(',')
+      @twitter_user = current_user.twitter_users.find_by_permalink(params[:twitter_name])
+      
+      @allaccounts.map!{|account| current_user.twitter_users.find_by_permalink(account)}
+      @allaccounts.unshift(@twitter_user)
       
       if params[:buffer_preference][:name].blank?
         @error = true
-        @empty_name_error = true
+        @messages.push({:twitter_name=> '', :error=> true, :error_type=>'empty_name_error'})
       else
-        if @twitter_user.time_setting.blank?
-          @error = true
-          @time_settings_blank_error = true
-        else
-          if (@buffers.eql?(@max_tweets))
-            @error = true
-            @max_tweets_error = true
+        first = true;
+        @allaccounts.each{ |tw_account|
+          error = false
+          
+          @buffers = BufferPreference.where("twitter_user_id = ? AND status = ?", tw_account.id, "uninitialized").count
+          
+          if @twitter_user.time_setting.blank?
+            error = true
+            @messages.push({:twitter_name=> tw_account.login, :error=> true, :error_type=>'time_settings_blank_error'})
+          else
+            if (@buffers.eql?(@max_tweets))
+              error = true
+              @messages.push({:twitter_name=> tw_account.login, :error=> true, :error_type=>'max_tweets_error'})
+            end 
+          end
+          
+          @error = error if first
+          
+          if !error
+            
+            buffer_preference = tw_account.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
+            buffer_preference = buffer_preference.update_run_at_new.last
+            ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", tw_account.id).order("run_at ASC")
+            active_time = ordered_buffers.first.run_at.to_date rescue Date.today
+            buffers = tw_account.buffer_preferences.oldest_order
+            if buffers.nil? 
+              count_buffer = 0
+            else
+              count_buffer = buffers.count 
+            end 
+            @messages.push({:twitter_name=> tw_account.login, :error=> false, :error_type=>''})
+            
+            if first
+              @buffer_preference = buffer_preference
+              @ordered_buffers = ordered_buffers
+              @active_time = active_time  
+            end
           end 
-        end
-      end 
-      
-      if !@error
-        @buffer_preference = @twitter_user.buffer_preferences.create(params[:buffer_preference].merge(:status => "uninitialized"))
-        @buffer_preference = @buffer_preference.update_run_at_new.last
-        @ordered_buffers = BufferPreference.where("status = ? AND twitter_user_id =?", "uninitialized", @twitter_user.id).order("run_at ASC")
-        @active_time = @ordered_buffers.first.run_at.to_date rescue Date.today
-        buffers = @twitter_user.buffer_preferences.oldest_order
-        if buffers.nil? 
-          @count_buffer = 0
-        else
-          @count_buffer = buffers.count 
-        end 
-      end 
+          first = false;
+        };
+      end
     end
   end
 
