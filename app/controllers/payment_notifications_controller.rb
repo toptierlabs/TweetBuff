@@ -10,8 +10,8 @@ class PaymentNotificationsController < ApplicationController
     if subcription.blank?
       Subcription.create(:plan_id => plan_id, :user_id => cart.user_id, :expire => 30.days.from_now, :active => true)
     else
+      subcription.update_attribute(:active, false)
       if subcription.plan.name.eql?("Free")
-        subcription.update_attribute(:active, false)
         Subcription.create(:plan_id => plan_id, :user_id => cart.user_id, :expire => 30.days.from_now, :active => true)
       else
         Subcription.create(:plan_id => plan_id, :user_id => cart.user_id, :expire => subcription.expire + 30.days)
@@ -20,5 +20,7 @@ class PaymentNotificationsController < ApplicationController
     
     render :nothing => true
   end
+  
+   
 
 end

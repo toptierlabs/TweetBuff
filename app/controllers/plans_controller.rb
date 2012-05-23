@@ -17,7 +17,7 @@ class PlansController < InheritedResources::Base
       @cart = current_cart
       redirect_to @cart.paypal_url(twitter_users_url, payment_notifications_url)
     else
-      redirect_to new_user_registration_path
+      redirect_to new_user_session_path
     end
   end
   

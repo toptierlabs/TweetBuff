@@ -49,7 +49,16 @@
             %p Daily Tweeting patterns
             %p Direct line to founder
         .plansContainerBottomBottom       
-        %input.plansSignUpButton{:type => "button"}
+        - if user_signed_in?
+          - if plan.id == @myplan
+            %span{:style => "font-size: 18px; color: #3185C3; font-weight: bold; margin-left: -35px;"} Your current plan
+          - else
+            = link_to image_tag("/assets/signUpNowGrey.png"), get_plan_clicked_when_signup_plan_path(plan)
+        - else
+          - if plan.name.eql?("Free")
+            = link_to image_tag("/assets/signUpNowGrey.png"), get_plan_clicked_when_signup_plan_path(plan)
+          -else
+            = link_to image_tag("/assets/signUpNowGrey.png"), get_plan_clicked_when_signup_plan_path(plan)
       - if (classvar.empty?)
         -   classvar = 'priceColorOne'
       - else

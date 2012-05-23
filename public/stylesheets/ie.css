@@ -57,7 +57,7 @@ app/stylesheets/ie.scss:1
 /Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/activerecord-3.2.2/lib/active_record/query_cache.rb:64:in `call'
 /Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract/connection_pool.rb:443:in `call'
 /Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.2/lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
-/Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/activesupport-3.2.2/lib/active_support/callbacks.rb:405:in `_run__2868014485270328926__call__3414648590380029468__callbacks'
+/Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/activesupport-3.2.2/lib/active_support/callbacks.rb:405:in `_run__1351190801513272767__call__2935105836790385163__callbacks'
 /Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/activesupport-3.2.2/lib/active_support/callbacks.rb:405:in `__run_callback'
 /Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/activesupport-3.2.2/lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
 /Users/toptierlabs/.rvm/gems/ruby-1.9.2-p290/gems/activesupport-3.2.2/lib/active_support/callbacks.rb:81:in `run_callbacks'

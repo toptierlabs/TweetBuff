@@ -3,7 +3,7 @@ class Cart < ActiveRecord::Base
 
   def paypal_url(return_url, notify_url)
     values = {
-      :business => 'seller_1317095351_biz@41studio.com',
+      :business => 'fcolma_1337699535_biz@toptierlabs.com',
       :cmd => '_cart',
       :upload => 1,
       :return => return_url,
