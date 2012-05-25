@@ -61,29 +61,6 @@
       = yield
       
       #sponsors.mainSponsors
-      %footer
-        #footerContent
-          #links
-            %p Links
-            %a{:href => "#"} Home
-            %a{:href => "#"} Goodies
-            %a{:href => "#"} Plans & Pricing
-            %a{:href => "#"} Sign In
-            %a{:href => "#"} Sign Up
-          #friendsImage
-            = image_tag("/assets/friendsImage.png")
-          #newsletter
-            %p.tryItNowNormalFont @Tweet buff   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis dui, tincidunt at vulputate at, tristique eget tellus. Duis id odio varius odio vestibulum ultrices ac ut ipsum. Proin tempus iaculis dolor................
-            #emailUsField
-              %input.watermark{:value => "email us"}
-            #newsletterButton
-              %a Subscribe our Newsletter
-        #copyright
-          %p © all rights reserved TweetBuff 2012
-        #socialLinks
-          #facebookLink
-            %a{:href => "#"}
-          #twitterLink
-            %a{:href => "#"}
+      = render :partial => 'footer'
         
 

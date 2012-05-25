@@ -58,7 +58,8 @@ body{
 .menuCenter a{
 	margin-top: 19px;
 	margin-left: 10px;
-	float: left;
+	margin-right: 10px;
+	display:inline-block;
 	text-decoration: none;
 	color: rgb(112,112,112);
 	font-family: Rockwell;
@@ -66,16 +67,13 @@ body{
 	font-weight: normal;
 }
 
-.menuCenterLinkLeft{
-	margin-left: 35px !important;
-}
 
 #menuArrow{
-/*	background: url(/assets/menuArrow.png) no-repeat;
+	background: url(/assets/menuArrow.png) no-repeat;
 	width: 30px;
-	height: 18px; */
-    /*position: relative;*/
-    /*top: -19px;*/
+	height: 18px; 
+    position: relative;
+    top: -19px;
 }
 
 .container{
@@ -109,11 +107,6 @@ body{
 
     left: 353px;
 
-}
-
-#googiesMenuItem{
-	margin-left: 0;
-    margin-right: 20px;
 }
 
 .active{
@@ -409,14 +402,13 @@ footer{
 #footerContent{
 	
 	margin: 0 auto;
-    padding-top: 10px;
-    width: 1500px;
+    padding-top: 20px;
+    width: 988px;
 }
 	
 	
 #links{
-	margin-left: 270px;
-	width: 100px;
+	width: 215px;
 	float: left;
 }
 
@@ -426,6 +418,7 @@ footer{
 	font-family: Rockwell;
 	font-size: 20px;
 	font-weight: normal;
+	margin-top: 0;
 }
 	
 #links a{
@@ -440,17 +433,20 @@ footer{
 
 #friendsImage{
 	float: left;
-	margin-left: 120px;
 }
 
 #newsletter{
 	float: left;
-	margin-left: 40px;
-	width: 600px;
+	width: 451px;
+	margin-left: 30px;
+	margin-top: 10px;
+	
+	color: #606060;
 }
 
 #newsletter p{
 	width: 400px;
+	margin-bottom: 30px;
 }
 
 #emailUsField{
@@ -470,7 +466,7 @@ footer{
 
 #newsletterButton{
 	background: url(/assets/newsletterButton.png) no-repeat;
-	width: 251px;
+	width: 189px;
 	height: 31px;
 	margin-left: 10px;
 	float: left;
@@ -487,10 +483,13 @@ footer{
 	float: left;
 }
 
+#footerBottom{
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
 #copyright{
-	bottom: 10px;
-    left: 465px;
-    position: absolute;
+	float: left;
 }
 
 #copyright p{
@@ -500,8 +499,7 @@ footer{
 
 #socialLinks{
 	bottom: 10px;
-    right: 430px;	
-	position: absolute;
+	float: right;
 	width: 80px;
 	height: 34px;
 }
