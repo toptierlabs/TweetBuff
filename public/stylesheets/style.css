@@ -64,60 +64,6 @@ body{
 	margin-left: 35px !important;
 }
 
-#menuArrow{
-/*	background: url(../images/menuArrow.png) no-repeat;
-	width: 30px;
-	height: 18px; */
-    /*position: relative;*/
-    /*top: -19px;*/
-}
-
-.menuHome{
-	
-}
-
-.menuArrowHome{
-
-  left: 50px;
-
-}
-
-.menuArrowMyTweets{
-
-  left: 70px;
-
-}
-
-.menuArrowGoodies{
-    left: 227px;
-}
-
-.menuArrowPlans{
-    left: 309px;
-}
-
-.menuArrowSignIn{
-
-    left: 353px;
-
-}
-
-#googiesMenuItem{
-	margin-left: 0;
-    margin-right: 20px;
-}
-
-.active{
-	margin-top: 15px !important;
-}
-
-.active::after {
-	position: relative;
-	content: url(../images/menuArrow.png);
-	top: 36px;
-	left: -50%;
-}
-
 .menu{
 	height: 70px;
 	margin-left: 45%;

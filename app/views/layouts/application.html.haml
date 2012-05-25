@@ -32,23 +32,21 @@
             .menuCenter
               .linksWrapper
                 - if(!user_signed_in?)
-                  = link_to "Home", root_path, :class => "menuHome"
-                  = link_to "Goodies", goodies_path, :id => "googiesMenuItem" 
-                  = link_to "Plans & Pricing", plans_path 
-                  = link_to "Sign in", new_user_session_path, :class => "menuCenterLinkLeft"
-                  = link_to "Sign up", new_user_registration_path, :class => "menuCenterLinkLeft"
-                  = link_to "Contact", contact_path, :class => "menuCenterLinkLeft"
+                  = link_to "Home", root_path, :class => current_class?(root_path)
+                  = link_to "Goodies", goodies_path, :class => current_class?(goodies_path)
+                  = link_to "Plans & Pricing", plans_path , :class => current_class?(plans_path)
+                  = link_to "Sign in", new_user_session_path, :class => current_class?(new_user_session_path)
+                  = link_to "Sign up", new_user_registration_path, :class => current_class?(new_user_registration_path)
+                  = link_to "Contact", contact_path, :class => current_class?(contact_path)
                 - else                  
                   - if !@twitter_user.nil?
-                    = link_to "My Tweets", twitter_user_path(@twitter_user) 
+                    = link_to "My Tweets", twitter_user_path(@twitter_user), :class => current_class?(twitter_user_path(@twitter_user))
                   - else
-                    = link_to "My Tweets", add_account_path
-                  = link_to "Account", account_settings_path 
-                  = link_to "Goodies", goodies_path 
-                  = link_to "Plans & Pricing", plans_path 
-                  = link_to "Sign out", destroy_user_session_path, :method => :delete,  :class => "menuCenterLinkLeft" 
-                
-            #menuArrow
+                    = link_to "My Tweets", add_account_path, :class => current_class?(add_account_path)
+                  = link_to "Account", account_settings_path , :class => current_class?(account_settings_path)
+                  = link_to "Goodies", goodies_path, :class => current_class?(goodies_path) 
+                  = link_to "Plans & Pricing", plans_path, :class => current_class?(plans_path) 
+                  = link_to "Sign out", destroy_user_session_path, :method => :delete, :class => current_class?(destroy_user_session_path)
       #alert
         .container
           - flash.each do |name, msg|

@@ -24,8 +24,6 @@ $(document).ready(function() {
 		}
 	})
 
-	$("#menuArrow").removeClass();
-	$("#menuArrow").addClass("menuArrowPlans");
 
 	$('div.annual-toggle span').click(function(e) {
 		e.preventDefault();

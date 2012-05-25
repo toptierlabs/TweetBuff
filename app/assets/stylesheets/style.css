@@ -59,6 +59,7 @@ body{
 	margin-top: 19px;
 	margin-left: 10px;
 	margin-right: 10px;
+	height: 55px;
 	display:inline-block;
 	text-decoration: none;
 	color: rgb(112,112,112);
@@ -67,59 +68,16 @@ body{
 	font-weight: normal;
 }
 
-
-#menuArrow{
-	background: url(/assets/menuArrow.png) no-repeat;
-	width: 30px;
-	height: 18px; 
-    position: relative;
-    top: -19px;
+.menuCenter a.active{
+	background: url(/assets/menuArrow.png) no-repeat scroll center 32px transparent;
 }
+
+
 
 .container{
 	text-align: center;
 }
-.menuHome{
-	
-}
-
-.menuArrowHome{
-
-  left: 50px;
-
-}
-
-.menuArrowMyTweets{
-
-  left: 70px;
-
-}
-
-.menuArrowGoodies{
-    left: 227px;
-}
-
-.menuArrowPlans{
-    left: 309px;
-}
-
-.menuArrowSignIn{
-
-    left: 353px;
-
-}
-
-.active{
-	margin-top: 15px !important;
-}
-
-.active::after {
-	position: relative;
-	content: url(/assets/menuArrow.png);
-	top: 36px;
-	left: -50%;
-}
-
+ 
 .menu{
 	height: 70px;
 	margin-left: 45%;
@@ -716,12 +674,6 @@ footer{
 #antiSpamTextField{
 	background: url(/assets/antiSpamBackField.png) no-repeat;
 	width: 300px;
-}
-
-.menuArrowSignUp{
-
-  left: 430px;
-
 }
 
 

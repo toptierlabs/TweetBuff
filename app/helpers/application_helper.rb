@@ -154,4 +154,14 @@ module ApplicationHelper
     end.join
   end
   
+  def current_class?(test_path)
+    
+    puts "MESSAGEDE"
+    puts request.path
+    puts test_path
+    return 'active' if request.path == test_path
+    ''
+  end
+  
+
 end
